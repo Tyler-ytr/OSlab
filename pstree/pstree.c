@@ -91,11 +91,11 @@ int main(int argc, char *argv[]) {
     while(1)
     {
         fgets(str,1024,fp);
-        if(fp==NULL)
+        if(feof(fp))
         {
             break;
         }
-
+        printf("here");
         
     }
     
