@@ -6,6 +6,14 @@
 #include <string.h>
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
+//https://blog.csdn.net/lk07828/article/details/52032479 A website which shows the structure of the /proc/[pid]/status
+//http://man7.org/linux/man-pages/man5/proc.5.html A good manual online of procfs
+typedef struct proc_status
+{
+  char[200] name;   //Name
+  int pid;          //The process ID;
+  int ppid;         //PID of parent process.
+}status;
 
 /*void test()
 {
@@ -55,6 +63,11 @@ int main(int argc, char *argv[]) {
     
   int total=scandir("/proc",&namelist,choose_num,alphasort);
   printf("total: %d\n",total);
+  if(total<0)
+  {
+      printf("GG of total! It may be too large");
+  }
+  printf("%s\n",namelist[0]->d_name);
 
 
 
