@@ -180,7 +180,7 @@ int get_pid(char *str)
 
 int get_ppid(char *str)
 {
-    ;
+    return 0;;
 }
 
 //The struct of dirent
