@@ -67,8 +67,11 @@ int main(int argc, char *argv[]) {
   {
       printf("GG of total! It may be too large");
   }
-  printf("%s\n",namelist[3]->d_name);
 
+  for(int i=0;i<total;++i)
+  {
+      printf("%s\n",namelist[i]->d_name);
+  }
 
 
   return 0;
