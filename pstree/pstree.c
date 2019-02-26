@@ -13,9 +13,8 @@ typedef struct proc_status
   char name[200];   //Name
   int pid;          //The process ID;
   int ppid;         //PID of parent process.
-  int vis;   //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
-  int rec;
-  int ppid_num;
+  int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
+  int depth;        //The depth of the node;
   //int child_pid[1000];
   //int child_pid_number;
 }status;
@@ -177,8 +176,8 @@ int main(int argc, char *argv[]) {
     proc_t++;
   }
     //memset(&proc->ppid_num,-1,total);
-  //  memset(&proc->vis,0,total);
-    //memset(&proc->rec,0,total);
+    memset(&proc->vis,0,total);
+    memset(&proc->depth,0,total);
    // test_print(proc,total,0,0);
   //int flag=1;
   return 0;
