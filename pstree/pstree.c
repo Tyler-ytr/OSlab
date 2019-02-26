@@ -100,9 +100,11 @@ int main(int argc, char *argv[]) {
         printf("%s",str);
         int temp_len=strlen(str);
         printf("len: %d\n",temp_len);
-        if(check_name(str)==1)
+        if(check_name(str)!=1)
         {
-            printf("sdsdsd\n\nsdsd\n\tsdsd\n");
+            int k=check_name(str);
+            printf("k: %d\n",k);
+            //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
         }
 
 
@@ -124,12 +126,22 @@ int main(int argc, char *argv[]) {
 
 int check_name(char *str)
 {
-    //int temp_n=strlen(str);
+    int temp_len=strlen(str);
     if(strncmp(str,"Name",4)!=0)
         return -1;
-    else return 1;
-}
+    else 
+    {   int i;
+        for(i=4;i<temp_len;i++)
+        {
+            if(str[i]>='a'&&str[i]<='z')
+            {
+                break;
+            }
+        }
+        return i;
 
+    }
+}
 
 
 //The struct of dirent
