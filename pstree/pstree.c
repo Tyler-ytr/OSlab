@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <assert.h>
 
+//I use stat to get the information the the documents;
+//I use scandir to read the catalog
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   int i;
