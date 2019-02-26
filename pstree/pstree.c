@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) {
                 name[cnt]=str[i];
                 cnt++;
             }
-            name[cnt-1]='\0';
+            //name[cnt-1]='\0';
             printf("NMNMN NAME: %s",name);
             //printf("test:  %c",name[cnt-1-1]);
             printf("k: %d cnt: %d\n",k,cnt);
