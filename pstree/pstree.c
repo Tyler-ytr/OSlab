@@ -80,7 +80,8 @@ int main(int argc, char *argv[]) {
   {
     ;//printf("%s\n",namelist[i]->d_name);
     strcpy(temp_proc_path,charproc);
-
+    
+    printf("%s\n",temp_proc_path);
 
 
 
