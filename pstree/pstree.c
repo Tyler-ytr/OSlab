@@ -61,7 +61,6 @@ void proc_print(status *proc,int total,int ppid,int depth)
 {
     int i=0;
     int j=0;
-    int t=1;
     for(i=0;i<total;i++)
     {
         if(proc[i].ppid==ppid&&proc[i].vis==0)
