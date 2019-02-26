@@ -145,10 +145,10 @@ int main(int argc, char *argv[]) {
 
     }
     fclose(fp);
-           // printf("proc_t: %d\n",proc_t);
-           // printf("name: %s\n",proc[proc_t].name);
-           // printf("pid: %d\n",proc[proc_t].pid);
-           // printf("ppid: %d\n\n",proc[proc_t].ppid);
+            printf("proc_t: %d ",proc_t);
+            printf("name: %s ",proc[proc_t].name);
+            printf("pid: %d ",proc[proc_t].pid);
+            printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
 
