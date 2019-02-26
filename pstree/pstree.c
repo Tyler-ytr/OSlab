@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
-    if(strncmp(argv[i],"-V",2)==0)
+    if(strncmp(argv[i],"-v",2)==0)
     {
         printf("version: 1.0");
     }
