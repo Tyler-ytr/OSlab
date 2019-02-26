@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     printf("argv[%d] = %s\n", i, argv[i]);
     if(strncmp(argv[i],"-v",2)==0)
     {
-        printf("version: 1.0");
+        printf("version: 1.0\n");
     }
   }
   assert(!argv[argc]); // always true
