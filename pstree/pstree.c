@@ -50,6 +50,7 @@ int choose_num(const struct dirent *dir)
    }
    return 0;
 }
+extern int check_num(char *str);
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -118,6 +119,13 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+int check_num(char *str)
+{
+    int temp_n=strlen(str);
+    if(strncmp(str,"Name")!=0)
+        return -1;
+    else return 1;
+}
 
 
 
