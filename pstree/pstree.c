@@ -61,7 +61,7 @@ void proc_print(status *proc,int total,int ppid,int depth)
 {
     int i=0;
     int j=0;
-
+    int t=1;
     for(i=0;i<total;i++)
     {
         if(proc[i].ppid==ppid&&proc[i].vis==0)
@@ -76,7 +76,13 @@ void proc_print(status *proc,int total,int ppid,int depth)
             {
                 printf("|----%s(%d)",proc[i].name,proc[i].pid);
             }
-            printf("\n");
+            if(t!=1)
+            {
+                printf("\n");
+            }else
+            {
+                t=2;
+            }
             proc_print(proc,total,proc[i].pid,proc[i].depth);
         }
     }
