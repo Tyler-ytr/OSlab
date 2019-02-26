@@ -13,6 +13,7 @@ typedef struct proc_status
   char name[200];   //Name
   int pid;          //The process ID;
   int ppid;         //PID of parent process.
+  int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
 }status;
 
 /*void test()
@@ -68,9 +69,10 @@ int main(int argc, char *argv[]) {
       printf("GG of total! It may be too large");
   }
 
+  printf("%d\n",namelist);
   for(int i=0;i<total;++i)
   {
-      printf("%s\n",namelist[i]->d_name);
+     ;// printf("%s\n",namelist[i]->d_name);
   }
 
 
