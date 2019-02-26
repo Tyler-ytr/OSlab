@@ -51,6 +51,8 @@ int choose_num(const struct dirent *dir)
    return 0;
 }
 extern int check_name(char *str);
+extern int get_pid(char *str);
+extern int get_ppid(char *str);
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -102,6 +104,7 @@ int main(int argc, char *argv[]) {
         printf("%s",str);
         int temp_len=strlen(str);
         printf("len: %d\n",temp_len);
+        
         if(check_name(str)!=-1)
         {
             int k=check_name(str);
@@ -112,20 +115,8 @@ int main(int argc, char *argv[]) {
                 cnt++;
             }
             name[cnt-1]='\0';
-            //printf("NMNMN NAME: %s",name);
-            //printf("test:  %c",name[cnt-1-1]);
-            //printf("k: %d cnt: %d\n",k,cnt);
-            //printf("miaomiaomiao: %c",str[6]);
-            //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
             strcpy(proc[proc_t].name,name);
-            printf("%s\n\n\n\n",proc[proc_t].name);
-            break;
         }
-
-
-
-
-
 
 
     }
@@ -147,7 +138,7 @@ int check_name(char *str)
         return -1;
     else 
     {   int i;
-        for(i=4;i<temp_len;i++)
+        for(i=4;i<temp_len;++i)
         {
             if(str[i]>='a'&&str[i]<='z')
             {
@@ -158,7 +149,39 @@ int check_name(char *str)
 
     }
 }
+int get_pid(char *str)
+{   int cnt=0;
+    char number[100];
+    int temp_len=strlen(str);
+    if(strncmp(str,"Pid",3)!=0)
+    {
+        return -1;
+    }
+    else 
+    {
+        int t;
+        for(t=0;t<temp_len;++t)
+        {
+            if(str[t]>='0'&&str[t]<='9')
+            {
+                break;
+            }
+        }
+        for(int i=t;i<temp_len;++i)
+        {
+            number[cnt]=str[i];
+            cnt++;
+        }
+    }
+    int num=atoi(number);
+    return num;
 
+}
+
+int get_ppid(char *str)
+{
+    ;
+}
 
 //The struct of dirent
 //struct dirent   
