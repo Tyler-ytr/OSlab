@@ -208,7 +208,7 @@ int main(int argc, char *argv[]) {
   for(int i=0;i<total;i++)
   {
       printf("pid: %d ",proc[i].pid);
-      printf("ppid: %d ",proc[i].ppid);
+      printf("ppid: %d ",proc[i].ppid_num);
       /*printf("child_num: %d child: ",proc[i].child_pid_number);
       for(int j=0;j<proc[i].child_pid_number;j++)
       {
