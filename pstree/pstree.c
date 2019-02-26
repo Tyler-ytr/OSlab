@@ -130,14 +130,19 @@ int main(int argc, char *argv[]) {
         if(get_ppid(str)!=-1)
         {
             temp_ppid=get_ppid(str);
-            printf("pidpidpid%d\n\n\n\n",temp_ppid);
-            
+            //printf("pidpidpid%d\n\n\n\n",temp_ppid);
+            proc[proc_t].ppid=temp_ppid;
+            break;
         }
 
 
 
     }
     fclose(fp);
+            //printf("name: %s\n",proc[proc_t].name);
+            //printf("pid: %d\n",proc[proc_t].pid);
+            //printf("ppid: %d\n",proc[proc_t].ppid);
+            //printf("%d\n",temp_ppid);
     proc_t++;
 
 
