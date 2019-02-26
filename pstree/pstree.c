@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
  //status proc[20480];
   char temp_proc_path[100];
   char str[1025];
+  char name[100];
   const char charproc[7]="/proc/";
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
@@ -103,8 +104,15 @@ int main(int argc, char *argv[]) {
         if(check_name(str)!=-1)
         {
             int k=check_name(str);
-            printf("k: %d\n",k);
-            printf("miaomiaomiao: %c",str[6]);
+            int cnt;cnt=0;
+            for(int i=k;i<temp_len;i++)
+            { 
+                name[cnt]=str[i];
+                cnt++;
+            }
+            printf("NMNMN NAME: %s",name);
+            //printf("k: %d\n",k);
+            //printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
         }
 
