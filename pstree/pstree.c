@@ -95,8 +95,15 @@ int main(int argc, char *argv[]) {
         {
             break;
         }
-        printf("here");
+        printf("%s\n",str);
         
+
+
+
+
+
+
+
     }
     
 
