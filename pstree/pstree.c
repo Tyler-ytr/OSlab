@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
             printf("k: %d cnt: %d\n",k,cnt);
             //printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
+            break;
         }
 
 
