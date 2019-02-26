@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
             printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
-    memset(&proc->ppid_num,-1,total);
+    //memset(&proc->ppid_num,-1,total);
   //  memset(&proc->vis,0,total);
     //memset(&proc->rec,0,total);
    // test_print(proc,total,0,0);
