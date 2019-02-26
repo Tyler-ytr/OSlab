@@ -38,7 +38,8 @@ int main(int argc, char *argv[]) {
   printf("I am here\n");
   assert(!argv[argc]); // always true
   printf("I am here\n");
-  test();
+ // test();
+
   return 0;
 }
 
