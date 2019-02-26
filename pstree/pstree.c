@@ -79,12 +79,13 @@ int main(int argc, char *argv[]) {
   
   for(int i=0;i<2;++i)
   {
-    ;//printf("%s\n",namelist[i]->d_name);
+    //printf("%s\n",namelist[i]->d_name);
     strcpy(temp_proc_path,charproc);
     strcat(temp_proc_path,namelist[i]->d_name);
-    strcat(temp_proc_path,"/");
+    strcat(temp_proc_path,"/status");
     printf("%s\n",temp_proc_path);
-
+    
+    
 
 
 
