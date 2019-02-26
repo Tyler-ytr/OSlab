@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
  //status proc[20480];
   char temp_proc_path[100];
   const char charproc[6]="/proc";
-  printf("%s\n\n",charproc);
+  //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
   //printf("%d\n\n",len);
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
     ;//printf("%s\n",namelist[i]->d_name);
     strcpy(temp_proc_path,charproc);
     
-    printf("%s\n",temp_proc_path);
+    printf("%s",temp_proc_path);
 
 
 
