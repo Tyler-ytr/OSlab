@@ -38,6 +38,7 @@ int choose_num(const struct dirent *dir)
            return 0;
        else return 1;
    }
+   return 0;
 }
 
 int main(int argc, char *argv[]) {
