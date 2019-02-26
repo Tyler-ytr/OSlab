@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <dirent.h>
-
+#include <string.h>
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
 
@@ -26,7 +26,19 @@
     }
 }
 */
-//以下函数用于返回数字目录以供调用
+//The following function returns 1 when the folder name is a number, returns 0 otherwise.
+int choose_num(const struct dirent *dir)
+{
+   int n=strlen(dir->d_name);
+   printf(%s,dir->d_name);
+   int i=0;
+   for(int i;i<n;++i)
+   {
+       if(!isdigit(dir->d_name[i]))
+           return 0;
+       else return 1;
+   }
+}
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -46,6 +58,17 @@ int main(int argc, char *argv[]) {
 
 
 
-
-
+//The struct of dirent
+//struct dirent   
+//{   
+//　　long d_ino; /* inode number 索引节点号 */  
+//　　   
+//    off_t d_off; /* offset to this dirent 在目录文件中的偏移 */  
+//    　　   
+//        unsigned short d_reclen; /* length of this d_name 文件名长 */  
+//        　　   
+//            unsigned char d_type; /* the type of d_name 文件类型 */  
+//            　　   
+//                char d_name [NAME_MAX+1]; /* file name (null-terminated) 文件名，最长255字符 */  
+//                }  
 
