@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   }
 
   
-  for(int i=0;i<total;++i)
+  for(int i=0;i<2;++i)
   {
     ;//printf("%s\n",namelist[i]->d_name);
     strcpy(temp_proc_path,charproc);
