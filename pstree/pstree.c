@@ -78,6 +78,34 @@ void test_print(status *proc, int total ,int ppid,int rec)
 
 */
 
+void proc_print(status *proc,int total,int ppid,int depth)
+{
+    int i=0;
+    int j=0;
+
+    for(i=0;i<total;i++)
+    {
+        if(proc[i].ppid==ppid&&proc[i].vis==0)
+        {
+            proc[i].depth=depth+1;
+            proc[i].vis=1;
+            for(j=0;j<depth;j++)
+            {
+                printf("        ");
+            }
+            if(proc[i].pid>0)
+            {
+                printf("|----%s(%d)\n",proc[i].name,proc[i].pid);
+            }
+            proc_print(proc,total,proc[i].pid,proc[i].depth);
+        }
+    }
+
+
+
+
+
+}
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   
@@ -179,6 +207,7 @@ int main(int argc, char *argv[]) {
     memset(&proc->vis,0,total);
     memset(&proc->depth,0,total);
    // test_print(proc,total,0,0);
+    proc_print(proc,total,0,0);
   //int flag=1;
   return 0;
 }
