@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <dirent.h>
-#include <string.h>
+#include <ctype.h>
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
 
