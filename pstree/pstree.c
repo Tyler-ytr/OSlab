@@ -8,8 +8,8 @@ int main(int argc, char *argv[]) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
   }
-  printf("I am here");
+  printf("I am here\n");
   assert(!argv[argc]); // always true
-  printf("I am here");
+  printf("I am here\n");
   return 0;
 }
