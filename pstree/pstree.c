@@ -111,6 +111,7 @@ int main(int argc, char *argv[]) {
                 cnt++;
             }
             printf("NMNMN NAME: %s",name);
+            printf("test:  %c",name[cnt]);
             printf("k: %d cnt: %d\n",k,cnt);
             //printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
