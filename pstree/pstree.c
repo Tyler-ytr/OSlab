@@ -65,7 +65,7 @@ void test_print(status *proc, int total ,int ppid,int rec)
             proc[i].rec=rec+1;
             proc[i].vis=1;
             for(k=0;k<rec;k++)     
-                printf("    ");
+            { printf("    ");}
                 if(proc[i].pid>0)
                 printf("|——%s(%d)\n",proc[i].name,proc[i].pid);
                 test_print(proc,total,proc[i].pid,proc[i].rec);
