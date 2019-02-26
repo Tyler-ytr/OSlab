@@ -198,7 +198,7 @@ int main(int argc, char *argv[]) {
               }
               if(flag)
               {
-                  proc[j].child_pid[child_pid_number]=i;
+                  proc[j].child_pid[proc[j].child_pid_number]=i;
                   proc[j].child_pid_number++;
               }
           }
