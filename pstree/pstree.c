@@ -118,6 +118,7 @@ int main(int argc, char *argv[]) {
             //printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
             strcpy(proc[proc_t].name,name);
+            printf("%s\n\n\n\n",proc[proc_t].name);
         }
 
 
