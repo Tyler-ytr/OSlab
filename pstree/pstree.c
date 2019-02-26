@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
   }
 
   
-  for(int i=0;i<2;++i)
+  for(int i=0;i<total;++i)
   {
     //printf("%s\n",namelist[i]->d_name);
     strcpy(temp_proc_path,charproc);
@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
     fclose(fp);
             printf("name: %s\n",proc[proc_t].name);
             printf("pid: %d\n",proc[proc_t].pid);
-            printf("ppid: %d\n",proc[proc_t].ppid);
+            printf("ppid: %d\n\n",proc[proc_t].ppid);
             //printf("%d\n",temp_ppid);
     proc_t++;
 
