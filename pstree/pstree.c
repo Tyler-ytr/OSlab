@@ -16,8 +16,8 @@ typedef struct proc_status
   int vis;   //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
   int rec;
   int ppid_num;
-  int child_pid[1000];
-  int child_pid_number;
+  //int child_pid[1000];
+  //int child_pid_number;
 }status;
 
 /*void test()
