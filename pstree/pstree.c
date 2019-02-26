@@ -104,6 +104,7 @@ int main(int argc, char *argv[]) {
         {
             int k=check_name(str);
             printf("k: %d\n",k);
+            printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
         }
 
