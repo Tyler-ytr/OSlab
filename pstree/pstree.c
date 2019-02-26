@@ -40,7 +40,7 @@ typedef struct proc_status
 int choose_num(const struct dirent *dir)
 {
    int n=strlen(dir->d_name);
-   printf("%s\n",dir->d_name);
+   //printf("%s\n",dir->d_name);
    for(int i=0;i<n;++i)
    {
        if(!isdigit(dir->d_name[i]))
@@ -145,10 +145,10 @@ int main(int argc, char *argv[]) {
 
     }
     fclose(fp);
-            printf("proc_t: %d\n",proc_t);
-            printf("name: %s\n",proc[proc_t].name);
-            printf("pid: %d\n",proc[proc_t].pid);
-            printf("ppid: %d\n\n",proc[proc_t].ppid);
+           // printf("proc_t: %d\n",proc_t);
+           // printf("name: %s\n",proc[proc_t].name);
+           // printf("pid: %d\n",proc[proc_t].pid);
+           // printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
 
