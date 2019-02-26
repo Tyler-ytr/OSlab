@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
   {
       printf("GG of total! It may be too large");
   }
-  printf("%s\n",namelist[2]->d_name);
+  printf("%s\n",namelist[3]->d_name);
 
 
 
