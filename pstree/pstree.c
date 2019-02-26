@@ -6,7 +6,7 @@
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
 
-void test()
+/*void test()
 {
     struct dirent **namelist;
     int n;
@@ -25,8 +25,8 @@ void test()
         free(namelist);
     }
 }
-
-
+*/
+//以下函数用于返回数字目录以供调用
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
