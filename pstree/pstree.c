@@ -56,6 +56,7 @@ extern int get_ppid(char *str);
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
+  
   int i;
   int proc_t=0;
   struct dirent **namelist;
@@ -68,9 +69,14 @@ int main(int argc, char *argv[]) {
  //int len=strlen("/proc");
   //printf("%d\n\n",len);
   FILE *fp;
+  
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
+    if(strncmp(argv[i],"-V",2)==0)
+    {
+        printf("version: 1.0");
+    }
   }
   assert(!argv[argc]); // always true
  // test();
@@ -144,9 +150,6 @@ int main(int argc, char *argv[]) {
             printf("pid: %d\n",proc[proc_t].pid);
             printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
-
-
-
   }
 
 
