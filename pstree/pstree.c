@@ -57,7 +57,7 @@ extern int get_ppid(char *str);
 
 void test_print(status *proc, int total ,int ppid,int rec)
 {
-    int i,j,k;
+    int i,k;
     for(i=0;i<total;i++)
     {
         if(proc[i].vis==0&&proc[i].ppid==ppid)
