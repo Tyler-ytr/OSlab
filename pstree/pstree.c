@@ -188,6 +188,7 @@ int main(int argc, char *argv[]) {
           if(proc[i].ppid==proc[j].pid)
           {
               proc[i].ppid_num=j;
+          }
       }
   }
   for(int i=0;i<total;i++)
