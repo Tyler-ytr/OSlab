@@ -44,14 +44,18 @@ int choose_num(const struct dirent *dir)
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   int i;
+  struct dirent **namelist;
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
   }
-  printf("I am here\n");
   assert(!argv[argc]); // always true
-  printf("I am here\n");
  // test();
+    
+  int total=scandir("/proc",&namelist,choose_num,alphasort);
+
+
+
 
   return 0;
 }
