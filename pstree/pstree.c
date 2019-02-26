@@ -56,9 +56,11 @@ int main(int argc, char *argv[]) {
   int i;
   struct dirent **namelist;
  //status proc[20480];
- // char temp_proc_path[100];
-  int len=strlen("/proc");
-  printf("%d\n\n",len);
+  char temp_proc_path[100];
+  const char charproc[5]="/proc";
+ //int len=strlen("/proc");
+  //printf("%d\n\n",len);
+
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
@@ -77,7 +79,7 @@ int main(int argc, char *argv[]) {
   for(int i=0;i<total;++i)
   {
     ;//printf("%s\n",namelist[i]->d_name);
-  //  str
+    strcpy(temp_proc_path,charproc);
 
 
 
