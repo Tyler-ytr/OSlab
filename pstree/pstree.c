@@ -95,7 +95,9 @@ int main(int argc, char *argv[]) {
         {
             break;
         }
-        printf("%s\n",str);
+        int temp_a=strspn(str,"Name: ");
+        printf("temp: %d\n",temp_a);
+        //printf("%s\n",str);
         
 
 
