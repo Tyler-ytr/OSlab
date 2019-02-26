@@ -139,9 +139,9 @@ int main(int argc, char *argv[]) {
 
     }
     fclose(fp);
-            //printf("name: %s\n",proc[proc_t].name);
-            //printf("pid: %d\n",proc[proc_t].pid);
-            //printf("ppid: %d\n",proc[proc_t].ppid);
+            printf("name: %s\n",proc[proc_t].name);
+            printf("pid: %d\n",proc[proc_t].pid);
+            printf("ppid: %d\n",proc[proc_t].ppid);
             //printf("%d\n",temp_ppid);
     proc_t++;
 
