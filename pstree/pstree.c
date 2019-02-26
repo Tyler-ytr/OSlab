@@ -55,8 +55,9 @@ extern int check_name(char *str);
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   int i;
+  int proc_t=0;
   struct dirent **namelist;
- //status proc[20480];
+  status proc[20480];
   char temp_proc_path[100];
   char str[1025];
   char name[100];
@@ -64,7 +65,7 @@ int main(int argc, char *argv[]) {
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
   //printf("%d\n\n",len);
-
+  FILE *fp;
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
@@ -89,7 +90,7 @@ int main(int argc, char *argv[]) {
     //printf("%s\n",temp_proc_path);
     //temp_proc_path : "/proc/[pid]/status"
     
-    FILE *fp=fopen(temp_proc_path,"r");
+    fp=fopen(temp_proc_path,"r");
     while(1)
     {
         fgets(str,1024,fp);
@@ -111,12 +112,12 @@ int main(int argc, char *argv[]) {
                 cnt++;
             }
             name[cnt-1]='\0';
-            printf("NMNMN NAME: %s",name);
+            //printf("NMNMN NAME: %s",name);
             //printf("test:  %c",name[cnt-1-1]);
-            printf("k: %d cnt: %d\n",k,cnt);
+            //printf("k: %d cnt: %d\n",k,cnt);
             //printf("miaomiaomiao: %c",str[6]);
             //printf("sdsdsd\n\nsdsd\n\tsdsd\n");
-            break;
+            strcpy(proc[proc_t].name,name);
         }
 
 
@@ -126,7 +127,8 @@ int main(int argc, char *argv[]) {
 
 
     }
-    
+    fclose(fp);
+    proc_t++;
 
 
 
