@@ -188,7 +188,7 @@ int main(int argc, char *argv[]) {
           if(proc[i].ppid==proc[j].pid)
           {
               proc[i].ppid_num=j;
-              flag=1;
+              /*flag=1;
               for(int p=0;p<proc[j].child_pid_number;p++)
               {
                   if(proc[j].child_pid[p]==i)
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
               {
                   proc[j].child_pid[proc[j].child_pid_number]=i;
                   proc[j].child_pid_number++;
-              }
+              }*/
           }
       }
   }
@@ -209,11 +209,11 @@ int main(int argc, char *argv[]) {
   {
       printf("pid: %d ",proc[i].pid);
       printf("ppid: %d ",proc[i].ppid);
-      printf("child_num: %d child: ",proc[i].child_pid_number);
+      /*printf("child_num: %d child: ",proc[i].child_pid_number);
       for(int j=0;j<proc[i].child_pid_number;j++)
       {
         printf(" %d",proc[i].child_pid[j]);
-      }
+      }*/
       printf("\n\n");
   }
   return 0;
