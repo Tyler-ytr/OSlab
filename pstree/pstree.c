@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
         printf("%s",str);
         int temp_len=strlen(str);
         printf("len: %d\n",temp_len);
-        if(check_name(str)!=1)
+        if(check_name(str)!=-1)
         {
             int k=check_name(str);
             printf("k: %d\n",k);
