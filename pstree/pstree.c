@@ -54,7 +54,7 @@ int choose_num(const struct dirent *dir)
 extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
-
+/*
 void test_print(status *proc, int total ,int ppid,int rec)
 {
     int i,k;
@@ -74,7 +74,7 @@ void test_print(status *proc, int total ,int ppid,int rec)
     }
 }
 
-
+*/
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -173,9 +173,9 @@ int main(int argc, char *argv[]) {
             printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
-    memset(&proc->vis,0,total);
-    memset(&proc->rec,0,total);
-    test_print(proc,total,0,0);
+  //  memset(&proc->vis,0,total);
+    //memset(&proc->rec,0,total);
+   // test_print(proc,total,0,0);
 
   return 0;
 }
