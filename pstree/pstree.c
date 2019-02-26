@@ -76,8 +76,8 @@ int main(int argc, char *argv[]) {
   
   for(int i=0;i<total;++i)
   {
-    //printf("%s\n",namelist[i]->d_name);
-    str
+    ;//printf("%s\n",namelist[i]->d_name);
+  //  str
 
 
 
