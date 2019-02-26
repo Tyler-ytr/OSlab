@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
   struct dirent **namelist;
  //status proc[20480];
   char temp_proc_path[100];
+  char str[1025];
   const char charproc[7]="/proc/";
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
@@ -83,8 +84,20 @@ int main(int argc, char *argv[]) {
     strcpy(temp_proc_path,charproc);
     strcat(temp_proc_path,namelist[i]->d_name);
     strcat(temp_proc_path,"/status");
-    printf("%s\n",temp_proc_path);
+    //printf("%s\n",temp_proc_path);
+    //temp_proc_path : "/proc/[pid]/status"
     
+    FILE *fp=fopen(temp_proc_path,"r");
+    while(1)
+    {
+        fgets(str,1024,fp);
+        if(fp==NULL)
+        {
+            break;
+        }
+
+        
+    }
     
 
 
