@@ -55,6 +55,7 @@ int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   int i;
   struct dirent **namelist;
+  status proc[2048];
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
@@ -66,13 +67,14 @@ int main(int argc, char *argv[]) {
   printf("total: %d\n",total);
   if(total<0)
   {
-      printf("GG of total! It may be too large");
+      printf("GG of total! There are wrong in scandir!!");
   }
 
-  printf("%d\n",(int)**namelist);
+  
   for(int i=0;i<total;++i)
   {
-     ;// printf("%s\n",namelist[i]->d_name);
+      //printf("%s\n",namelist[i]->d_name);
+
   }
 
 
