@@ -50,7 +50,7 @@ int choose_num(const struct dirent *dir)
    }
    return 0;
 }
-extern int check_num(char *str);
+extern int check_name(char *str);
 
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -100,7 +100,10 @@ int main(int argc, char *argv[]) {
         printf("%s",str);
         int temp_len=strlen(str);
         printf("len: %d\n",temp_len);
-        
+        if(check_name(str)==1)
+        {
+            printf("sdsdsd\n\nsdsd\n\tsdsd\n");
+        }
 
 
 
@@ -119,10 +122,10 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int check_num(char *str)
+int check_name(char *str)
 {
-    int temp_n=strlen(str);
-    if(strncmp(str,"Name")!=0)
+    //int temp_n=strlen(str);
+    if(strncmp(str,"Name",4)!=0)
         return -1;
     else return 1;
 }
