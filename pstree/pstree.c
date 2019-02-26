@@ -32,8 +32,7 @@ int choose_num(const struct dirent *dir)
 {
    int n=strlen(dir->d_name);
    printf("%s",dir->d_name);
-   int i=0;
-   for(i;i<n;++i)
+   for(int i=0;i<n;++i)
    {
        if(!isdigit(dir->d_name[i]))
            return 0;
