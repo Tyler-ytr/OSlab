@@ -121,10 +121,18 @@ int main(int argc, char *argv[]) {
         if(get_pid(str)!=-1)
         {
             temp_pid=get_pid(str);
-            printf("pidpidpid%d\n\n\n\n",temp_pid);
-            break;
+            //printf("pidpidpid%d\n\n\n\n",temp_pid);
+            //break;
+            proc[proc_t].pid=temp_pid;
         }
        
+        int temp_ppid;
+        if(get_ppid(str)!=-1)
+        {
+            temp_ppid=get_ppid(str);
+            printf("pidpidpid%d\n\n\n\n",temp_ppid);
+            
+        }
 
 
 
@@ -159,7 +167,8 @@ int check_name(char *str)
     }
 }
 int get_pid(char *str)
-{   int cnt=0;
+{   
+    int cnt=0;
     char number[100];
     int temp_len=strlen(str);
     if(strncmp(str,"Pid",3)!=0)
@@ -189,7 +198,31 @@ int get_pid(char *str)
 
 int get_ppid(char *str)
 {
-    return 0;;
+    int cnt=0;
+    char number[100];
+    int temp_len=strlen(str);
+    if(strncmp(str,"PPid",4)!=0)
+    {
+        return -1;
+    }
+    else 
+    {
+        int t;
+        for(t=0;t<temp_len;++t)
+        {
+            if(str[t]>='0'&&str[t]<='9')
+            {
+                break;
+            }
+        }
+        for(int i=t;i<temp_len;++i)
+        {
+            number[cnt]=str[i];
+            cnt++;
+        }
+    }
+    int num=atoi(number);
+    return num;
 }
 
 //The struct of dirent
