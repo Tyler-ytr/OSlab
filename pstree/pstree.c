@@ -15,6 +15,9 @@ typedef struct proc_status
   int ppid;         //PID of parent process.
   int vis;   //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
   int rec;
+  int ppid_num;
+  int child_pid[1000];
+  int child_pid_number;
 }status;
 
 /*void test()
@@ -173,10 +176,34 @@ int main(int argc, char *argv[]) {
             printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
+    memset(&proc->ppid_num,-1,total);
   //  memset(&proc->vis,0,total);
     //memset(&proc->rec,0,total);
    // test_print(proc,total,0,0);
-
+  bool flag=true;
+  for(int i=0;i<total;i++)
+  {
+      for(int j=0;j<total;j++)
+      {
+          if(proc[i].ppid==proc[j].pid)
+          {
+              proc[i].ppid_num=j;
+              flag=true;
+              for(int p=0;p<proc[j].child_pid_number;p++)
+              {
+                  if(proc[j].child_pid[p]==i)
+                  {
+                      flag=false;break;
+                  }
+              }
+              if(flag)
+              {
+                  proc[j].child_pid[child_pid_number]=i;
+                  proc[j].child_pid_number++;
+              }
+          }
+      }
+  }
   return 0;
 }
 
