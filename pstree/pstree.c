@@ -97,6 +97,7 @@ int main(int argc, char *argv[]) {
         }
     
         printf("%s",str);
+        printf("len: %ld\n",strlen(str));
         
 
 
