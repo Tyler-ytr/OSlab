@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
  // test();
     
   int total=scandir("/proc",&namelist,choose_num,alphasort);
-
+  printf("total: %d",total);
 
 
 
