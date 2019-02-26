@@ -104,12 +104,7 @@ int main(int argc, char *argv[]) {
         printf("%s",str);
         int temp_len=strlen(str);
         printf("len: %d\n",temp_len);
-       
-
-
-
-
-        /*if(check_name(str)!=-1)
+        if(check_name(str)!=-1)
         {
             int k=check_name(str);
             int cnt;cnt=0;
@@ -120,7 +115,17 @@ int main(int argc, char *argv[]) {
             }
             name[cnt-1]='\0';
             strcpy(proc[proc_t].name,name);
-        }*/
+        }
+
+        int temp_pid;
+        if(get_pid(str)!=-1)
+        {
+            temp_pid=get_pid(str);
+            printf("pidpidpid%d\n\n\n\n",temp_pid);
+            break;
+        }
+       
+
 
 
     }
