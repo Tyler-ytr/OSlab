@@ -13,7 +13,8 @@ typedef struct proc_status
   char name[200];   //Name
   int pid;          //The process ID;
   int ppid;         //PID of parent process.
-  int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
+  int vis;   //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
+  int rec;
 }status;
 
 /*void test()
@@ -54,6 +55,28 @@ extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
 
+void test_print(status *proc, int total ,int ppid,int rec)
+{
+    int i,j,k;
+    for(i=0;i<total;i++)
+    {
+        if(proc[i].vis==0&&proc[i].ppid==ppid)
+        {
+            proc[i].rec=rec+1;
+            proc[i].vis=1;
+            for(k=0;k<rec;k++)
+            
+                printf("    ");
+                if(proc[i].pid>0)
+                printf("|——%s(%d)\n",proc[i].name,proc[i].pid);
+                test_print(proc,total,proc[i].pid,proc[i].rec);
+            
+        }
+    }
+}
+
+
+
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   
@@ -63,7 +86,7 @@ int main(int argc, char *argv[]) {
   status proc[20480];
   char temp_proc_path[100];
   char str[1025];
-  char name[100];
+  char name[200];
   const char charproc[7]="/proc/";
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
@@ -151,7 +174,9 @@ int main(int argc, char *argv[]) {
             printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
-
+    memset(&proc->vis,0,total);
+    memset(&proc->rec,0,total);
+    test_print(proc,total,0,0);
 
   return 0;
 }
