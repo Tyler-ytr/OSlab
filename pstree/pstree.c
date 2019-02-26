@@ -40,7 +40,7 @@ typedef struct proc_status
 int choose_num(const struct dirent *dir)
 {
    int n=strlen(dir->d_name);
-//   printf("%s\n",dir->d_name);
+   printf("%s\n",dir->d_name);
    for(int i=0;i<n;++i)
    {
        if(!isdigit(dir->d_name[i]))
