@@ -56,27 +56,6 @@ int choose_num(const struct dirent *dir)
 extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
-/*
-void test_print(status *proc, int total ,int ppid,int rec)
-{
-    int i,k;
-    for(i=0;i<total;i++)
-    {
-        if(proc[i].vis==0&&proc[i].ppid==ppid)
-        {
-            proc[i].rec=rec+1;
-            proc[i].vis=1;
-            for(k=0;k<rec;k++)     
-            { printf("    ");}
-                if(proc[i].pid>0)
-                printf("|——%s(%d)\n",proc[i].name,proc[i].pid);
-                test_print(proc,total,proc[i].pid,proc[i].rec);
-            
-        }
-    }
-}
-
-*/
 
 void proc_print(status *proc,int total,int ppid,int depth)
 {
@@ -91,7 +70,7 @@ void proc_print(status *proc,int total,int ppid,int depth)
             proc[i].vis=1;
             for(j=0;j<depth;j++)
             {
-                printf("        ");
+                printf("            ");
             }
             if(proc[i].pid>0)
             {
