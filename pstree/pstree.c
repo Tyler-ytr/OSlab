@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <string.h>
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
 
