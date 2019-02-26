@@ -101,9 +101,9 @@ int main(int argc, char *argv[]) {
             break;
         }
     
-        printf("%s",str);
+        //printf("%s",str);
         int temp_len=strlen(str);
-        printf("len: %d\n",temp_len);
+        //printf("len: %d\n",temp_len);
         if(check_name(str)!=-1)
         {
             int k=check_name(str);
