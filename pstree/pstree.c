@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
   //  memset(&proc->vis,0,total);
     //memset(&proc->rec,0,total);
    // test_print(proc,total,0,0);
-  int flag=1;
+  //int flag=1;
   for(int i=0;i<total;i++)
   {
       for(int j=0;j<total;j++)
