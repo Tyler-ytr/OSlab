@@ -181,27 +181,6 @@ int main(int argc, char *argv[]) {
     //memset(&proc->rec,0,total);
    // test_print(proc,total,0,0);
   //int flag=1;
-  for(int i=0;i<total;i++)
-  {
-      for(int j=0;j<total;j++)
-      {
-          if(proc[i].ppid==proc[j].pid)
-          {
-              proc[i].ppid_num=j;
-          }
-      }
-  }
-  for(int i=0;i<total;i++)
-  {
-      printf("pid: %d ",proc[i].pid);
-      printf("ppid: %d ",proc[i].ppid_num);
-      /*printf("child_num: %d child: ",proc[i].child_pid_number);
-      for(int j=0;j<proc[i].child_pid_number;j++)
-      {
-        printf(" %d",proc[i].child_pid[j]);
-      }*/
-      printf("\n\n");
-  }
   return 0;
 }
 
