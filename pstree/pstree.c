@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
   //  memset(&proc->vis,0,total);
     //memset(&proc->rec,0,total);
    // test_print(proc,total,0,0);
-  bool flag=true;
+  int flag=1;
   for(int i=0;i<total;i++)
   {
       for(int j=0;j<total;j++)
@@ -188,15 +188,16 @@ int main(int argc, char *argv[]) {
           if(proc[i].ppid==proc[j].pid)
           {
               proc[i].ppid_num=j;
-              flag=true;
+              flag=1;
               for(int p=0;p<proc[j].child_pid_number;p++)
               {
                   if(proc[j].child_pid[p]==i)
                   {
-                      flag=false;break;
+                      flag=0;
+                      break;
                   }
               }
-              if(flag)
+              if(flag==1)
               {
                   proc[j].child_pid[proc[j].child_pid_number]=i;
                   proc[j].child_pid_number++;
