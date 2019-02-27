@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <ctype.h>
 #include <string.h>
+#include <math.h>
 //I use stat to get the information the the documents;
 //I use scandir to read the catalog
 //https://blog.csdn.net/lk07828/article/details/52032479 A website which shows the structure of the /proc/[pid]/status
@@ -96,6 +97,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 }
                 else    printf("\n");
                 int temp_a=strlen("|--()");
+                temp_b=log(proc[i].pid)+1;
                 temp_a+=strlen(proc[i].name);
 
                 //temp_a+=strlen(proc[i].pid);
