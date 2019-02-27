@@ -97,11 +97,11 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 }
                 else    printf("\n");
                 int temp_a=strlen("|--()");
-                temp_b=log(proc[i].pid)+1;
+                int temp_b=log(proc[i].pid)+1;
                 temp_a+=strlen(proc[i].name);
 
                 //temp_a+=strlen(proc[i].pid);
-                proc[i].blank_space=blank_space+temp_a+5;
+                proc[i].blank_space=blank_space+temp_a+temp_b;
             }
                 if(t==0)
                 {
