@@ -82,7 +82,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
                 {
                     proc[i].first_son=1;
                 }
-                else    printf("\n");
+                else    printf("here\n");
             }
                 if(t==0)
                 {
