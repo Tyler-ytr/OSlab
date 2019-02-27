@@ -22,6 +22,10 @@ typedef struct proc_status
   //int child_pid_number;
 }status;
 
+_Bool cmp(const status a,const status b)
+{
+    return a.pid<b.pid;
+}
 /*void test()
 {
     struct dirent **namelist;
@@ -194,7 +198,6 @@ int main(int argc, char *argv[]) {
         if(get_pid(str)!=-1)
         {
             temp_pid=get_pid(str);
-            //printf("pidpidpid%d\n\n\n\n",temp_pid);
             //break;
             proc[proc_t].pid=temp_pid;
         }
@@ -207,9 +210,6 @@ int main(int argc, char *argv[]) {
             proc[proc_t].ppid=temp_ppid;
             break;
         }
-
-
-
     }
     fclose(fp);
             printf("proc_t: %d ",proc_t);
@@ -223,6 +223,8 @@ int main(int argc, char *argv[]) {
     memset(&proc->depth,0,total);
     memset(&proc->first_son,0,total);
     memset(&proc->blank_space,0,total);
+
+    qsort(proc,total,sizeof(status),cmp);
    // test_print(proc,total,0,0);
     proc_print(proc,total,0,0,0.0,0);
   //int flag=1;
