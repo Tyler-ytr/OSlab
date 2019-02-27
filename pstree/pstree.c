@@ -16,6 +16,7 @@ typedef struct proc_status
   int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
   int depth;        //The depth of the node;
   int first_son;
+  int blank_space;
   //int child_pid[1000];
   //int child_pid_number;
 }status;
@@ -58,7 +59,7 @@ extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
 
-void proc_print(status *proc,int total,int ppid,int depth,int flag)
+void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_space)
 {
     int i=0;
     int j=0;
@@ -76,7 +77,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
             if(proc[i].pid>0)
             {
                 //printf("t: %d flag: %d ",t,flag);
-                printf("|----%s(%d)\n",proc[i].name,proc[i].pid);
+                printf("|--%s(%d)\n",proc[i].name,proc[i].pid);
                 //printf(" fisrt son: %d ",proc[i].first_son);
                // printf(" ppid: %d ",proc[i].ppid);
                 //if(proc[i].first_son==0)
@@ -84,13 +85,15 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
                 //    proc[i].first_son=1;
                 //}
                 //else    printf("here\n");
+                int temp_a=strlen("|--%s(%d)",proc[i].name,proc[i].pid);
+                proc[i].blank_space=blank_space+temp_a;
             }
                 if(t==0)
                 {
-                    proc_print(proc,total,proc[i].pid,proc[i].depth,0);
+                    proc_print(proc,total,proc[i].pid,proc[i].depth,0,proc[i].blank_space);
                 }else
                 {
-                    proc_print(proc,total,proc[i].pid,proc[i].depth,1);
+                    proc_print(proc,total,proc[i].pid,proc[i].depth,1,proc[i].blank_space);
 
                 }
                     t++;
@@ -202,8 +205,9 @@ int main(int argc, char *argv[]) {
     memset(&proc->vis,0,total);
     memset(&proc->depth,0,total);
     memset(&proc->first_son,0,total);
+    memset(&proc->blank_space,0,total);
    // test_print(proc,total,0,0);
-    proc_print(proc,total,0,0,0);
+    proc_print(proc,total,0,0,0.0,0);
   //int flag=1;
   return 0;
 }
