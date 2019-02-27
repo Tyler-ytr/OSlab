@@ -221,10 +221,10 @@ int main(int argc, char *argv[]) {
         }
     }
     fclose(fp);
-            printf("proc_t: %d ",proc_t);
-            printf("name: %s ",proc[proc_t].name);
-            printf("pid: %d ",proc[proc_t].pid);
-            printf("ppid: %d\n\n",proc[proc_t].ppid);
+           // printf("proc_t: %d ",proc_t);
+           // printf("name: %s ",proc[proc_t].name);
+           // printf("pid: %d ",proc[proc_t].pid);
+           // printf("ppid: %d\n\n",proc[proc_t].ppid);
     proc_t++;
   }
     //memset(&proc->ppid_num,-1,total);
@@ -244,7 +244,7 @@ int main(int argc, char *argv[]) {
    {proc_print(proc,total,0,0,0.0,0);}
    else
    {
-       printf("Version 1.0!");
+       printf("Version 1.0!\n");
    }
   //int flag=1;
   return 0;
