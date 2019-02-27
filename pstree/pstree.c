@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
   char name[200];
   const char charproc[7]="/proc/";
 
-  int function_tag=0;
+  int function_tag=2;
   int function_p=0;
   int function_n=0;
   //printf("%s\n\n",charproc);
