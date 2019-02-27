@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
 
     qsort(proc,total,sizeof(status),cmp);
    // test_print(proc,total,0,0);
-   f_tag=function_p+function_n;
+   f_tag=function_p+function_n*2;
    printf("f_tag :%d \n",f_tag);
    assert(0);
    proc_print(proc,total,0,0,0.0,0);
