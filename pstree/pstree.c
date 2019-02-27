@@ -240,7 +240,12 @@ int main(int argc, char *argv[]) {
    if(f_tag==2||f_tag==3)
     qsort(proc,total,sizeof(status),cmp);
    //assert(0);
-   proc_print(proc,total,0,0,0.0,0);
+   if(function_tag>1)
+   {proc_print(proc,total,0,0,0.0,0);}
+   else
+   {
+       printf("Version 1.0!");
+   }
   //int flag=1;
   return 0;
 }
