@@ -15,6 +15,7 @@ typedef struct proc_status
   int ppid;         //PID of parent process.
   int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
   int depth;        //The depth of the node;
+  int first_son;
   //int child_pid[1000];
   //int child_pid_number;
 }status;
@@ -76,10 +77,11 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
             {
                 //printf("t: %d flag: %d ",t,flag);
                 printf("|----%s(%d)",proc[i].name,proc[i].pid);
-               // if(flag==1)
-               // {
-                    printf("\n");
-                //}
+                if(proc[i].first_son!=0)
+                {
+                    proc[i].first_son=1;
+                }
+                else    printf("\n");
             }
                 if(t==0)
                 {
@@ -193,6 +195,7 @@ int main(int argc, char *argv[]) {
     //memset(&proc->ppid_num,-1,total);
     memset(&proc->vis,0,total);
     memset(&proc->depth,0,total);
+    memset(&proc->first_son,0,total);
    // test_print(proc,total,0,0);
     proc_print(proc,total,0,0,0);
   //int flag=1;
