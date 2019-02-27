@@ -121,8 +121,8 @@ int main(int argc, char *argv[]) {
   const char charproc[7]="/proc/";
 
   int function_tag=0;
-  int function_p;
-  int function_n;
+  int function_p=0;
+  int function_n=0;
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
   //printf("%d\n\n",len);
