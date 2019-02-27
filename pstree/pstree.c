@@ -57,10 +57,11 @@ extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
 
-void proc_print(status *proc,int total,int ppid,int depth)
+void proc_print(status *proc,int total,int ppid,int depth,int flag)
 {
     int i=0;
     int j=0;
+    int t=0;
     for(i=0;i<total;i++)
     {
         if(proc[i].ppid==ppid&&proc[i].vis==0)
@@ -74,17 +75,20 @@ void proc_print(status *proc,int total,int ppid,int depth)
             if(proc[i].pid>0)
             {
                 printf("|----%s(%d)",proc[i].name,proc[i].pid);
+            if(flag==1)
+            {printf("\n");}
             }
-            
-                printf("\n");
-            proc_print(proc,total,proc[i].pid,proc[i].depth);
+                if(t==0)
+                {
+                    proc_print(proc,total,proc[i].pid,proc[i].depth,0);
+                }else
+                {
+                    proc_print(proc,total,proc[i].pid,proc[i].depth,1);
+
+                }
+                    t++;
         }
     }
-
-
-
-
-
 }
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
@@ -187,7 +191,7 @@ int main(int argc, char *argv[]) {
     memset(&proc->vis,0,total);
     memset(&proc->depth,0,total);
    // test_print(proc,total,0,0);
-    proc_print(proc,total,0,0);
+    proc_print(proc,total,0,0,0);
   //int flag=1;
   return 0;
 }
