@@ -22,9 +22,9 @@ typedef struct proc_status
   //int child_pid_number;
 }status;
 
-_Bool cmp(const status a,const status b)
+int cmp(const void *a,const void *b)
 {
-    return a.pid<b.pid;
+    return (*(status*))a.pid<(*(status*))b.pid;
 }
 /*void test()
 {
