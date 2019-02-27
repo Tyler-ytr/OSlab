@@ -71,7 +71,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
             proc[i].vis=1;
             for(j=0;j<depth;j++)
             {
-                printf("        ");
+                printf("       ");
             }
             if(proc[i].pid>0)
             {
