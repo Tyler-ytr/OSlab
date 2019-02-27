@@ -43,7 +43,7 @@ int choose_num(const struct dirent *dir)
 extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
-
+int f_tag=0;
 void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_space)
 {
     int i=0;
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 
   }
   printf("p: %d n: %d \n",function_p,function_n);
-  assert(0);
+  //assert(0);
   assert(!argv[argc]); // always true
  // test();
     
@@ -229,7 +229,10 @@ int main(int argc, char *argv[]) {
 
     qsort(proc,total,sizeof(status),cmp);
    // test_print(proc,total,0,0);
-    proc_print(proc,total,0,0,0.0,0);
+   f_tag=function_p+function_n;
+   printf("f_tag :%d \n",f_tag);
+   assert(0);
+   proc_print(proc,total,0,0,0.0,0);
   //int flag=1;
   return 0;
 }
