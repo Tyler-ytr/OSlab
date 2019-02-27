@@ -74,9 +74,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
             }
             if(proc[i].pid>0)
             {
-            if(t!=0)
-            {printf("\n");}
-                printf("|----%s(%d)",proc[i].name,proc[i].pid);
+                printf("|----%s(%d)\n",proc[i].name,proc[i].pid);
                 printf("t: %d ",t);
             }
                 if(t==0)
