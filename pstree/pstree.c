@@ -2,7 +2,35 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <dirent.h>
-#include <
+#include <ctype.h>
+#include <string.h>
+//I use stat to get the information the the documents;
+//I use scandir to read the catalog
+//https://blog.csdn.net/lk07828/article/details/52032479 A website which shows the structure of the /proc/[pid]/status
+//http://man7.org/linux/man-pages/man5/proc.5.html A good manual online of procfs
+typedef struct proc_status
+{
+  char name[200];   //Name
+  int pid;          //The process ID;
+  int ppid;         //PID of parent process.
+  int vis;          //I wonder if it has been visited;The original of it is 0, it will be 1 if visited;
+  int depth;        //The depth of the node;
+  int first_son;
+  //int child_pid[1000];
+  //int child_pid_number;
+}status;
+
+/*void test()
+{
+    struct dirent **namelist;
+    int n;
+    n=scandir(".",&namelist,0,alphasort);
+    if(n<0)
+    {
+        perror("scandir");
+    }
+    else
+    {
         while(n--)
         {
             printf("%s/n",namelist[n]->d_name);
@@ -43,7 +71,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
             proc[i].vis=1;
             for(j=0;j<depth;j++)
             {
-                printf("    ");
+                printf("        ");
             }
             if(proc[i].pid>0)
             {
