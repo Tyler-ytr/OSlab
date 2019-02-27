@@ -70,10 +70,14 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
         {
             proc[i].depth=depth+1;
             proc[i].vis=1;
-            for(j=0;j<depth;j++)
-            {
-                printf("       ");
-            }
+           // for(j=0;j<depth;j++)
+            //{
+             //   printf("       ");
+           // }
+           for( j=0;j<blank_space;++j)
+           {
+                    printf(" ");
+           }
             if(proc[i].pid>0)
             {
                 //printf("t: %d flag: %d ",t,flag);
