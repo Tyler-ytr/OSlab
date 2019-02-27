@@ -82,7 +82,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
            }}
            else
            {
-               printf("    ")
+               printf("    ");
            }
             if(proc[i].pid>0)
             {
