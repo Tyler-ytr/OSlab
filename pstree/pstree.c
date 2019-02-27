@@ -74,7 +74,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
             //{
              //   printf("       ");
            // }
-           if(flag==1)
+           if(flag==0)
            {
            for( j=0;j<blank_space;++j)
            {
