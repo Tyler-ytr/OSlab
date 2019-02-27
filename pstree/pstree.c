@@ -95,6 +95,10 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag)
                     t++;
         }
     }
+    if(t==0)
+    {
+        printf("\n");
+    }
 }
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
