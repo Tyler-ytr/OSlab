@@ -24,7 +24,7 @@ typedef struct proc_status
 
 int cmp(const void *a,const void *b)
 {
-    return (*(status*))a.pid<(*(status*))b.pid;
+    return (*(status*)a).pid>(*(status*)b).pid?1:-1;
 }
 /*void test()
 {
