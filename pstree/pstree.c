@@ -95,7 +95,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 temp_a+=strlen(proc[i].name);
 
                 //temp_a+=strlen(proc[i].pid);
-                proc[i].blank_space=temp_a+5;
+                proc[i].blank_space=blank_space+temp_a+5;
             }
                 if(t==0)
                 {
