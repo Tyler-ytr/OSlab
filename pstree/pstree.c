@@ -85,8 +85,11 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 //    proc[i].first_son=1;
                 //}
                 //else    printf("here\n");
-                int temp_a=strlen("|--%s(%d)",proc[i].name,proc[i].pid);
-                proc[i].blank_space=blank_space+temp_a;
+                int temp_a=strlen("|--");
+                temp_a+=strlen(proc[i].name);
+
+                //temp_a+=strlen(proc[i].pid);
+                proc[i].blank_space=blank_space+temp_a+5;
             }
                 if(t==0)
                 {
