@@ -84,11 +84,11 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 printf("|--%s(%d)\n",proc[i].name,proc[i].pid);
                 //printf(" fisrt son: %d ",proc[i].first_son);
                // printf(" ppid: %d ",proc[i].ppid);
-                //if(proc[i].first_son==0)
-                //{
-                //    proc[i].first_son=1;
-                //}
-                //else    printf("here\n");
+                if(proc[i].first_son==0)
+                {
+                    proc[i].first_son=1;
+                }
+                else    printf("here\n");
                 int temp_a=strlen("|--");
                 temp_a+=strlen(proc[i].name);
 
@@ -106,10 +106,10 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                     t++;
         }
     }
-    //if(t==0)
-   // {
-    //    printf("\n");
-//    }
+    if(t==0)
+    {
+        printf("\n");
+    }
 }
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
