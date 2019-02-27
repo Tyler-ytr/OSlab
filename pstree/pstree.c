@@ -26,26 +26,6 @@ int cmp(const void *a,const void *b)
 {
     return (*(status*)a).pid>(*(status*)b).pid?1:-1;
 }
-/*void test()
-{
-    struct dirent **namelist;
-    int n;
-    n=scandir(".",&namelist,0,alphasort);
-    if(n<0)
-    {
-        perror("scandir");
-    }
-    else
-    {
-        while(n--)
-        {
-            printf("%s/n",namelist[n]->d_name);
-            free(namelist[n]);
-        }
-        free(namelist);
-    }
-}
-*/
 //The following function returns 1 when the folder name is a number, returns 0 otherwise.
 int choose_num(const struct dirent *dir)
 {
@@ -125,6 +105,9 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
         printf("\n");
     }
 }
+
+
+
 int main(int argc, char *argv[]) {
   printf("Hello, World!\n");
   
@@ -136,6 +119,10 @@ int main(int argc, char *argv[]) {
   char str[1025];
   char name[200];
   const char charproc[7]="/proc/";
+
+  int function_tag=0;
+  int function_p;
+  int function_n;
   //printf("%s\n\n",charproc);
  //int len=strlen("/proc");
   //printf("%d\n\n",len);
@@ -144,11 +131,27 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
     printf("argv[%d] = %s\n", i, argv[i]);
+    if(strncmp(argv[i],"-p",2)==0)
+    {
+        function_tag+=2;
+        function_p=1;
+    }
+    if(strncmp(argv[i],"-n",2)==0)
+    {
+        function_tag+=4;
+        function_n=1;
+    }
     if(strncmp(argv[i],"-v",2)==0)
     {
-        printf("version: 1.0\n");
+       // printf("version: 1.0\n");
+        function_tag=1;
+        function_p=0;
+        function_n=0;
     }
+
   }
+  printf("p: %d n: %d \n",function_p,function_n);
+  assert(1);
   assert(!argv[argc]); // always true
  // test();
     
