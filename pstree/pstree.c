@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 
   }
   printf("p: %d n: %d \n",function_p,function_n);
-  assert(1);
+  assert(0);
   assert(!argv[argc]); // always true
  // test();
     
