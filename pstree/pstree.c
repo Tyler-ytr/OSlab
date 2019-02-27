@@ -80,17 +80,21 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
            {
                     printf(" ");
            }}
+           else
+           {
+               printf("    ")
+           }
             if(proc[i].pid>0)
             {
                 //printf("t: %d flag: %d ",t,flag);
-                printf("|--%s(%d)here",proc[i].name,proc[i].pid);
+                printf("|--%s(%d)",proc[i].name,proc[i].pid);
                 //printf(" fisrt son: %d ",proc[i].first_son);
                // printf(" ppid: %d ",proc[i].ppid);
                 if(proc[i].first_son==0)
                 {
                     proc[i].first_son=1;
                 }
-                else    printf("here\n");
+                else    printf("\n");
                 int temp_a=strlen("|--");
                 temp_a+=strlen(proc[i].name);
 
