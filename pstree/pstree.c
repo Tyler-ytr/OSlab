@@ -43,7 +43,7 @@ int choose_num(const struct dirent *dir)
 extern int check_name(char *str);
 extern int get_pid(char *str);
 extern int get_ppid(char *str);
-int f_tag=0;
+int f_tag=0;//ori: f_tag=0;-p:f_tag=1;-n:f_tag=2;-p -n:f_tag=3;It can suit -p -p -p -p -n and so on;
 void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_space)
 {
     int i=0;
@@ -72,7 +72,13 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
             if(proc[i].pid>0)
             {
                 //printf("t: %d flag: %d ",t,flag);
-                printf("|--%s(%d)",proc[i].name,proc[i].pid);
+                if(f_tag==1||f_tag==3)
+                {printf("|--%s(%d)",proc[i].name,proc[i].pid);}
+                else
+                {
+                    
+                {printf("|--%s",proc[i].name);}
+                }
                 //printf(" fisrt son: %d ",proc[i].first_son);
                // printf(" ppid: %d ",proc[i].ppid);
                 if(proc[i].first_son==0)
@@ -227,11 +233,13 @@ int main(int argc, char *argv[]) {
     memset(&proc->first_son,0,total);
     memset(&proc->blank_space,0,total);
 
-    qsort(proc,total,sizeof(status),cmp);
+    //qsort(proc,total,sizeof(status),cmp);
    // test_print(proc,total,0,0);
    f_tag=function_p+function_n*2;
    printf("f_tag :%d \n",f_tag);
-   assert(0);
+   if(f_tag==2||f_tag==3)
+    qsort(proc,total,sizeof(status),cmp);
+   //assert(0);
    proc_print(proc,total,0,0,0.0,0);
   //int flag=1;
   return 0;
