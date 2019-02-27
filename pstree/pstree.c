@@ -82,7 +82,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
            }}
            else
            {
-               printf("    ");
+               ;
            }
             if(proc[i].pid>0)
             {
@@ -95,7 +95,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                     proc[i].first_son=1;
                 }
                 else    printf("\n");
-                int temp_a=strlen("|--");
+                int temp_a=strlen("|--()");
                 temp_a+=strlen(proc[i].name);
 
                 //temp_a+=strlen(proc[i].pid);
