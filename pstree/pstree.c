@@ -89,7 +89,8 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                     proc[i].first_son=1;
                 }
                 else    printf("\n");
-                int temp_a=strlen("|--()");
+                int temp_a=strlen("|--");
+                int temp_c=strlen("()");
                 char temp_buf[20];
                 sprintf(temp_buf,"%d",proc[i].pid);
                 int temp_b=strlen(temp_buf);
@@ -97,7 +98,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
 
                 //temp_a+=strlen(proc[i].pid);
                 if(f_tag==1||f_tag==3)
-                {   proc[i].blank_space=blank_space+temp_a+temp_b;}
+                {   proc[i].blank_space=blank_space+temp_a+temp_b+temp_c;}
                 else 
                 {   proc[i].blank_space=blank_space+temp_a;}
             }
