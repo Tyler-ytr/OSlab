@@ -123,7 +123,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
 
 
 int main(int argc, char *argv[]) {
-  printf("Hello, World!\n");
+  printf("Hello, World!It is my pstree.You can use -p,-n,-v here.If you give me a wrong instruction, the programme will act as you ./pstree. \n");
   
   int i;
   int proc_t=0;
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
   
   for (i = 0; i < argc; i++) {
     assert(argv[i]); // always true
-    printf("argv[%d] = %s\n", i, argv[i]);
+    //printf("argv[%d] = %s\n", i, argv[i]);
     if(strncmp(argv[i],"-p",2)==0)
     {
         function_tag+=2;
@@ -164,13 +164,13 @@ int main(int argc, char *argv[]) {
     }
 
   }
-  printf("p: %d n: %d \n",function_p,function_n);
+  //printf("p: %d n: %d \n",function_p,function_n);
   //assert(0);
   assert(!argv[argc]); // always true
  // test();
     
   int total=scandir("/proc",&namelist,choose_num,alphasort);
-  printf("total: %d\n",total);
+  printf("Total: %d\n",total);
   if(total<0)
   {
     printf("GG of total! There are wrong in scandir!!");
