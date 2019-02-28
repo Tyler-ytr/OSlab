@@ -123,7 +123,7 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
 
 
 int main(int argc, char *argv[]) {
-  printf("Hello! It is my pstree.You can use -p,-n,-v here. If you give me a wrong instruction, the programme will act as you ./pstree. \n");
+  printf("Hello! It is my pstree.You can use -p,-n,-V here. If you give me a wrong instruction, the programme will act as you ./pstree. \n");
   
   int i;
   int proc_t=0;
