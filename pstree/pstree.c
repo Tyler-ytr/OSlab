@@ -253,7 +253,7 @@ int main(int argc, char *argv[]) {
    {proc_print(proc,total,0,0,0.0,0);}
    else
    {
-       printf("Version 1.0!\n");
+       printf("Version 1.3!\n");
    }
   //int flag=1;
   return 0;
