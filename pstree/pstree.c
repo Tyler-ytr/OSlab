@@ -244,7 +244,8 @@ int main(int argc, char *argv[]) {
     //qsort(proc,total,sizeof(status),cmp);
    // test_print(proc,total,0,0);
    f_tag=function_p+function_n*2;
-   printf("f_tag :%d \n",f_tag);
+   //printf("f_tag :%d \n",f_tag);
+   printf("____________________________________________________________________________");
    if(f_tag==2||f_tag==3)
     qsort(proc,total,sizeof(status),cmp);
    //assert(0);
