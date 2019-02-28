@@ -1,3 +1,6 @@
+//You can use -p -n and -V to reach different functions just like pstree!
+//If you do not use any instruct and use wrong instruct, it will act as you print pstree.
+//如果你什么指令都没有输入或者输错了指令，它的行为模式都和pstree相似
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -93,7 +96,10 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                 temp_a+=strlen(proc[i].name);
 
                 //temp_a+=strlen(proc[i].pid);
-                proc[i].blank_space=blank_space+temp_a+temp_b;
+                if(f_tag==1||f_tag==3)
+                {   proc[i].blank_space=blank_space+temp_a+temp_b;}
+                else 
+                {   proc[i].blank_space=blank_space+temp_a;}
             }
                 if(t==0)
                 {
@@ -126,7 +132,7 @@ int main(int argc, char *argv[]) {
   char name[200];
   const char charproc[7]="/proc/";
 
-  int function_tag=2;
+  int function_tag=0;
   int function_p=0;
   int function_n=0;
   //printf("%s\n\n",charproc);
@@ -147,7 +153,7 @@ int main(int argc, char *argv[]) {
         function_tag+=4;
         function_n=1;
     }
-    if(strncmp(argv[i],"-v",2)==0)
+    if(strncmp(argv[i],"-V",2)==0)
     {
        // printf("version: 1.0\n");
         function_tag=1;
@@ -240,7 +246,7 @@ int main(int argc, char *argv[]) {
    if(f_tag==2||f_tag==3)
     qsort(proc,total,sizeof(status),cmp);
    //assert(0);
-   if(function_tag>1)
+   if(function_tag!=1)
    {proc_print(proc,total,0,0,0.0,0);}
    else
    {
