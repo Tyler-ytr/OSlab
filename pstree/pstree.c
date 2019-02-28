@@ -21,6 +21,7 @@ typedef struct proc_status
   int depth;        //The depth of the node;
   int first_son;
   int blank_space;
+  int relative;     //If the file is in task, relative = 0, else relative = 1; 
   //int child_pid[1000];
   //int child_pid_number;
 }status;
