@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
     }
     if(strncmp(argv[i],"-V",2)==0)
     {
-       // printf("version: 1.0\n");
+       // printf("version: 1.3\n");
         function_tag=1;
         function_p=0;
         function_n=0;
