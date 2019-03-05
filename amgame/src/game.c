@@ -13,7 +13,7 @@ int main() {
   int key;
   while (1) {
     key = read_key2();
-    printf("%d\n",key);
+    if(key!=0)printf("%d\n",key);
   //  puts(&key);
   }
   return 0;
