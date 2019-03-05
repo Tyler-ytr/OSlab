@@ -19,7 +19,7 @@ int main() {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
     for(int x=w/4;x*SIDE<=3*w/4;x++)
-    for(int y=h/4;y*SIDE<=3*h/2+10;y++)
+    for(int y=h/4;y*SIDE<=3*h/4;y++)
     {
 
         draw_rect2(w/2, h/2, SIDE, SIDE, 0x191970); // white
