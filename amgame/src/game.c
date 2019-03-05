@@ -2,14 +2,14 @@
 #include<klib.h>
 
 void init_screen();
-void splash();
+void splash();//将整个画成黑白
 int read_key2();
 //w:30 s:44 d:45 a:43
 int main() {
   // Operating system is a C program
   _ioe_init();
   init_screen();
-  splash();
+  //splash();
   int key;
   while (1) {
     key = read_key2();
@@ -60,7 +60,7 @@ void splash() {
   for (int x = 0; x * SIDE <= w; x ++) {
     for (int y = 0; y * SIDE <= h; y++) {
       if ((x & 1) ^ (y & 1)) {
-        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0xadd8e6); // white
+        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0xffffff); // white
       }
     }
   }
