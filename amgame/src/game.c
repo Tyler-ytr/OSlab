@@ -17,7 +17,12 @@ int main() {
   while (1) {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
-    draw_rect2((w/2)*SIDE,(h/2)*SIDE,SIDE,SIDE,0x7b68ee);
+    for(int x=w/2-10;x*SIDE<=w/2+10;x++)
+    for(int y=w/2-10;y*SIDE<=w/2+10;y++)
+    {
+
+        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0x191970); // white
+    }
   //  puts(&key);
   }
   return 0;
