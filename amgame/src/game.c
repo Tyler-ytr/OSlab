@@ -10,12 +10,14 @@ void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
 //字母w:30 s:44 d:45 a:43
 int main() {
   // Operating system is a C program
+  int next_frame=0;
   _ioe_init();
   init_screen();
   splash();
   int key;
   printf("%d %d %d",w,h,SIDE);
   while (1) {
+    while(uptime()<next_frame);
     key = read_key2();
     if(key!=0)printf("%d\n",key);
     for(int x=w/4/SIDE;x*SIDE<=3*w/4;x++)
@@ -25,6 +27,7 @@ int main() {
         draw_rect2(x*SIDE, y*SIDE, SIDE, SIDE, 0x191970); // white
     }
   //  puts(&key);
+    next_frame+=1000/FPS;
   }
   return 0;
 }
