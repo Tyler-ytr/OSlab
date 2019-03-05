@@ -3,22 +3,23 @@
 
 void init_screen();
 void splash();
-void read_key2();
+int read_key2();
 
 int main() {
   // Operating system is a C program
   _ioe_init();
   init_screen();
   splash();
-  //int key;
+  int key;
   while (1) {
-    read_key2();
+    key = read_key2();
+    printf("%d\n",key);
   //  puts(&key);
   }
   return 0;
 }
 
-void read_key2() {
+int read_key2() {
   _DEV_INPUT_KBD_t event = { .keycode = _KEY_NONE };
   #define KEYNAME(key) \
     [_KEY_##key] = #key,
@@ -31,7 +32,7 @@ void read_key2() {
     puts(key_names[event.keycode]);
     puts("\n");
   }
-  //return event.keycode;
+  return event.keycode;
 }
 
 int w, h;
