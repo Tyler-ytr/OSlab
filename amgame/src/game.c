@@ -22,7 +22,7 @@ int main() {
     for(int y=h/4;y*SIDE<=h;y++)
     {
 
-        draw_rect2(w/2, h/2, SIDE, SIDE, 0x191970); // white
+        draw_rect2(x*SIDE, y*SIDE, SIDE, SIDE, 0x191970); // white
     }
   //  puts(&key);
   }
