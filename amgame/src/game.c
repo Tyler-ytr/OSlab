@@ -12,7 +12,7 @@ int main() {
   splash();
   //int key;
   while (1) {
-    read_key();
+    read_key2();
   //  puts(&key);
   }
   return 0;
