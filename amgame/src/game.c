@@ -31,7 +31,7 @@ char read_key() {
     puts(key_names[event.keycode]);
     puts("\n");
   }
-  return event.keycode;
+  return _KEY_NONE;
 }
 
 int w, h;
