@@ -1,10 +1,13 @@
 #include <game.h>
 #include<klib.h>
 
+int w, h;
 void init_screen();
 void splash();//将整个画成黑白
 int read_key2();
-//w:30 s:44 d:45 a:43
+void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
+
+//字母w:30 s:44 d:45 a:43
 int main() {
   // Operating system is a C program
   _ioe_init();
@@ -14,6 +17,7 @@ int main() {
   while (1) {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
+    draw_rect2((w/2)*SIDE,(h/2)*SIDE,SIDE,SIDE,0x7b68ee);
   //  puts(&key);
   }
   return 0;
@@ -35,8 +39,7 @@ int read_key2() {
   return event.keycode;
 }
 
-int w, h;
-
+//w是宽度,h是高
 void init_screen() {
   _DEV_VIDEO_INFO_t info = {0};
   _io_read(_DEV_VIDEO, _DEVREG_VIDEO_INFO, &info, sizeof(info));
