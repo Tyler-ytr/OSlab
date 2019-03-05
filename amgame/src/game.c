@@ -60,7 +60,7 @@ void splash() {
   for (int x = 0; x * SIDE <= w; x ++) {
     for (int y = 0; y * SIDE <= h; y++) {
       if ((x & 1) ^ (y & 1)) {
-        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0xf0fff0); // white
+        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0xadd8e6); // white
       }
     }
   }
