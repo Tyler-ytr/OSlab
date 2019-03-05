@@ -18,8 +18,8 @@ int main() {
   while (1) {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
-    for(int x=w/4/SIDE;x*SIDE<=w;x++)
-    for(int y=h/4/SIDE;y*SIDE<=h;y++)
+    for(int x=w/4/SIDE;x*SIDE<=3*w/4;x++)
+    for(int y=h/4/SIDE;y*SIDE<=3*h/4;y++)
     {
 
         draw_rect2(x*SIDE, y*SIDE, SIDE, SIDE, 0x191970); // white
