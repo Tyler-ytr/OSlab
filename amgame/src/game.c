@@ -2,7 +2,7 @@
 
 void init_screen();
 void splash();
-int read_key();
+char read_key();
 
 int main() {
   // Operating system is a C program
@@ -18,7 +18,7 @@ int main() {
   return 0;
 }
 
-int read_key() {
+char read_key() {
   _DEV_INPUT_KBD_t event = { .keycode = _KEY_NONE };
   #define KEYNAME(key) \
     [_KEY_##key] = #key,
@@ -31,7 +31,7 @@ int read_key() {
     puts(key_names[event.keycode]);
     puts("\n");
   }
-  return (int)event.keycode;
+  return event.keycode;
 }
 
 int w, h;
