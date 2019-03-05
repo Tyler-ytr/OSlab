@@ -14,6 +14,7 @@ int main() {
   init_screen();
   splash();
   int key;
+  printf("%d %d",w,h);
   while (1) {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
