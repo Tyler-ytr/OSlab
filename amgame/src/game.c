@@ -96,7 +96,7 @@ void _snakedraw()
     {
         draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
     }
-        draw_rect2(tail_x*SIDE, tail_y*SIDE, SIDE, SIDE, _black); 
+        draw_rect2(tail_x*SIDE, tail_y*SIDE, SIDE, SIDE, _white); 
 }
 
 int read_key2() {
