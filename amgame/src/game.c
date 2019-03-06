@@ -24,8 +24,9 @@ extern void draw_character(char ch,int x,int y,int color);
 int main() {
   // Operating nclude <graphics.h>system is a C program
   printf("贪吃蛇1.0\n殷天润出品\n");
-  printf("w,a,s,d控制上下左右，GAME OVER之后按空格开始下一轮\n");
+  printf("w,s,a,d控制上下左右，GAME OVER之后按空格开始下一轮\n");
   printf("如果这条蛇的长度超过100，你就可以遭遇SF错误啦!\n");
+  printf("开局两方块，食物全靠吃\n");  
   int next_frame=0;
   eat=0;
   GGflag=0;
