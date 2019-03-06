@@ -5,6 +5,7 @@ int w, h;
 void init_screen();
 void splash();//将整个画成黑白
 int read_key2();
+
 void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
 
 //字母w:30 s:44 d:45 a:43
