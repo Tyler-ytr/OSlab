@@ -23,6 +23,8 @@ extern void draw_character(char ch,int x,int y,int color);
 //字母w:30 s:44 d:45 a:43
 int main() {
   // Operating nclude <graphics.h>system is a C program
+  printf("贪吃蛇1.0\n殷天润出品\n");
+  printf("w,a,s,d控制上下左右，GAME OVER之后按空格开始下一轮");
   int next_frame=0;
   eat=0;
   GGflag=0;
