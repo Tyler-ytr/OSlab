@@ -26,6 +26,7 @@ int main() {
   printf("贪吃蛇1.0\n殷天润出品\n");
   printf("w,s,a,d控制上下左右，GAME OVER之后按空格开始下一轮\n");
   printf("如果这条蛇的长度超过100，你就可以遭遇SF错误啦!\n");
+  printf("如果你觉得这蛇太慢了,你可以在game.h里面调整FPS大小来获得更好的体验");
   printf("开局两方块，食物全靠吃\n");  
   int next_frame=0;
   eat=0;
