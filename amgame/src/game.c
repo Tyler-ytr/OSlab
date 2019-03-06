@@ -51,8 +51,8 @@ void snakemove(int key)
     switch(key)
     {
         case 0:break;
-        case 30:w_x=0;w_y=1;break;
-        case 44:w_x=0;w_y=-1;break;
+        case 30:w_x=0;w_y=-1;break;
+        case 44:w_x=0;w_y=1;break;
         case 45:w_x=1;w_y=0;break;
         case 43:w_x=-1;w_y=0;break;
     }
