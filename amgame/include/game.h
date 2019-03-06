@@ -19,7 +19,7 @@ typedef struct _Snake
 _snake snake[100]; //大胆猜测你玩不到100 QAQ
 int direction_x,direction_y;//蛇头的方向
 int tail_x,tail_y;//记录蛇尾位置用来擦除
-
+int food_x,food_y;//记录食物的位置
 
 //The following is the color;
 //Blue is the deepskyblue and the red is the salmon

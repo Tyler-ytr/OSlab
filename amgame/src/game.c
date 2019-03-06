@@ -7,6 +7,7 @@ int total=1;//用来记录蛇的长度
 //暂时不考虑墙
 void init_screen();
 void init_snake();
+void food();
 void splash();//将整个画成白色
 //int s_x,s_y;//测试用符号
 //int w_x,w_y;//测试用的方向
@@ -64,6 +65,11 @@ int main() {
 //        draw_rect2(s_x*SIDE, s_y*SIDE, SIDE, SIDE, _black); // white
 //}
 
+void food()
+{
+int able=rand();
+printf("able: %d\n",able);
+}
 void _snakemove(int key)
 {
     //首先确定方向
