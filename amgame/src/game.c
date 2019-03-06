@@ -60,7 +60,6 @@ while(1){
    if(GGflag==1)
    {
        returnflag=0;
-       break;
    }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
