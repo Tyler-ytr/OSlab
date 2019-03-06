@@ -81,13 +81,13 @@ void _snakemove(int key)
     tail_x=snake[total]._snake_x;
     tail_y=snake[total]._snake_y;
     printf("totale: %d",total);
-    snake[1]._snake_x+=direction_x;
-    snake[1]._snake_y+=direction_y;
     for(int i=total;i>=2;--i)
     {
         snake[i]._snake_x=snake[i-1]._snake_x;
         snake[i]._snake_y=snake[i-1]._snake_y;
     }
+    snake[1]._snake_x+=direction_x;
+    snake[1]._snake_y+=direction_y;
     
 
 }
