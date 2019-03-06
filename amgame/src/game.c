@@ -57,7 +57,7 @@ printf("x: %d y: %d \n",food_x,food_y);
    
    if(GGflag==1)
    {
-       draw_character('G',5,5,_red);
+       draw_character('G',cnt_w/2,cnt_h/2,_red);
        break;
    }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
