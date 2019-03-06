@@ -66,8 +66,8 @@ printf("x: %d y: %d \n",food_x,food_y);
         splash();
   while(1)
   {
-       draw_character('G',cnt_w/2-5,cnt_h/2-5,_red);
-       draw_character('G',cnt_w/2-5,cnt_h/2-5,_red);
+       draw_character('G',cnt_w/2-5,cnt_h/2,_red);
+       draw_character('G',cnt_w/2-4,cnt_h/2,_red);
 
   }
   printf("GG");
