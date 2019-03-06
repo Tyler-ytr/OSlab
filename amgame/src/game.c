@@ -64,6 +64,12 @@ printf("x: %d y: %d \n",food_x,food_y);
   //  puts(&key);
     //next_frame+=1000/FPS;
   }
+        splash();
+  while(1)
+  {
+
+       draw_character('G',5,5,_red);
+  }
   printf("GG");
   return 0;
 }
