@@ -11,7 +11,7 @@ static inline void puts(const char *s) {
 //The following is the struct of the snake
 typedef struct _Snake
 {
-    int number;//蛇头为1,蛇尾巴是total
+//    int number;//蛇头为1,蛇尾巴是total
     int _snake_x;
     int _snake_y;
 }_snake;

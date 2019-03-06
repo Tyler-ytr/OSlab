@@ -240,7 +240,7 @@ void init_screen() {
 void init_snake()
 {
     total=1;
-    snake[1].number=1;
+    //snake[1].number=1;
     snake[1]._snake_x=cnt_w/2;
     snake[1]._snake_y=cnt_h/2;
     direction_x=-1;
