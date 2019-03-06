@@ -76,7 +76,8 @@ if(GGflag==0){
        draw_character('V',cnt_w/2+1,cnt_h/2,_red);
        draw_character('E',cnt_w/2+2,cnt_h/2,_red);
        draw_character('R',cnt_w/2+3,cnt_h/2,_red);
-    key = read_key2();
+   key = read_key2();
+   if(key==70){GGflag=0;}
 
 }
   printf("GG");
