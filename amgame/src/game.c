@@ -36,6 +36,7 @@ int main() {
 
     _snakemove(key);
     _snakedraw();
+    food();
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     next_frame+=1000/FPS;
@@ -101,7 +102,7 @@ void _snakedraw()
 {
     for(int i=1;i<=total;i++)
     {
-        printf("snake : %d ",i);
+        //printf("snake : %d ",i);
         if(i!=1)draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
 
         else{
