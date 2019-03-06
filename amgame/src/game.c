@@ -67,7 +67,11 @@ printf("x: %d y: %d \n",food_x,food_y);
   while(1)
   {
        draw_character('G',cnt_w/2-5,cnt_h/2,_red);
-       draw_character('G',cnt_w/2-4,cnt_h/2,_red);
+       draw_character('A',cnt_w/2-4,cnt_h/2,_red);
+       draw_character('M',cnt_w/2-3,cnt_h/2,_red);
+       draw_character('E',cnt_w/2-2,cnt_h/2,_red);
+       draw_character(' ',cnt_w/2-1,cnt_h/2,_red);
+       draw_character('O',cnt_w/2,cnt_h/2,_red);
 
   }
   printf("GG");
