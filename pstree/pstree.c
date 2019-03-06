@@ -59,10 +59,6 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
         {
             proc[i].depth=depth+1;
             proc[i].vis=1;
-           // for(j=0;j<depth;j++)
-            //{
-             //   printf("       ");
-           // }
            if(t!=0)
            {
            for( j=0;j<blank_space;++j)
@@ -75,7 +71,6 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
            }
             if(proc[i].pid>0)
             {
-                //printf("t: %d flag: %d ",t,flag);
                 if(f_tag==1||f_tag==3)
                 {printf("|--%s(%d)",proc[i].name,proc[i].pid);}
                 else
@@ -83,8 +78,6 @@ void proc_print(status *proc,int total,int ppid,int depth,int flag,int blank_spa
                     
                 {printf("|--%s",proc[i].name);}
                 }
-                //printf(" fisrt son: %d ",proc[i].first_son);
-               // printf(" ppid: %d ",proc[i].ppid);
                 if(proc[i].first_son==0)
                 {
                     proc[i].first_son=1;
