@@ -51,6 +51,7 @@ if(GGflag==0){
         splash();
     food_x=rand()%(cnt_w);
     food_y=rand()%(cnt_h);
+        draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
   while (1) {
    
     while(uptime()<next_frame);
