@@ -7,7 +7,9 @@ int total=1;//用来记录蛇的长度
 //暂时不考虑墙
 void init_screen();
 void splash();//将整个画成黑白
-//void snakemove;
+int s_x,s_y;//测试用符号
+int w_x,w_y;//测试用的方向
+void snakemove(int key);
 int read_key2();
 
 void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
@@ -16,9 +18,14 @@ void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
 int main() {
   // Operating nclude <graphics.h>system is a C program
   int next_frame=0;
+  
   _ioe_init();
   init_screen();
   splash();
+  s_x=cnt_w/2;
+  s_y=cnt_h/2;
+  w_x=1;
+  w_y=0;
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
@@ -27,12 +34,40 @@ int main() {
     key = read_key2();
     if(key!=0)printf("%d\n",key);
 
-        draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
+    snakemove(key);
+        //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     next_frame+=1000/FPS;
   }
   return 0;
 }
+//字母w:30 s:44 d:45 a:43
+
+void snakemove(int key)
+{
+    int elderly_x,elderly_y;
+    elderly_x=s_x;
+    elderly_y=s_y;
+    switch(key)
+    {
+        case 0:break;
+        case 30:w_x=0;w_y=1;break;
+        case 44:w_x=0;w_y=-1;break;
+        case 45:w_x=1;w_y=0;break;
+        case 43:w_x=-1;w_y=0;break;
+    }
+
+    s_x+=w_x;
+    s_y+=w_y;
+    
+        draw_rect2(elderly_x*SIDE, elderly_y*SIDE, SIDE, SIDE, _white); // white
+        draw_rect2(s_x*SIDE, s_y*SIDE, SIDE, SIDE, _black); // white
+
+
+
+
+}
+
 
 int read_key2() {
   _DEV_INPUT_KBD_t event = { .keycode = _KEY_NONE };
@@ -79,3 +114,5 @@ void splash() {
     }
   }
 }
+
+
