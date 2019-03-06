@@ -113,6 +113,15 @@ void _snakemove(int key)
     snake[1]._snake_y+=direction_y;
     
 
+    //判断有没有吃到食物
+
+    if(snake[1]._snake_x==food_x&&snake[1]._snake_y==food_y)
+    {
+        eat=1;
+    }
+
+
+
 }
 void _snakedraw()
 {
