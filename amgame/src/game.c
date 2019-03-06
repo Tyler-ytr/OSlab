@@ -1,6 +1,7 @@
 #include <game.h>
 #include<klib.h>
 
+
 int w, h;
 int cnt_w,cnt_h;//用来记录总的高度,宽度步数
 int total=1;//用来记录蛇的长度
@@ -17,6 +18,7 @@ void _snakedraw();
 int read_key2();
 
 void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
+extern void draw_character(char ch,int x,int y,int color);
 
 //字母w:30 s:44 d:45 a:43
 int main() {
@@ -40,6 +42,7 @@ printf("x: %d y: %d \n",food_x,food_y);
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
   while (1) {
+   
     while(uptime()<next_frame);
     key = read_key2();
     if(key!=0)printf("%d\n",key);
@@ -48,13 +51,15 @@ printf("x: %d y: %d \n",food_x,food_y);
     _snakedraw();
     food();
    GGflag= GG();
+    next_frame+=1000/FPS;
+   
    if(GGflag==1)
    {
-       break;
+       draw_character('G',5,5,_red);
    }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
-    next_frame+=1000/FPS;
+    //next_frame+=1000/FPS;
   }
   printf("GG");
   return 0;
