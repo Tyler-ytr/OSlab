@@ -22,7 +22,8 @@ int main() {
   int next_frame=0;
   
   _ioe_init();
-  init_screen();
+  init_screen(); 
+  init_snake();
   splash();
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
