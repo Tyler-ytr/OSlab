@@ -8,6 +8,7 @@ int total=1;//用来记录蛇的长度
 void init_screen();
 void init_snake();
 void food();
+int GG();
 void splash();//将整个画成白色
 //int s_x,s_y;//测试用符号
 //int w_x,w_y;//测试用的方向
@@ -46,10 +47,16 @@ printf("x: %d y: %d \n",food_x,food_y);
     _snakemove(key);
     _snakedraw();
     food();
+   GGflag= GG();
+   if(GGflag==1)
+   {
+       break;
+   }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     next_frame+=1000/FPS;
   }
+  printf("GG");
   return 0;
 }
 //字母w:30 s:44 d:45 a:43
@@ -74,6 +81,27 @@ printf("x: %d y: %d \n",food_x,food_y);
 //        draw_rect2(elderly_x*SIDE, elderly_y*SIDE, SIDE, SIDE, _white); // white
 //        draw_rect2(s_x*SIDE, s_y*SIDE, SIDE, SIDE, _black); // white
 //}
+//
+int GG()
+{
+    int d_x=snake[1]._snake_x;
+    int d_y=snake[1]._snake_y;
+    if(d_x<0||d_x>cnt_w||d_y<0||d_y>cnt_h)
+    {
+        return 1;
+    }
+   // int flag2=0;
+    for(int i=2;i<=total;i++)
+    {
+        if(d_x==snake[i]._snake_x&&d_y==snake[i]._snake_y)
+        {
+            return 1;
+        }
+    }
+    return 0;
+
+
+}
 
 void food()
 {
