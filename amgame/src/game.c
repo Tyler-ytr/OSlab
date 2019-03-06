@@ -41,8 +41,10 @@ printf("x: %d y: %d \n",food_x,food_y);
         //splash();
 while(1){
   int key;
+  int returnflag=1;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
+  if(returnflag==1){
   while (1) {
    
     while(uptime()<next_frame);
@@ -57,13 +59,14 @@ while(1){
    
    if(GGflag==1)
    {
+       returnflag=0;
        break;
    }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     //next_frame+=1000/FPS;
-  }
-        splash();
+  }}else
+  {splash();
   
   
        draw_character('G',cnt_w/2-5,cnt_h/2,_red);
@@ -75,7 +78,9 @@ while(1){
        draw_character('V',cnt_w/2+1,cnt_h/2,_red);
        draw_character('E',cnt_w/2+2,cnt_h/2,_red);
        draw_character('R',cnt_w/2+3,cnt_h/2,_red);
-
+    key = read_key2();
+    if(key==70)returnflag=1;
+}
 }
   printf("GG");
   return 0;
