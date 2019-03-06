@@ -43,6 +43,7 @@ while(1){
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
+if(GGflag==0){
   while (1) {
    
     while(uptime()<next_frame);
@@ -62,7 +63,7 @@ while(1){
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     //next_frame+=1000/FPS;
-  }
+  }}
         splash();
   
   
