@@ -68,8 +68,12 @@ int main() {
 
 void food()
 {
-int able=rand();
-printf("able: %d\n",able);
+    food_x=rand()%(cnt_w);
+    food_y=rand()%(cnt_h);
+
+printf("x: %d y: %d \n",food_x,food_y);
+        draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
+
 }
 void _snakemove(int key)
 {
