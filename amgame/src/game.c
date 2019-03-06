@@ -58,13 +58,13 @@ if(GGflag==0){
    
    if(GGflag==1)
    {
+        splash();
        break;
    }
         //draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     //next_frame+=1000/FPS;
   }}
-        splash();
   
   
        draw_character('G',cnt_w/2-5,cnt_h/2,_red);
