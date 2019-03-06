@@ -80,6 +80,7 @@ void _snakemove(int key)
     
     tail_x=snake[total]._snake_x;
     tail_y=snake[total]._snake_y;
+    printf("totale: %d",total);
     snake[1]._snake_x+=direction_x;
     snake[1]._snake_y+=direction_y;
     for(int i=total;i>=2;--i)
@@ -95,7 +96,12 @@ void _snakedraw()
     for(int i=1;i<=total;i++)
     {
         printf("snake : %d ",i);
-        draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
+        if(i!=1)draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
+
+        else{
+        draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _blue); 
+
+        }
     }
         draw_rect2(tail_x*SIDE, tail_y*SIDE, SIDE, SIDE, _white); 
 }
