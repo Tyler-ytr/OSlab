@@ -27,7 +27,7 @@ int main() {
   eat=0;
   GGflag=0;
   
-  //_ioe_init();
+  _ioe_init();
  // init_screen(); 
 //  init_snake();
   
@@ -44,7 +44,7 @@ while(1){
   //printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   //printf(" total: %d\n",total);
 if(GGflag==0){
-  _ioe_init();
+  //_ioe_init();
   init_screen(); 
   init_snake();
   
