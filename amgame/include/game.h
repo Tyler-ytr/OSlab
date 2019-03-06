@@ -2,7 +2,7 @@
 #include <amdev.h>
 
 #define SIDE 16
-#define FPS 60
+#define FPS 10
 
 static inline void puts(const char *s) {
   for (; *s; s++) _putc(*s);
