@@ -11,7 +11,7 @@ void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
 
 //字母w:30 s:44 d:45 a:43
 int main() {
-  // Operating system is a C program
+  // Operating nclude <graphics.h>system is a C program
   int next_frame=0;
   _ioe_init();
   init_screen();
@@ -71,7 +71,7 @@ void draw_rect2(int x, int y, int w, int h, uint32_t color) {
 void splash() {
   for (int x = 0; x * SIDE <= w; x ++) {
     for (int y = 0; y * SIDE <= h; y++) {
-        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, 0xffffff); // white
+        draw_rect2(x * SIDE, y * SIDE, SIDE, SIDE, _white); // white
     }
   }
 }
