@@ -24,6 +24,8 @@ extern void draw_character(char ch,int x,int y,int color);
 int main() {
   // Operating nclude <graphics.h>system is a C program
   int next_frame=0;
+  eat=0;
+  GGflag=0;
   
   _ioe_init();
   init_screen(); 
