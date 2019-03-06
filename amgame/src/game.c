@@ -82,6 +82,7 @@ printf("x: %d y: %d \n",food_x,food_y);
 //        draw_rect2(s_x*SIDE, s_y*SIDE, SIDE, SIDE, _black); // white
 //}
 //
+
 int GG()
 {
     int d_x=snake[1]._snake_x;
