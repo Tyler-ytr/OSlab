@@ -94,6 +94,7 @@ void _snakedraw()
 {
     for(int i=1;i<=total;i++)
     {
+        printf("snake : %d ",i);
         draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
     }
         draw_rect2(tail_x*SIDE, tail_y*SIDE, SIDE, SIDE, _white); 
