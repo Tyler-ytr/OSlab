@@ -2,6 +2,7 @@
 #include<klib.h>
 
 int w, h;
+int cnt_w,cnt_h;//用来记录总的高度,宽度步数
 void init_screen();
 void splash();//将整个画成黑白
 int read_key2();
@@ -16,7 +17,7 @@ int main() {
   init_screen();
   splash();
   int key;
-  printf("%d %d %d",w,h,SIDE);
+  printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   while (1) {
     while(uptime()<next_frame);
     key = read_key2();
@@ -55,6 +56,8 @@ void init_screen() {
   _io_read(_DEV_VIDEO, _DEVREG_VIDEO_INFO, &info, sizeof(info));
   w = info.width;
   h = info.height;
+  cnt_w=w/SIDE;
+  cnt_h=h/SIDE;
 }
 
 void draw_rect2(int x, int y, int w, int h, uint32_t color) {
