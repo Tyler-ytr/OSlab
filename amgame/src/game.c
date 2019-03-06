@@ -35,7 +35,7 @@ int main() {
   //  food_x=rand()%(cnt_w);
    // food_y=rand()%(cnt_h);
 
-printf("x: %d y: %d \n",food_x,food_y);
+//printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
   
         //splash();
@@ -56,7 +56,7 @@ if(GGflag==0){
    
     while(uptime()<next_frame);
     key = read_key2();
-    if(key!=0)printf("%d\n",key);
+    //if(key!=0)printf("%d\n",key);
 
     _snakemove(key);
     _snakedraw();
@@ -143,7 +143,7 @@ void food()
     food_x=rand()%(cnt_w);
     food_y=rand()%(cnt_h);
 
-printf("x: %d y: %d \n",food_x,food_y);
+//printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
         eat=0;
         total++;
@@ -166,7 +166,7 @@ void _snakemove(int key)
     
     tail_x=snake[total]._snake_x;
     tail_y=snake[total]._snake_y;
-    printf("totale: %d",total);
+    //printf("totale: %d",total);
     for(int i=total;i>=2;--i)
     {
         snake[i]._snake_x=snake[i-1]._snake_x;
@@ -190,7 +190,7 @@ void _snakedraw()
 {
     for(int i=1;i<=total;i++)
     {
-        printf("snake :%d x %d y %d \n",i,snake[i]._snake_x,snake[i]._snake_y);
+        //printf("snake :%d x %d y %d \n",i,snake[i]._snake_x,snake[i]._snake_y);
         if(i!=1)draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
 
         else{
