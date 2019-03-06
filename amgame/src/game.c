@@ -3,8 +3,11 @@
 
 int w, h;
 int cnt_w,cnt_h;//用来记录总的高度,宽度步数
+int total=1;//用来记录蛇的长度
+//暂时不考虑墙
 void init_screen();
 void splash();//将整个画成黑白
+//void snakemove;
 int read_key2();
 
 void draw_rect2(int x, int y, int w, int h, uint32_t color) ;
@@ -18,6 +21,7 @@ int main() {
   splash();
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
+  printf(" total: %d\n",total);
   while (1) {
     while(uptime()<next_frame);
     key = read_key2();
