@@ -22,12 +22,8 @@ int main() {
     while(uptime()<next_frame);
     key = read_key2();
     if(key!=0)printf("%d\n",key);
-    for(int x=w/4/SIDE;x*SIDE<=3*w/4;x++)
-    for(int y=h/4/SIDE;y*SIDE<=3*h/4;y++)
-    {
 
-        draw_rect2(x*SIDE, y*SIDE, SIDE, SIDE, 0x191970); // white
-    }
+        draw_rect2(cnt_w/2*SIDE, cnt_h/2*SIDE, SIDE, SIDE, 0x191970); // white
   //  puts(&key);
     next_frame+=1000/FPS;
   }
