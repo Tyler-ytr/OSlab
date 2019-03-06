@@ -12,7 +12,7 @@ void draw_character(char ch, int x, int y,int color)
         {
             if((p[i]>>j)&1)
             {
-                 draw_rect2(y*SIDE+j*2,x*SIDE+i*2,2,2, color);
+                 draw_rect2(x*SIDE+j*2,y*SIDE+i*2,2,2, color);
                 
             }
         }
