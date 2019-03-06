@@ -41,9 +41,16 @@ printf("x: %d y: %d \n",food_x,food_y);
         //splash();
 while(1){
   int key;
-  printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
-  printf(" total: %d\n",total);
+  //printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
+  //printf(" total: %d\n",total);
 if(GGflag==0){
+  _ioe_init();
+  init_screen(); 
+  init_snake();
+  
+        splash();
+    food_x=rand()%(cnt_w);
+    food_y=rand()%(cnt_h);
   while (1) {
    
     while(uptime()<next_frame);
