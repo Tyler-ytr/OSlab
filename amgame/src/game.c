@@ -26,13 +26,14 @@ int main() {
   init_screen(); 
   init_snake();
   
+        splash();
     food_x=rand()%(cnt_w);
     food_y=rand()%(cnt_h);
 
 printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
   
-        splash();
+        //splash();
 
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
