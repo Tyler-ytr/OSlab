@@ -84,6 +84,7 @@ void food()
 
 printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
+        eat=0;
 
 
 }}
