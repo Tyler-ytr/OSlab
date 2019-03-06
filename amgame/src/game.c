@@ -136,8 +136,8 @@ void init_snake()
     //以下用作测试
     total=2;
     
-    snake[1]._snake_x=cnt_w/2+1;
-    snake[1]._snake_y=cnt_h/2;
+    snake[2]._snake_x=cnt_w/2+1;
+    snake[2]._snake_y=cnt_h/2;
 }
 void draw_rect2(int x, int y, int w, int h, uint32_t color) {
   uint32_t pixels[w * h]; // WARNING: allocated on stack
