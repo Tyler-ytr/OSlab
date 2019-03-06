@@ -25,7 +25,15 @@ int main() {
   _ioe_init();
   init_screen(); 
   init_snake();
-  splash();
+  
+    food_x=rand()%(cnt_w);
+    food_y=rand()%(cnt_h);
+
+printf("x: %d y: %d \n",food_x,food_y);
+        draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
+  
+        splash();
+
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
@@ -68,13 +76,16 @@ int main() {
 
 void food()
 {
+    if(eat==1)
+    {
     food_x=rand()%(cnt_w);
     food_y=rand()%(cnt_h);
 
 printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
 
-}
+
+}}
 void _snakemove(int key)
 {
     //首先确定方向
@@ -106,7 +117,7 @@ void _snakedraw()
 {
     for(int i=1;i<=total;i++)
     {
-        //printf("snake : %d ",i);
+        printf("snake :%d x %d y %d \n",i,snake[i]._snake_x,snake[i]._snake_y);
         if(i!=1)draw_rect2(snake[i]._snake_x*SIDE, snake[i]._snake_y*SIDE, SIDE, SIDE, _black); 
 
         else{
