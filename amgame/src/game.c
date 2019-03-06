@@ -39,7 +39,7 @@ printf("x: %d y: %d \n",food_x,food_y);
         draw_rect2(food_x*SIDE, food_y*SIDE, SIDE, SIDE, _green); // white
   
         //splash();
-
+while(1){
   int key;
   printf("%d %d %d %d %d",w,h,SIDE,cnt_w,cnt_h);
   printf(" total: %d\n",total);
@@ -64,8 +64,8 @@ printf("x: %d y: %d \n",food_x,food_y);
     //next_frame+=1000/FPS;
   }
         splash();
-  while(1)
-  {
+  
+  
        draw_character('G',cnt_w/2-5,cnt_h/2,_red);
        draw_character('A',cnt_w/2-4,cnt_h/2,_red);
        draw_character('M',cnt_w/2-3,cnt_h/2,_red);
@@ -76,7 +76,7 @@ printf("x: %d y: %d \n",food_x,food_y);
        draw_character('E',cnt_w/2+2,cnt_h/2,_red);
        draw_character('R',cnt_w/2+3,cnt_h/2,_red);
 
-  }
+}
   printf("GG");
   return 0;
 }
