@@ -94,7 +94,8 @@ void co_yield() {
 
   if(_NOW!=-1)
   {
-   printf("_NOW:%d\n",_NOW);
+   printf("_NOW:%d",_NOW);
+   printf("id:%d \n",coroutines[_NOW].id);
    int id=rand()%_TOTAL;
    coroutines[_NOW].status=SUSPEND;
    int temp=_NOW;
