@@ -52,14 +52,14 @@ void thread_body()
 struct co* co_start(const char *name, func_t func, void *arg) {
   func(arg); // Test #2 hangs
     
-  struct co* current=&(coroutines[_TOTAL]);
-  /*current->id=_TOTAL;
+  /*struct co* current=&(coroutines[_TOTAL]);
+  current->id=_TOTAL;
   current->name=name;
   current->func=func;
   current->arg=arg;
   current->status=READY;
   _TOTAL++;
-*/
+
   assert(0);
   getcontext(&(current->ctx));
   current->ctx.uc_stack.ss_sp = current->stack;
@@ -69,9 +69,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   _NOW=_TOTAL;
   makecontext(&(current->ctx),(void (*)(void))thread_body,1);
 
+*/
+  ucontext_t now;
+  getcontext(&now);
+  printf("hello!\n");
+  setcontext(&now);
 
-
-  return current;
+//  return current;
 }
 
 //co_yield 是指当前运行的协程放弃执行，并切换到其他协程执行。系统中可能有多个运行的协程(包括当前协程)。你可以随机选择下一个系统中可运行的协程
