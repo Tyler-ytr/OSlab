@@ -24,13 +24,13 @@ struct co {
 int _TOTAL=0;//总的进程数
 int _NOW=-1;//当前在跑的进程,如果没有为-1;
 ucontext_t schedule_wait;
-ucontext_t co_main;
-struct co* called_one;
+//ucontext_t co_main;
+//struct co* called_one;
 struct co coroutines[MAX_CO];
 //co_start创建一个新的协程，并返回一个指针(动态分配内存)。我们的框架代码中并没有限定 struct co 结构体的设计，所以你可以自由发挥
 
 void co_init() {
-    getcontext(&co_main);
+ //   getcontext(&co_main);
 }
 
 void thread_body()
@@ -41,15 +41,15 @@ void thread_body()
   if(id!=-1)
   {
     struct co* current=&coroutines[id];
-    printf("I am in body\n\n");
+    //printf("I am in body\n\n");
     current->func(current->arg);
     _NOW=-1;
     current->status=DEAD;
-  printf("One thread over, _NOW:%d status:%d \n",_NOW,current->status);
+  //printf("One thread over, _NOW:%d status:%d \n",_NOW,current->status);
   }
   else
   {
-      printf("Awsl:  GG in thread_body\n");
+    //  printf("Awsl:  GG in thread_body\n");
       assert(0);
   }
   return;
@@ -76,10 +76,10 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
   coroutines[_TOTAL].ctx.uc_stack.ss_flags=0;
   _NOW=_TOTAL;
-  printf("here before make\n");
-  printf("TOTAL:%d NOW:%d\n",_TOTAL,_NOW);
+  //printf("here before make\n");
+ // printf("TOTAL:%d NOW:%d\n",_TOTAL,_NOW);
   makecontext(&(coroutines[_TOTAL].ctx),(void (*)(void))thread_body,1);
-  printf("hhere\n");
+ // printf("hhere\n");
 
 
   //assert(0);
@@ -100,8 +100,8 @@ void co_yield() {
 
   if(_NOW!=-1)
   {
-   printf("_NOW:%d",_NOW);
-   printf("id:%d \n",coroutines[_NOW].id);
+   //printf("_NOW:%d",_NOW);
+  // printf("id:%d \n",coroutines[_NOW].id);
    int id=rand()%_TOTAL;
    while(coroutines[id].status==DEAD)
    {
@@ -120,9 +120,9 @@ void co_yield() {
 
   }else
   {
-      printf("_NOW:%d ",_NOW);
-      printf("_TOTAL:%d\n",_TOTAL);
-    printf("Awsl:There are no coroutine running now;\n");
+    //  printf("_NOW:%d ",_NOW);
+     // printf("_TOTAL:%d\n",_TOTAL);
+   // printf("Awsl:There are no coroutine running now;\n");
     //assert(0);
   }
 
@@ -143,7 +143,7 @@ void co_wait(struct co *thd) {
     _NOW=thd->id;
     //ucontext_t wait;
     getcontext(&schedule_wait);
-    printf("ori: id :%d\n ",thd->id);
+    //printf("ori: id :%d\n ",thd->id);
 
     //setcontext(&(thd->ctx));
     swapcontext(&(schedule_wait),&(thd->ctx));
