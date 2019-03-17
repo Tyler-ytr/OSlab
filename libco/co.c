@@ -23,6 +23,7 @@ struct co {
 };
 int _TOTAL=0;//总的进程数
 int _NOW=-1;//当前在跑的进程,如果没有为-1;
+ucontext_t schedule_now;
 struct co coroutines[MAX_CO];
 //co_start创建一个新的协程，并返回一个指针(动态分配内存)。我们的框架代码中并没有限定 struct co 结构体的设计，所以你可以自由发挥
 
@@ -96,11 +97,13 @@ void co_yield() {
   {
    printf("_NOW:%d",_NOW);
    printf("id:%d \n",coroutines[_NOW].id);
-   int id=rand()%_TOTAL;
+  // int id=rand()%_TOTAL;
    int temp=_NOW;
    coroutines[_NOW].status=SUSPEND;
-   
-    swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
+   _NOW=-1;
+    swapcontext(&(coroutines[temp].ctx),&(schedule_now));
+
+   // swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
 
    
    //assert(0);
@@ -125,8 +128,10 @@ void end_and_free()
     ;
 }
 void co_wait(struct co *thd) {
+    swapcontext(&(schedule_now),&(thd->ctx));
     
-    setcontext(&(thd->ctx));
+
+    //setcontext(&(thd->ctx));
 
 
 
