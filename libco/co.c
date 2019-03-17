@@ -138,7 +138,7 @@ void end_and_free()
 }
 void co_wait(struct co *thd) {
 //    swapcontext(&(schedule_now),&(thd->ctx));
-   //if(thd->status!=DEAD){
+   if(thd->status!=DEAD){
     _NOW=thd->id;
     //ucontext_t wait;
     getcontext(&schedule_wait);
@@ -147,7 +147,7 @@ void co_wait(struct co *thd) {
     //setcontext(&(thd->ctx));
     swapcontext(&(schedule_wait),&(thd->ctx));
     //thd->status=DEAD;
-  // }
+   }
   //  assert(0);
 
 
