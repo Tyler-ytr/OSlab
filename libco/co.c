@@ -52,22 +52,23 @@ void thread_body()
 struct co* co_start(const char *name, func_t func, void *arg) {
   func(arg); // Test #2 hangs
     
-  struct co* current=&(coroutines[_TOTAL]);
-  current->id=_TOTAL;
-  current->name=name;
-  current->func=func;
-  current->arg=arg;
-  current->status=READY;
+  struct co* current=&coroutines[_TOTAL];
+  //strucinest co current=coroutines[_TOTAL];
+  coroutines[_TOTAL].id =_TOTAL;
+  coroutines[_TOTAL].name=name;
+  coroutines[_TOTAL].func=func;
+  coroutines[_TOTAL].arg=arg;
+  coroutines[_TOTAL].status=READY;
   _TOTAL++;
 
   assert(0);
-  getcontext(&(current->ctx));
-  current->ctx.uc_stack.ss_sp = current->stack;
-  current->ctx.uc_stack.ss_size = STACK_SIZE;
+  getcontext(&(coroutines[_TOTAL-1].ctx));
+  coroutines[_TOTAL-1].ctx.uc_stack.ss_sp = coroutines[_TOTAL-1].stack;
+  coroutines[_TOTAL-1].ctx.uc_stack.ss_size = STACK_SIZE;
 
-  current->ctx.uc_stack.ss_flags=0;
+  coroutines[_TOTAL-1].ctx.uc_stack.ss_flags=0;
   _NOW=_TOTAL;
-  makecontext(&(current->ctx),(void (*)(void))thread_body,1);
+  makecontext(&(coroutines[_TOTAL].ctx),(void (*)(void))thread_body,1);
 
 
 
