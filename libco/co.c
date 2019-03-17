@@ -94,7 +94,6 @@ void co_yield() {
 
   if(_NOW!=-1)
   {
-      getcontext(&(coroutines[_NOW].ctx));
    printf("_NOW:%d",_NOW);
    printf("id:%d \n",coroutines[_NOW].id);
    int id=rand()%_TOTAL;
