@@ -29,6 +29,7 @@ struct co coroutines[MAX_CO];
 //co_start创建一个新的协程，并返回一个指针(动态分配内存)。我们的框架代码中并没有限定 struct co 结构体的设计，所以你可以自由发挥
 
 void co_init() {
+    getcontext(&co_main);
 }
 
 void thread_body()
@@ -101,6 +102,10 @@ void co_yield() {
    printf("_NOW:%d",_NOW);
    printf("id:%d \n",coroutines[_NOW].id);
    int id=rand()%_TOTAL;
+   while(coroutines[id].status==DEAD)
+   {
+       id=rand()%_TOTAL;
+   }
    int temp=_NOW;
    coroutines[_NOW].status=SUSPEND;
   //  swapcontext(&(coroutines[temp].ctx),&(schedule_now));
@@ -141,7 +146,7 @@ void co_wait(struct co *thd) {
 
     //setcontext(&(thd->ctx));
     swapcontext(&(schedule_wait),&(thd->ctx));
-    thd->status=DEAD;
+    //thd->status=DEAD;
    }
   //  assert(0);
 
