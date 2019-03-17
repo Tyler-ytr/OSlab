@@ -106,7 +106,7 @@ void co_yield() {
     swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
 
    
-   assert(0);
+  // assert(0);
 
   }else
   {
