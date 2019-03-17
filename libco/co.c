@@ -42,6 +42,7 @@ void thread_body()
     printf("I am in body\n\n");
     current->func(current->arg);
     _NOW=-1;
+    current->status=DEAD;
   printf("One thread over, _NOW:%d status:%d \n",_NOW,current->status);
   }
   else
