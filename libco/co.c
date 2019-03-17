@@ -102,6 +102,7 @@ void co_yield() {
    int temp=_NOW;
    coroutines[_NOW].status=SUSPEND;
   //  swapcontext(&(coroutines[temp].ctx),&(schedule_now));
+  //
 
    _NOW=id;
     swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
@@ -130,7 +131,7 @@ void end_and_free()
 }
 void co_wait(struct co *thd) {
 //    swapcontext(&(schedule_now),&(thd->ctx));
-    
+    _NOW=thd->id;
     //ucontext_t wait;
     getcontext(&schedule_now);
     printf("ori: id :%d\n ",thd->id);
