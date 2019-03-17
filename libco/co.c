@@ -66,10 +66,12 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
   coroutines[_TOTAL].ctx.uc_stack.ss_flags=0;
   _NOW=_TOTAL;
+  printf("here\n");
   makecontext(&(coroutines[_TOTAL].ctx),(void (*)(void))thread_body,1);
+  printf("hhere\n");
 
 
-  assert(0);
+  //assert(0);
   struct co* current=&coroutines[_TOTAL];
 
   _TOTAL++;
