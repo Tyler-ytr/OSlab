@@ -98,8 +98,8 @@ void co_yield() {
    int id=rand()%_TOTAL;
    coroutines[_NOW].status=SUSPEND;
    int temp=_NOW;
-   swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
    _NOW=id;
+   swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
 
    
    //assert(0);
