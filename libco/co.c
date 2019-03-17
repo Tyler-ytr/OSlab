@@ -58,7 +58,6 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   coroutines[_TOTAL].func=func;
   coroutines[_TOTAL].arg=arg;
   coroutines[_TOTAL].status=READY;
-  _TOTAL++;
 
   assert(0);
   getcontext(&(coroutines[_TOTAL-1].ctx));
@@ -72,6 +71,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
 
   struct co* current=&coroutines[_TOTAL];
 
+  _TOTAL++;
 //  return NULL;
   return current;
 }
