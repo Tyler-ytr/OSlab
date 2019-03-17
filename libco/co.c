@@ -133,6 +133,7 @@ void co_wait(struct co *thd) {
 
     setcontext(&(thd->ctx));
 
+    assert(0);
 
 
 
