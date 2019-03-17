@@ -60,7 +60,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   coroutines[_TOTAL].arg=arg;
   coroutines[_TOTAL].status=READY;
 
- // assert(0);
+  assert(0);
   getcontext(&(coroutines[_TOTAL].ctx));
   coroutines[_TOTAL].ctx.uc_stack.ss_sp = coroutines[_TOTAL].stack;
   coroutines[_TOTAL].ctx.uc_stack.ss_size = STACK_SIZE;
