@@ -106,7 +106,7 @@ void co_yield() {
 
    _NOW=id;
    
-   //assert(0);
+   assert(0);
 
   }else
   {
