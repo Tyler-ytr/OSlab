@@ -53,13 +53,13 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   func(arg); // Test #2 hangs
     
   struct co* current=&(coroutines[_TOTAL]);
-  current->id=_TOTAL;
+  /*current->id=_TOTAL;
   current->name=name;
   current->func=func;
   current->arg=arg;
   current->status=READY;
   _TOTAL++;
-
+*/
   assert(0);
   getcontext(&(current->ctx));
   current->ctx.uc_stack.ss_sp = current->stack;
