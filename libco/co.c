@@ -95,7 +95,7 @@ void co_yield() {
   }else
   {
     printf("Awsl:There are no coroutine running now;\n");
-    assert(0);
+    //assert(0);
   }
 
 
