@@ -115,6 +115,7 @@ void end_and_free()
     ;
 }
 void co_wait(struct co *thd) {
+    setcontext(&(thd->ctx));
 }
 
 
