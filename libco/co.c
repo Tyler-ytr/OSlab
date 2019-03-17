@@ -54,7 +54,7 @@ void thread_body()
 struct co* co_start(const char *name, func_t func, void *arg) {
   //func(arg); // Test #2 hangs
     
-  printf("here\n\n");
+  //printf("here\n\n");
   //strucinest co current=coroutines[_TOTAL];
   coroutines[_TOTAL].id =_TOTAL;
   coroutines[_TOTAL].name=name;
