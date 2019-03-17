@@ -41,13 +41,13 @@ void thread_body()
     printf("I am in body\n\n");
     current->func(current->arg);
     _NOW=-1;
+  printf("One thread over, _NOW:%d status:%d \n",_NOW,current->status);
   }
   else
   {
       printf("Awsl:  GG in thread_body\n");
       assert(0);
   }
-  printf("One thread over, _NOW:%d\n",_NOW);
   return;
   
 
