@@ -139,7 +139,7 @@ void co_wait(struct co *thd) {
     //setcontext(&(thd->ctx));
     swapcontext(&(schedule_now),&(thd->ctx));
 
-    assert(0);
+  //  assert(0);
 
 
 
