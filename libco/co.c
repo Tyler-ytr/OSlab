@@ -36,6 +36,7 @@ void thread_body()
   if(id!=-1)
   {
     struct co* current=&coroutines[id];
+    printf("I am in body\n\n");
     current->func(current->arg);
     _NOW=-1;
   }
