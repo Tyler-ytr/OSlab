@@ -74,7 +74,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   printf("here before make\n");
   printf("TOTAL:%d NOW:%d\n",_TOTAL,_NOW);
   makecontext(&(coroutines[_TOTAL].ctx),(void (*)(void))thread_body,1);
-  //printf("hhere\n");
+  printf("hhere\n");
 
 
   //assert(0);
