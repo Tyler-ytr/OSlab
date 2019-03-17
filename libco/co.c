@@ -91,6 +91,7 @@ void co_yield() {
   {
     
       printf("_NOW:%d\n",_NOW);
+      assert(0);
 
   }else
   {
