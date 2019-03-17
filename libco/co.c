@@ -130,6 +130,7 @@ void end_and_free()
 void co_wait(struct co *thd) {
 //    swapcontext(&(schedule_now),&(thd->ctx));
     
+    printf("ori: id :%d\n ",thd->id);
 
     setcontext(&(thd->ctx));
 
