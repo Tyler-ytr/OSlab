@@ -97,10 +97,10 @@ void co_yield() {
    printf("_NOW:%d",_NOW);
    printf("id:%d \n",coroutines[_NOW].id);
    int id=rand()%_TOTAL;
+   int temp=_NOW;
    coroutines[_NOW].status=SUSPEND;
-   _NOW=id;
-   setcontext(&(coroutines[id].ctx));
-   //swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
+   _NOW=-1;
+    swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
 
    
    //assert(0);
