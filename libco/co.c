@@ -75,6 +75,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   printf("hello!\n");
   setcontext(&now);
 
+  return NULL;
 //  return current;
 }
 
