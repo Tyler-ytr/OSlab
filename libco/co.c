@@ -52,7 +52,7 @@ void thread_body()
 
 
 struct co* co_start(const char *name, func_t func, void *arg) {
-  func(arg); // Test #2 hangs
+  //func(arg); // Test #2 hangs
     
   printf("here\n\n");
   //strucinest co current=coroutines[_TOTAL];
