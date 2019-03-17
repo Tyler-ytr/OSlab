@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h> 
 #include <ucontext.h>
 #include <unistd.h>
 #include <assert.h>
@@ -45,6 +46,7 @@ void thread_body()
       printf("Awsl:  GG in thread_body\n");
       assert(0);
   }
+  printf("One thread over, _NOW:%d\n",_NOW);
   return;
   
 
@@ -92,9 +94,15 @@ void co_yield() {
 
   if(_NOW!=-1)
   {
-    
-      printf("_NOW:%d\n",_NOW);
-      //assert(0);
+   printf("_NOW:%d\n",_NOW);
+   int id=rand()%_TOTAL;
+   coroutines[_NOW].status=SUSPEND;
+   int temp=_NOW;
+   _NOW=id;
+   swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
+
+   
+   //assert(0);
 
   }else
   {
@@ -116,7 +124,12 @@ void end_and_free()
     ;
 }
 void co_wait(struct co *thd) {
+    
     setcontext(&(thd->ctx));
+
+
+
+
 }
 
 
