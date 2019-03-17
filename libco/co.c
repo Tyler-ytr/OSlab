@@ -6,10 +6,11 @@
 //借助了ucontext库,主要使用int getcontext(ucontext_t *ucp);int setcontext(const ucontext_t *ucp);void makecontext(ucontext_t *ucp, void (*func)(), int argc, ...);int swapcontext(ucontext_t *oucp, ucontext_t *ucp);四个库中的函数来实现协程
 //
 //使用协程的程序会首先调用co_init完成一些必要的初始化。如果你的实现并不需要在启动时做任何初始化，你可以留下一个空的函数。
-extern int getcontext(ucontext_t *ucp);
+/*extern int getcontext(ucontext_t *ucp);
 extern int setcontext(const ucontext_t *ucp);
 extern void makecontext(ucontext_t *ucp, void (*func)(), int argc, ...);
 extern int swapcontext(ucontext_t *oucp,const  ucontext_t *ucp);
+*/
 struct co {
     ucontext_t ctx;
     int id;//在coroutins里面的位置;
