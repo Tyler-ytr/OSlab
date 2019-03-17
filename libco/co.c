@@ -52,7 +52,6 @@ void thread_body()
 struct co* co_start(const char *name, func_t func, void *arg) {
   func(arg); // Test #2 hangs
     
-  struct co* current=&coroutines[_TOTAL];
   //strucinest co current=coroutines[_TOTAL];
   coroutines[_TOTAL].id =_TOTAL;
   coroutines[_TOTAL].name=name;
@@ -71,6 +70,7 @@ struct co* co_start(const char *name, func_t func, void *arg) {
   makecontext(&(coroutines[_TOTAL].ctx),(void (*)(void))thread_body,1);
 
 
+  struct co* current=&coroutines[_TOTAL];
 
 //  return NULL;
   return current;
