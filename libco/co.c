@@ -102,9 +102,9 @@ void co_yield() {
    coroutines[_NOW].status=SUSPEND;
   //  swapcontext(&(coroutines[temp].ctx),&(schedule_now));
 
+   _NOW=id;
     swapcontext(&(coroutines[temp].ctx),&(coroutines[id].ctx));
 
-   _NOW=id;
    
    assert(0);
 
