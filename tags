@@ -677,6 +677,7 @@ FOUR_DIV_PI	abstract-machine/libs/fixmath/include/fix16.h	/^static const fix16_t
 FPS	abstract-machine/am/src/native/devices/video.c	7;"	d	file:
 FPS	abstract-machine/apps/litenes/include/fce.h	7;"	d
 FPS	abstract-machine/apps/typing/game.h	5;"	d
+FPS	amgame/include/game.h	5;"	d
 FULL	abstract-machine/apps/microbench/src/queen/queen.c	/^static unsigned int FULL;$/;"	v	file:
 FallbackChar	abstract-machine/libs/imgui/include/imgui.h	/^    ImWchar                     FallbackChar;       \/\/ = '?'        \/\/ Replacement glyph if one isn't found. Only set via SetFallbackChar()$/;"	m	struct:ImFont	access:public
 FallbackGlyph	abstract-machine/libs/imgui/include/imgui.h	/^    const Glyph*                FallbackGlyph;      \/\/ == FindGlyph(FontFallbackChar)$/;"	m	struct:ImFont	access:public
@@ -873,6 +874,9 @@ G	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^static Dinic *G;$/;"	v	
 GATE	abstract-machine/am/include/x86.h	154;"	d
 GDT_ENTRY	abstract-machine/am/src/x86/qemu/boot/start.S	/^#define GDT_ENTRY(n)  \\$/;"	d
 GETMYTIME	abstract-machine/apps/coremark/src/core_portme.c	33;"	d	file:
+GG	amgame/src/game.c	/^int GG()$/;"	f
+GG	amgame/src/game.c	/^int GG();$/;"	p	file:
+GGflag	amgame/include/game.h	/^int GGflag;$/;"	v
 GImDefaultContext	abstract-machine/libs/imgui/src/imgui.cpp	/^static ImGuiContext     GImDefaultContext;$/;"	v	file:
 GImDefaultFontAtlas	abstract-machine/libs/imgui/src/imgui.cpp	/^static ImFontAtlas      GImDefaultFontAtlas;$/;"	v	file:
 GImGui	abstract-machine/libs/imgui/include/imgui_internal.h	/^extern IMGUI_API ImGuiContext* GImGui;  \/\/ Current implicit ImGui context pointer$/;"	x
@@ -1163,6 +1167,7 @@ IM_PRINTFARGS	abstract-machine/libs/imgui/include/imgui.h	34;"	d
 INCLUDE_STB_TEXTEDIT_H	abstract-machine/libs/imgui/include/stb_textedit.h	272;"	d
 INF	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^const int INF = 0x3f3f3f;$/;"	v
 INIT	abstract-machine/am/src/x86/qemu/devices/apic.c	18;"	d	file:
+INIT_LIST_HEAD	libco/tests/co-test.h	32;"	d
 INPUT	abstract-machine/apps/microbench/Makefile	/^INPUT ?= REF$/;"	m
 INT_ACTIVELOW	abstract-machine/am/src/x86/qemu/devices/apic.c	176;"	d	file:
 INT_DISABLED	abstract-machine/am/src/x86/qemu/devices/apic.c	174;"	d	file:
@@ -3227,6 +3232,7 @@ IsWindowFocused	abstract-machine/libs/imgui/include/imgui.h	/^    IMGUI_API bool
 IsWindowFocused	abstract-machine/libs/imgui/src/imgui.cpp	/^bool ImGui::IsWindowFocused()$/;"	f	class:ImGui	signature:()
 IsWindowHovered	abstract-machine/libs/imgui/include/imgui.h	/^    IMGUI_API bool          IsWindowHovered();                                                  \/\/ is current window hovered and hoverable (not blocked by a popup) (differentiate child windows from each others)$/;"	p	namespace:ImGui	signature:()
 IsWindowHovered	abstract-machine/libs/imgui/src/imgui.cpp	/^bool ImGui::IsWindowHovered()$/;"	f	class:ImGui	signature:()
+Item	libco/tests/co-test.h	/^} Item;$/;"	t	typeref:struct:Item_t
 ItemAdd	abstract-machine/libs/imgui/include/imgui_internal.h	/^    IMGUI_API bool          ItemAdd(const ImRect& bb, const ImGuiID* id);$/;"	p	namespace:ImGui	signature:(const ImRect& bb, const ImGuiID* id)
 ItemAdd	abstract-machine/libs/imgui/src/imgui.cpp	/^bool ImGui::ItemAdd(const ImRect& bb, const ImGuiID* id)$/;"	f	class:ImGui	signature:(const ImRect& bb, const ImGuiID* id)
 ItemInnerSpacing	abstract-machine/libs/imgui/include/imgui.h	/^    ImVec2      ItemInnerSpacing;           \/\/ Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label)$/;"	m	struct:ImGuiStyle	access:public
@@ -3238,6 +3244,9 @@ ItemSpacing	abstract-machine/libs/imgui/include/imgui.h	/^    ImVec2      ItemSp
 ItemWidth	abstract-machine/libs/imgui/include/imgui_internal.h	/^    float                   ItemWidth;              \/\/ == ItemWidthStack.back(). 0.0: default, >0.0: width in pixels, <0.0: align xx pixels to the right of window$/;"	m	struct:ImGuiDrawContext	access:public
 ItemWidthDefault	abstract-machine/libs/imgui/include/imgui_internal.h	/^    float                   ItemWidthDefault;$/;"	m	struct:ImGuiWindow	access:public
 ItemWidthStack	abstract-machine/libs/imgui/include/imgui_internal.h	/^    ImVector<float>         ItemWidthStack;$/;"	m	struct:ImGuiDrawContext	access:public
+Item_t	libco/tests/co-test.h	/^typedef struct Item_t {$/;"	s
+Item_t::data	libco/tests/co-test.h	/^    void *data;$/;"	m	struct:Item_t	access:public
+Item_t::link	libco/tests/co-test.h	/^    struct list_head link;$/;"	m	struct:Item_t	typeref:struct:Item_t::list_head	access:public
 Items	abstract-machine/libs/imgui/src/imgui_demo.cpp	/^    ImVector<char*>       Items;$/;"	m	struct:ExampleAppConsole	file:	access:public
 ItemsCount	abstract-machine/libs/imgui/include/imgui.h	/^    int     ItemsCount, StepNo, DisplayStart, DisplayEnd;$/;"	m	struct:ImGuiListClipper	access:public
 ItemsHeight	abstract-machine/libs/imgui/include/imgui.h	/^    float   ItemsHeight;$/;"	m	struct:ImGuiListClipper	access:public
@@ -3246,7 +3255,7 @@ Items_SingleStringGetter	abstract-machine/libs/imgui/src/imgui.cpp	/^static bool
 KB	abstract-machine/apps/microbench/include/benchmark.h	12;"	d
 KEYDOWN_MASK	abstract-machine/am/src/native/devices/input.c	5;"	d	file:
 KEYDOWN_MASK	abstract-machine/apps/typing/keyboard.c	39;"	d	file:
-KEYNAME	amgame/src/game.c	20;"	d	file:
+KEYNAME	amgame/src/game.c	216;"	d	file:
 KEY_QUEUE_LEN	abstract-machine/am/src/native/devices/input.c	7;"	d	file:
 KSEL	abstract-machine/am/include/x86.h	51;"	d
 KeepAliveID	abstract-machine/libs/imgui/include/imgui_internal.h	/^    IMGUI_API void          KeepAliveID(ImGuiID id);$/;"	p	namespace:ImGui	signature:(ImGuiID id)
@@ -3275,6 +3284,8 @@ LINKLIST_DEF_FI	abstract-machine/apps/typing/game.h	41;"	d
 LINKLIST_IMPL	abstract-machine/apps/typing/game.h	53;"	d
 LINT0	abstract-machine/am/src/x86/qemu/devices/apic.c	32;"	d	file:
 LINT1	abstract-machine/am/src/x86/qemu/devices/apic.c	33;"	d	file:
+LIST_HEAD	libco/tests/co-test.h	29;"	d
+LIST_HEAD_INIT	libco/tests/co-test.h	27;"	d
 LOCKDECL	abstract-machine/am/src/x86/x86-qemu.h	47;"	d
 LOCKDEF	abstract-machine/am/src/x86/x86-qemu.h	51;"	d
 LZIP_LG	abstract-machine/apps/microbench/include/benchmark.h	48;"	d
@@ -3464,6 +3475,7 @@ NAME	abstract-machine/libs/fixmath/Makefile	/^NAME = fixmath$/;"	m
 NAME	abstract-machine/libs/imgui/Makefile	/^NAME = imgui$/;"	m
 NAME	abstract-machine/libs/klib/Makefile	/^NAME = klib$/;"	m
 NAME	amgame/Makefile	/^NAME := amgame$/;"	m
+NAME	libco/Makefile	/^NAME := $(shell basename $(PWD))$/;"	m
 NAME	pstree/Makefile	/^NAME := $(shell basename $(PWD))$/;"	m
 NELEM	abstract-machine/am/src/x86/x86-qemu.h	28;"	d
 NOERR	abstract-machine/am/src/x86/qemu/cte_trap.S	/^#define NOERR     pushl $0$/;"	d
@@ -3799,6 +3811,11 @@ QSORT_LG	abstract-machine/apps/microbench/include/benchmark.h	34;"	d
 QSORT_SM	abstract-machine/apps/microbench/include/benchmark.h	33;"	d
 QUEEN_LG	abstract-machine/apps/microbench/include/benchmark.h	36;"	d
 QUEEN_SM	abstract-machine/apps/microbench/include/benchmark.h	35;"	d
+Queue	libco/tests/co-test.h	/^} Queue;$/;"	t	typeref:struct:Queue_t
+Queue_t	libco/tests/co-test.h	/^typedef struct Queue_t {$/;"	s
+Queue_t::cap	libco/tests/co-test.h	/^    int cap;$/;"	m	struct:Queue_t	access:public
+Queue_t::list	libco/tests/co-test.h	/^    struct list_head list;$/;"	m	struct:Queue_t	typeref:struct:Queue_t::list_head	access:public
+Queue_t::sz	libco/tests/co-test.h	/^    int sz;$/;"	m	struct:Queue_t	access:public
 R	abstract-machine/am/src/native/devices/video.c	/^static inline uint8_t R(uint32_t p) { return p >> 16; }$/;"	f	file:	signature:(uint32_t p)
 R	abstract-machine/am/src/x86/qemu/devices/video.c	/^static uint8_t R(uint32_t p) { return p >> 16; }$/;"	f	file:	signature:(uint32_t p)
 R	abstract-machine/apps/litenes/include/common.h	/^static inline uint8_t R(uint32_t p) { return p >> 16; }$/;"	f	signature:(uint32_t p)
@@ -4372,6 +4389,7 @@ Style	abstract-machine/libs/imgui/include/imgui_internal.h	/^    ImGuiStyle     
 StyleModifiers	abstract-machine/libs/imgui/include/imgui_internal.h	/^    ImVector<ImGuiStyleMod> StyleModifiers;                     \/\/ Stack for PushStyleVar()\/PopStyleVar()$/;"	m	struct:ImGuiContext	access:public
 T	abstract-machine/apps/microbench/src/fib/fib.c	/^static uint32_t *A, *ans, *T, *tmp;$/;"	v	file:
 TASK	amgame/Makefile	/^export TASK    := L0$/;"	m
+TASK	libco/Makefile	/^export TASK := M2$/;"	m
 TASK	pstree/Makefile	/^export TASK := M1$/;"	m
 TCCR	abstract-machine/am/src/x86/qemu/devices/apic.c	37;"	d	file:
 TDCR	abstract-machine/am/src/x86/qemu/devices/apic.c	38;"	d	file:
@@ -4746,6 +4764,9 @@ _Path	abstract-machine/libs/imgui/include/imgui.h	/^    ImVector<ImVec2>        
 _Payload	abstract-machine/am/amtrace.h	/^typedef union _Payload {$/;"	u
 _Payload::args	abstract-machine/am/amtrace.h	/^  _CallArgs args;$/;"	m	union:_Payload	access:public
 _Payload::retval	abstract-machine/am/amtrace.h	/^  uintptr_t retval;$/;"	m	union:_Payload	access:public
+_Snake	amgame/include/game.h	/^typedef struct _Snake$/;"	s
+_Snake::_snake_x	amgame/include/game.h	/^    int _snake_x;$/;"	m	struct:_Snake	access:public
+_Snake::_snake_y	amgame/include/game.h	/^    int _snake_y;$/;"	m	struct:_Snake	access:public
 _TRACE_ALL	abstract-machine/am/amtrace.h	40;"	d
 _TRACE_CALL	abstract-machine/am/amtrace.h	36;"	d
 _TRACE_CTE	abstract-machine/am/amtrace.h	31;"	d
@@ -4792,6 +4813,7 @@ __AM_X86_H__	abstract-machine/am/src/x86/x86-qemu.h	2;"	d
 __ARCH_H__	abstract-machine/am/include/arch/native.h	2;"	d
 __ARCH_H__	abstract-machine/am/include/arch/x86-qemu.h	2;"	d
 __BENCHMARK_H__	abstract-machine/apps/microbench/include/benchmark.h	2;"	d
+__CO_H__	libco/co.h	2;"	d
 __KLIB_H__	abstract-machine/libs/klib/include/klib.h	6;"	d
 __NATIVE_USE_KLIB__	abstract-machine/libs/klib/include/klib.h	11;"	d
 __STB_INCLUDE_STB_TRUETYPE_H__	abstract-machine/libs/imgui/include/stb_truetype.h	440;"	d
@@ -5004,6 +5026,9 @@ __libfixmath_fixmath_h__	abstract-machine/libs/fixmath/include/fixmath.h	2;"	d
 __libfixmath_fract32_h__	abstract-machine/libs/fixmath/include/fract32.h	2;"	d
 __libfixmath_int64_h__	abstract-machine/libs/fixmath/include/int64.h	2;"	d
 __libfixmath_uint32_h__	abstract-machine/libs/fixmath/include/uint32.h	2;"	d
+__list_add	libco/tests/co-test.h	/^static inline void __list_add(struct list_head *new,$/;"	f	signature:(struct list_head *new, struct list_head *prev, struct list_head *next)
+__list_del	libco/tests/co-test.h	/^static inline void __list_del(struct list_head *prev, struct list_head *next)$/;"	f	signature:(struct list_head *prev, struct list_head *next)
+__list_splice	libco/tests/co-test.h	/^static inline void __list_splice(struct list_head *list,$/;"	f	signature:(struct list_head *list, struct list_head *head)
 __moddi3	abstract-machine/libs/compiler-rt/moddi3.c	/^__moddi3(di_int a, di_int b)$/;"	f	signature:(di_int a, di_int b)
 __paritydi2	abstract-machine/libs/compiler-rt/int_lib.h	/^COMPILER_RT_ABI si_int __paritydi2(di_int a);$/;"	p	signature:(di_int a)
 __paritysi2	abstract-machine/libs/compiler-rt/int_lib.h	/^COMPILER_RT_ABI si_int __paritysi2(si_int a);$/;"	p	signature:(si_int a)
@@ -5017,6 +5042,8 @@ __umoddi3	abstract-machine/libs/compiler-rt/umoddi3.c	/^__umoddi3(du_int a, du_i
 _atomic_xchg	abstract-machine/am/am.h	/^intptr_t _atomic_xchg(volatile intptr_t *addr, intptr_t newval);$/;"	p	signature:(volatile intptr_t *addr, intptr_t newval)
 _atomic_xchg	abstract-machine/am/src/native/mpe.c	/^intptr_t _atomic_xchg(volatile intptr_t *addr, intptr_t newval) {$/;"	f	signature:(volatile intptr_t *addr, intptr_t newval)
 _atomic_xchg	abstract-machine/am/src/x86/qemu/mpe.c	/^intptr_t _atomic_xchg(volatile intptr_t *addr, intptr_t newval) {$/;"	f	signature:(volatile intptr_t *addr, intptr_t newval)
+_black	amgame/include/game.h	28;"	d
+_blue	amgame/include/game.h	29;"	d
 _cb_alloc	abstract-machine/am/src/x86/qemu/vme.c	/^void *_cb_alloc(size_t size) { return pgalloc_usr(PGSIZE); }$/;"	f	signature:(size_t size)
 _cb_free	abstract-machine/am/src/x86/qemu/vme.c	/^void _cb_free(void *ptr) { pgfree_usr(ptr); }$/;"	f	signature:(void *ptr)
 _cb_irq	abstract-machine/am/src/x86/qemu/cte.c	/^_Context *_cb_irq(_Event ev, _Context *ctx) {$/;"	f	signature:(_Event ev, _Context *ctx)
@@ -5032,6 +5059,7 @@ _fix16_sin_cache_index	abstract-machine/libs/fixmath/src/fix16_trig.c	/^static f
 _fix16_sin_cache_value	abstract-machine/libs/fixmath/src/fix16_trig.c	/^static fix16_t _fix16_sin_cache_value[4096]  = { 0 };$/;"	v	file:
 _fix16_sin_lut	abstract-machine/libs/fixmath/include/fix16_trig_sin_lut.h	/^static uint16_t _fix16_sin_lut[102688] = {$/;"	v
 _fix16_sin_lut_count	abstract-machine/libs/fixmath/include/fix16_trig_sin_lut.h	/^static const uint32_t _fix16_sin_lut_count = 102688;$/;"	v
+_green	amgame/include/game.h	31;"	d
 _grow_capacity	abstract-machine/libs/imgui/include/imgui.h	/^    inline int                  _grow_capacity(int new_size)    { int new_capacity = Capacity ? (Capacity + Capacity\/2) : 8; return new_capacity > new_size ? new_capacity : new_size; }$/;"	f	class:ImVector	access:public	signature:(int new_size)
 _halt	abstract-machine/am/am.h	/^void _halt(int code) __attribute__((__noreturn__));$/;"	p	signature:(int code)
 _halt	abstract-machine/am/src/native/trm.c	/^void _halt(int code) {$/;"	f	signature:(int code)
@@ -5068,6 +5096,14 @@ _protect	abstract-machine/am/src/native/vme.c	/^int _protect(_AddressSpace *p) {
 _putc	abstract-machine/am/am.h	/^void _putc(char ch);$/;"	p	signature:(char ch)
 _putc	abstract-machine/am/src/native/trm.c	/^void _putc(char ch) {$/;"	f	signature:(char ch)
 _putc	abstract-machine/am/src/x86/qemu/trm.c	/^void _putc(char ch) { \/\/ only works for x86-qemu$/;"	f	signature:(char ch)
+_red	amgame/include/game.h	30;"	d
+_snake	amgame/include/game.h	/^}_snake;$/;"	t	typeref:struct:_Snake
+_snake_x	amgame/include/game.h	/^    int _snake_x;$/;"	m	struct:_Snake	access:public
+_snake_y	amgame/include/game.h	/^    int _snake_y;$/;"	m	struct:_Snake	access:public
+_snakedraw	amgame/src/game.c	/^void _snakedraw()$/;"	f
+_snakedraw	amgame/src/game.c	/^void _snakedraw();$/;"	p	file:
+_snakemove	amgame/src/game.c	/^void _snakemove(int key)$/;"	f	signature:(int key)
+_snakemove	amgame/src/game.c	/^void _snakemove(int key);$/;"	p	file:	signature:(int key)
 _start	abstract-machine/am/src/x86/qemu/boot/start.S	/^_start:$/;"	l
 _start	abstract-machine/am/src/x86/qemu/trm.c	/^void _start() { \/\/ the bootloader jumps here$/;"	f
 _switch	abstract-machine/am/src/native/cte.c	/^extern void _switch(_Context *c);$/;"	p	file:	signature:(_Context *c)
@@ -5083,6 +5119,7 @@ _unprotect	abstract-machine/am/am.h	/^void _unprotect(_AddressSpace *as);$/;"	p	
 _unprotect	abstract-machine/am/src/native/vme.c	/^void _unprotect(_AddressSpace *p) {$/;"	f	signature:(_AddressSpace *p)
 _vme_init	abstract-machine/am/am.h	/^int _vme_init(void *(*pgalloc)(size_t size), void (*pgfree)(void *));$/;"	p	signature:(void *(*pgalloc)(size_t size), void (*pgfree)(void *))
 _vme_init	abstract-machine/am/src/native/vme.c	/^int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {$/;"	f	signature:(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*))
+_white	amgame/include/game.h	27;"	d
 _yield	abstract-machine/am/am.h	/^void _yield();$/;"	p	signature:()
 _yield	abstract-machine/am/src/native/cte.c	/^void _yield() {$/;"	f
 a0	abstract-machine/am/amtrace.h	/^  uintptr_t a0, a1, a2, a3;$/;"	m	struct:_CallArgs	access:public
@@ -5092,6 +5129,7 @@ a3	abstract-machine/am/amtrace.h	/^  uintptr_t a0, a1, a2, a3;$/;"	m	struct:_Cal
 abs	abstract-machine/apps/microbench/src/15pz/puzzle.h	/^    static int abs( int n ) { return ( n < 0 ) ? -n : n; }$/;"	f	class:N_puzzle	access:private	signature:( int n )
 acos	abstract-machine/libs/fixmath/include/fix16.hpp	/^		Fix16 acos() { return Fix16(fix16_acos(value)); }$/;"	f	class:Fix16	access:public	signature:()
 active_head	abstract-machine/libs/imgui/include/stb_rect_pack.h	/^   stbrp_node *active_head;$/;"	m	struct:stbrp_context	access:public
+add_count	libco/tests/main.c	/^static void add_count() {$/;"	f	file:
 addr_received_high_byte	abstract-machine/apps/litenes/include/ppu.h	/^    bool addr_received_high_byte;$/;"	m	struct:__anon51	access:public
 align	abstract-machine/am/src/x86/qemu/boot/main.c	/^	uint32_t align;$/;"	m	struct:ProgramHeader	file:	access:public
 align	abstract-machine/libs/imgui/include/stb_rect_pack.h	/^   int align;$/;"	m	struct:stbrp_context	access:public
@@ -5220,6 +5258,7 @@ canvas	abstract-machine/apps/litenes/include/fce.h	/^extern byte canvas[257][520
 canvas	abstract-machine/apps/litenes/src/fce.c	/^byte canvas[257][520];$/;"	v
 canvas	abstract-machine/apps/typing/draw.c	/^static uint32_t canvas[H][W];$/;"	v	file:
 cap	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^  int from, to, cap, flow;$/;"	m	struct:Edge	file:	access:public
+cap	libco/tests/co-test.h	/^    int cap;$/;"	m	struct:Queue_t	access:public
 capacity	abstract-machine/libs/imgui/include/imgui.h	/^    inline int                  capacity() const                { return Capacity; }$/;"	f	class:ImVector	access:public	signature:() const
 carry_bp	abstract-machine/apps/litenes/include/cpu.h	/^    carry_bp      = 0,$/;"	e	enum:__anon53
 carry_flag	abstract-machine/apps/litenes/include/cpu.h	/^    carry_flag     = 0x01,$/;"	e	enum:__anon52
@@ -5252,6 +5291,18 @@ clz	abstract-machine/libs/fixmath/src/fix16.c	278;"	d	file:
 cmp	pstree/pstree.c	/^int cmp(const void *a,const void *b)$/;"	f	signature:(const void *a,const void *b)
 cmp_complex	abstract-machine/apps/coremark/src/core_list_join.c	/^ee_s32 cmp_complex(list_data *a, list_data *b, core_results *res) {$/;"	f	signature:(list_data *a, list_data *b, core_results *res)
 cmp_idx	abstract-machine/apps/coremark/src/core_list_join.c	/^ee_s32 cmp_idx(list_data *a, list_data *b, core_results *res) {$/;"	f	signature:(list_data *a, list_data *b, core_results *res)
+cnt_h	amgame/src/game.c	/^int cnt_w,cnt_h;\/\/用来记录总的高度,宽度步数$/;"	v
+cnt_w	amgame/src/game.c	/^int cnt_w,cnt_h;\/\/用来记录总的高度,宽度步数$/;"	v
+co	libco/co.c	/^struct co {$/;"	s	file:
+co	libco/co.h	/^struct co;$/;"	x
+co_init	libco/co.c	/^void co_init() {$/;"	f
+co_init	libco/co.h	/^void co_init();$/;"	p	signature:()
+co_start	libco/co.c	/^struct co* co_start(const char *name, func_t func, void *arg) {$/;"	f	signature:(const char *name, func_t func, void *arg)
+co_start	libco/co.h	/^struct co* co_start(const char *name, func_t func, void *arg);$/;"	p	signature:(const char *name, func_t func, void *arg)
+co_wait	libco/co.c	/^void co_wait(struct co *thd) {$/;"	f	signature:(struct co *thd)
+co_wait	libco/co.h	/^void co_wait(struct co *thd);$/;"	p	signature:(struct co *thd)
+co_yield	libco/co.c	/^void co_yield() {$/;"	f
+co_yield	libco/co.h	/^void co_yield();$/;"	p	signature:()
 code	abstract-machine/apps/microbench/src/bf/bf.c	/^static const char *code;$/;"	v	file:
 col	abstract-machine/libs/imgui/include/imgui.h	/^    ImU32   col;$/;"	m	struct:ImDrawVert	access:public
 common_bit_set	abstract-machine/apps/litenes/include/common.h	/^static inline bool common_bit_set(unsigned long value, byte position) { return value & (1L << position); }$/;"	f	signature:(unsigned long value, byte position)
@@ -5274,6 +5325,7 @@ compilerrt_abort_impl	abstract-machine/libs/compiler-rt/int_util.h	/^NORETURN vo
 compress	abstract-machine/apps/microbench/src/lzip/lzip.c	/^static char *compress;$/;"	v	file:
 conf	abstract-machine/am/include/x86.h	/^  MPConf  *conf;     \/\/ MP config table addr$/;"	m	struct:MPDesc	access:public
 const_iterator	abstract-machine/libs/imgui/include/imgui.h	/^    typedef const value_type*   const_iterator;$/;"	t	class:ImVector	access:public
+consumer	libco/tests/main.c	/^static void consumer(void *arg) {$/;"	f	file:	signature:(void *arg)
 copy_info	abstract-machine/apps/coremark/src/core_list_join.c	/^void copy_info(list_data *to,list_data *from) {$/;"	f	signature:(list_data *to,list_data *from)
 core_bench_list	abstract-machine/apps/coremark/include/coremark.h	/^ee_u16 core_bench_list(core_results *res, ee_s16 finder_idx);$/;"	p	signature:(core_results *res, ee_s16 finder_idx)
 core_bench_list	abstract-machine/apps/coremark/src/core_list_join.c	/^ee_u16 core_bench_list(core_results *res, ee_s16 finder_idx) {$/;"	f	signature:(core_results *res, ee_s16 finder_idx)
@@ -5488,6 +5540,7 @@ data	abstract-machine/apps/microbench/src/bf/bf.c	/^static unsigned short *data;
 data	abstract-machine/apps/microbench/src/qsort/qsort.c	/^static int N, *data;$/;"	v	file:
 data	abstract-machine/libs/imgui/include/stb_truetype.h	/^   unsigned char  * data;              \/\/ pointer to .ttf file$/;"	m	struct:stbtt_fontinfo	access:public
 data	abstract-machine/libs/imgui/include/stb_truetype.h	/^   unsigned char *data;$/;"	m	struct:__anon21	access:public
+data	libco/tests/co-test.h	/^    void *data;$/;"	m	struct:Item_t	access:public
 data16	abstract-machine/apps/coremark/include/coremark.h	/^	ee_s16 data16;$/;"	m	struct:list_data_s	access:public
 db	abstract-machine/am/include/x86.h	/^  uint32_t db : 1;         \/\/ 0 = 16-bit segment, 1 = 32-bit segment$/;"	m	struct:SegDesc	access:public
 decimal_bp	abstract-machine/apps/litenes/include/cpu.h	/^    decimal_bp    = 3,$/;"	e	enum:__anon53
@@ -5506,17 +5559,25 @@ digest	abstract-machine/apps/microbench/src/md5/md5.c	/^static uint8_t *digest;$
 direct_color_attributes	abstract-machine/am/src/x86/qemu/devices/video.c	/^  uint8_t direct_color_attributes;$/;"	m	struct:VBEInfo	file:	access:public
 direction	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float direction;$/;"	m	struct:stbtt__active_edge	access:public
 direction	abstract-machine/libs/imgui/include/stb_truetype.h	/^   int direction;$/;"	m	struct:stbtt__active_edge	access:public
+direction_x	amgame/include/game.h	/^int direction_x,direction_y;\/\/蛇头的方向$/;"	v
+direction_y	amgame/include/game.h	/^int direction_x,direction_y;\/\/蛇头的方向$/;"	v
 display_image	abstract-machine/apps/slider/main.cpp	/^void display_image(int i) {$/;"	f	signature:(int i)
+do_consume	libco/tests/main.c	/^static void do_consume(Queue *queue) {$/;"	f	file:	signature:(Queue *queue)
 do_div	abstract-machine/libs/klib/src/stdio.c	21;"	d	file:
+do_produce	libco/tests/main.c	/^static void do_produce(Queue *queue) {$/;"	f	file:	signature:(Queue *queue)
 done	abstract-machine/apps/microbench/include/benchmark.h	/^void done(Result *res);$/;"	p	signature:(Result *res)
 double_bits	abstract-machine/libs/compiler-rt/int_types.h	/^} double_bits;$/;"	t	typeref:union:__anon10
 dpl	abstract-machine/am/include/x86.h	/^  uint32_t dpl : 2;         \/\/ Descriptor(meaning new) privilege level$/;"	m	struct:GateDesc	access:public
 dpl	abstract-machine/am/include/x86.h	/^  uint32_t dpl : 2;        \/\/ Descriptor Privilege Level$/;"	m	struct:SegDesc	access:public
 draw	abstract-machine/apps/litenes/src/ppu.c	/^static inline void draw(int col, int row, int idx) {$/;"	f	file:	signature:(int col, int row, int idx)
 draw_character	abstract-machine/apps/typing/draw.c	/^static inline void draw_character(char ch, int x, int y, int color) {$/;"	f	file:	signature:(char ch, int x, int y, int color)
+draw_character	amgame/src/draw.c	/^void draw_character(char ch, int x, int y,int color)$/;"	f	signature:(char ch, int x, int y,int color)
+draw_character	amgame/src/game.c	/^extern void draw_character(char ch,int x,int y,int color);$/;"	p	file:	signature:(char ch,int x,int y,int color)
 draw_rect	abstract-machine/libs/klib/include/klib.h	/^void draw_rect(uint32_t *pixels, int x, int y, int w, int h);$/;"	p	signature:(uint32_t *pixels, int x, int y, int w, int h)
 draw_rect	abstract-machine/libs/klib/src/io.c	/^void draw_rect(uint32_t *pixels, int x, int y, int w, int h) {$/;"	f	signature:(uint32_t *pixels, int x, int y, int w, int h)
-draw_rect	amgame/src/game.c	/^void draw_rect(int x, int y, int w, int h, uint32_t color) {$/;"	f	signature:(int x, int y, int w, int h, uint32_t color)
+draw_rect2	amgame/src/draw.c	/^extern void draw_rect2(int x,int y,int w,int h,uint32_t color);$/;"	p	file:	signature:(int x,int y,int w,int h,uint32_t color)
+draw_rect2	amgame/src/game.c	/^void draw_rect2(int x, int y, int w, int h, uint32_t color) ;$/;"	p	file:	signature:(int x, int y, int w, int h, uint32_t color)
+draw_rect2	amgame/src/game.c	/^void draw_rect2(int x, int y, int w, int h, uint32_t color) {$/;"	f	signature:(int x, int y, int w, int h, uint32_t color)
 draw_string	abstract-machine/apps/typing/draw.c	/^static inline void draw_string(const char *str, int x, int y, int color) {$/;"	f	file:	signature:(const char *str, int x, int y, int color)
 draw_sync	abstract-machine/libs/klib/include/klib.h	/^void draw_sync();$/;"	p	signature:()
 draw_sync	abstract-machine/libs/klib/src/io.c	/^void draw_sync() {$/;"	f
@@ -5527,6 +5588,7 @@ dword	abstract-machine/apps/litenes/include/common.h	/^typedef uint32_t dword;$/
 dwords	abstract-machine/libs/compiler-rt/int_types.h	/^} dwords;$/;"	t	typeref:union:__anon1
 dx	abstract-machine/libs/imgui/include/stb_truetype.h	/^   int x,dx;$/;"	m	struct:stbtt__active_edge	access:public
 e	abstract-machine/libs/imgui/include/imgui.h	/^        const char* e;$/;"	m	struct:ImGuiTextFilter::TextRange	access:public
+eat	amgame/include/game.h	/^int eat;$/;"	v
 eax	abstract-machine/am/include/arch/x86-qemu.h	/^  uint32_t eax, ebx, ecx, edx,$/;"	m	struct:_Context	access:public
 eax	abstract-machine/am/include/x86.h	/^  uint32_t ebx, edx, ecx, eax;   \/\/ Register saved by pushal$/;"	m	struct:TrapFrame	access:public
 ebp	abstract-machine/am/include/arch/x86-qemu.h	/^           esi, edi, ebp, esp3,$/;"	m	struct:_Context	access:public
@@ -5687,9 +5749,15 @@ floatpat	abstract-machine/apps/coremark/src/core_state.c	/^static ee_u8 *floatpa
 flow	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^  int from, to, cap, flow;$/;"	m	struct:Edge	file:	access:public
 font8x8_basic	abstract-machine/apps/typing/draw.c	/^extern char font8x8_basic[128][8];$/;"	x
 font8x8_basic	abstract-machine/apps/typing/font.c	/^char font8x8_basic[128][8] = {$/;"	v
+font8x8_basic	amgame/src/draw.c	/^extern char font8x8_basic[128][8];$/;"	x
+font8x8_basic	amgame/src/font.c	/^char font8x8_basic[128][8] = {$/;"	v
 font_size	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float font_size;$/;"	m	struct:__anon25	access:public
 fontdicts	abstract-machine/libs/imgui/include/stb_truetype.h	/^   stbtt__buf fontdicts;              \/\/ array of font dicts$/;"	m	struct:stbtt_fontinfo	access:public
 fontstart	abstract-machine/libs/imgui/include/stb_truetype.h	/^   int              fontstart;         \/\/ offset of start of font$/;"	m	struct:stbtt_fontinfo	access:public
+food	amgame/src/game.c	/^void food()$/;"	f
+food	amgame/src/game.c	/^void food();$/;"	p	file:
+food_x	amgame/include/game.h	/^int food_x,food_y;\/\/记录食物的位置$/;"	v
+food_y	amgame/include/game.h	/^int food_x,food_y;\/\/记录食物的位置$/;"	v
 fract32_create	abstract-machine/libs/fixmath/include/fract32.h	/^extern fract32_t fract32_create(uint32_t inNumerator, uint32_t inDenominator);$/;"	p	signature:(uint32_t inNumerator, uint32_t inDenominator)
 fract32_create	abstract-machine/libs/fixmath/src/fract32.c	/^fract32_t fract32_create(uint32_t inNumerator, uint32_t inDenominator) {$/;"	f	signature:(uint32_t inNumerator, uint32_t inDenominator)
 fract32_invert	abstract-machine/libs/fixmath/include/fract32.h	/^extern fract32_t fract32_invert(fract32_t inFract);$/;"	p	signature:(fract32_t inFract)
@@ -5710,14 +5778,18 @@ front	abstract-machine/libs/imgui/include/imgui.h	/^        char front() const {
 front	abstract-machine/libs/imgui/include/imgui.h	/^    inline const value_type&    front() const                   { IM_ASSERT(Size > 0); return Data[0]; }$/;"	f	class:ImVector	access:public	signature:() const
 front	abstract-machine/libs/imgui/include/imgui.h	/^    inline value_type&          front()                         { IM_ASSERT(Size > 0); return Data[0]; }$/;"	f	class:ImVector	access:public	signature:()
 ftex	abstract-machine/libs/imgui/include/stb_truetype.h	/^GLuint ftex;$/;"	v
+func_t	libco/co.h	/^typedef void (*func_t)(void *arg);$/;"	t
 fx	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float fx,fdx,fdy;$/;"	m	struct:stbtt__active_edge	access:public
 g	abstract-machine/am/include/x86.h	/^  uint32_t g : 1;          \/\/ Granularity: limit scaled by 4K when set$/;"	m	struct:SegDesc	access:public
 g	abstract-machine/am/src/x86/qemu/devices/video.c	/^  uint8_t b, g, r;$/;"	m	struct:FBPixel	file:	access:public
+g_count	libco/tests/main.c	/^int g_count = 0;$/;"	v
+g_running	libco/tests/main.c	/^static int g_running = 1;$/;"	v	file:
 gdt	abstract-machine/am/src/x86/qemu/boot/start.S	/^gdt:$/;"	l
 gdt	abstract-machine/am/src/x86/x86-qemu.h	/^  SegDesc gdt[NR_SEG];$/;"	m	struct:cpu_local	access:public
 gdtdesc	abstract-machine/am/src/x86/qemu/boot/start.S	/^gdtdesc:$/;"	l
 get	abstract-machine/apps/microbench/src/fib/fib.c	/^static uint32_t get(uint32_t *m, int i, int j) {$/;"	f	file:	signature:(uint32_t *m, int i, int j)
 get	abstract-machine/apps/microbench/src/sieve/sieve.c	/^static inline int get(int n) {$/;"	f	file:	signature:(int n)
+get_count	libco/tests/main.c	/^static int get_count() {$/;"	f	file:
 get_cr0	abstract-machine/am/include/x86.h	/^static inline uint32_t get_cr0(void) {$/;"	f	signature:(void)
 get_cr2	abstract-machine/am/include/x86.h	/^static inline uint32_t get_cr2() {$/;"	f	signature:()
 get_cur_as	abstract-machine/am/src/native/cte.c	/^extern void get_cur_as(_Context *c);$/;"	p	file:	signature:(_Context *c)
@@ -5833,6 +5905,8 @@ init_mode	abstract-machine/libs/imgui/include/stb_rect_pack.h	/^   int init_mode
 init_platform	abstract-machine/am/src/native/platform.cpp	/^static void init_platform() {$/;"	f	file:	signature:()
 init_screen	amgame/src/game.c	/^void init_screen() {$/;"	f
 init_screen	amgame/src/game.c	/^void init_screen();$/;"	p	file:
+init_snake	amgame/src/game.c	/^void init_snake()$/;"	f
+init_snake	amgame/src/game.c	/^void init_snake();$/;"	p	file:
 initialized	abstract-machine/libs/imgui/include/stb_textedit.h	/^   unsigned char initialized;$/;"	m	struct:__anon41	access:public
 inl	abstract-machine/am/include/x86.h	/^static inline uint32_t inl(int port) {$/;"	f	signature:(int port)
 input	abstract-machine/apps/microbench/src/bf/bf.c	/^static char *input;$/;"	v	file:
@@ -5960,18 +6034,38 @@ letter_pressed	abstract-machine/apps/typing/keyboard.c	/^static bool letter_pres
 lim_15_0	abstract-machine/am/include/x86.h	/^  uint32_t lim_15_0 : 16;  \/\/ Low bits of segment limit$/;"	m	struct:SegDesc	access:public
 lim_19_16	abstract-machine/am/include/x86.h	/^  uint32_t lim_19_16 : 4;  \/\/ High bits of segment limit$/;"	m	struct:SegDesc	access:public
 link	abstract-machine/am/include/x86.h	/^  uint32_t link;     \/\/ Unused$/;"	m	struct:TSS	access:public
+link	libco/tests/co-test.h	/^    struct list_head link;$/;"	m	struct:Item_t	typeref:struct:Item_t::list_head	access:public
 list	abstract-machine/apps/coremark/include/coremark.h	/^	struct list_head_s *list;$/;"	m	struct:RESULTS_S	typeref:struct:RESULTS_S::list_head_s	access:public
+list	libco/tests/co-test.h	/^    struct list_head list;$/;"	m	struct:Queue_t	typeref:struct:Queue_t::list_head	access:public
+list_add	libco/tests/co-test.h	/^static inline void list_add(struct list_head *new, struct list_head *head)$/;"	f	signature:(struct list_head *new, struct list_head *head)
+list_add_tail	libco/tests/co-test.h	/^static inline void list_add_tail(struct list_head *new, struct list_head *head)$/;"	f	signature:(struct list_head *new, struct list_head *head)
 list_cmp	abstract-machine/apps/coremark/src/core_list_join.c	/^typedef ee_s32(*list_cmp)(list_data *a, list_data *b, core_results *res);$/;"	t	file:
 list_data	abstract-machine/apps/coremark/include/coremark.h	/^} list_data;$/;"	t	typeref:struct:list_data_s
 list_data_s	abstract-machine/apps/coremark/include/coremark.h	/^typedef struct list_data_s {$/;"	s
 list_data_s::data16	abstract-machine/apps/coremark/include/coremark.h	/^	ee_s16 data16;$/;"	m	struct:list_data_s	access:public
 list_data_s::idx	abstract-machine/apps/coremark/include/coremark.h	/^	ee_s16 idx;$/;"	m	struct:list_data_s	access:public
+list_del	libco/tests/co-test.h	/^static inline void list_del(struct list_head *entry)$/;"	f	signature:(struct list_head *entry)
+list_del_init	libco/tests/co-test.h	/^static inline void list_del_init(struct list_head *entry)$/;"	f	signature:(struct list_head *entry)
+list_empty	libco/tests/co-test.h	/^static inline int list_empty(struct list_head *head)$/;"	f	signature:(struct list_head *head)
+list_entry	libco/tests/co-test.h	192;"	d
+list_for_each	libco/tests/co-test.h	200;"	d
+list_for_each_entry	libco/tests/co-test.h	228;"	d
+list_for_each_entry_safe	libco/tests/co-test.h	240;"	d
+list_for_each_prev	libco/tests/co-test.h	208;"	d
+list_for_each_safe	libco/tests/co-test.h	218;"	d
 list_foreach	abstract-machine/am/src/native/vme.c	15;"	d	file:
 list_head	abstract-machine/apps/coremark/include/coremark.h	/^} list_head;$/;"	t	typeref:struct:list_head_s
+list_head	libco/tests/co-test.h	/^struct list_head {$/;"	s
+list_head::next	libco/tests/co-test.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head	access:public
+list_head::prev	libco/tests/co-test.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::	access:public
 list_head_s	abstract-machine/apps/coremark/include/coremark.h	/^typedef struct list_head_s {$/;"	s
 list_head_s::info	abstract-machine/apps/coremark/include/coremark.h	/^	struct list_data_s *info;$/;"	m	struct:list_head_s	typeref:struct:list_head_s::list_data_s	access:public
 list_head_s::next	abstract-machine/apps/coremark/include/coremark.h	/^	struct list_head_s *next;$/;"	m	struct:list_head_s	typeref:struct:list_head_s::list_head_s	access:public
 list_known_crc	abstract-machine/apps/coremark/src/core_main.c	/^static ee_u16 list_known_crc[]   =      {(ee_u16)0xd4b0,(ee_u16)0x3340,(ee_u16)0x6a79,(ee_u16)0xe714,(ee_u16)0xe3c1};$/;"	v	file:
+list_move	libco/tests/co-test.h	/^static inline void list_move(struct list_head *list, struct list_head *head)$/;"	f	signature:(struct list_head *list, struct list_head *head)
+list_move_tail	libco/tests/co-test.h	/^static inline void list_move_tail(struct list_head *list,$/;"	f	signature:(struct list_head *list, struct list_head *head)
+list_splice	libco/tests/co-test.h	/^static inline void list_splice(struct list_head *list, struct list_head *head)$/;"	f	signature:(struct list_head *list, struct list_head *head)
+list_splice_init	libco/tests/co-test.h	/^static inline void list_splice_init(struct list_head *list,$/;"	f	signature:(struct list_head *list, struct list_head *head)
 lo	abstract-machine/libs/fixmath/include/int64.h	/^	uint32_t lo;$/;"	m	struct:__anon44	access:public
 loca	abstract-machine/libs/imgui/include/stb_truetype.h	/^   int loca,head,glyf,hhea,hmtx,kern; \/\/ table locations as offset from start of .ttf$/;"	m	struct:stbtt_fontinfo	access:public
 log	abstract-machine/apps/litenes/include/common.h	15;"	d
@@ -5999,6 +6093,7 @@ main	abstract-machine/apps/slider/main.cpp	/^int main() {$/;"	f	signature:()
 main	abstract-machine/apps/typing/game.c	/^int main (){$/;"	f
 main	abstract-machine/libs/imgui/include/stb_truetype.h	/^int main(int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
 main	amgame/src/game.c	/^int main() {$/;"	f
+main	libco/tests/main.c	/^int main() {$/;"	f
 main	pstree/pstree.c	/^int main(int argc, char *argv[]) {$/;"	f	signature:(int argc, char *argv[])
 make_ti	abstract-machine/libs/compiler-rt/int_types.h	/^static __inline ti_int make_ti(di_int h, di_int l) {$/;"	f	signature:(di_int h, di_int l)
 make_tu	abstract-machine/libs/compiler-rt/int_types.h	/^static __inline tu_int make_tu(du_int h, du_int l) {$/;"	f	signature:(du_int h, du_int l)
@@ -6097,6 +6192,7 @@ next	abstract-machine/libs/imgui/include/stb_rect_pack.h	/^   stbrp_node  *next;
 next	abstract-machine/libs/imgui/include/stb_truetype.h	/^   struct stbtt__active_edge *next;$/;"	m	struct:stbtt__active_edge	typeref:struct:stbtt__active_edge::stbtt__active_edge	access:public
 next	abstract-machine/libs/imgui/include/stb_truetype.h	/^   struct stbtt__hheap_chunk *next;$/;"	m	struct:stbtt__hheap_chunk	typeref:struct:stbtt__hheap_chunk::stbtt__hheap_chunk	access:public
 next	abstract-machine/libs/klib/src/stdlib.c	/^static unsigned long int next = 1;$/;"	v	file:
+next	libco/tests/co-test.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::list_head	access:public
 nodes	abstract-machine/libs/imgui/include/stb_truetype.h	/^   void  *nodes;$/;"	m	struct:stbtt_pack_context	access:public
 noutput	abstract-machine/apps/microbench/src/bf/bf.c	/^static int noutput;$/;"	v	file:
 numGlyphs	abstract-machine/libs/imgui/include/stb_truetype.h	/^   int numGlyphs;                     \/\/ number of glyphs, needed for range checking$/;"	m	struct:stbtt_fontinfo	access:public
@@ -6428,6 +6524,7 @@ prepare	abstract-machine/apps/microbench/include/benchmark.h	/^  void (*prepare)
 prepare	abstract-machine/apps/microbench/include/benchmark.h	/^void prepare(Result *res);$/;"	p	signature:(Result *res)
 press_key	abstract-machine/apps/typing/game.h	/^void press_key(int scan_code);$/;"	p	signature:(int scan_code)
 press_key	abstract-machine/apps/typing/keyboard.c	/^void press_key(int scan_code) {$/;"	f	signature:(int scan_code)
+prev	libco/tests/co-test.h	/^	struct list_head *next, *prev;$/;"	m	struct:list_head	typeref:struct:list_head::	access:public
 prev_first	abstract-machine/libs/imgui/include/stb_textedit.h	/^   int prev_first;  \/\/ first char of previous row$/;"	m	struct:__anon43	access:public
 prev_link	abstract-machine/libs/imgui/include/stb_rect_pack.h	/^   stbrp_node **prev_link;$/;"	m	struct:__anon20	access:public
 prev_write	abstract-machine/apps/litenes/src/psg.c	/^static byte prev_write;$/;"	v	file:
@@ -6450,6 +6547,7 @@ proc_status::pid	pstree/pstree.c	/^  int pid;          \/\/The process ID;$/;"	m
 proc_status::ppid	pstree/pstree.c	/^  int ppid;         \/\/PID of parent process.$/;"	m	struct:proc_status	file:	access:public
 proc_status::relative	pstree/pstree.c	/^  int relative;     \/\/If the file is in task, relative = 0, else relative = 1; $/;"	m	struct:proc_status	file:	access:public
 proc_status::vis	pstree/pstree.c	/^  int vis;          \/\/I wonder if it has been visited;The original of it is 0, it will be 1 if visited;$/;"	m	struct:proc_status	file:	access:public
+producer	libco/tests/main.c	/^static void producer(void *arg) {$/;"	f	file:	signature:(void *arg)
 product	abstract-machine/am/include/x86.h	/^  uint8_t  product[20];     \/\/ product id$/;"	m	struct:MPConf	access:public
 proggy_clean_ttf_compressed_data_base85	abstract-machine/libs/imgui/src/imgui_draw.cpp	/^static const char proggy_clean_ttf_compressed_data_base85[11980+1] =$/;"	v	file:
 prot	abstract-machine/am/include/arch/native.h	/^      void *prot;$/;"	m	struct:_Context::__anon48::__anon49	access:public
@@ -6472,6 +6570,12 @@ puts	amgame/include/game.h	/^static inline void puts(const char *s) {$/;"	f	sign
 puzzle	abstract-machine/apps/microbench/src/15pz/puzzle.h	/^    int8_t puzzle[N][N];$/;"	m	class:N_puzzle	access:private
 puzzle_valid	abstract-machine/apps/microbench/src/15pz/puzzle.h	/^    bool puzzle_valid;$/;"	m	class:N_puzzle	access:private
 pvertices	abstract-machine/libs/imgui/include/stb_truetype.h	/^   stbtt_vertex *pvertices;$/;"	m	struct:__anon35	access:public
+q_free	libco/tests/co-test.h	/^static inline void q_free(Queue *queue) {$/;"	f	signature:(Queue *queue)
+q_is_empty	libco/tests/co-test.h	/^static inline int q_is_empty(Queue *queue) {$/;"	f	signature:(Queue *queue)
+q_is_full	libco/tests/co-test.h	/^static inline int q_is_full(Queue *queue) {$/;"	f	signature:(Queue *queue)
+q_new	libco/tests/co-test.h	/^static inline Queue* q_new() {$/;"	f	signature:()
+q_pop	libco/tests/co-test.h	/^static inline Item* q_pop(Queue *queue) {$/;"	f	signature:(Queue *queue)
+q_push	libco/tests/co-test.h	/^static inline void q_push(Queue *queue, Item *item) {$/;"	f	signature:(Queue *queue, Item *item)
 qlz_compress	abstract-machine/apps/microbench/src/lzip/quicklz.c	/^size_t qlz_compress(const void *source, char *destination, size_t size, qlz_state_compress *state)$/;"	f	signature:(const void *source, char *destination, size_t size, qlz_state_compress *state)
 qlz_compress	abstract-machine/apps/microbench/src/lzip/quicklz.h	/^size_t qlz_compress(const void *source, char *destination, size_t size, qlz_state_compress *state);$/;"	p	signature:(const void *source, char *destination, size_t size, qlz_state_compress *state)
 qlz_compress_core	abstract-machine/apps/microbench/src/lzip/quicklz.c	/^static size_t qlz_compress_core(const unsigned char *source, unsigned char *destination, size_t size, qlz_state_compress *state)$/;"	f	file:	signature:(const unsigned char *source, unsigned char *destination, size_t size, qlz_state_compress *state)
@@ -6503,8 +6607,8 @@ rdi	abstract-machine/am/include/arch/native.h	/^  uintptr_t rdi;$/;"	m	struct:_C
 rdtsc	abstract-machine/am/src/x86/qemu/devices/timer.c	/^static inline uint64_t rdtsc() {$/;"	f	file:
 read_key	abstract-machine/libs/klib/include/klib.h	/^int read_key();$/;"	p	signature:()
 read_key	abstract-machine/libs/klib/src/io.c	/^int read_key() {$/;"	f
-read_key	amgame/src/game.c	/^void read_key() {$/;"	f
-read_key	amgame/src/game.c	/^void read_key();$/;"	p	file:
+read_key2	amgame/src/game.c	/^int read_key2() {$/;"	f
+read_key2	amgame/src/game.c	/^int read_key2();$/;"	p	file:
 read_rtc	abstract-machine/am/src/x86/qemu/devices/timer.c	/^static int read_rtc(int reg) {$/;"	f	file:	signature:(int reg)
 readsect	abstract-machine/am/src/x86/qemu/boot/main.c	/^readsect(volatile void *dst, int offset) {$/;"	f	signature:(volatile void *dst, int offset)
 readseg	abstract-machine/am/src/x86/qemu/boot/main.c	/^readseg(unsigned char *pa, int count, int offset) {$/;"	f	signature:(unsigned char *pa, int count, int offset)
@@ -6664,6 +6768,7 @@ smul	abstract-machine/libs/fixmath/include/fix16.hpp	/^		const Fix16 smul(const 
 smul	abstract-machine/libs/fixmath/include/fix16.hpp	/^		const Fix16 smul(const fix16_t other) const { Fix16 ret = fix16_smul(value, other);                   return ret; }$/;"	f	class:Fix16	access:public	signature:(const fix16_t other) const
 smul	abstract-machine/libs/fixmath/include/fix16.hpp	/^		const Fix16 smul(const float other)   const { Fix16 ret = fix16_smul(value, fix16_from_float(other)); return ret; }$/;"	f	class:Fix16	access:public	signature:(const float other) const
 smul	abstract-machine/libs/fixmath/include/fix16.hpp	/^		const Fix16 smul(const int16_t other) const { Fix16 ret = fix16_smul(value, fix16_from_int(other));   return ret; }$/;"	f	class:Fix16	access:public	signature:(const int16_t other) const
+snake	amgame/include/game.h	/^_snake snake[100]; \/\/大胆猜测你玩不到100 QAQ$/;"	v
 snprintf	abstract-machine/libs/imgui/src/imgui_demo.cpp	23;"	d	file:
 snprintf	abstract-machine/libs/imgui/src/imgui_draw.cpp	23;"	d	file:
 snprintf	abstract-machine/libs/klib/include/klib.h	/^int snprintf(char* s, size_t n, const char* format, ...);$/;"	p	signature:(char* s, size_t n, const char* format, ...)
@@ -6675,7 +6780,7 @@ solvable	abstract-machine/apps/microbench/src/15pz/puzzle.h	/^    bool solvable(
 solvable	abstract-machine/apps/microbench/src/15pz/puzzle.h	/^bool N_puzzle<N>::solvable() const {$/;"	f	class:N_puzzle	signature:() const
 specrev	abstract-machine/am/include/x86.h	/^  uint8_t specrev;  \/\/ [14]$/;"	m	struct:MPDesc	access:public
 splash	amgame/src/game.c	/^void splash() {$/;"	f
-splash	amgame/src/game.c	/^void splash();$/;"	p	file:
+splash	amgame/src/game.c	/^void splash();\/\/将整个画成白色$/;"	p	file:
 split	abstract-machine/libs/imgui/include/imgui.h	/^        IMGUI_API void split(char separator, ImVector<TextRange>& out);$/;"	p	struct:ImGuiTextFilter::TextRange	access:public	signature:(char separator, ImVector<TextRange>& out)
 split	abstract-machine/libs/imgui/src/imgui.cpp	/^void ImGuiTextFilter::TextRange::split(char separator, ImVector<TextRange>& out)$/;"	f	class:ImGuiTextFilter::TextRange	signature:(char separator, ImVector<TextRange>& out)
 sprintf	abstract-machine/libs/klib/include/klib.h	/^int sprintf(char* out, const char* format, ...);$/;"	p	signature:(char* out, const char* format, ...)
@@ -7081,12 +7186,17 @@ swap	abstract-machine/apps/microbench/src/15pz/heap.h	/^void inline Updatable_he
 swap	abstract-machine/apps/microbench/src/qsort/qsort.c	/^static void swap(int *a, int *b) {$/;"	f	file:	signature:(int *a, int *b)
 swap	abstract-machine/libs/imgui/include/imgui.h	/^    inline void                 swap(ImVector<T>& rhs)          { int rhs_size = rhs.Size; rhs.Size = Size; Size = rhs_size; int rhs_cap = rhs.Capacity; rhs.Capacity = Capacity; Capacity = rhs_cap; value_type* rhs_data = rhs.Data; rhs.Data = Data; Data = rhs_data; }$/;"	f	class:ImVector	access:public	signature:(ImVector<T>& rhs)
 sy	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float sy;$/;"	m	struct:stbtt__active_edge	access:public
+sz	libco/tests/co-test.h	/^    int sz;$/;"	m	struct:Queue_t	access:public
 t	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^  int n, m, s, t;$/;"	m	struct:Dinic	file:	access:public
 t0	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float x0,y0,s0,t0; \/\/ top-left$/;"	m	struct:__anon23	access:public
 t1	abstract-machine/libs/imgui/include/stb_truetype.h	/^   float x1,y1,s1,t1; \/\/ bottom-right$/;"	m	struct:__anon23	access:public
 table_init	abstract-machine/apps/litenes/src/ppu.c	/^static void table_init() {$/;"	f	file:
+tail_x	amgame/include/game.h	/^int tail_x,tail_y;\/\/记录蛇尾位置用来擦除$/;"	v
+tail_y	amgame/include/game.h	/^int tail_x,tail_y;\/\/记录蛇尾位置用来擦除$/;"	v
 tan	abstract-machine/libs/fixmath/include/fix16.hpp	/^		Fix16  tan() { return Fix16(fix16_tan(value));  }$/;"	f	class:Fix16	access:public	signature:()
 temp_bitmap	abstract-machine/libs/imgui/include/stb_truetype.h	/^unsigned char temp_bitmap[512*512];$/;"	v
+test_1	libco/tests/main.c	/^static void test_1() {$/;"	f	file:
+test_2	libco/tests/main.c	/^static void test_2() {$/;"	f	file:
 text	abstract-machine/apps/typing/game.h	/^	int text;$/;"	v
 texture	abstract-machine/am/src/native/devices/video.c	/^static SDL_Texture *texture;$/;"	v	file:
 texture_sync	abstract-machine/am/src/native/devices/video.c	/^static Uint32 texture_sync(Uint32 interval, void *param) {$/;"	f	file:	signature:(Uint32 interval, void *param)
@@ -7126,6 +7236,7 @@ tmp	abstract-machine/apps/microbench/src/fib/fib.c	/^static uint32_t *A, *ans, *
 to	abstract-machine/apps/microbench/src/dinic/dinic.cpp	/^  int from, to, cap, flow;$/;"	m	struct:Edge	file:	access:public
 to_bytes	abstract-machine/apps/microbench/src/md5/md5.c	/^static void to_bytes(uint32_t val, uint8_t *bytes)$/;"	f	file:	signature:(uint32_t val, uint8_t *bytes)
 to_int32	abstract-machine/apps/microbench/src/md5/md5.c	/^static uint32_t to_int32(const uint8_t *bytes)$/;"	f	file:	signature:(const uint8_t *bytes)
+total	amgame/src/game.c	/^int total=1;\/\/用来记录蛇的长度$/;"	v
 trace	abstract-machine/am/src/x86/qemu/trace.c	/^LOCKDEF(trace);$/;"	v
 trace_flags	abstract-machine/am/src/x86/qemu/trace.c	/^volatile uint32_t trace_flags = 0; \/\/ current trace status$/;"	v
 trap	abstract-machine/am/src/x86/qemu/cte_trap.S	/^trap:$/;"	l
@@ -7260,6 +7371,8 @@ window_a	abstract-machine/am/src/x86/qemu/devices/video.c	/^  uint8_t window_a;$
 window_b	abstract-machine/am/src/x86/qemu/devices/video.c	/^  uint8_t window_b;$/;"	m	struct:VBEInfo	file:	access:public
 window_size	abstract-machine/am/src/x86/qemu/devices/video.c	/^  uint16_t window_size;$/;"	m	struct:VBEInfo	file:	access:public
 word	abstract-machine/apps/litenes/include/common.h	/^typedef uint16_t word;$/;"	t
+work	libco/tests/main.c	/^static void work(void *arg) {$/;"	f	file:	signature:(void *arg)
+work_loop	libco/tests/main.c	/^static void work_loop(void *arg) {$/;"	f	file:	signature:(void *arg)
 x	abstract-machine/apps/litenes/include/ppu.h	/^    int x, scanline;$/;"	m	struct:__anon51	access:public
 x	abstract-machine/apps/typing/game.h	/^	int x;$/;"	v
 x	abstract-machine/libs/imgui/include/imgui.h	/^    float x, y, z, w;$/;"	m	struct:ImVec4	access:public
