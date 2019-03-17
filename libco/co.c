@@ -25,6 +25,7 @@ int _TOTAL=0;//总的进程数
 int _NOW=-1;//当前在跑的进程,如果没有为-1;
 ucontext_t schedule_wait;
 ucontext_t co_main;
+struct co* called_one;
 struct co coroutines[MAX_CO];
 //co_start创建一个新的协程，并返回一个指针(动态分配内存)。我们的框架代码中并没有限定 struct co 结构体的设计，所以你可以自由发挥
 
@@ -138,7 +139,7 @@ void end_and_free()
 }
 void co_wait(struct co *thd) {
 //    swapcontext(&(schedule_now),&(thd->ctx));
-   if(thd->status!=DEAD){
+   while(thd->status!=DEAD){
     _NOW=thd->id;
     //ucontext_t wait;
     getcontext(&schedule_wait);
