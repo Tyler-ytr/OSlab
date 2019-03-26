@@ -21,11 +21,13 @@ intptr_t my_spin_lock(intptr_t locked)
     }
 
   };
+  return 0;
 }
 
 intptr_t my_spin_unlock(intptr_t locked)
 {
  my_atomic_xchg(&locked, 0);
+ return 0;
 }
 
 
