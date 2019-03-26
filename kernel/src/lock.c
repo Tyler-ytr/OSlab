@@ -8,7 +8,7 @@ asm volatile ("lock xchgl %0, %1":
 return result; 
 }
 
-intptr_t my_spin_lock(struct pthread_t *locked)
+intptr_t my_spin_lock( pthread_t *locked)
 {
 
   intptr_t value;
@@ -24,7 +24,7 @@ intptr_t my_spin_lock(struct pthread_t *locked)
   return 0;
 }
 
-intptr_t my_spin_unlock(struct pthread_t *locked)
+intptr_t my_spin_unlock(pthread_t *locked)
 {
  my_atomic_xchg(locked->lock, 0);
  return 0;
