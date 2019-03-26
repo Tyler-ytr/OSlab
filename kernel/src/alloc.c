@@ -10,7 +10,7 @@ static void pmm_init() {
 }
 
 static void *kalloc(size_t size) {
- pthread_t alloc_lock; 
+ pthread_t alloc_lock=0; 
  my_spin_lock(alloc_lock);
  start+=size;
  void *ret=&start; 
