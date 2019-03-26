@@ -13,7 +13,7 @@ static void *kalloc(size_t size) {
  pthread_t alloc_lock; 
  my_spin_lock(alloc_lock);
  start+=size;
- void *ret=start; 
+ void *ret=&start; 
  my_spin_unlock(alloc_lock);
   
   return ret;
