@@ -35,7 +35,7 @@ static void pmm_init() {
   head->size=0;
   head->flag=2;
   head->num=1;
-  void* result=(void *)&head[0]-head->num*(&head[1]-&head[0])-(&b1[1]-&b1[0]);
+  void* result=(void *)&head[0]-head->num*sizeof(_node)-sizeof(bound);
   printf("result:0x%x bound_area:0x%x\n",result,sizeof(bound));
   printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
  // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
