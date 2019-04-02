@@ -69,10 +69,10 @@ static void *kalloc(size_t size) {
 
   if(now->size<size&&now->next==head)
   {
+      assert(head==now->next);
       _list new=(void *)(&now[1]+now->size);
       now->next=new;
       new[0].prev=now;
-      assert(head==now->next);
       new[0].next=head;
       new[0].addr=&new[1];
       new[0].flag=1;
