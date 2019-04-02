@@ -13,7 +13,7 @@ static void hello() {
 }
 
 static void os_run() {
-  intptr_t loscked;
+  intptr_t locked;
   my_spin_lock(locked);
   hello();
   my_spin_unlock(locked);
