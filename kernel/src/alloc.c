@@ -78,7 +78,7 @@ static void *kalloc(size_t size) {
 
 
 
-  }*/
+  }
 
   //此时,要么出来的now_pnode符合要求可以直接返回,要么是不符合要求的尾节点,now_pnode->next=head;
 
@@ -101,7 +101,7 @@ static void *kalloc(size_t size) {
 
 
 
-
+*/
 
 
 
