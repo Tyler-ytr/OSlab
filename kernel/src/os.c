@@ -37,8 +37,6 @@ static void os_run() {
   my_spin_lock(locked);
   hello();
   test_from_yzy();
-  char *p;
-  p=kalloc(100);
   my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
