@@ -11,13 +11,13 @@ static void pmm_init() {
   printf("end:0x%x\n",pm_end);
   //start=pm_start;
   max=(void *)pm_start;
-  
+ /* 
   test.next=&test;
   test.prev=&test;
   test.addr=max;
   test.size=0;
   test.flag=1;
-
+*/
   bound*b1=max;
   b1[0].left_bound=&b1[1];
   
@@ -33,7 +33,7 @@ static void pmm_init() {
   head->addr=b1[0].right_bound;
   head->size=0;
   head->flag=1;
-  printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x",&head,head->next,head[0].addr);
+  printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head,head->next,head[0].addr);
  // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
   
 }
