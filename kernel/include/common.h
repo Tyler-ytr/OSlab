@@ -19,8 +19,8 @@ typedef struct _LIST_for_alloc
 }_node,*_list;
 
 typedef struct BOUND{
- BOUND* prev;
- BOUND* next;
+ struct BOUND* prev;
+ struct BOUND* next;
  void *left_bound;
  void *right_bound;
  void *using_one;
