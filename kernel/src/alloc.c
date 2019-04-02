@@ -100,7 +100,7 @@ static void *kalloc(size_t size) {
       new->size=now->size-size-sizeof(_node);
       new->flag=0;
       printf("new_size:%d",new->size);
-      assert(new->size<=0);
+      assert(new->size>=0);
       now->next=new;
       now->size=size;
       now->flag=1;
