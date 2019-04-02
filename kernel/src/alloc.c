@@ -128,7 +128,7 @@ static void *kalloc(size_t size) {
 static void kfree(void *ptr) {
 // free 主要要注意合并节点的问题
 
-  pthread_t kfree_lock;
+  pthread_t kfree_lock=0;
   my_spin_lock(kfree_lock);
 
   //从头结点开始便利
