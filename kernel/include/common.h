@@ -23,9 +23,10 @@ typedef struct BOUND{
  struct BOUND* next;
  void *left_bound;
  void *right_bound;
- void *using_one;
+ void *using_one;//记录目前正在使用的_node 的右边界,using_one应该是下个_node的起始位置;
 }bound;// 我准备在堆区动态的建立存放链表,bound用来指这块地方的边界以及正在使用的链表的位置；
 
+//|bound_size| 16*_node_size| 16 block size |bound_size|16*node_size|16_block_size|
 
 _list head;
 //_node test;

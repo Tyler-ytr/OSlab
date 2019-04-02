@@ -32,7 +32,7 @@ static void pmm_init() {
   head->prev=head;
   head->addr=b1[0].right_bound;
   head->size=0;
-  head->flag=1;
+  head->flag=2;
   printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head,head->next,head[0].addr);
  // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
   
@@ -52,6 +52,8 @@ static void *kalloc(size_t size) {
   pthread_t alloc_lock=0;
   my_spin_lock(alloc_lock);
   void *ret=NULL;
+  
+
 
 
 
