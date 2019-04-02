@@ -5,6 +5,8 @@ static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 void *max;
 static void pmm_init() {
+  pthread_t init_lock=0;
+  my_spin_lock(init_lock);
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
@@ -35,7 +37,7 @@ static void pmm_init() {
   head->flag=2;
   printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head,head->next,head[0].addr);
  // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
-  
+  my_spin_unlock(init_lock);
 }
 
 static void *kalloc(size_t size) {
