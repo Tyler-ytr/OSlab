@@ -119,7 +119,7 @@ static void *kalloc(size_t size) {
     printf("BUG: head->size has changed!\n");
       assert(0);
   }
-  assert(ret<pm_end);
+  assert((int)ret<pm_end);
   printf("ret:0x%x",ret);
   my_spin_unlock(alloc_lock);
   return ret;
