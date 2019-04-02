@@ -35,13 +35,13 @@ static void hello() {
 
 static void os_run() {
   intptr_t locked=0;
-  my_spin_lock(locked);
+  //my_spin_lock(locked);
   hello();
 //  test_from_yzy();
   void *p=NULL;
   p=pmm->alloc(1000);
   printf("p:0x%p\n",*(int *)p);
-  my_spin_unlock(locked);
+  //my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
     _yield();
