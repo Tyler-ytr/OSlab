@@ -1,6 +1,26 @@
 #include <common.h>
 #include <klib.h>
 
+void test_from_yzy(){
+      void *space[100];
+          int i;
+          for(i=0;i<100;++i){
+                    space[i]=pmm->alloc(rand()%((1<<10)-1));
+                        
+          }
+          for(i=0;i<1000;++i){
+                    int temp=rand()%10;
+                            pmm->free(space[temp]);
+                                    space[temp]=pmm->alloc(rand()&((1<<10)-1));
+                                        
+          }
+          for(i=0;i<100;++i){
+                    pmm->free(space[i]);
+                        
+          }
+
+}
+
 static void os_init() {
   pmm->init();
 }
@@ -16,6 +36,7 @@ static void os_run() {
   intptr_t locked=0;
   my_spin_lock(locked);
   hello();
+  test_from_yzy();
   char *p;
   p=kalloc(100);
   my_spin_unlock(locked);
