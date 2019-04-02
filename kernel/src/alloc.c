@@ -30,7 +30,7 @@ static void pmm_init() {
 
   head->next=head;
   head->prev=head;
-  head->addr=max;
+  head->addr=b1[0].right_bound;
   head->size=0;
   head->flag=1;
   printf("head_place:0x%x,head->next：0x%x",&head,head->next);
