@@ -23,6 +23,10 @@ static void pmm_init() {
   test.size=0;
   test.flag=1;
 
+  bound*b1=max;
+  print("\nb1:0x%x,b1[0]:0x%x,b1[1]:0x%x\n",&b1,&b1[0],&b1[1]);
+
+
   printf("head_place:0x%x,head->next：0x%x",&head,head->next);
   printf("test_place:0x%x,test.next：0x%x",&test,test.next);
   
