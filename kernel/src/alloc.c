@@ -13,8 +13,11 @@ static void pmm_init() {
 static void *kalloc(size_t size) {
  pthread_t alloc_lock=0; 
  my_spin_lock(alloc_lock);
+ printf("start1: 0x%x",start);
  start+=size;
+ printf("start2: 0x%x",start);
  void *ret=&start; 
+ printf(" ret:%x \n",ret);
  my_spin_unlock(alloc_lock);
   
   return ret;
