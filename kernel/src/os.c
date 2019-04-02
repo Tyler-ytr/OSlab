@@ -34,7 +34,7 @@ static void hello() {
 }
 
 static void os_run() {
-  intptr_t locked=0;
+  //intptr_t locked=0;
   //my_spin_lock(locked);
   hello();
 //  test_from_yzy();
