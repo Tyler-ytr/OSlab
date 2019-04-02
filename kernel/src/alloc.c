@@ -5,6 +5,7 @@ static uintptr_t pm_start, pm_end,start;
 
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
+  printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
   start=pm_start;
 }
