@@ -16,6 +16,7 @@ static void *kalloc(size_t size) {
  void *ret=&start; 
  my_spin_unlock(alloc_lock);
  printf("%d\n",(int)ret);
+ assert();
   
   return ret;
 }
