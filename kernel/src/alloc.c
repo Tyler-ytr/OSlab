@@ -54,6 +54,14 @@ static void *kalloc(size_t size) {
   pthread_t alloc_lock=0;
   my_spin_lock(alloc_lock);
   void *ret=NULL;
+
+  //首先遍历找到最末一个flag!=1的节点,如果没有就创建一个新的节点;
+  //双向链表,注意更新 alloc的 next,prev,以及BOUND的using_one;
+  //理论上,真正的尾节点的地址应该就是当前的bound的using_one;
+  _list 
+
+
+  
   
 
 
