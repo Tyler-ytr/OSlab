@@ -29,6 +29,7 @@ intptr_t my_spin_lock(intptr_t locked)
 
 intptr_t my_spin_unlock(intptr_t locked)
 {
+  printf("I am in unlock\n");
  my_atomic_xchg(&locked, 0);
  return 0;
 }
