@@ -16,6 +16,8 @@ static void os_run() {
   intptr_t locked=0;
   my_spin_lock(locked);
   hello();
+  char *p;
+  p=kalloc(100);
   my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
