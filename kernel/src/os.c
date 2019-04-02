@@ -40,7 +40,7 @@ static void os_run() {
 //  test_from_yzy();
   void *p=NULL;
   p=pmm->alloc(1000);
-  printf("p:0x%p\n",*(int *)p);
+  printf("p:0x%x\n",p);
   my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
