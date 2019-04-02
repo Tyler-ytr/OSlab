@@ -71,7 +71,12 @@ static void *kalloc(size_t size) {
     if(now->next==head)
     {
       _list new=(void *)(&now[1]+now->size);
-      
+      now->next=new;
+      new[0].prev=now;
+      new[0].next=head;
+
+
+      assert(new->prev->next==new);
       printf("new:area 0x%x",&new[0]);
 
     }
