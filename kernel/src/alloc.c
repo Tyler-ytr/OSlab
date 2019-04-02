@@ -65,25 +65,57 @@ static void *kalloc(size_t size) {
       break;
     }
   }
+//退出来的时候:now:1.可能是不符合要求的尾节点;2.可能是符合要求的尾节点;3.可能是符合要求的中间节点
 
-  if(now->size<size)
+  if(now->size<size&&now->next==head)
   {
-    if(now->next==head)
-    {
       _list new=(void *)(&now[1]+now->size);
       now->next=new;
       new[0].prev=now;
+      assert(head==now->next);
       new[0].next=head;
-
-
+      new[0].addr=&new[1]
+      new[0].flag=1;
+      new[0].size=size;
+      ret=new[0].addr;
       assert(new->prev->next==new);
       printf("new:area 0x%x",&new[0]);
 
-    }
   }
   else{
+    //尝试一下拆分节点:
+    int minsize=sizeof(_node);
+    if(now->size-size>minsize)//可以拆分节点;
+    {
+      _list new=(void *)(&now[1]+size)
+      printf("拆分中:now_area: 0x%x, now_size: 0x%x size :0x%x new_area:0x%x\n",&now[0],now->size,size,&new[0]);
 
-    ;
+      new->prev=now;
+      assert(new[0].prev==new->prev);
+      new->next=now->next;
+//      new->prev=now;
+
+      new->addr=&new[1];
+      new->size=now->size-size-sizeof(_node);
+      new->flag=0;
+      assert(new->size<=0);
+      now->next=new;
+      now->size=size;
+      now->flag=1;
+      ret=now[0].addr;
+      assert(new->prev->next==new);
+      assert(now->prev->next==now);
+    }else//不够拆分节点;
+    {
+      now->flag=1;
+      ret=now[0].addr;
+
+
+    }
+
+
+
+    
   }
 
   
