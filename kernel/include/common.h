@@ -17,6 +17,16 @@ typedef struct _LIST_for_alloc
   int size;// 单位是byte
 
 }_node,*_list;
+
+typedef struct BOUND{
+ BOUND* prev;
+ BOUND* next;
+ void *left_bound;
+ void *right_bound;
+ void *using_one;
+}bound;// 我准备在堆区动态的建立存放链表,bound用来指这块地方的边界以及正在使用的链表的位置；
+
+
 _list head;
 
 
