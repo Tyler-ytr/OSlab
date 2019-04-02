@@ -78,6 +78,7 @@ static void *kalloc(size_t size) {
   }
   else{
 
+    ;
   }
 
   
@@ -89,7 +90,7 @@ static void *kalloc(size_t size) {
 
   if(head->size!=0)
   {
-    printf("BUG: head->size has changed!\n")
+    printf("BUG: head->size has changed!\n");
       assert(0);
   }
   my_spin_unlock(alloc_lock);
