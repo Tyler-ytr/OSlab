@@ -15,6 +15,7 @@ static void pmm_init() {
   head->addr=max;
   head->size=0;
   head->flag=1;
+  printf("head_place:%x",&head);
   
 }
 
