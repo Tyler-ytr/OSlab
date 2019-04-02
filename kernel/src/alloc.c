@@ -25,7 +25,7 @@ static void pmm_init() {
 
   bound*b1=max;
   b1[0].left_bound=&b1[1];
-  printf("\nb1:0x%x,b1[0]:0x%x,b1[0].left_bound:0x%x;b1[1]:0x%x\n",&b1,&b1[0],&b1[0].left_bound,&b1[1]);
+  printf("\nb1:0x%x,b1[0]:0x%x,b1[0].left_bound:0x%x;b1[1]:0x%x\n",&b1,&b1[0],b1[0].left_bound,&b1[1]);
 
 
   printf("head_place:0x%x,head->next：0x%x",&head,head->next);
