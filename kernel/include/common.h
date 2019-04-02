@@ -13,7 +13,7 @@ typedef struct _LIST_for_alloc
   struct _LIST_for_alloc *next;
   struct _LIST_for_alloc *prev;
   void * addr;
-  int flag;// 用来标示这块用了没
+  int flag;//0,1 用来标示这块用了没,2表示这是head;
   int size;// 单位是byte
 
 }_node,*_list;
@@ -28,7 +28,7 @@ typedef struct BOUND{
 
 
 _list head;
-_node test;
+//_node test;
 
 
 
