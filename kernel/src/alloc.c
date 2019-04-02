@@ -8,6 +8,7 @@ static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
+  printf("end:0x%x\n",pm_end;
   //start=pm_start;
   max=(void *)pm_start;
   head->next=head;
