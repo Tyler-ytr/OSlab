@@ -33,8 +33,8 @@ static void pmm_init() {
   head->addr=b1[0].right_bound;
   head->size=0;
   head->flag=1;
-  printf("head_place:0x%x,head->next：0x%x",&head,head->next);
-  printf("test_place:0x%x,test.next：0x%x",&test,test.next);
+  printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x",&head,head->next,head[0].addr);
+ // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
   
 }
 
