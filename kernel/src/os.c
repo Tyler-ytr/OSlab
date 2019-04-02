@@ -39,7 +39,7 @@ static void os_run() {
   hello();
   void *p=NULL;
   p=pmm->alloc(1000);
-  printf("0x%p",p);
+  printf("p:0x%p\n",p);
   my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
