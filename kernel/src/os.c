@@ -6,7 +6,7 @@ void test_from_yzy(){
           int i;
           for(i=0;i<100;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1));
-                    printf("i: %d space:%d\n",i,(int)space[i]);
+                    printf("i: %d space:0x%x\n",i,*(int*)space[i]);
                         
           }
           for(i=0;i<1000;++i){
@@ -37,9 +37,10 @@ static void os_run() {
   //intptr_t locked=0;
   //my_spin_lock(locked);
   hello();
-  void *p=NULL;
-  p=pmm->alloc(1000);
-  printf("p:0x%p\n",*(int *)p);
+  test_from_yzy();
+  //void *p=NULL;
+  //p=pmm->alloc(1000);
+  //printf("p:0x%p\n",*(int *)p);
   //my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
