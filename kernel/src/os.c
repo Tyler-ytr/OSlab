@@ -37,7 +37,8 @@ static void os_run() {
   intptr_t locked=0;
   my_spin_lock(locked);
   hello();
-  test_from_yzy();
+  void *p;
+  p=pmm->alloc(100);
   my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
