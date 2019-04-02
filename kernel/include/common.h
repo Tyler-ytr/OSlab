@@ -15,7 +15,7 @@ typedef struct _LIST_for_alloc
   void * addr;
   int flag;//0,1 用来标示这块用了没,2表示这是head;
   int size;// 单位是byte
-  int num;//用来反推bound的位置;
+  int num;//用来反推bound的位置;计算公式:&bound[0]=&node[0]-(node[0].num-1)*sizeof(_node)-sizeof(bound);
 }_node,*_list;
 
 typedef struct BOUND{
