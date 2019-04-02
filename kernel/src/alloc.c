@@ -86,7 +86,7 @@ static void *kalloc(size_t size) {
   else{
     //尝试一下拆分节点:
     int minsize=sizeof(_node);
-    if(now->size-size>minsize)//可以拆分节点;
+    if(now->size-size-sizeof(_node)>0)//可以拆分节点;
     {
       _list new=(void *)(&now[1]+size);
       printf("拆分中:now_area: 0x%x, now_size: 0x%x size :0x%x new_area:0x%x\n",&now[0],now->size,size,&new[0]);
