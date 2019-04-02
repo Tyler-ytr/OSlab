@@ -22,7 +22,7 @@ static void pmm_init() {
   //bound*b1=max;
   //b1[0].left_bound=&b1[1];
   
-  head=(void*)&b1[1];
+  head=(void*)pm_start;
   //b1[0].using_one=&head[1];
   //b1[0].right_bound=&head[17];
 
@@ -31,10 +31,9 @@ static void pmm_init() {
 
   head->next=head;
   head->prev=head;
-  head->addr=(void *)head;
+  head->addr=&head[1];
   head->size=0;
   head->flag=2;
-  head->num=1;
   /*void* result=(void *)&head[0]-(head->num-1)*sizeof(_node)-sizeof(bound);
   printf("result:0x%x bound_area:0x%x\n",result,sizeof(bound));*/
   printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
@@ -63,7 +62,7 @@ static void *kalloc(size_t size) {
   //注意更新void* max;
   //注意每16个node要新开一个bound,node;
 
-  _list now_pnode=head;
+  /*_list now_pnode=head;
   while(now_pnode->next!=head)
   {
     now_pnode=now_pnode->next;
@@ -74,7 +73,7 @@ static void *kalloc(size_t size) {
         break;
       }
     }
-
+*/
     //now_pnode=now_pnode->next;
 
 
