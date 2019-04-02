@@ -99,7 +99,7 @@ static void *kalloc(size_t size) {
       new->addr=&new[1];
       new->size=now->size-size-sizeof(_node);
       new->flag=0;
-      printf("new_size:0x%x",new->size);
+      printf("new_size:%d",new->size);
       assert(new->size<=0);
       now->next=new;
       now->size=size;
