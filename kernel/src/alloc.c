@@ -74,7 +74,7 @@ static void *kalloc(size_t size) {
       new[0].prev=now;
       assert(head==now->next);
       new[0].next=head;
-      new[0].addr=&new[1]
+      new[0].addr=&new[1];
       new[0].flag=1;
       new[0].size=size;
       ret=new[0].addr;
