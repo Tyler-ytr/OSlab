@@ -6,6 +6,7 @@ static void os_init() {
 }
 
 static void hello() {
+  intptr_t locked=0;
   my_spin_lock(locked);
   for (const char *ptr = "Hello from CPU #"; *ptr; ptr++) {
     _putc(*ptr);
@@ -15,7 +16,6 @@ static void hello() {
 }
 
 static void os_run() {
-  intptr_t locked=0;
   hello();
   _intr_write(1);
   while (1) {
