@@ -15,7 +15,15 @@ static void pmm_init() {
   head->addr=max;
   head->size=0;
   head->flag=1;
+  
+  test.next=&test;
+  test.prev=&test;
+  test.addr=max;
+  test.size=0;
+  test.flag=1;
+
   printf("head_place:0x%x,head->next：0x%x",&head,head->next);
+  printf("test_place:0x%x,test.next：0x%x",&test,test.next);
   
 }
 

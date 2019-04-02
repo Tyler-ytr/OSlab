@@ -28,6 +28,7 @@ typedef struct BOUND{
 
 
 _list head;
+_node test;
 
 
 
