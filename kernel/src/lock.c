@@ -12,6 +12,7 @@ intptr_t my_spin_lock(intptr_t locked)
 {
 
   intptr_t value;
+  printf("I am here");
   while (1)
   {
    value=my_atomic_xchg(&locked,1);
