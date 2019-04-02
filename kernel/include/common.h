@@ -15,7 +15,7 @@ typedef struct _LIST_for_alloc
   void * addr;
   int flag;//0,1 用来标示这块用了没,2表示这是head;
   int size;// 单位是byte
-
+  int num;
 }_node,*_list;
 
 typedef struct BOUND{

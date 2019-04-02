@@ -57,6 +57,7 @@ static void *kalloc(size_t size) {
   //首先遍历找到最末一个flag!=1的节点,如果没有就创建一个新的节点;
   //双向链表,注意更新 alloc的 next,prev,以及BOUND的using_one;
   //理论上,真正的尾节点的地址应该就是当前的bound的using_one;
+  //注意更新void* max;
 
 
   
