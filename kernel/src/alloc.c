@@ -1,7 +1,8 @@
 #include <common.h>
 #include <klib.h>
 
-static uintptr_t pm_start, pm_end,start;
+static uintptr_t pm_start, pm_end;
+static uintptr_t start;
 void *max;
 static void pmm_init() {
   pm_start = (uintptr_t)_heap.start;
