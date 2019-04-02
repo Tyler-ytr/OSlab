@@ -15,9 +15,9 @@ typedef struct _LIST_for_alloc
   void * addr;
   int flag;//0,1 用来标示这块用了没,2表示这是head;
   int size;// 单位是byte
-  int num;//用来反推bound的位置;计算公式:&bound[0]=&node[0]-(node[0].num-1)*sizeof(_node)-sizeof(bound);
+ // int num;//用来反推bound的位置;计算公式:&bound[0]=&node[0]-(node[0].num-1)*sizeof(_node)-sizeof(bound);
 }_node,*_list;
-
+/*
 typedef struct BOUND{
  struct BOUND* prev;
  struct BOUND* next;
@@ -25,7 +25,7 @@ typedef struct BOUND{
  void *right_bound;//记录目前_node块的右边缘,是实际数据区的起始位置
  void *using_one;//记录目前正在使用的_node 的右边界,using_one应该是下个_node的起始位置;
 }bound;// 我准备在堆区动态的建立存放链表,bound用来指这块地方的边界以及正在使用的链表的位置；
-
+*/
 //|bound_size| 16*_node_size| 16 block size |bound_size|16*node_size|16_block_size|
 
 _list head;

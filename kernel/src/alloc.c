@@ -19,19 +19,19 @@ static void pmm_init() {
   test.size=0;
   test.flag=1;
 */
-  bound*b1=max;
-  b1[0].left_bound=&b1[1];
+  //bound*b1=max;
+  //b1[0].left_bound=&b1[1];
   
   head=(void*)&b1[1];
-  b1[0].using_one=&head[1];
-  b1[0].right_bound=&head[17];
+  //b1[0].using_one=&head[1];
+  //b1[0].right_bound=&head[17];
 
-  printf("\nb1:0x%x,b1[0]:0x%x,b1[0].left_bound:0x%x;b1[0].using_one:0x%x,b1[1]:0x%x\n",&b1,&b1[0],b1[0].left_bound,b1[0].using_one,&b1[1]);
+ // printf("\nb1:0x%x,b1[0]:0x%x,b1[0].left_bound:0x%x;b1[0].using_one:0x%x,b1[1]:0x%x\n",&b1,&b1[0],b1[0].left_bound,b1[0].using_one,&b1[1]);
 
 
   head->next=head;
   head->prev=head;
-  head->addr=b1[0].right_bound;
+  head->addr=(void *)head;
   head->size=0;
   head->flag=2;
   head->num=1;
@@ -57,10 +57,51 @@ static void *kalloc(size_t size) {
   my_spin_lock(alloc_lock);
   void *ret=NULL;
 
-  //首先遍历找到最末一个flag!=1的节点,如果没有就创建一个新的节点;
-  //双向链表,注意更新 alloc的 next,prev,以及BOUND的using_one;
+  //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
+  //双向链表,注意更新 node 的 next,prev,num,size,以及BOUND的using_one;
   //理论上,真正的尾节点的地址应该就是当前的bound的using_one;
   //注意更新void* max;
+  //注意每16个node要新开一个bound,node;
+
+  _list now_pnode=head;
+  while(now_pnode->next!=head)
+  {
+    now_pnode=now_pnode->next;
+    if(now_pnode->flag==0)
+    {
+      if(now_pnode->size>=size)
+      {
+        break;
+      }
+    }
+
+    //now_pnode=now_pnode->next;
+
+
+
+  }
+
+  //此时,要么出来的now_pnode符合要求可以直接返回,要么是不符合要求的尾节点,now_pnode->next=head;
+
+  //如果是尾节点;首先需要考虑它的num是不是16;
+  //
+  if(now_pnode->next=head&&now_pnode->size<size)
+  {
+    printf("num: %d \n",now_pnode->num);
+    if(now_pnode->num==16)
+    {
+
+    }
+  }
+  else{
+
+//To be continued
+//插入,拆分节点,快乐吗？
+
+  }
+
+
+
 
 
 
