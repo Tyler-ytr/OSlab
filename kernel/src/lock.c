@@ -11,7 +11,7 @@ return result;
 intptr_t my_spin_lock(intptr_t locked)
 {
 
-  intptr_t value;
+  intptr_t value=0;
   //printf("I am here");
   while (1)
   {
