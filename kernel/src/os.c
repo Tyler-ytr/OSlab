@@ -16,7 +16,10 @@ static void hello() {
 }
 
 static void os_run() {
+  intptr_t locked=0;
+  my_spin_lock(locked);
   hello();
+  my_spin_unlock(locked);
   _intr_write(1);
   while (1) {
     _yield();
