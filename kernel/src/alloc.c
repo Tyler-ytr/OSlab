@@ -11,11 +11,11 @@ static void pmm_init() {
   initlock(lk,NULL);
   lock(lk);
 
-  spinlock *a_lk=&alloc_lk;
+/*  spinlock *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
     initlock(a_lk,NULL);
     initlock(h_lk,NULL);
-
+*/
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
