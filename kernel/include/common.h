@@ -42,6 +42,7 @@ extern void unlock(struct Spinlock *lk);
 extern void initlock(struct Spinlock *lk,char *name);
 extern void lock(struct Spinlock *lk);
 
+static inline uint
 readeflags(void)
 {
   uint eflags;
