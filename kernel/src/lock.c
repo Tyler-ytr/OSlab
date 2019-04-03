@@ -66,10 +66,11 @@ void pushcli(void)
       eflags = readeflags();
         cli();
         int cpu_num=_cpu();
-        printf("in pushcli of cpu :%d\n",cpu_num);
+        printf("in pushcli of cpu :%d",cpu_num);
           if(ncli[cpu_num] == 0)
                 intena[cpu_num] = eflags & FL_IF;
             ncli[cpu_num] += 1;
+            printf(" ncli: %d",ncli[cpu_num]);
 
 }
 
