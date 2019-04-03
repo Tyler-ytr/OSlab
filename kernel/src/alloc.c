@@ -91,6 +91,11 @@ static void *kalloc(size_t size) {
     
     now->next=new;
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
+    if(unused_space->addr>(void*)pm_end)
+    {
+      printf("Your memory is filled. I am sorry!");
+      assert(0);
+    }
 //    printf("unused_space->addr: 0x%x\n",unused_space->addr);
 
     assert(now->next->prev==now);
