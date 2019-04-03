@@ -35,8 +35,8 @@ static void pmm_init() {
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
   unused_space->prev=unused_space;
-  unused_flag=3;
-  unused_size=0;
+  unused_space->flag=3;
+  unused_space->size=0;
 
   cpu_head[0]=&unused_space[1];
   printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",&cpu_head[0],&cpu_head[1],&cpu_head[2]);
