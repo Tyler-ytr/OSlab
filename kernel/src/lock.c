@@ -85,7 +85,8 @@ void popcli(void)
       if(--ncli[cpu_num] < 0)
             {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             assert(0);}
-        if(ncli[cpu_num] == 0 )
+          printf("in popcli of cpu :%d ncli before :%d \n",cpu_num,ncli[cpu_num]);
+        if(ncli[cpu_num] == 0 && intena[cpu_num])
               sti();
 
 }
