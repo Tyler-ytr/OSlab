@@ -82,6 +82,7 @@ static void *kalloc(size_t size) {
   { 
     now=now->next;
     printf("now: 0x%x\n");
+    assert(now!=NULL);
     if(now->flag==0&&now->size>=size)
     {
       success_hint=1;//表示当前的遍历到的节点可以使用
