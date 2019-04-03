@@ -94,4 +94,5 @@ struct cpu {
 //void            panic(char*) __attribute__((noreturn));
 struct cpu*     mycpu(void);
 
+#define panic printf
 #endif
