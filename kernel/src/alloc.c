@@ -13,8 +13,8 @@ static void pmm_init() {
 
   spinlock *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
-    initlock(a_lk);
-    initlock(h_lk);
+    initlock(a_lk,NULL);
+    initlock(h_lk,NULL);
 
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
@@ -109,7 +109,7 @@ static void *kalloc(size_t size) {
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
     if((int)(now->size-size-sizeof(_node))>0)
     {
-      assert((int)(now->size-size)>sizeof(_node))
+      assert((int)(now->size-size)>sizeof(_node));
       //返回的是now的地址;
       _list new=(void *)(now->addr+size);
       assert(&new[1]+size==now->addr+size);
@@ -224,15 +224,11 @@ static void *kalloc(size_t size) {
 static void kfree(void *ptr) {
 // free 主要要注意合并节点的问题
 
- // pthread_t kfree_lock=0;
- // my_spin_lock(kfree_lock);
 
-  //从头结点开始便利
 
 
 
 ;
- // my_spin_unlock(kfree_lock);
 
 
 
