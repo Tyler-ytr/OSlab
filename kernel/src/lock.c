@@ -125,6 +125,7 @@ void lock(struct Spinlock *lk)
             {panic("acquire");
             assert(0);}
 
+        printf("In lock of :%s\n",lk->name);
         // The xchg is atomic.
            while(xchg(&lk->locked, 1) != 0)
                ;
