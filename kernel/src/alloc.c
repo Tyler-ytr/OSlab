@@ -135,10 +135,12 @@ static void *kalloc(size_t size) {
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
-    if((int)(now->size-size-2*sizeof(_node))>0&&0)
+    if((int)(now->size-size-2*sizeof(_node))>0)
     {
       assert((int)(now->size-size)>sizeof(_node));
       //返回的是now的地址;
+      if(now->size==0)
+      assert(0);
       _list new=(void *)(now->addr+size);
 
     ///  assert(&new[1]-sizeof(_node)==now->addr+size);
