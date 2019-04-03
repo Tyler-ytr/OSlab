@@ -41,7 +41,7 @@ static void os_run() {
   //lock(lk);
   //int locked=0;
   //my_spin_lock(locked);
-  hello();
+  //hello();
   test_from_yzy();
   //void *p=NULL;
   
