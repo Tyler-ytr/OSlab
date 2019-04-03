@@ -87,6 +87,7 @@ static void *kalloc(size_t size) {
       break;
     }
   }
+  printf("hewe");
 
   if(success_hint!=1)
   {
