@@ -60,7 +60,7 @@ void initlock(struct Spinlock *lk,char *name)
 }
 
 
-void pushcli(int cpu_num)
+void pushcli()
 {
     /*int eflags;
 
@@ -75,10 +75,10 @@ void pushcli(int cpu_num)
     cli();
    // printf("push ncli: cpu %d ncli[_cpu]: %d\n",_cpu(),ncli[(int)_cpu()]);
    // int cpu_num=_cpu();
-    ncli[cpu_num]+=1;
+    ncli[(int)_cpu()]+=1;
 }
 
-void popcli(int cpu_num)
+void popcli(void)
 {
    /* if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
@@ -94,10 +94,10 @@ void popcli(int cpu_num)
               sti();
 */
  // int cpu_num=_cpu();
-  ncli[cpu_num]--;
+  ncli[(int)_cpu()]--;
     //printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
-  assert(ncli[cpu_num]>=0);
-  if(ncli[_cpu()]==0)
+  assert(ncli[(int)_cpu()]>=0);
+  if(ncli[(int)_cpu()]==0)
   {
 
     sti();
@@ -137,8 +137,8 @@ holding(struct Spinlock *lock)
 */
 
 void lock(struct Spinlock *lk)
-{     lk->cpu = _cpu();
-    pushcli(lk->cpu); // disable interrupts to avoid deadlock.
+{     //lk->cpu = _cpu();
+    pushcli(); // disable interrupts to avoid deadlock.
     /*  if(holding(lk))
             {panic("acquire");
             assert(0);}
@@ -179,9 +179,9 @@ void unlock(struct Spinlock *lk)
                           // not be atomic. A real OS would use C atomics here.
                         //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
           xchg(&lk->locked, 0) ;
-                               popcli(lk->cpu);
                 lk->pcs[0] = 0;
         lk->cpu = 0;                
+                               popcli();
           
 }
 
