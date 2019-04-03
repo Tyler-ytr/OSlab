@@ -85,7 +85,7 @@ static void *kalloc(size_t size) {
   int success_hint=0;
   if(size==0)
   {
-    ret=pm_start;
+    ret=(void *)pm_start;
   }
   else{
   while(now->next!=head)
@@ -184,7 +184,7 @@ static void kfree(void *ptr) {
   lock(a_lk);
 
   //首先搜索这个地址的存在性；
-  if(ptr!=NULL&&ptr!=pm_start)
+  if(ptr!=NULL&&ptr!=(void *)pm_start)
   {
       int success_hint=0;
       _list head=NULL;
