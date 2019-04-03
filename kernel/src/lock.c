@@ -151,7 +151,7 @@ void lock(struct Spinlock *lk)
         
                         // Record info about lock acquisition for debugging.
                            lk->cpu = _cpu();
-                             getcallerpcs(&lk, lk->pcs);
+                            // getcallerpcs(&lk, lk->pcs);
         
 }
 void unlock(struct Spinlock *lk)
