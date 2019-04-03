@@ -61,17 +61,20 @@ static void *kalloc(size_t size) {
 
   //我觉得为了防止同时使用表头,应该锁住它
 
-  spinlock *h_lk=&head_lk;
-  lock(h_lk);
-  int cpu_num=_cpu();
-  _list head=cpu_head[cpu_num];
-  _list now=cpu_head[cpu_num];  
-  unlock(h_lk);
+//  spinlock *h_lk=&head_lk;
+  //lock(h_lk);
+  //int cpu_num=_cpu();
+  //_list head=cpu_head[cpu_num];
+  //_list now=cpu_head[cpu_num];  
+  //unlock(h_lk);
 
-  void *ret=NULL;
+ // void *ret=NULL;
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
-  
+   //int cpu_num=_cpu();
+  //_list head=cpu_head[cpu_num];
+  //_list now=cpu_head[cpu_num]; 
+  void *ret=NULL;
   int success_hint=0;
   while(now->next!=head)
   { 
