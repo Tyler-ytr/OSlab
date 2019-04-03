@@ -158,7 +158,7 @@ static void *kalloc(size_t size) {
       assert(now->next->prev==now);
 
       if(new->next->prev!=new){
-        printf("new: 0x%x  -----: 0x%x  size:%d\n",new,new->next,size);
+        printf("new: 0x%x  -----: 0x%x  size:%d  new_size:%d\n",new,new->next->prev,size,new->size);
         assert(0);
       }
       assert(now->prev->next==now);
