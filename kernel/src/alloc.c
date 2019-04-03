@@ -177,14 +177,36 @@ static void kfree(void *ptr) {
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
 
+  //首先搜索这个地址的存在性；
+  if(ptr!=NULL)
+  {
+      int success_hint=0;
+      _list head=NULL;
+      _list now=NULL;
+      for(int i=0;i<=4;i++)
+      {
+         head=cpu_head[i];
+         now=cpu_head[i];
+        while(now->next!=head)
+        {
+          now=now->next;
+          if(now->addr==ptr)
+          {
+            success_hint=1;
+            break;
+          }
+        }
+        if(success_hint==1)
+        {
+          break;
+        }
+      }
+      if(success_hint==1)
+      {
+        now->flag=0;
 
-
-
-
-
-
-
-
+      }
+  }
   unlock(a_lk);
 
 
