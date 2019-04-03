@@ -8,13 +8,13 @@ static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 static void pmm_init() {
   spinlock*lk=&init_lk;
-  initlock(lk,"lk");
+  initlock(lk,NULL);
   lock(lk);
 
   spinlock *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
-    initlock(a_lk,"a_lk");
-    initlock(h_lk,"h_lk");
+    initlock(a_lk,NULL);
+    initlock(h_lk,NULL);
 
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
@@ -138,9 +138,6 @@ static void *kalloc(size_t size) {
       ret=now->addr;
     }
   }
-  
-
-
   unlock(a_lk);
   return ret;
   //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
