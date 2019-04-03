@@ -1,5 +1,5 @@
 // Mutual exclusion lock.
-struct spinlock {
+typedef struct Spinlock {
   uint locked;       // Is the lock held?
 
   // For debugging:
@@ -7,5 +7,5 @@ struct spinlock {
   struct cpu *cpu;   // The cpu holding the lock.
   uint pcs[10];      // The call stack (an array of program counters)
                      // that locked the lock.
-};
+}spinlock;
 
