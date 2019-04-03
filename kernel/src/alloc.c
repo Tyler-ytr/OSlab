@@ -144,6 +144,7 @@ static void *kalloc(size_t size) {
   }
   printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   unlock(a_lk);
+  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret==NULL);
   printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   return ret;
