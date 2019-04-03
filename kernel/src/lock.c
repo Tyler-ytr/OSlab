@@ -144,7 +144,7 @@ void lock(struct Spinlock *lk)
 }
 void unlock(struct Spinlock *lk)
 {
-        printf("In lock \n");
+        printf("In unlock \n");
     if(!holding(lk))
           {panic("release");
           assert(0);}
