@@ -3,7 +3,7 @@
 
 static spinlock init_lk;
 static spinlock alloc_lk;
-static spinlock head_lk;
+//static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 static void pmm_init() {
