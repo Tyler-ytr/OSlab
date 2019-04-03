@@ -36,9 +36,9 @@ static void hello() {
 
 static void os_run() {
 //spinlock *lk=NULL;
- spinlock * lk=&os_lk;
-  initlock(lk,NULL);
-  lock(lk);
+ //spinlock * lk=&os_lk;
+  //initlock(lk,NULL);
+  //lock(lk);
   //int locked=0;
   //my_spin_lock(locked);
   hello();
@@ -48,7 +48,7 @@ static void os_run() {
  // p=pmm->alloc(1000);
   //printf("p:0x%x\n",p);
   //my_spin_unlock(locked);
-  unlock(lk);
+  //unlock(lk);
   _intr_write(1);
   while (1) {
     _yield();
