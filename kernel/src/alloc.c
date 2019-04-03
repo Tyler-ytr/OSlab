@@ -70,9 +70,10 @@ static void *kalloc(size_t size) {
   //unlock(h_lk);
 
  // void *ret=NULL;
+  printf("Before lock a;\n");
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
-  printf("In alloc\n");
+  printf("In alloc, after lock a_lk\n");
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num]; 
