@@ -81,12 +81,13 @@ static void *kalloc(size_t size) {
   while(now->next!=head)
   { 
     now=now->next;
+    printf("now: 0x%x\n");
     if(now->flag==0&&now->size>=size)
     {
       success_hint=1;//表示当前的遍历到的节点可以使用
       break;
     }
-  printf("hewe");
+ // printf("hewe");
   }
   printf("hewe");
 
