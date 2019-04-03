@@ -74,7 +74,7 @@ void pushcli(void)
 */
     cli();
     int cpu_num=_cpu();
-    ncli[_cpu()]+=1;
+    ncli[cpu_num]+=1;
 }
 
 void popcli(void)
