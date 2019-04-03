@@ -98,5 +98,11 @@ int intena[5];
 //void            panic(char*) __attribute__((noreturn));
 //struct cpu*     mycpu(void);
 
+
 #define panic printf
+
+
+//一堆spin_lock
+spinlock init_lk;
+spinlock os_lk;
 #endif

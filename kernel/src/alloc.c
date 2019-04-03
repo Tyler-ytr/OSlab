@@ -6,7 +6,6 @@ static uintptr_t pm_start, pm_end;
 static void pmm_init() {
   //pthread_t init_lock=0;
   //my_spin_lock(init_lock);
-  spinlock init_lk;
   spinlock*lk=&init_lk;
   initlock(lk,NULL);
   lock(lk);

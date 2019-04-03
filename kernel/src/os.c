@@ -35,7 +35,6 @@ static void hello() {
 
 static void os_run() {
 
- spinlock os_lk;
  spinlock * lk=&os_lk;
   initlock(lk,NULL);
   lock(lk);
