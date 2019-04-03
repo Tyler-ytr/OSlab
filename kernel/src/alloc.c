@@ -76,7 +76,7 @@ static void *kalloc(size_t size) {
       break;
     }
   }
-
+/*
   if(size<4028)
   {
     while(now->next!=head)
@@ -85,7 +85,7 @@ static void *kalloc(size_t size) {
     }
     success_hint=0;
   }
-
+*/
   if(success_hint!=1)
   {
     assert(head==now->next);
@@ -117,7 +117,7 @@ static void *kalloc(size_t size) {
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
     
-    if((int)(now->size-size-2*sizeof(_node))>0)
+    if((int)(now->size-size-2*sizeof(_node))>0&&size>4028)
     {
       assert((int)(now->size-size)>sizeof(_node));
       //返回的是now的地址;
