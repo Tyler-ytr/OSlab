@@ -28,7 +28,6 @@ static void pmm_init() {
   unused_space->size=0;
 
   cpu_head[0]=&unused_space[1];
-  cpu_head[1]=&(cpu_head[0])[1];
   cpu_head[0]->next=cpu_head[0];
   cpu_head[0]->prev=cpu_head[0];
   cpu_head[0]->flag=2;
