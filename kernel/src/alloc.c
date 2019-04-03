@@ -76,16 +76,7 @@ static void *kalloc(size_t size) {
       break;
     }
   }
-/*
-  if(size<4028)
-  {
-    while(now->next!=head)
-    {
-      now=now->next;
-    }
-    success_hint=0;
-  }
-*/
+
   if(success_hint!=1)
   {
     assert(head==now->next);
