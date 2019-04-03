@@ -209,6 +209,7 @@ static void kfree(void *ptr) {
       }
       if(success_hint==1)
       {
+        printf("free :0x%x",ptr);
         now->flag=0;
 
       }
