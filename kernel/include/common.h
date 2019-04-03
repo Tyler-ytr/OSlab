@@ -36,13 +36,15 @@ typedef struct Spinlock{
   int locked;
   int cpu;
 }spinlock;
+typedef unsigned int   uint;
 
 
 extern void unlock(struct Spinlock *lk);
 extern void initlock(struct Spinlock *lk,char *name);
 extern void lock(struct Spinlock *lk);
 
-static inline uint
+
+static inline unsigned int
 readeflags(void)
 {
   uint eflags;
