@@ -123,7 +123,7 @@ getcallerpcs(void *v, uint pcs[])
                 pcs[i] = 0;
 
 }
-*/
+*//*
 int
 holding(struct Spinlock *lock)
 {
@@ -134,7 +134,7 @@ holding(struct Spinlock *lock)
             return r;
 
 }
-
+*/
 
 void lock(struct Spinlock *lk)
 {     lk->cpu = _cpu();
