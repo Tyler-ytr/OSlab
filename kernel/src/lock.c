@@ -15,13 +15,14 @@ asm volatile ("lock xchgl %0, %1":
     "+m"(*addr), "=a"(result) : "1"(newval) : "cc");
 return result; 
 }
-/*
+
 
 intptr_t my_spin_lock(intptr_t locked)
 {
 
   intptr_t value=1;
   //printf("I am here");
+  cli();
   while (1)
   {
     printf("old:%d\n",value);
@@ -38,12 +39,15 @@ intptr_t my_spin_lock(intptr_t locked)
 
 intptr_t my_spin_unlock(intptr_t locked)
 {
+  
   printf("I am in unlock\n");
  my_atomic_xchg(&locked, 0);
+ sti();
  return 0;
 }
-*/
 
+
+/*
 void initlock(struct Spinlock *lk,char *name)
 {
   lk->name=name;
@@ -150,7 +154,7 @@ void unlock(struct Spinlock *lk)
 }
 
 
-
+*/
 
 
 
