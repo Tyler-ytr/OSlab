@@ -210,6 +210,8 @@ static void kfree(void *ptr) {
       if(success_hint==1)
       {
         printf("free :0x%x",ptr);
+        if(now->flag==2)
+        assert(0);
         now->flag=0;
 
       }
