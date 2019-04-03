@@ -179,7 +179,7 @@ void unlock(struct Spinlock *lk)
                           // not be atomic. A real OS would use C atomics here.
                         //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
           xchg(&lk->locked, 0) ;
-                               popcli();
+                               popcli(lk->cpu);
                 lk->pcs[0] = 0;
         lk->cpu = 0;                
           
