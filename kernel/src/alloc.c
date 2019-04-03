@@ -92,7 +92,7 @@ static void *kalloc(size_t size) {
   { 
     //printf("now: 0x%x\n");
     now=now->next;
-    printf("now: 0x%x\n");
+    //printf("now: 0x%x\n");
     assert(now!=0);
     if(now->flag==0&&now->size>=size)
     {
@@ -101,12 +101,12 @@ static void *kalloc(size_t size) {
     }
  // printf("hewe");
   }
-  printf("hewe");
+//  printf("hewe");
 
   if(success_hint!=1)
   {
-    printf("cpu_num :%d",_cpu());
-    printf("success: %d\n",success_hint);
+//    printf("cpu_num :%d",_cpu());
+  //  printf("success: %d\n",success_hint);
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
     new->next=now->next;
@@ -118,7 +118,7 @@ static void *kalloc(size_t size) {
     
     now->next=new;
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
-    printf("unused_space->addr: 0x%x\n",unused_space->addr);
+//    printf("unused_space->addr: 0x%x\n",unused_space->addr);
 
     assert(now->next->prev==now);
     assert(new->next->prev==new);
@@ -166,7 +166,7 @@ static void *kalloc(size_t size) {
     }
   }
   }
-  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
+//  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret!=NULL);
   unlock(a_lk);
   return ret;
