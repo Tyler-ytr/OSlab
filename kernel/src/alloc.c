@@ -166,7 +166,7 @@ static void *kalloc(size_t size) {
     }
   }
   }
-  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
+  //printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret!=NULL);
   unlock(a_lk);
   return ret;
@@ -174,15 +174,18 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
 // free 主要要注意合并节点的问题
+  spinlock*a_lk=&alloc_lk;
+  lock(a_lk);
 
 
 
 
 
-;
 
 
 
+
+  unlock(a_lk);
 
 
 
