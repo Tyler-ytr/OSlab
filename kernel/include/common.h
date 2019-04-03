@@ -13,7 +13,7 @@ typedef struct _LIST_for_alloc
   struct _LIST_for_alloc *next;
   struct _LIST_for_alloc *prev;
   void * addr;
-  int flag;//0,1 用来标示这块用了没,2表示这是head;
+  int flag;//0,1 用来标示这块用了没,2表示这是head,3表示是unused_space;
   int size;// 单位是byte
 }_node,*_list;
 /*
@@ -26,7 +26,8 @@ typedef struct BOUND{
 }bound;// 我准备在堆区动态的建立存放链表,bound用来指这块地方的边界以及正在使用的链表的位置；
 *///废弃这个设计,
 //|head|size|pnode1|size|.....
-
+_list cpu_head[4];
+_list unused_space;
 _list head;
 void* max;
 //_node test;
@@ -103,6 +104,6 @@ int intena[5];
 
 
 //一堆spin_lock
-spinlock init_lk;
+//spinlock init_lk;
 //spinlock os_lk;
 #endif

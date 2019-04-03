@@ -1,6 +1,7 @@
 #include <common.h>
 #include <klib.h>
 
+spinlock init_lk;
 static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 static void pmm_init() {
@@ -14,10 +15,10 @@ static void pmm_init() {
   pm_end   = (uintptr_t)_heap.end;
   printf("end:0x%x\n",pm_end);
   //start=pm_start;
-  max=(void *)pm_start;
+  //max=(void *)pm_start;
   //bound*b1=max;
   //b1[0].left_bound=&b1[1];
-  
+ /* 
   head=(void*)pm_start;
   //b1[0].using_one=&head[1];
   //b1[0].right_bound=&head[17];
@@ -29,7 +30,19 @@ static void pmm_init() {
   head->prev=head;
   head->addr=&head[1];
   head->size=0;
-  head->flag=2;
+  head->flag=2;*/
+
+  unused_space=(void *)pm_start;
+  unused_space->next=unused_space;
+  unused_space->prev=unused_space;
+  unused_flag=3;
+  unused_size=0;
+
+  cpu_head[0]=&unused_space[1];
+  printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",&cpu_head[0],&cpu_head[1],&cpu_head[2]);
+
+
+
   /*void* result=(void *)&head[0]-(head->num-1)*sizeof(_node)-sizeof(bound);
   printf("result:0x%x bound_area:0x%x\n",result,sizeof(bound));*/
   printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
