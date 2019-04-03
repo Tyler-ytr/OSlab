@@ -67,16 +67,17 @@ void pushcli(void)
       eflags = readeflags();
         cli();
         int cpu_num=_cpu();
-        //printf("in pushcli of cpu :%d",cpu_num);
+        printf("in pushcli of cpu :%d",cpu_num);
           if(ncli[cpu_num] == 0)
                 intena[cpu_num] = eflags & FL_IF;
             ncli[cpu_num] += 1;
-          //  printf(" ncli: %d\n",ncli[cpu_num]);
+            printf(" ncli: %d\n",ncli[cpu_num]);
 
 }
 
 void popcli(void)
 {
+        printf("in popcli of cpu :%d",cpu_num);
     if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
           assert(0);}
