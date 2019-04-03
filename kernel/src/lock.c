@@ -83,7 +83,7 @@ void popcli(void)
         printf("in popcli of cpu :%d",_cpu());
          // printf("in popcli of cpu :%d ncli before -1:%d \n",cpu_num,ncli[cpu_num]);
       if(--ncli[_cpu()] < 0)
-            {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
+            {panic("popcli, cpu: %d ncli: %d\n",_cpu(),ncli[_cpu()]);
             assert(0);}
           printf("in popcli of cpu :%d ncli before :%d \n",_cpu(),ncli[_cpu()]);
         if(ncli[_cpu()] == 0 && intena[_cpu()])
