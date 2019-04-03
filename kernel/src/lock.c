@@ -75,10 +75,12 @@ void pushcli(void)
 void popcli(void)
 {
     if(readeflags()&FL_IF)
-          panic("popcli - interruptible");
+          {panic("popcli - interruptible");
+          assert(0);}
           int cpu_num=_cpu();
       if(--ncli[cpu_num] < 0)
-            panic("popcli");
+            {panic("popcli");
+            assert(0);}
         if(ncli[cpu_num] == 0 && intena[cpu_num])
               sti();
 
