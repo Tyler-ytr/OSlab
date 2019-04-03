@@ -118,7 +118,8 @@ void lock(struct Spinlock *lk)
 {
     pushcli(); // disable interrupts to avoid deadlock.
       if(holding(lk))
-            panic("acquire");
+            {panic("acquire");
+            assert(0);}
 
         // The xchg is atomic.
            while(xchg(&lk->locked, 1) != 0)
@@ -137,7 +138,8 @@ void lock(struct Spinlock *lk)
 void unlock(struct Spinlock *lk)
 {
     if(!holding(lk))
-          panic("release");
+          {panic("release");
+          assert(0);}
 
       lk->pcs[0] = 0;
         lk->cpu = 0;
