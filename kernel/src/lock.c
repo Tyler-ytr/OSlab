@@ -62,7 +62,7 @@ void initlock(struct Spinlock *lk,char *name)
 
 void pushcli(void)
 {
-    int eflags;
+    /*int eflags;
 
       eflags = readeflags();
         cli();
@@ -71,12 +71,14 @@ void pushcli(void)
                 intena[_cpu()] = eflags & FL_IF;
             ncli[_cpu()] += 1;
             printf(" ncli: %d\n",ncli[_cpu()]);
-
+*/
+    cli();
+    ncli[_cpu()]+=1;
 }
 
 void popcli(void)
 {
-    if(readeflags()&FL_IF)
+   /* if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
           assert(0);}
           
@@ -88,8 +90,17 @@ void popcli(void)
           printf("in popcli of cpu :%d ncli before :%d \n",_cpu(),ncli[_cpu()]);
         if(ncli[_cpu()] == 0 && intena[_cpu()])
               sti();
+*/
+
+  ncli[_cpu]--;
+  assert(ncli[_cpu]<0);
+  if(ncli[_cpu()]==0)
+  {
+    sti();
+  }
 
 }
+/*
 void
 getcallerpcs(void *v, uint pcs[])
 {
@@ -108,7 +119,7 @@ getcallerpcs(void *v, uint pcs[])
                 pcs[i] = 0;
 
 }
-
+*/
 int
 holding(struct Spinlock *lock)
 {
