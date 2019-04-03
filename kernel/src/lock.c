@@ -94,7 +94,7 @@ void popcli(void)
 */
   int cpu_num=_cpu();
   ncli[cpu_num]--;
-  assert(ncli[cpu_num]<0);
+  assert(ncli[cpu_num]>=0);
   if(ncli[_cpu()]==0)
   {
     sti();
