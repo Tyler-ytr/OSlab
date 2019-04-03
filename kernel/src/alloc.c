@@ -89,7 +89,7 @@ static void *kalloc(size_t size) {
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
     new->next=now->next;
-    now->next->prev=new;
+    //now->next->prev=new;//now->next是head,head 的 prev是自身
     new->prev=now;
     new->addr=&new[1];
     new->flag=1;
@@ -117,6 +117,7 @@ static void *kalloc(size_t size) {
       assert(&new[1]+size==now->addr+size);
     
       new->next=now->next;
+      
       now->next->prev=new;
       new->prev=now;
       new->addr=&new[1];
