@@ -70,7 +70,7 @@ void pushcli(void)
           if(ncli[cpu_num] == 0)
                 intena[cpu_num] = eflags & FL_IF;
             ncli[cpu_num] += 1;
-            printf(" ncli: %d",ncli[cpu_num]);
+            printf(" ncli: %d\n",ncli[cpu_num]);
 
 }
 
