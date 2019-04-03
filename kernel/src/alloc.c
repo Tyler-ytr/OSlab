@@ -51,33 +51,9 @@ static void pmm_init() {
 }
 
 static void *kalloc(size_t size) {
- //pthread_t alloc_lock=0; 
- //my_spin_lock(alloc_lock);
-/* printf("start1: 0x%x",start);
- start+=size;
- printf("start2: 0x%x",start);
- void *ret=&start; 
- printf(" ret:0x%x 0x%x\n",ret,*(int *)ret);
- //my_spin_unlock(alloc_lock);
-  */
 
- // pthread_t alloc_lock=0;
-//  my_spin_lock(alloc_lock);
-
-
-  //我觉得为了防止同时使用表头,应该锁住它
-
-//  spinlock *h_lk=&head_lk;
-  //lock(h_lk);
-  //int cpu_num=_cpu();
-  //_list head=cpu_head[cpu_num];
-  //_list now=cpu_head[cpu_num];  
-  //unlock(h_lk);
-
- // void *ret=NULL;
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
-  //printf("In alloc, after lock a_lk\n");
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num]; 
@@ -99,14 +75,19 @@ static void *kalloc(size_t size) {
       success_hint=1;//表示当前的遍历到的节点可以使用
       break;
     }
- // printf("hewe");
   }
-//  printf("hewe");
+
+  if(size<4028)
+  {
+    while(now->next!=head)
+    {
+      now=now->next;
+    }
+    success_hint=0;
+  }
 
   if(success_hint!=1)
   {
-//    printf("cpu_num :%d",_cpu());
-  //  printf("success: %d\n",success_hint);
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
   
@@ -135,6 +116,7 @@ static void *kalloc(size_t size) {
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
+    
     if((int)(now->size-size-2*sizeof(_node))>0)
     {
       assert((int)(now->size-size)>sizeof(_node));
