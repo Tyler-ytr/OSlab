@@ -1,5 +1,6 @@
 #include <common.h>
 #include <klib.h>
+static inline spinlock os_lk;
 
 void test_from_yzy(){
       void *space[100];
@@ -34,8 +35,8 @@ static void hello() {
 }
 
 static void os_run() {
-spinlock *lk=NULL;
- //spinlock * lk=&os_lk;
+//spinlock *lk=NULL;
+ spinlock * lk=&os_lk;
   initlock(lk,NULL);
   lock(lk);
   //int locked=0;

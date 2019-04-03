@@ -104,5 +104,5 @@ int intena[5];
 
 //一堆spin_lock
 spinlock init_lk;
-spinlock os_lk;
+//spinlock os_lk;
 #endif
