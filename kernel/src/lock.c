@@ -73,7 +73,7 @@ void pushcli(int cpu_num)
             printf(" ncli: %d\n",ncli[_cpu()]);
 */
     cli();
-    printf("push ncli: cpu %d ncli[_cpu]: %d\n",_cpu(),ncli[(int)_cpu()]);
+   // printf("push ncli: cpu %d ncli[_cpu]: %d\n",_cpu(),ncli[(int)_cpu()]);
    // int cpu_num=_cpu();
     ncli[cpu_num]+=1;
 }
@@ -95,7 +95,7 @@ void popcli(int cpu_num)
 */
  // int cpu_num=_cpu();
   ncli[cpu_num]--;
-    printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
+    //printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
   assert(ncli[cpu_num]>=0);
   if(ncli[_cpu()]==0)
   {
@@ -160,7 +160,7 @@ void lock(struct Spinlock *lk)
 }
 void unlock(struct Spinlock *lk)
 {
-        printf("In unlock \n");
+     //   printf("In unlock \n");
 /*    if(!holding(lk))
           {panic("release");
           assert(0);}
