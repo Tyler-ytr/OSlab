@@ -8,7 +8,7 @@ static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 static void pmm_init() {
   spinlock*lk=&init_lk;
-  initlock(lk,NULL);
+  initlock(lk,"lk");
   lock(lk);
 
   spinlock *a_lk=&alloc_lk;
