@@ -176,7 +176,7 @@ void unlock(struct Spinlock *lk)
                          // This code can't use a C assignment, since it might
                           // not be atomic. A real OS would use C atomics here.
                         //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
-          xchg(&lk->locked, 0) 
+          xchg(&lk->locked, 0) ;
                                popcli();
           
 }
