@@ -70,7 +70,6 @@ static void *kalloc(size_t size) {
   //unlock(h_lk);
 
  // void *ret=NULL;
-  printf("Before lock a;\n");
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
   printf("In alloc, after lock a_lk\n");
