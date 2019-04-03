@@ -80,6 +80,11 @@ static void *kalloc(size_t size) {
   _list now=cpu_head[cpu_num]; 
   void *ret=NULL;
   int success_hint=0;
+  if(size==0)
+  {
+    ret=unused_space->addr;
+  }
+  else{
   while(now->next!=head)
   { 
     now=now->next;
@@ -154,87 +159,11 @@ static void *kalloc(size_t size) {
       ret=now->addr;
     }
   }
+  }
   printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret!=NULL);
   unlock(a_lk);
   return ret;
-  //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
-  //双向链表,注意更新 node 的 next,prev,num,si;
-  //注意更新void* max;
-  //尝试一下合并
-
-/*
-  _list now=head;
-  while(now->next!=head)
-  {
-    now=now->next;
-    if(now->flag==0&&now->size>=size)
-    {
-      break;
-    }
-  }
-//退出来的时候:now:1.可能是不符合要求的尾节点;2.可能是符合要求的尾节点;3.可能是符合要求的中间节点
-
-  if(now->size<size&&now->next==head)
-  {
-      assert(head==now->next);
-      _list new=(void *)(&now[1]+now->size);
-      now->next=new;
-      new[0].prev=now;
-      new[0].next=head;
-      new[0].addr=&new[1];
-      printf("new [1]_area:0x%x",&new[1]);
-      new[0].flag=1;
-      new[0].size=size;
-      ret=new[0].addr;
-      assert(new->prev->next==new);
-      printf("new:area 0x%x",&new[0]);
-
-  }
-  else{
-    //尝试一下拆分节点:
-    //int minsize=sizeof(_node);
-    printf("result one before if : %d \n",now->size-size-sizeof(_node));
-    if((int)(now->size-size-sizeof(_node))>0)//可以拆分节点;
-    {
-      printf("now->prev;0x%x now_addr0x%x now->prev->next:0x%x\n",now->prev,&now[0],now->prev->next);
-      _list new=(void *)(&now[1]+size);
-      printf("拆分中:now_area: 0x%x, now_size: %d size :%d sizeofnode:%d,new_area:0x%x\n",&now[0],now->size,size,sizeof(_node),&new[0]);
-
-      new->prev=now;
-      assert(new[0].prev==new->prev);
-      new->next=now->next;
-//      new->prev=now;
-
-      new->addr=&new[1];
-      new->size=now->size-size-sizeof(_node);
-      new->flag=0;
-      printf("new_size:%d",new->size);
-      assert(new->size>=0);
-      now->next=new;
-      printf("now->prev;0x%x now_addr0x%x now->prev->next:0x%x\n",now->prev,&now[0],now->prev->next);
-      now->size=size;
-      now->flag=1;
-      ret=now[0].addr;
-      assert(new->prev->next==new);
-      assert(now->prev->next==now);
-    }else//不够拆分节点;
-    {
-      now->flag=1;
-      ret=now[0].addr;
-    }
-    
-  }
-
-  if(head->size!=0)
-  {
-    printf("BUG: head->size has changed!\n");
-      assert(0);
-  }
-  assert((int)ret<pm_end);
-  printf("ret:0x%x",ret);
-// my_spin_unlock(alloc_lock);
-  return ret;*/
 }
 
 static void kfree(void *ptr) {
