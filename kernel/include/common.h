@@ -80,6 +80,7 @@ xchg(volatile uint *addr, uint newval)
                "cc");
   return result;
 }
+/*
 struct cpu {
   unsigned char  apicid;                // Local APIC ID
   struct context *scheduler;   // swtch() here to enter scheduler
@@ -89,10 +90,13 @@ struct cpu {
   int ncli;                    // Depth of pushcli nesting.
   int intena;                  // Were interrupts enabled before pushcli?
   struct proc *proc;           // The process running on this cpu or null
-};
+};*/
+
+int ncli[5];
+int intena[5];
 #define KERNBASE 0x80000000  
 //void            panic(char*) __attribute__((noreturn));
-struct cpu*     mycpu(void);
+//struct cpu*     mycpu(void);
 
 #define panic printf
 #endif
