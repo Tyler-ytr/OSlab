@@ -31,6 +31,16 @@ _list head;
 void* max;
 //_node test;
 
+typedef struct Spinlock{
+  char *name;
+  int locked;
+  int cpu;
+}spinlock;
+
+
+extern void unlock(struct Spinlock *lk);
+extern void initlock(struct Spinlock *lk,char *name);
+extern void lock(struct Spinlock *lk);
 
 
 
