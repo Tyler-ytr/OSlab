@@ -25,6 +25,89 @@ void test_from_yzy(){
 
 }
 
+
+static void test() {
+  hello();
+#define TEST_SIZE 128
+#define FOR(var, start, end) \
+  for(int var = start; var < end; i++)
+#define ALLOC(integer) \
+  do { \
+    FOR(i, 0, TEST_SIZE){ \
+      int tmp = (rand() % 128) * 1024; \
+      if(arr[i] == NULL) { \
+        arr[i] = pmm->alloc(tmp); \
+        arr[i][0] = i + integer * 1000; \
+      } \
+      assert(arr[i] != NULL); \
+    } \
+  }while(0) 
+#define FREE() \
+  do{ \
+    FOR(i, 0, TEST_SIZE){ \
+      assert(arr[i]); \
+      if(rand() % 2){ \
+        pmm->free(arr[i]); \
+        arr[i] = NULL; \
+      } \
+    } \
+  }while(0)
+#define SHOW() \
+  do { \
+    printf("\nCompare: \n"); \
+    FOR(i, 0, TEST_SIZE){ \
+      if(arr[i]) \
+       printf("arr[%3d][0]=%4d \t", i, arr[i][0]); \
+      else \
+       printf("arr[%3d][0]=miss \t", i); \
+      if(i % 3 == 2) \
+        printf("\n"); \
+    } \
+    printf("\n"); \
+  }while(0)
+#define ALLFREE() \
+  do{ \
+    FOR(i, 0, TEST_SIZE){ \
+      if(arr[i]){ \
+        pmm->free(arr[i]); \
+        arr[i] = NULL; \
+      } \
+    } \
+  }while(0)
+
+  extern void extern_free_print();
+  int *arr[TEST_SIZE]={};
+  extern_free_print(0);
+  ALLOC(0);
+  //SHOW();
+  //extern_free_print();
+  FREE();
+  //SHOW();
+  //extern_free_print();
+  ALLOC(1);
+  //SHOW();
+  extern_free_print(1);
+  FREE();
+  //SHOW();
+  extern_free_print(2);
+  ALLOC(2);
+  //SHOW();
+  //extern_free_print();
+  FREE();
+  ALLOC(3);
+  //SHOW();
+  ALLFREE();
+  //SHOW();
+  extern_free_print(3);
+
+#undef SHOW
+#undef FREE
+#undef ALLOC
+#undef FOR
+#undef TEST_SIZE
+}
+
+
 static void os_init() {
   pmm->init();
 }
@@ -44,7 +127,8 @@ static void os_run() {
   //int locked=0;
   //my_spin_lock(locked);
   //hello();
-  test_from_yzy();
+  //test_from_yzy();
+  test();
   //void *p=NULL;
   
  // p=pmm->alloc(1000);
