@@ -45,8 +45,8 @@ static void *kalloc(size_t size) {
  //my_spin_unlock(alloc_lock);
   */
 
-  pthread_t alloc_lock=0;
-  my_spin_lock(alloc_lock);
+ // pthread_t alloc_lock=0;
+//  my_spin_lock(alloc_lock);
   void *ret=NULL;
 
 
@@ -125,22 +125,22 @@ static void *kalloc(size_t size) {
   }
   assert((int)ret<pm_end);
   printf("ret:0x%x",ret);
-  my_spin_unlock(alloc_lock);
+// my_spin_unlock(alloc_lock);
   return ret;
 }
 
 static void kfree(void *ptr) {
 // free 主要要注意合并节点的问题
 
-  pthread_t kfree_lock=0;
-  my_spin_lock(kfree_lock);
+ // pthread_t kfree_lock=0;
+ // my_spin_lock(kfree_lock);
 
   //从头结点开始便利
 
 
 
-
-  my_spin_unlock(kfree_lock);
+;
+ // my_spin_unlock(kfree_lock);
 
 
 
