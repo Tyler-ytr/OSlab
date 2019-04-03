@@ -6,7 +6,7 @@
 #include "x86.h"
 //#include "memlayout.h"
 //#include "mmu.h"
-#include "proc.h"
+//#include "proc.h"
 //#include "spinlock.h"
 
 intptr_t my_atomic_xchg(volatile intptr_t *addr, intptr_t newval) {
