@@ -66,6 +66,7 @@ void pushcli(void)
       eflags = readeflags();
         cli();
         int cpu_num=_cpu();
+        printf("in pushcli of cpu :%d\n",cpu_num);
           if(ncli[cpu_num] == 0)
                 intena[cpu_num] = eflags & FL_IF;
             ncli[cpu_num] += 1;
@@ -79,7 +80,7 @@ void popcli(void)
           assert(0);}
           int cpu_num=_cpu();
       if(--ncli[cpu_num] < 0)
-            {panic("popcli, cpu: 0x%x\n",cpu_num);
+            {panic("popcli, cpu: %d\n",cpu_num);
             assert(0);}
         if(ncli[cpu_num] == 0 && intena[cpu_num])
               sti();
