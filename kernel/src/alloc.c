@@ -39,13 +39,13 @@ static void pmm_init() {
   unused_space->size=0;
 
   cpu_head[0]=&unused_space[1];
-  printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",&cpu_head[0],&cpu_head[1],&cpu_head[2]);
+  printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",cpu_head[0],cpu_head[1],&cpu_head[2]);
 
 
 
   /*void* result=(void *)&head[0]-(head->num-1)*sizeof(_node)-sizeof(bound);
   printf("result:0x%x bound_area:0x%x\n",result,sizeof(bound));*/
-  printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
+  //printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
  // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
 //  my_spin_unlock(init_lock);
   unlock(lk);
