@@ -41,7 +41,7 @@ static void os_run() {
   int locked=0;
   my_spin_lock(locked);
   hello();
-  //test_from_yzy();
+  test_from_yzy();
   //void *p=NULL;
   
  // p=pmm->alloc(1000);
