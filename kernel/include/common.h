@@ -31,11 +31,14 @@ _list head;
 void* max;
 //_node test;
 
+/*
 typedef struct Spinlock{
   char *name;
   int locked;
   int cpu;
 }spinlock;
+*/
+
 typedef unsigned int   uint;
 
 
