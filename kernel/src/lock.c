@@ -80,7 +80,7 @@ void popcli(void)
           {panic("popcli - interruptible");
           assert(0);}
           int cpu_num=_cpu();
-          printf("in popcli of cpu :%d",cpu_num);
+          printf("in popcli of cpu :%d\n",cpu_num);
       if(--ncli[cpu_num] < 0)
             {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             assert(0);}
