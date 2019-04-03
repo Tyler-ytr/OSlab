@@ -80,14 +80,14 @@ void popcli(void)
     if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
           assert(0);}
-          int cpu_num=_cpu();
+          
         printf("in popcli of cpu :%d",cpu_num);
          // printf("in popcli of cpu :%d ncli before -1:%d \n",cpu_num,ncli[cpu_num]);
-      if(--ncli[cpu_num] < 0)
+      if(--ncli[_cpu()] < 0)
             {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             assert(0);}
           printf("in popcli of cpu :%d ncli before :%d \n",cpu_num,ncli[cpu_num]);
-        if(ncli[cpu_num] == 0 && intena[cpu_num])
+        if(ncli[_cpu()] == 0 && intena[cpu_num])
               sti();
 
 }
