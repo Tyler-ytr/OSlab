@@ -114,6 +114,7 @@ static void *kalloc(size_t size) {
     assert(new->addr!=NULL);
     assert(unused_space->addr!=new);
     ret=new->addr;
+    printf("OVER!!!!!!\n")
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
