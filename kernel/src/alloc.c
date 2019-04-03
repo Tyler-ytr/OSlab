@@ -29,7 +29,7 @@ static void pmm_init() {
 
   cpu_head[0]=&unused_space[1];
   cpu_head[1]=&(cpu_head[0])[1];
-  for (int i=1;i<=4;i++)
+  for (int i=0;i<=4;i++)
   {
     cpu_head[i]=&(cpu_head[0])[i];
     cpu_head[i]->next=cpu_head[i];
