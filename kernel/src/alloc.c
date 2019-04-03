@@ -85,11 +85,12 @@ static void *kalloc(size_t size) {
 
   if(success_hint!=1)
   {
+    printf("cpu_num :%d",_cpu());
     printf("success: %d\n",success_hint);
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
     new->next=now->next;
-    //now->next->prev=new;//now->next是head,head 的 prev是自身
+    now->next->prev=new;
     new->prev=now;
     new->addr=&new[1];
     new->flag=1;
