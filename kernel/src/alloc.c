@@ -119,6 +119,8 @@ static void *kalloc(size_t size) {
     assert(new->next->prev==new);
     assert(now->prev->next==now);
     assert(new->prev->next==new);
+    assert(now->next!=NULL);
+    assert(new->next!=NULL);
 
     assert(new->addr!=NULL);
     assert(unused_space->addr!=new);
