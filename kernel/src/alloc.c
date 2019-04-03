@@ -87,6 +87,7 @@ static void *kalloc(size_t size) {
   else{
   while(now->next!=head)
   { 
+    printf("now: 0x%x\n");
     now=now->next;
     printf("now: 0x%x\n");
     assert(now!=NULL);
