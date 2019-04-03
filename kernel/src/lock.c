@@ -9,13 +9,14 @@
 //#include "proc.h"
 //#include "spinlock.h"
 
+/*
 intptr_t xchg(volatile intptr_t *addr, intptr_t newval) {
   intptr_t result;
 asm volatile ("lock xchgl %0, %1":
     "+m"(*addr), "=a"(result) : "1"(newval) : "cc");
 return result; 
 }
-
+*/
 /*
 intptr_t my_spin_lock(intptr_t locked)
 {
