@@ -74,7 +74,6 @@ static void *kalloc(size_t size) {
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
   printf("In alloc, after lock a_lk\n");
-  assert(size==0);
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num]; 
