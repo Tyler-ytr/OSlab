@@ -101,6 +101,7 @@ static void *kalloc(size_t size) {
     
     now->next=new;
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
+    printf("unused_space->addr: 0x%x\n",unused_space->addr);
 
     assert(now->next->prev==now);
     assert(new->next->prev==new);
