@@ -107,7 +107,7 @@ holding(struct Spinlock *lock)
 {
     int r;
       pushcli();
-        r = lock->locked && lock->cpu == _cpu();
+        r = lock->locked && lock->cpu == (int)_cpu();
           popcli();
             return r;
 
