@@ -217,7 +217,6 @@ static void kfree(void *ptr) {
         if(now->flag==2)
         assert(0);
         now->flag=0;
-
       }
   }
   unlock(a_lk);
