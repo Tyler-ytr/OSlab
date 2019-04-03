@@ -21,6 +21,7 @@ void test_from_yzy(){
                     pmm->free(space[i]);
                         
           }
+          printf("success!!!!!!1");
 
 }
 
