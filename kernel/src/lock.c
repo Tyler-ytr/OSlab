@@ -81,7 +81,7 @@ void popcli(void)
           assert(0);}
           int cpu_num=_cpu();
       if(--ncli[cpu_num] < 0)
-            {panic("popcli, cpu: %d\n",cpu_num);
+            {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             assert(0);}
         if(ncli[cpu_num] == 0 && intena[cpu_num])
               sti();
