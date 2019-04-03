@@ -86,6 +86,7 @@ static void *kalloc(size_t size) {
       success_hint=1;//表示当前的遍历到的节点可以使用
       break;
     }
+  printf("hewe");
   }
   printf("hewe");
 
