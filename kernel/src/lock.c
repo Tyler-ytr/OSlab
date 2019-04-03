@@ -147,7 +147,7 @@ void lock(struct Spinlock *lk)
            while(xchg(&lk->locked, 1) != 0)
                ;
         
-        printf("In lock \n");
+       // printf("In lock \n");
                  // Tell the C compiler and the processor to not move loads or stores
                    // past this point, to ensure that the critical section's memory
                      // references happen after the lock is acquired.
