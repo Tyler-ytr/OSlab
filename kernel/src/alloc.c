@@ -2,35 +2,24 @@
 #include <klib.h>
 
 spinlock init_lk;
+spinlock alloc_lk;
+spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 //static uintptr_t start;
 static void pmm_init() {
-  //pthread_t init_lock=0;
-  //my_spin_lock(init_lock);
   spinlock*lk=&init_lk;
   initlock(lk,NULL);
   lock(lk);
+
+  spinlock *a_lk=&alloc_lk;
+   spinlock *h_lk=&head_lk;
+    initlock(a_lk);
+    initlock(h_lk);
+
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
   printf("end:0x%x\n",pm_end);
-  //start=pm_start;
-  //max=(void *)pm_start;
-  //bound*b1=max;
-  //b1[0].left_bound=&b1[1];
- /* 
-  head=(void*)pm_start;
-  //b1[0].using_one=&head[1];
-  //b1[0].right_bound=&head[17];
-
- // printf("\nb1:0x%x,b1[0]:0x%x,b1[0].left_bound:0x%x;b1[0].using_one:0x%x,b1[1]:0x%x\n",&b1,&b1[0],b1[0].left_bound,b1[0].using_one,&b1[1]);
-
-
-  head->next=head;
-  head->prev=head;
-  head->addr=&head[1];
-  head->size=0;
-  head->flag=2;*/
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
@@ -52,15 +41,6 @@ static void pmm_init() {
   printf("cpu_area: 0x%x, 1: 0x%x ; 4: 0x%x \n",cpu_head[0],cpu_head[1],cpu_head[4]);
   unused_space->addr=&(cpu_head[0])[5];
   printf("first_area: 0x%x \n",unused_space->addr);
-
-
-
-
-  /*void* result=(void *)&head[0]-(head->num-1)*sizeof(_node)-sizeof(bound);
-  printf("result:0x%x bound_area:0x%x\n",result,sizeof(bound));*/
-  //printf("head_place:0x%x,head->next：0x%x,head->addr:0x%x\n",&head[0],head->next,head[0].addr);
- // printf("test_place:0x%x,test.next：0x%x",&test,test.next);
-//  my_spin_unlock(init_lock);
   unlock(lk);
 }
 
@@ -77,15 +57,97 @@ static void *kalloc(size_t size) {
 
  // pthread_t alloc_lock=0;
 //  my_spin_lock(alloc_lock);
+
+
+  //我觉得为了防止同时使用表头,应该锁住它
   void *ret=NULL;
 
+  spinlock *h_lk=&head_lk;
+  lock(h_lk);
+  int cpu_num=_cpu();
+  _list head=cpu_head[cpu_num];
+  _list now=cpu_head[cpu_num];  
+  unlock(h_lk);
 
+  spinlock*a_lk=&alloc_lk;
+  lock(a_lk);
+  int success_hint=0;
+  while(now->next!=head)
+  { 
+    now=now->next;
+    if(now->flag==0&&now->size>=size)
+    {
+      success_hint=1;//表示当前的遍历到的节点可以使用
+      break;
+    }
+  }
+
+  if(success_hint!=1)
+  {
+    assert(head==now->next);
+    _list new=(void*)unused_space->addr;//记得更新unused->space;
+    new->next=now->next;
+    now->next->prev=new;
+    new->prev=now;
+    new->addr=&new[1];
+    new->flag=1;
+    new->size=size;
+    
+    now->next=new;
+    unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
+
+    assert(now->next->prev==now);
+    assert(new->next->prev==new);
+    assert(now->prev->next==now);
+    assert(new->prev->next==new);
+
+    assert(new->addr!=NULL);
+    assert(unused_space->addr!=new);
+    ret=new->addr;
+  }
+  else
+  {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
+    if((int)(now->size-size-sizeof(_node))>0)
+    {
+      assert((int)(now->size-size)>sizeof(_node))
+      //返回的是now的地址;
+      _list new=(void *)(now->addr+size);
+      assert(&new[1]+size==now->addr+size);
+    
+      new->next=now->next;
+      now->next->prev=new;
+      new->prev=now;
+      new->addr=&new[1];
+      new->flag=0;
+      new->size=now->size-size;
+
+      now->next=new;
+      now->size=size;
+      now->flag=1;
+      ret=now->addr;
+      assert(now->next->prev==now);
+      assert(new->next->prev==new)
+      assert(now->prev->next==now);
+      assert(new->prev->next==new);
+    }
+      
+    else
+    {
+      now->flag=1;
+      ret=now->addr;
+    }
+  }
+  
+
+
+  unlock(a_lk);
+  return ret;
   //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
   //双向链表,注意更新 node 的 next,prev,num,si;
   //注意更新void* max;
   //尝试一下合并
 
-
+/*
   _list now=head;
   while(now->next!=head)
   {
@@ -156,7 +218,7 @@ static void *kalloc(size_t size) {
   assert((int)ret<pm_end);
   printf("ret:0x%x",ret);
 // my_spin_unlock(alloc_lock);
-  return ret;
+  return ret;*/
 }
 
 static void kfree(void *ptr) {
