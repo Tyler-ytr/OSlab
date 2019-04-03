@@ -39,6 +39,7 @@ static void pmm_init() {
   unused_space->size=0;
 
   cpu_head[0]=&unused_space[1];
+  cpu_head[1]=cpu_head[0]+sizeof(_node);
   printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",cpu_head[0],cpu_head[1],&cpu_head[2]);
 
 
