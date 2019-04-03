@@ -106,6 +106,7 @@ static void *kalloc(size_t size) {
 
     assert(new->addr!=NULL);
     assert(unused_space->addr!=new);
+  printf("cpu :%d ret: 0x%x",cpu_num,ret);
     ret=new->addr;
   }
   else
