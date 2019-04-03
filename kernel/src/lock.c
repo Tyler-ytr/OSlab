@@ -48,14 +48,15 @@ intptr_t my_spin_unlock(intptr_t locked)
 }
 */
 
-
+int ncli[5]={0,0,0,0,0};
+int intena[5]={0,0,0,0,0};
 void initlock(struct Spinlock *lk,char *name)
 {
   lk->name=name;
   lk->locked=0;
   lk->cpu=0;
-  memset(ncli,0,sizeof(ncli));
-  memset(intena,0,sizeof(intena));
+  //memset(ncli,0,sizeof(ncli));
+  //memset(intena,0,sizeof(intena));
 }
 
 
