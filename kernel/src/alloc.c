@@ -144,7 +144,8 @@ static void *kalloc(size_t size) {
     
       new->next=now->next;
       
-      now->next->prev=new;
+     // now->next->prev=new;
+      new->next->prev=new;
       new->prev=now;
       new->addr=&new[1];
       new->flag=0;
