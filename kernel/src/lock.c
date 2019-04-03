@@ -73,6 +73,7 @@ void pushcli(void)
             printf(" ncli: %d\n",ncli[_cpu()]);
 */
     cli();
+    int cpu_num=_cpu();
     ncli[_cpu()]+=1;
 }
 
