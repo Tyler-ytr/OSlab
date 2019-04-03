@@ -27,7 +27,7 @@ void test_from_yzy(){
 
 
 static void test() {
-  hello();
+  //hello();
 #define TEST_SIZE 128
 #define FOR(var, start, end) \
   for(int var = start; var < end; i++)
