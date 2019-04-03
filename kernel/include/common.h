@@ -90,7 +90,8 @@ struct cpu {
   int intena;                  // Were interrupts enabled before pushcli?
   struct proc *proc;           // The process running on this cpu or null
 };
-
+#define KERNBASE 0x80000000  
+void            panic(char*) __attribute__((noreturn));
 struct cpu*     mycpu(void);
 
 #endif
