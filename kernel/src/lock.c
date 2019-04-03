@@ -136,10 +136,10 @@ holding(struct Spinlock *lock)
 void lock(struct Spinlock *lk)
 {
     pushcli(); // disable interrupts to avoid deadlock.
-      if(holding(lk))
+    /*  if(holding(lk))
             {panic("acquire");
             assert(0);}
-
+*/
         // The xchg is atomic.
            while(xchg(&lk->locked, 1) != 0)
                ;
@@ -158,10 +158,10 @@ void lock(struct Spinlock *lk)
 void unlock(struct Spinlock *lk)
 {
         printf("In unlock \n");
-    if(!holding(lk))
+/*    if(!holding(lk))
           {panic("release");
           assert(0);}
-
+*/
       lk->pcs[0] = 0;
         lk->cpu = 0;
 
@@ -170,13 +170,13 @@ void unlock(struct Spinlock *lk)
                // section are visible to other cores before the lock is released.
                  // Both the C compiler and the hardware may re-order loads and
                    // stores; __sync_synchronize() tells them both not to.
-                     __sync_synchronize();
+                     //__sync_synchronize();
           
                        // Release the lock, equivalent to lk->locked = 0.
                          // This code can't use a C assignment, since it might
                           // not be atomic. A real OS would use C atomics here.
-                             asm volatile("movl $0, %0" : "+m" (lk->locked) : );
-          
+                        //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
+          xchg(&lk->locked, 0) 
                                popcli();
           
 }
