@@ -103,6 +103,7 @@ static void *kalloc(size_t size) {
       printf("new_size:%d",new->size);
       assert(new->size>=0);
       now->next=new;
+      printf("now->prev;0x%x now_addr0x%x now->prev->next:0x%x\n",,now->prev,&now[0],now->prev->next);
       now->size=size;
       now->flag=1;
       ret=now[0].addr;
