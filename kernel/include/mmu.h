@@ -1,6 +1,6 @@
 // This file contains definitions for the
 // x86 memory management unit (MMU).
-
+/*
 // Eflags register
 #define FL_IF           0x00000200      // Interrupt Enable
 
@@ -178,4 +178,4 @@ struct gatedesc {
   (gate).off_31_16 = (uint)(off) >> 16;                  \
 }
 
-#endif
+#endif*/
