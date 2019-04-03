@@ -139,7 +139,8 @@ static void *kalloc(size_t size) {
       assert((int)(now->size-size)>sizeof(_node));
       //返回的是now的地址;
       _list new=(void *)(now->addr+size);
-      assert(&new[1]+size==now->addr+size);
+
+      assert(&new[1]-sizeof(_node)==now->addr+size);
     
       new->next=now->next;
       
