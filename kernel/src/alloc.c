@@ -33,6 +33,7 @@ static void pmm_init() {
   {
     cpu_head[i]=&(cpu_head[0])[i];
     cpu_head[i]->next=cpu_head[i];
+    printf("i : %d cpu_head ->next :0x%x",i,cpu_head[i]->next);
     cpu_head[i]->prev=cpu_head[i];
     cpu_head[i]->flag=2;
     cpu_head[i]->size=0;
