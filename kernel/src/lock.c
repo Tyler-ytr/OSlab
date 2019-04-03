@@ -54,8 +54,8 @@ void initlock(struct Spinlock *lk,char *name)
   lk->name=name;
   lk->locked=0;
   lk->cpu=0;
-  memset(ncli,0,sizeof(ncli));
-  memset(intena,0,sizeof(intena));
+  //memset(ncli,0,sizeof(ncli));
+  //memset(intena,0,sizeof(intena));
 }
 
 
@@ -80,8 +80,9 @@ void popcli(void)
           {panic("popcli - interruptible");
           assert(0);}
           int cpu_num=_cpu();
-          printf("in popcli of cpu :%d ncli befor -1:%d \n",cpu_num,ncli[cpu_num]);
+          printf("in popcli of cpu :%d ncli before -1:%d \n",cpu_num,ncli[cpu_num]);
       if(--ncli[cpu_num] < 0)
+            {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             {panic("popcli, cpu: %d ncli: %d\n",cpu_num,ncli[cpu_num]);
             assert(0);}
         if(ncli[cpu_num] == 0 && intena[cpu_num])
