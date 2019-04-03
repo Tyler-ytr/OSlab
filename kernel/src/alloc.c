@@ -138,6 +138,7 @@ static void *kalloc(size_t size) {
       ret=now->addr;
     }
   }
+  printf("cpu :%d ret: 0x%x",cpu_num,ret);
   unlock(a_lk);
   return ret;
   //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
