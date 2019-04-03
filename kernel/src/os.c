@@ -1,6 +1,6 @@
 #include <common.h>
 #include <klib.h>
-static  spinlock os_lk;
+  spinlock os_lk;
 
 void test_from_yzy(){
       void *space[100];
