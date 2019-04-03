@@ -85,6 +85,7 @@ static void *kalloc(size_t size) {
 
   if(success_hint!=1)
   {
+    printf("success: %d\n",success_hint);
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
     new->next=now->next;
