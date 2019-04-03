@@ -148,7 +148,7 @@ void lock(struct Spinlock *lk)
                  // Tell the C compiler and the processor to not move loads or stores
                    // past this point, to ensure that the critical section's memory
                      // references happen after the lock is acquired.
-                       __sync_synchronize();
+                       //__sync_synchronize();
         
                         // Record info about lock acquisition for debugging.
                            lk->cpu = _cpu();
