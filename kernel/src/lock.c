@@ -96,8 +96,10 @@ void popcli(void)
   int cpu_num=_cpu();
   ncli[cpu_num]--;
   assert(ncli[cpu_num]>=0);
+    printf("pop ncli: cpu %d ncli[_cpu]: \n",_cpu(),ncli[(int)_cpu()]);
   if(ncli[_cpu()]==0)
   {
+
     sti();
   }
 
