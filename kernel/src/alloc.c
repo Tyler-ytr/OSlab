@@ -13,8 +13,8 @@ static void pmm_init() {
 
   spinlock *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
-    initlock(a_lk,NULL);
-    initlock(h_lk,NULL);
+    initlock(a_lk,"a_lk");
+    initlock(h_lk,"h_lk");
 
   pm_start = (uintptr_t)_heap.start;
   printf("start:0x%x",pm_start);
