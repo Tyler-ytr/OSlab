@@ -7,7 +7,7 @@ void test_from_yzy(){
           int i;
           for(i=0;i<100;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1));
-                    printf("i: %d space:0x%x\n",i,*(int*)space[i]);
+                    printf("i: %d space:0x%x\n",i,space[i]);
                         
           }
           for(i=0;i<1000;++i){
