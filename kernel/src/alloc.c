@@ -157,6 +157,7 @@ static void *kalloc(size_t size) {
       now->size=size;
       now->flag=1;
       ret=now->addr;
+      new->next->prev=new;
       assert(now->next->prev==now);
 
       if(new->next->prev!=new){
