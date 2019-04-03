@@ -109,7 +109,6 @@ static void *kalloc(size_t size) {
 
     assert(new->addr!=NULL);
     assert(unused_space->addr!=new);
-  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
     ret=new->addr;
   }
   else
@@ -146,9 +145,7 @@ static void *kalloc(size_t size) {
     }
   }
   printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
-  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret!=NULL);
-  printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   unlock(a_lk);
   return ret;
   //首先遍历整个链表,如果存在flag==0并且size足够大的节点,就选它,返回addr，如果没有就创建一个新的节点,此时需要记得更新！！！！;
