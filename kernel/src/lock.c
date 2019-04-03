@@ -60,7 +60,7 @@ void initlock(struct Spinlock *lk,char *name)
 }
 
 
-void pushcli(void)
+void pushcli(int cpu_num)
 {
     /*int eflags;
 
@@ -74,11 +74,11 @@ void pushcli(void)
 */
     cli();
     printf("push ncli: cpu %d ncli[_cpu]: %d\n",_cpu(),ncli[(int)_cpu()]);
-    int cpu_num=_cpu();
+   // int cpu_num=_cpu();
     ncli[cpu_num]+=1;
 }
 
-void popcli(void)
+void popcli(int cpu_num)
 {
    /* if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
@@ -93,7 +93,7 @@ void popcli(void)
         if(ncli[_cpu()] == 0 && intena[_cpu()])
               sti();
 */
-  int cpu_num=_cpu();
+ // int cpu_num=_cpu();
   ncli[cpu_num]--;
   assert(ncli[cpu_num]>=0);
     printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
@@ -137,8 +137,8 @@ holding(struct Spinlock *lock)
 
 
 void lock(struct Spinlock *lk)
-{
-    pushcli(); // disable interrupts to avoid deadlock.
+{     lk->cpu = _cpu();
+    pushcli(lk->cpu); // disable interrupts to avoid deadlock.
     /*  if(holding(lk))
             {panic("acquire");
             assert(0);}
@@ -154,7 +154,7 @@ void lock(struct Spinlock *lk)
                        //__sync_synchronize();
         
                         // Record info about lock acquisition for debugging.
-                           lk->cpu = _cpu();
+                      
                             // getcallerpcs(&lk, lk->pcs);
         
 }
@@ -165,8 +165,7 @@ void unlock(struct Spinlock *lk)
           {panic("release");
           assert(0);}
 */
-      lk->pcs[0] = 0;
-        lk->cpu = 0;
+     
 
           // Tell the C compiler and the processor to not move loads or stores
              // past this point, to ensure that all the stores in the critical
@@ -181,6 +180,8 @@ void unlock(struct Spinlock *lk)
                         //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
           xchg(&lk->locked, 0) ;
                                popcli();
+                lk->pcs[0] = 0;
+        lk->cpu = 0;                
           
 }
 
