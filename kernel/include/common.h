@@ -42,6 +42,12 @@ extern void unlock(struct Spinlock *lk);
 extern void initlock(struct Spinlock *lk,char *name);
 extern void lock(struct Spinlock *lk);
 
+readeflags(void)
+{
+  uint eflags;
+  asm volatile("pushfl; popl %0" : "=r" (eflags));
+  return eflags;
+}
 
 
 #endif
