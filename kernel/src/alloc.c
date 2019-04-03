@@ -153,7 +153,7 @@ static void *kalloc(size_t size) {
       new->prev=now;
       new->addr=&new[1];
       new->flag=0;
-      new->size=now->size-size;
+      new->size=now->size-size-sizeof(_node);
 
       now->next=new;
       now->size=size;
