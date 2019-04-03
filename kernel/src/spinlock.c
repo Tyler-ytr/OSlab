@@ -1,5 +1,5 @@
 // Mutual exclusion spin locks.
-/*
+
 #include "types.h"
 #include "defs.h"
 #include "param.h"
@@ -123,4 +123,4 @@ popcli(void)
   if(mycpu()->ncli == 0 && mycpu()->intena)
     sti();
 }
-*/
+
