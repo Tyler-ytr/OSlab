@@ -73,7 +73,7 @@ void pushcli(void)
             printf(" ncli: %d\n",ncli[_cpu()]);
 */
     cli();
-    printf("push ncli: cpu %d ncli[_cpu]: \n",_cpu(),ncli[(int)_cpu()]);
+    printf("push ncli: cpu %d ncli[_cpu]: %d\n",_cpu(),ncli[(int)_cpu()]);
     int cpu_num=_cpu();
     ncli[cpu_num]+=1;
 }
@@ -96,7 +96,7 @@ void popcli(void)
   int cpu_num=_cpu();
   ncli[cpu_num]--;
   assert(ncli[cpu_num]>=0);
-    printf("pop ncli: cpu %d ncli[_cpu]: \n",_cpu(),ncli[(int)_cpu()]);
+    printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
   if(ncli[_cpu()]==0)
   {
 
