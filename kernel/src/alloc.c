@@ -156,7 +156,7 @@ static void *kalloc(size_t size) {
 }
 
 static void kfree(void *ptr) {
-// free 主要要注意合并节点的问题
+
   spinlock*a_lk=&alloc_lk;
   lock(a_lk);
 
