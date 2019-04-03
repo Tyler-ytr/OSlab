@@ -5,7 +5,7 @@
 //#include "param.h"
 #include "x86.h"
 //#include "memlayout.h"
-#include "mmu.h"
+//#include "mmu.h"
 #include "proc.h"
 //#include "spinlock.h"
 
