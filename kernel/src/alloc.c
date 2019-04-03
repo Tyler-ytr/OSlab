@@ -39,13 +39,15 @@ static void pmm_init() {
   unused_space->size=0;
 
   cpu_head[0]=&unused_space[1];
-  for (int i=1;i<=4;i++)
-  {
-
-  cpu_head[i]=&(cpu_head[0])[i];
-  }
   cpu_head[1]=&(cpu_head[0])[1];
-  cpu_head[2]=&(cpu_head[0])[2];
+for (int i=1;i<=4;i++)
+{cpu_head[i]=&(cpu_head[0])[i];
+
+
+}   
+
+
+cpu_head[2]=&(cpu_head[0])[2];
   cpu_head[3]=&(cpu_head[0])[3];
   cpu_head[4]=&(cpu_head[0])[4];
   printf("cpu_area: 0x%x, 1: 0x%x ; 2: 0x%x \n",cpu_head[0],cpu_head[1],cpu_head[2]);
