@@ -38,6 +38,10 @@ typedef struct Spinlock{
   int cpu;
 }spinlock;
 */
+
+typedef unsigned int   uint;
+
+
 typedef struct Spinlock {
   uint locked;       // Is the lock held?
 
@@ -48,7 +52,7 @@ typedef struct Spinlock {
                      // that locked the lock.
 }spinlock;
 
-typedef unsigned int   uint;
+
 
 
 extern void unlock(struct Spinlock *lk);
