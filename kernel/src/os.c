@@ -3,10 +3,10 @@
 spinlock os_lk;
 
 void test_from_yzy(){
-      void *space[700];
+      void *space[100];
           int i;
-          for(i=0;i<700;++i){
-                    space[i]=pmm->alloc(rand()%((1<<10)-1));
+          for(i=0;i<100;++i){
+                    space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
                     printf("i: %d space:0x%x\n",i,space[i]);
                         
           }
