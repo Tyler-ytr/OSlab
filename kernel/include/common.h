@@ -26,7 +26,7 @@ typedef struct BOUND{
 }bound;// 我准备在堆区动态的建立存放链表,bound用来指这块地方的边界以及正在使用的链表的位置；
 *///废弃这个设计,
 //|head|size|pnode1|size|.....
-_list cpu_head[5];
+_list cpu_head[9];
 _list unused_space;
 _list head;
 void* max;
@@ -93,7 +93,7 @@ struct cpu {
   struct proc *proc;           // The process running on this cpu or null
 };*/
 
-int intena[5];
+//int intena[8];
 #define KERNBASE 0x80000000  
 //void            panic(char*) __attribute__((noreturn));
 //struct cpu*     mycpu(void);

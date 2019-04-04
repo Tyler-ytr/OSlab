@@ -48,8 +48,8 @@ intptr_t my_spin_unlock(intptr_t locked)
 }
 */
 
-int ncli[5]={0,0,0,0,0};
-int intena[5]={0,0,0,0,0};
+int ncli[9]={0,0,0,0,0,0,0,0,0};
+int intena[9]={0,0,0,0,0,0,0,0,0};
 void initlock(struct Spinlock *lk,char *name)
 {
   lk->name=name;
