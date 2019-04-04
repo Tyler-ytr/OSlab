@@ -164,7 +164,7 @@ static void kfree(void *ptr) {
       int success_hint=0;
       _list head=NULL;
       _list now=NULL;
-      for(int i=0;i<=4;i++)
+      for(int i=0;i<=8;i++)
       {
          head=cpu_head[i];
          now=cpu_head[i];
