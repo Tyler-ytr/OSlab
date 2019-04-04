@@ -5,7 +5,6 @@ static spinlock init_lk;
 static spinlock alloc_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
-//static uintptr_t start;
 static void pmm_init() {
   spinlock*lk=&init_lk;
   initlock(lk,NULL);
@@ -66,9 +65,7 @@ static void *kalloc(size_t size) {
   else{
   while(now->next!=head)
   { 
-    //printf("now: 0x%x\n");
     now=now->next;
-    //printf("now: 0x%x\n");
     assert(now!=NULL);
     if(now->flag==0&&now->size>=size)
     {
@@ -96,7 +93,6 @@ static void *kalloc(size_t size) {
       printf("Your memory is filled. I am sorry!");
       assert(0);
     }
-//    printf("unused_space->addr: 0x%x\n",unused_space->addr);
 
     assert(now->next->prev==now);
     assert(new->next->prev==new);
@@ -108,7 +104,6 @@ static void *kalloc(size_t size) {
     assert(new->addr!=NULL);
     assert(unused_space->addr!=new);
     ret=new->addr;
-  //  printf("OVER!!!!!!\n");
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
@@ -121,7 +116,6 @@ static void *kalloc(size_t size) {
       assert(0);
       _list new=(void *)(now->addr+size);
 
-    ///  assert(&new[1]-sizeof(_node)==now->addr+size);
     
       new->next=now->next;
       
@@ -154,7 +148,6 @@ static void *kalloc(size_t size) {
     }
   }
   }
-  //printf("cpu :%d ret: 0x%x\n",cpu_num,ret);
   assert(ret!=NULL);
   unlock(a_lk);
   return ret;
