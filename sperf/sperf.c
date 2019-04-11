@@ -11,7 +11,7 @@ int main(int argc, char *argv[],char *envp[]) {
   {
     printf("argv : %s\n",argv[i]);
   }
-char *argva[]={"strace","-T",argv[1],">/dev/null",NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
+char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
 
   execve("/usr/bin/strace",argva,envp);
 //  test(argv);
