@@ -3,8 +3,9 @@
 
 #include <unistd.h>
 #define Log(format, ...) \
-    printk("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
-              __FILE__, __LINE__, __func__, ## __VA_ARGS__)"]]")
+    printf("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
+              __FILE__, __LINE__, __func__, ## __VA_ARGS__)"
+
 void test();
 int main(int argc, char *argv[],char *envp[]) {
   
