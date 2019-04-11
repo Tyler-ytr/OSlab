@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 #include <unistd.h>
+#define Log(format, ...) \
+    printf("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \"]]")
 void test();
 int main(int argc, char *argv[],char *envp[]) {
   
@@ -9,7 +11,7 @@ int main(int argc, char *argv[],char *envp[]) {
 
   for(int i=0;i<argc;i++)
   {
-    printf("argv : %s\n",argv[i]);
+    Log("argv : %s\n",argv[i]);
   }
 //  test(argv,envp);
   //strace -T ls
