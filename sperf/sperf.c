@@ -22,4 +22,5 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
   char *envp[]={0,NULL};//传递给执行文件新的环境变量数组
   execve("/usr/bin/strace",argva,envp);
+  printf("here\n");
 }
