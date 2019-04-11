@@ -12,7 +12,7 @@ int main(int argc, char *argv[],char *envp[]) {
 
   for(int i=0;i<argc;i++)
   {
-    Log("argv : %s\n",argv[i]);
+    Log("argv ");
   }
 //  test(argv,envp);
   //strace -T ls
