@@ -11,7 +11,7 @@ int main(int argc, char *argv[],char *envp[]) {
   {
     printf("argv : %s\n",argv[i]);
   }
-  test(argv,envp);
+//  test(argv,envp);
   //strace -T ls
   return 0;
 }
