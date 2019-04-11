@@ -7,7 +7,11 @@ int main(int argc, char *argv[]) {
   
   printf("Hello world!!\n");
 
-  test(argv);
+  for(int i=1;i<argc;i++)
+  {
+    printf("argv : %s\n",argv[i]);
+  }
+//  test(argv);
   //strace -T ls
   return 0;
 }
