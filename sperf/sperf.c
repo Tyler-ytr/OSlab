@@ -9,9 +9,9 @@
 #define maxn 4096
 int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
 struct {
-  char func_name[maxn][50];
+ // char func_name[maxn][50];
   int num;
-  double func_time[maxn];
+ // double func_time[maxn];
   double total_time;
 }G;//全局的记录关于程序的整个信息;
 
@@ -106,8 +106,14 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
 void init(){
   G.num=0;
-  memset(G.func_name,'\0',sizeof(G.func_name));
-  memset(G.func_time,0.000,sizeof(G.func_time));
+  //memset(G.func_name,'\0',sizeof(G.func_name));
+  //memset(G.func_time,0.000,sizeof(G.func_time));
+
+  for(int i=0;i<maxn;i++)
+  {
+    memset(funinfo[i].func_name,'\0',sizeof(funinfo[i].func_name));
+    funinfo[i].func_time=0.000;
+  }
   G.total_time=0.000;
 }
 
@@ -131,15 +137,15 @@ void calculate(char origin[]){
   }
 
   sscanf(temp_time,"<%lf>",&time);
-  sscanf(name,"%s",G.func_name[G.num]);
+ // sscanf(name,"%s",G.func_name[G.num]);
   sscanf(name,"%s",funinfo[G.num].func_name);
-  G.func_time[G.num]=time;
+  //G.func_time[G.num]=time;
   funinfo[G.num].func_time=time;
 
   G.total_time+=time;
   printf("%d  ",G.num);
-  printf("%s:",G.func_name[G.num]);
-  printf("%lf   ",G.func_time[G.num]);
+  printf("%s:",funinfo[G.num].func_name);
+  printf("%lf   ",funinfo[G.num].func_time);
   printf("total:  %lf\n",G.total_time);
   G.num++;
 }
