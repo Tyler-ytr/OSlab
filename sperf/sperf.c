@@ -104,13 +104,27 @@ void init(){
 
 void calculate(char origin[]){
   //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
-  char name[50];
-  double time;
+  char name[512];
+  char temp_time[512];
+  int len=strlen(origin);
+  memset(name,'\0',sizeof(name));
+  double time=0.0;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
-  sscanf(&origin[1],"<%lf>",&time);
+  
+  for(int i=len-1;i>0;--i)
+  {
+    if(origin[i]!='<')continue;
+    else{
+      sscanf(origin,"%s",temp_time);
+      printf("%d  %s",i,temp_time);
+      break;
+    }
+
+  }
+
 
   //printf("%s:",name);
-  printf("%s\n\n",&origin[5]);
+  //printf("%lf\n\n",time);
 
 
 
