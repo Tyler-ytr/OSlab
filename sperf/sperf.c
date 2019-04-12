@@ -153,10 +153,10 @@ void calculate(char origin[]){
   funinfo[G.num].func_time=time;
 
   G.total_time+=time;
-  printf("%d  ",G.num);
-  printf("%s:",funinfo[G.num].func_name);
-  printf("%lf   ",funinfo[G.num].func_time);
-  printf("total:  %lf\n",G.total_time);
+ // printf("%d  ",G.num);
+  //printf("%s:",funinfo[G.num].func_name);
+  //printf("%lf   ",funinfo[G.num].func_time);
+  //printf("total:  %lf\n",G.total_time);
   G.num++;
 }
 int cmp( const void *a , const void *b  ) 
