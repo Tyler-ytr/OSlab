@@ -61,7 +61,7 @@ int main(int argc, char *argv[],char *envp[]) {
   if(pid==0)
   {
     close(fd[0]);//子进程管道关闭读;
-char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
+char *argva[]={"strace","-T",argv[t],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
 
   int fd_null=open("/dev/null",O_WRONLY);//参考open手册,只写地搞到null的文件描述符;
   if(fd_null<0)
