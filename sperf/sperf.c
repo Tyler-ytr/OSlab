@@ -49,7 +49,7 @@ int main(int argc, char *argv[],char *envp[]) {
     close(flides[0]);//子进程关闭读;
 char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
 
-   //dup2(flides[1], STDERR_FILENO);
+   dup2(flides[1], STDERR_FILENO);
   execve("/usr/bin/strace",argva,envp);
 
   }
