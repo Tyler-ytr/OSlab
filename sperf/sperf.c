@@ -17,6 +17,7 @@ struct {
 char buffer[maxn];//用于fgets时候的缓冲区;
 void init();
 void test();
+void calculate(char origin[]);
 int main(int argc, char *argv[],char *envp[]) {
   if(argc<2)
   {
@@ -70,8 +71,9 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
     while(fgets(buffer,maxn,stdin)!=NULL)
     {
-      printf("%s",buffer);
-      printf("\n\n\n\n\n");
+      //printf("%s",buffer);
+      //printf("\n\n\n\n\n");
+      calculate(buffer);
     }
 
 
@@ -87,13 +89,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 }
 void test(char *argv[],char *envp[]){
 char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
-
-  
-
-
-
   execve("/usr/bin/strace",argva,envp);
-
 }
 
 void init(){
@@ -103,4 +99,12 @@ void init(){
   G.total_time=0.000;
 }
 
+void calculate(char origin[]){
+  //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
+printf("%s\n\n\n\n\n",origin);
+
+
+
+  ;
+}
 
