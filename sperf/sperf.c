@@ -178,7 +178,6 @@ void calculate(char origin[]){
      for(int i=0;i<G.num;i++)
  {
    if(strcmp(funinfo[i].func_name,name)==0){
-     perror("here\n");
   funinfo[i].func_time+=time;
   equal_flag=1;
   break;
