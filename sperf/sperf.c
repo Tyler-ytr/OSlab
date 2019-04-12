@@ -160,7 +160,7 @@ void calculate(char origin[]){
     }
   }
   G.total_time+=time;
-  printf("%d  ",G.num);
+  //printf("%d  ",G.num);
 
   int equal_flag=0;
   equal_flag=0;
