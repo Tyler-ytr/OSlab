@@ -184,7 +184,7 @@ void calculate(char origin[]){
   break;
    }
  }
- if(equal_flag==1){
+ if(equal_flag==0){
   sscanf(name,"%s",funinfo[G.num].func_name);
   funinfo[G.num].func_time=time;
   G.num++;
