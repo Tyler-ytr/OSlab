@@ -95,13 +95,13 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
       //printf("\n\n\n\n\n");
       calculate(buffer);
       cnt++;
-      if(cnt==100)
+      if(G.num==10)
         break;
     };
     
 
     printf("\n\n\n\n");
-    printf("G.num: %d",G.num);
+    //printf("G.num: %d",G.num);
     qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
     for(int i=0;i<G.num;i++)
     {
