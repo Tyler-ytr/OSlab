@@ -108,7 +108,7 @@ void calculate(char origin[]){
   char temp_time[512];
   int len=strlen(origin);
   memset(name,'\0',sizeof(name));
-  //double time=0.0;
+  double time=0.0;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
   
   for(int i=len-1;i>0;--i)
@@ -116,15 +116,16 @@ void calculate(char origin[]){
     if(origin[i]!='<')continue;
     else{
       sscanf(&origin[i],"%s",temp_time);
-      printf("%d  %s\n",i,temp_time);
+      //printf("%d  %s\n",i,temp_time);
       break;
     }
-
   }
 
+  sscanf(temp_time,"<%lf>",&time);
 
-  //printf("%s:",name);
-  //printf("%lf\n\n",time);
+
+  printf("%s:",name);
+  printf("%lf\n\n",time);
 
 
 
