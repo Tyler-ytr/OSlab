@@ -116,7 +116,7 @@ void calculate(char origin[]){
     if(origin[i]!='<')continue;
     else{
       sscanf(origin,"%s",temp_time);
-      printf("%d  %s",i,temp_time);
+      printf("%d  %s\n",i,temp_time);
       break;
     }
 
