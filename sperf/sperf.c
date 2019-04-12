@@ -5,6 +5,7 @@
 #include <string.h>
 #include <assert.h>
 #include <fcntl.h>
+#include<stdlib.h> 
 
 #define maxn 4096
 int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
@@ -27,6 +28,8 @@ char buffer[maxn];//用于fgets时候的缓冲区;
 void init();
 void test();
 void calculate(char origin[]);
+int cmp( const void *a , const void *b  ) ;
+
 int main(int argc, char *argv[],char *envp[]) {
   if(argc<2)
   {
@@ -89,6 +92,9 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     }
 
 
+    printf("G.num: %d",G.num);
+    qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
+
 
 
 
@@ -149,6 +155,12 @@ void calculate(char origin[]){
   printf("total:  %lf\n",G.total_time);
   G.num++;
 }
+int cmp( const void *a , const void *b  ) 
+{ 
+info *c = (info  *)a; 
+info *d = (info  *)b; 
+return c->func_time > d->func_time; 
+} 
 
 //参考网站:
 //正则：https://www.cnblogs.com/youthlion/archive/2009/06/21/1507586.html
