@@ -74,6 +74,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
       //printf("%s",buffer);
       //printf("\n\n\n\n\n");
       calculate(buffer);
+      break;
     }
 
 
@@ -103,7 +104,7 @@ void calculate(char origin[]){
   //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
   char name[50];
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
-  printf("%s\n\n",name);
+  //printf("%s\n\n",name);
 
 
 
