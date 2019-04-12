@@ -96,7 +96,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
     for(int i=0;i<G.num;i++)
     {
-      printf("%s: %lf",funinfo[i].func_name,funinfo[i].func_time);
+      printf("%s: %lf\n",funinfo[i].func_name,funinfo[i].func_time);
     }
 
 
