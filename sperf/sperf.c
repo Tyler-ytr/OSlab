@@ -47,6 +47,7 @@ int main(int argc, char *argv[],char *envp[]) {
     assert(0);
   }
 
+  for(int t=1;t<=argc;t++){
   init();
 
   pid_t pid;
@@ -118,6 +119,8 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
 
 
+  }
+  
   }
   
   }
