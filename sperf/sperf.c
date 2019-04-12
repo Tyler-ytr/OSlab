@@ -101,10 +101,19 @@ void init(){
 
 void calculate(char origin[]){
   //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
-printf("%s\n\n\n\n\n",origin);
+  char name[50];
+  sscanf(origin,"%[0-9|a-z|A-Z]",name);
+  printf("%s\n\n",name);
 
 
 
   ;
 }
 
+//参考网站:
+//正则：https://www.cnblogs.com/youthlion/archive/2009/06/21/1507586.html
+//dev/null:https://www.zhihu.com/question/53295083/answer/135258024
+//execve:https://blog.csdn.net/fisher_jiang/article/details/5608399
+//fork,pipe:https://blog.csdn.net/wumenglu1018/article/details/54019755
+//dup:https://blog.csdn.net/zhouhong1026/article/details/8151235
+//dup:https://www.cnblogs.com/GODYCA/archive/2013/01/05/2846197.html
