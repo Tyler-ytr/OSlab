@@ -33,7 +33,7 @@ int cmp( const void *a , const void *b  ) ;
 int main(int argc, char *argv[],char *envp[]) {
   if(argc>=2)
   {
-    printf("Don't know how to use? ./sperf-32/64 [arg1] \n");
+    printf("Don't know how to use? ./sperf-32/64 [arg1] \n\n");
     return 0;
   }
   for(int i=0;i<argc;i++)
