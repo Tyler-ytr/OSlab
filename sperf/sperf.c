@@ -7,14 +7,14 @@
 #include <fcntl.h>
 
 #define maxn 4096
-int flides[2];//flides[0]:read end of the pipe;flides[1]:write end of the pipe;
+int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
 struct {
   char func_name[maxn][50];
   int num;
   double func_time[maxn];
   double total_time;
 }G;//全局的记录关于程序的整个信息;
-
+char buffer[maxn];//用于fgets时候的缓冲区;
 void init();
 void test();
 int main(int argc, char *argv[],char *envp[]) {
@@ -28,7 +28,7 @@ int main(int argc, char *argv[],char *envp[]) {
   }
   
 
-  if((pipe(flides))!=0)//根据rtfm,正常返回值为0;初始化flides;
+  if((pipe(fd))!=0)//根据rtfm,正常返回值为0;初始化fd;
   {
     printf("Error: Pipe is wrong!!\n");
     assert(0);
@@ -46,17 +46,39 @@ int main(int argc, char *argv[],char *envp[]) {
 
   if(pid==0)
   {
-    close(flides[0]);//子进程关闭读;
+    close(fd[0]);//子进程管道关闭读;
 char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
 
-   dup2(flides[1], STDIN_FILENO);
+  int fd_null=open("/dev/null",O_WRONLY);//参考open手册,只写地搞到null的文件描述符;
+  if(fd_null<0)
+  {
+    printf("Error:Fail to open /dev/null\n");
+    assert(0);
+  }
+   dup2(fd[1], STDERR_FILENO);//用fd[1](管道写入端)代替stderr;
+   dup2(fd_null,STDOUT_FILENO);//关闭stdout的输出,输出到null里面去;
   execve("/usr/bin/strace",argva,envp);
+  
+  assert(0);
 
   }
   else{
     //To be continued;
-    close(flides[1]);//父进程关闭写
+    close(fd[1]);//父进程关闭写
     init();
+    dup2(fd[0],STDIN_FILENO);//用管道里面的读入端内容代替stdin;
+
+    while(fgets(buffer,maxn,stdin)!=NULL)
+    {
+      printf("%s",buffer);
+      printf("\n\n\n\n\n");
+    }
+
+
+
+
+
+
   }
 
 //  test(argv,envp);
