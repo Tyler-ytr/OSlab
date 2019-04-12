@@ -95,7 +95,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
       //printf("\n\n\n\n\n");
       calculate(buffer);
       cnt++;
-      if(G.num==10&&cnt==100)
+      if(G.num>=10&&cnt==100)
         break;
     };
     
