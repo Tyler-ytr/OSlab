@@ -103,10 +103,10 @@ void calculate(char origin[]){
   char name[50];
   double time;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
-  sscanf(origin,"<%lf>",&time);
+  sscanf(&origin[1],"<%lf>",&time);
 
   printf("%s:",name);
-  printf("%s\n\n",origin);
+  printf("%lf\n\n",time);
 
 
 
