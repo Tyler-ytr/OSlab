@@ -125,13 +125,11 @@ void calculate(char origin[]){
   G.num++;
   sscanf(name,"%s",G.func_name[G.num]);
   G.func_time[G.num]=time;
+  G.total_time+=time;
   printf("%d  ",G.num);
   printf("%s:",G.func_name[G.num]);
-  printf("%lf\n\n",G.func_time[G.num]);
-
-
-
-  ;
+  printf("%lf   ",G.func_time[G.num]);
+  printf("total:  %lf",G.total_time);
 }
 
 //参考网站:
