@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include<stdlib.h> 
 
-#define maxn 100000
+#define maxn 4096
 int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
 struct {
  // char func_name[maxn][50];
@@ -78,19 +78,28 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
   else{
     //To be continued;
     close(fd[1]);//父进程关闭写
+    int flag=0;
+    int cnt=0;
+    while(1){
     init();
     dup2(fd[0],STDIN_FILENO);//用管道里面的读入端内容代替stdin;
-    //int cnt=0;
-    while(fgets(buffer,maxn,stdin)!=NULL)
+    cnt=0;
+
+    while(1)
     {
-      //printf("%s",buffer);
+    if(fgets(buffer,maxn,stdin)==NULL)
+    {
+      flag=1;
+      break;
+    }
       //printf("\n\n\n\n\n");
       calculate(buffer);
-  //    cnt++;
-    //  if(cnt==2)
-      //  break;
-    }
-
+      cnt++;
+      if(cnt==4096)
+        break;
+    };
+    if(flag==1)break;
+    
 
     printf("G.num: %d",G.num);
     qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
@@ -103,6 +112,8 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
 
 
+  }
+  
   }
 
 //  test(argv,envp);
