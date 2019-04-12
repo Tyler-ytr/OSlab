@@ -129,7 +129,7 @@ void calculate(char origin[]){
   printf("%d  ",G.num);
   printf("%s:",G.func_name[G.num]);
   printf("%lf   ",G.func_time[G.num]);
-  printf("total:  %lf",G.total_time);
+  printf("total:  %lf\n",G.total_time);
 }
 
 //参考网站:
