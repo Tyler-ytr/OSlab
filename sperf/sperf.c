@@ -14,6 +14,15 @@ struct {
   double func_time[maxn];
   double total_time;
 }G;//全局的记录关于程序的整个信息;
+
+typedef struct information{
+  char func_name[50];
+  double func_time;
+}info;
+
+info funinfo[maxn];
+
+
 char buffer[maxn];//用于fgets时候的缓冲区;
 void init();
 void test();
@@ -122,14 +131,17 @@ void calculate(char origin[]){
   }
 
   sscanf(temp_time,"<%lf>",&time);
-  G.num++;
   sscanf(name,"%s",G.func_name[G.num]);
+  sscanf(name,"%s",funinfo[G.num].func_name);
   G.func_time[G.num]=time;
+  funinfo[G.num].func_time=time;
+
   G.total_time+=time;
   printf("%d  ",G.num);
   printf("%s:",G.func_name[G.num]);
   printf("%lf   ",G.func_time[G.num]);
   printf("total:  %lf\n",G.total_time);
+  G.num++;
 }
 
 //参考网站:
