@@ -106,7 +106,7 @@ void calculate(char origin[]){
   sscanf(origin,"<%lf>",&time);
 
   printf("%s:",name);
-  printf("%lf\n\n",time);
+  printf("%s\n\n",origin);
 
 
 
