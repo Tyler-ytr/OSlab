@@ -68,14 +68,11 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     close(fd[1]);//父进程关闭写
     init();
     dup2(fd[0],STDIN_FILENO);//用管道里面的读入端内容代替stdin;
-int cnt=0;
     while(fgets(buffer,maxn,stdin)!=NULL)
     {
       //printf("%s",buffer);
       //printf("\n\n\n\n\n");
       calculate(buffer);
-      cnt++;
-      if(cnt==10)break;
     }
 
 
@@ -104,7 +101,10 @@ void init(){
 void calculate(char origin[]){
   //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
   char name[50];
+  double time;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
+  sscanf(origin,"<%lf>",&time);
+
   printf("%s\n\n",name);
 
 
