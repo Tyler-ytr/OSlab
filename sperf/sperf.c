@@ -98,7 +98,6 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
       if(cnt==4096)
         break;
     };
-    if(flag==1)break;
     
 
     printf("G.num: %d",G.num);
@@ -109,6 +108,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     }
 
 
+    if(flag==1)break;
 
 
 
