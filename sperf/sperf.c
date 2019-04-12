@@ -165,17 +165,16 @@ void calculate(char origin[]){
   int equal_flag=0;
   equal_flag=0;
   sscanf(temp_time,"<%lf>",&time);
- // sscanf(name,"%s",G.func_name[G.num]);
- for(int i=0;i<G.num;i++)
- {
    if(G.num==0)
    {
   sscanf(name,"%s",funinfo[G.num].func_name);
   funinfo[G.num].func_time=time;
   G.num++;
   equal_flag=1;
-  break;
    }
+ // sscanf(name,"%s",G.func_name[G.num]);
+   else{for(int i=0;i<G.num;i++)
+ {
    if(strcmp(funinfo[i].func_name,name)==0){
   funinfo[i].func_time+=time;
   equal_flag=1;
@@ -188,6 +187,8 @@ void calculate(char origin[]){
   G.num++;
    
    ;}
+
+   }
   //G.func_time[G.num]=time;
 
  // printf("%d  ",G.num);
