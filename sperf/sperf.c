@@ -173,9 +173,12 @@ void calculate(char origin[]){
   equal_flag=1;
    }
  // sscanf(name,"%s",G.func_name[G.num]);
-   else{for(int i=0;i<G.num;i++)
+   else{
+     
+     for(int i=0;i<G.num;i++)
  {
    if(strcmp(funinfo[i].func_name,name)==0){
+     printf("here\n");
   funinfo[i].func_time+=time;
   equal_flag=1;
   break;
