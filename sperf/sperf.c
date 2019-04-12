@@ -159,19 +159,40 @@ void calculate(char origin[]){
       break;
     }
   }
+  G.total_time+=time;
 
+  int equal_flag=0;
+  equal_flag=0;
   sscanf(temp_time,"<%lf>",&time);
  // sscanf(name,"%s",G.func_name[G.num]);
+ for(int i=0;i<G.num;i++)
+ {
+   if(G.num==0)
+   {
   sscanf(name,"%s",funinfo[G.num].func_name);
-  //G.func_time[G.num]=time;
   funinfo[G.num].func_time=time;
+  G.num++;
+  equal_flag=1;
+  break;
+   }
+   if(strcmp(funinfo[i].func_name,name)==0){
+  funinfo[i].func_time+=time;
+  equal_flag=1;
+  break;
+   }
+ }
+ if(equal_flag==1){
+  sscanf(name,"%s",funinfo[G.num].func_name);
+  funinfo[G.num].func_time=time;
+  G.num++;
+   
+   ;}
+  //G.func_time[G.num]=time;
 
-  G.total_time+=time;
  // printf("%d  ",G.num);
   //printf("%s:",funinfo[G.num].func_name);
   //printf("%lf   ",funinfo[G.num].func_time);
   //printf("total:  %lf\n",G.total_time);
-  G.num++;
 }
 int cmp( const void *a , const void *b  ) 
 { 
