@@ -159,12 +159,12 @@ void calculate(char origin[]){
       break;
     }
   }
-  G.total_time+=time;
   //printf("%d  ",G.num);
 
   int equal_flag=0;
   equal_flag=0;
   sscanf(temp_time,"<%lf>",&time);
+  G.total_time+=time;
    if(G.num==0)
    {
   sscanf(name,"%s",funinfo[G.num].func_name);
