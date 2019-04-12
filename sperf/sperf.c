@@ -107,7 +107,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     for(int i=0;i<G.num;i++)
     {
       //printf("%s: %lf %lf%%\n",funinfo[i].func_name,funinfo[i].func_time,funinfo[i].func_time/G.total_time*100);
-      printf("%s:%20lf%%\n",funinfo[i].func_name,funinfo[i].func_time/G.total_time*100);
+      printf("%10s:%20lf%%\n",funinfo[i].func_name,funinfo[i].func_time/G.total_time*100);
     }
     printf("\n\n\n\n");
 
