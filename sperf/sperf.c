@@ -124,9 +124,10 @@ void calculate(char origin[]){
   sscanf(temp_time,"<%lf>",&time);
   G.num++;
   sscanf(name,"%s",G.func_name[G.num]);
+  G.func_time[G.num]=time;
   printf("%d  ",G.num);
   printf("%s:",G.func_name[G.num]);
-  printf("%lf\n\n",time);
+  printf("%lf\n\n",G.func_time[G.num]);
 
 
 
