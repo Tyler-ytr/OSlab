@@ -101,7 +101,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     
 
     printf("\f");
-    printf("name:%15s:\n",argv[1]);
+    printf("%s:           name:\n",argv[1]);
     printf("-----------------------------------------------\n");
     //printf("G.num: %d",G.num);
     qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
