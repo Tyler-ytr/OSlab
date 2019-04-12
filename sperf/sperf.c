@@ -104,7 +104,7 @@ void init(){
 
 void calculate(char origin[]){
   //正则表达式;需要将开头的括号前的内容(也就是一些英文捕获),需要将<>中的浮点数捕获;
-  char name[512];
+  char name[50];
   char temp_time[512];
   int len=strlen(origin);
   memset(name,'\0',sizeof(name));
@@ -123,8 +123,9 @@ void calculate(char origin[]){
 
   sscanf(temp_time,"<%lf>",&time);
   G.num++;
+  sscanf(name,"%s",G.func_name[G.num]);
   printf("%d  ",G.num);
-  printf("%s:",name);
+  printf("%s:",G.func_name[G.num]);
   printf("%lf\n\n",time);
 
 
