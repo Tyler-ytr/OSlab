@@ -108,7 +108,7 @@ void calculate(char origin[]){
   char temp_time[512];
   int len=strlen(origin);
   memset(name,'\0',sizeof(name));
-  double time=0.0;
+  //double time=0.0;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
   
   for(int i=len-1;i>0;--i)
