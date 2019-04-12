@@ -163,7 +163,7 @@ int cmp( const void *a , const void *b  )
 { 
 info *c = (info  *)a; 
 info *d = (info  *)b; 
-return c->func_time > d->func_time; 
+return c->func_time <= d->func_time; 
 } 
 
 //参考网站:
