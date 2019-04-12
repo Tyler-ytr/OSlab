@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include<stdlib.h> 
 
-#define maxn 4096
+#define maxn 100000
 int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
 struct {
  // char func_name[maxn][50];
