@@ -68,11 +68,15 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
     close(fd[1]);//父进程关闭写
     init();
     dup2(fd[0],STDIN_FILENO);//用管道里面的读入端内容代替stdin;
+    int cnt=0;
     while(fgets(buffer,maxn,stdin)!=NULL)
     {
       //printf("%s",buffer);
       //printf("\n\n\n\n\n");
       calculate(buffer);
+      cnt++;
+      if(cnt==2)
+        break;
     }
 
 
@@ -106,7 +110,7 @@ void calculate(char origin[]){
   sscanf(&origin[1],"<%lf>",&time);
 
   //printf("%s:",name);
-  printf("%s\n\n",&origin[1]);
+  printf("%s\n\n",&origin[0]);
 
 
 
