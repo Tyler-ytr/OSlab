@@ -5,7 +5,7 @@
 #include <string.h>
 #include <assert.h>
 #include <fcntl.h>
-#include<stdlib.h> 
+#include<stdlib.h>
 
 #define maxn 4096
 int fd[2];//fd[0]:read end of the pipe;fd[1]:write end of the pipe;
@@ -31,7 +31,7 @@ void calculate(char origin[]);
 int cmp( const void *a , const void *b  ) ;
 
 int main(int argc, char *argv[],char *envp[]) {
-  if(argc>=2)
+  if(argc>=3)
   {
     printf("Don't know how to use? ./sperf-32/64 [arg1] \n\n");
     return 0;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[],char *envp[]) {
   {
     printf("argc %d : %s \n",i,argv[i]);
   }
-  
+
 
   if((pipe(fd))!=0)//根据rtfm,正常返回值为0;初始化fd;
   {
@@ -61,7 +61,7 @@ int main(int argc, char *argv[],char *envp[]) {
   if(pid==0)
   {
     close(fd[0]);//子进程管道关闭读;
-char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
+char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数
 
   int fd_null=open("/dev/null",O_WRONLY);//参考open手册,只写地搞到null的文件描述符;
   if(fd_null<0)
@@ -72,7 +72,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
    dup2(fd[1], STDERR_FILENO);//用fd[1](管道写入端)代替stderr;
    dup2(fd_null,STDOUT_FILENO);//关闭stdout的输出,输出到null里面去;
   execve("/usr/bin/strace",argva,envp);
-  
+
   assert(0);
 
   }
@@ -99,13 +99,13 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
       if(cnt>=5000)
         break;
     };
-    
+
 
     printf("\f");
     printf("%s:            name:             percent:\n",argv[1]);
     printf("-----------------------------------------------\n");
     //printf("G.num: %d",G.num);
-    qsort(funinfo,G.num,sizeof(funinfo[0]),cmp); 
+    qsort(funinfo,G.num,sizeof(funinfo[0]),cmp);
     for(int i=0;i<G.num;i++)
     {
       //printf("%s: %lf %lf%%\n",funinfo[i].func_name,funinfo[i].func_time,funinfo[i].func_time/G.total_time*100);
@@ -120,7 +120,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
 
 
   }
-  
+
   }
 
 //  test(argv,envp);
@@ -128,7 +128,7 @@ char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数�
   return 0;
 }
 void test(char *argv[],char *envp[]){
-char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数 
+char *argva[]={"strace","-T",argv[1],NULL};//传递给执行文件的参数数组，这里包含执行文件的参数
   execve("/usr/bin/strace",argva,envp);
 }
 
@@ -153,7 +153,7 @@ void calculate(char origin[]){
   memset(name,'\0',sizeof(name));
   double time=0.0;
   sscanf(origin,"%[0-9|a-z|A-Z]",name);
-  
+
   for(int i=len-1;i>0;--i)
   {
     if(origin[i]!='<')continue;
@@ -178,7 +178,7 @@ void calculate(char origin[]){
    }
  // sscanf(name,"%s",G.func_name[G.num]);
    else{
-     
+
      for(int i=0;i<G.num;i++)
  {
    if(strcmp(funinfo[i].func_name,name)==0){
@@ -191,7 +191,7 @@ void calculate(char origin[]){
   sscanf(name,"%s",funinfo[G.num].func_name);
   funinfo[G.num].func_time=time;
   G.num++;
-   
+
    ;}
 
    }
@@ -202,12 +202,12 @@ void calculate(char origin[]){
   //printf("%lf   ",funinfo[G.num].func_time);
   //printf("total:  %lf\n",G.total_time);
 }
-int cmp( const void *a , const void *b  ) 
-{ 
-info *c = (info  *)a; 
-info *d = (info  *)b; 
-return c->func_time <= d->func_time; 
-} 
+int cmp( const void *a , const void *b  )
+{
+info *c = (info  *)a;
+info *d = (info  *)b;
+return c->func_time <= d->func_time;
+}
 
 //参考网站:
 //正则：https://www.cnblogs.com/youthlion/archive/2009/06/21/1507586.html
