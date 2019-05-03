@@ -51,6 +51,32 @@ char* my_read(const char *previous,char * buf){
     return result;
 
 }
+int check_func_valid(char * func){
+    FILE *fp=NULL;
+    char test_file[64];
+
+    sprintf(test_file,"./test/test.c");
+    fp=fopen(test_file,"w+");
+    if(fp==NULL)
+    {
+        Somethingwrong("Test file GG");
+    }
+    fprintf(fp," #include<stdio.h>\n#include<cmath.h\n\nint main(){%s\nreturn 0;}\n",func);
+    fclose(fp);
+    int flag;
+
+    int environment=ENVIRONMENT;
+    if(environment==32)
+    flag=system("gcc -m32 -shared -fPIC -Wno-implicit-function-declaration  ./test/test.c -o ./test/test.o");
+    else {
+    flag=system("gcc -m64 -shared -fPIC -Wno-implicit-function-declaration  ./test/test.c -o ./test/test.o");
+    }
+
+    if(flag==0)return 1;
+    else return 0;
+
+
+}
 
 void *add_func_to_file(char *func,char*name)
 {
@@ -87,6 +113,11 @@ void solve_func(char *buf)
 
     //首先预编译康康对不对;
     // check_func;
+    if(check_func_valid(buf)==0)
+    {
+        printf("Something wrong of your function;Please rewrite one.\n");
+        return;
+    }
     //然后再加载到库里面;
     //add_func_to_file;
     sprintf(temp_name,"_expr_wrap_%04d",cnt++);
