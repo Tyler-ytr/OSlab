@@ -52,19 +52,19 @@ void *add_func_to_file(char *func,char*name)
     char C_file[64],SO_file[64];
     char gcc_command[256];
 
-    sprintf(C_file,"./lib/%s.c",name);
-    sprintf(SO_file,"./lib/lib%s.so",name);
+    sprintf(C_file,"./lib/C_%s.c",name);
+    sprintf(SO_file,"./lib/SO_%s.so",name);
     sprintf(gcc_command,"gcc -shared -fPIC -Wno-implicit-function-declaration -o %s %s",SO_file,C_file);
 
     //so 编码指令;
-    FILE *fp=fopen(SO_file,"w+");
+    FILE *fp=fopen(C_file,"w+");
     fprintf(fp,"%s\n",func);
     fclose(fp);
 
     //执行指令;
-    //if(system(gcc_command)!=0){
-    //    Somethingwrong("gcc_command");
-   // }
+    if(system(gcc_command)!=0){
+        Somethingwrong("gcc_command");
+    }
     //动态加载到内存;
     return dlopen(SO_file,RTLD_LAZY|RTLD_GLOBAL);//LAZT,全局;
 
@@ -84,6 +84,9 @@ void solve_func(char *buf)
     if(flag!=NULL){
         printf("Add:%s\n",buf);
         return;
+    }
+    else{
+        printf("flag NULL!\n");
     }
 }
 
