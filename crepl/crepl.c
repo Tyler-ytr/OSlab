@@ -13,8 +13,11 @@ void Somethingwrong(char *str)
 void Exitcrepl()
 {
     if(system("rm -rf test")!=0)
+    {
         perror("rm -rf test");
-//        assert(0);
+        assert(0);
+
+    }
 
 }
 
