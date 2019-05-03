@@ -113,6 +113,7 @@ int main(int argc, char *argv[]) {
         {
             //是func
      //   printf("Func:%s\n",in);
+            solve_func(in);
 
         }else
         {
