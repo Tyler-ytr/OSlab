@@ -153,7 +153,7 @@ void solve_val(char *val)
     //检验正确性
     if(check_func_valid(temp_val_func)==0)
     {
-        printf("\033[31mSomething wrong of your expression;Please rewrite one.\n");
+        printf("\033[31mSomething wrong of your expression;Please rewrite one.\033[0m\n");
         return;
     }
 
