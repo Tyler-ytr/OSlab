@@ -5,7 +5,7 @@
 void Somethingwrong(char *str)
 {
     perror(str);
-    Exitcrepl;
+    Exitcrepl();
     exit(EXIT_FAILURE);
 }
 
