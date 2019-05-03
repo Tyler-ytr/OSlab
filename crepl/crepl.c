@@ -131,8 +131,9 @@ void solve_val(char *val)
        printf("%s = %d\n",val,temp());
    }
    else{
-       Somethingwrong(“dlsm_return_NULL”);
+       Somethingwrong("dlsym return NULL");
    }
+
 return;
 }
 
