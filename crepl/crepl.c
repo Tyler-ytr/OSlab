@@ -77,7 +77,7 @@ void *add_func_to_file(char *func,char*name)
         Somethingwrong("gcc_command");
     }
     //动态加载到内存;
-    return dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);//LAZT,全局;
+    return dlopen(SO_file,RTLD_GLOBAL|RTLD_LAZY);//LAZT,全局;
 
 }
 
