@@ -32,7 +32,7 @@ char* my_read(const char *previous,char * buf){
     printf("%s ",previous);
     char *result=NULL;
     result=fgets(buf,MAX_LEN,stdin);
-    if(ferror(stdin))
+    if(ferror(stdin)&&result==NULL)
     {
         Somethingwrong("my_read");
     }
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     {
         if(strcmp(in,"exit()")==0)
             break;
-        printf("%s\n",in);
+        //printf("%s\n",in);
 
     }
 
