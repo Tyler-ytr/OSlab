@@ -115,7 +115,7 @@ void solve_func(char *buf)
     // check_func;
     if(check_func_valid(buf)==0)
     {
-        printf("Something wrong of your function;Please rewrite one.\n");
+        printf("\033[37;46mSomething wrong of your function;Please rewrite one.\033[0m\n");
         return;
     }
     //然后再加载到库里面;
