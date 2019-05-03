@@ -80,14 +80,14 @@ void solve_func(char *buf)
     //add_func_to_file;
     sprintf(temp_name,"_expr_wrap_%04d",cnt++);
     void *flag=add_func_to_file(buf,temp_name);
-
+/*
     void*handle=flag;
     int (*temp)();
     if(handle==NULL)assert(0);
     temp=dlsym(handle,"func");
     int result=temp();
     printf("%d\n",result);
-
+*/
     // 对flag处理;
     if(flag!=NULL){
         printf("Add:%s\n",buf);
@@ -107,7 +107,7 @@ void solve_val(char *val)
 
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
-    printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
+   /* printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
     if(system("mkdir lib")!=0)
@@ -136,7 +136,13 @@ int main(int argc, char *argv[]) {
     Exitcrepl();
     printf("Success");
 
+*/
+    char temp_name[50];
+    char SO_file[50];
+    sprintf(temp_name,"_expr_wrap_%04d",0);
 
+    sprintf(SO_file,"./lib/SO_%s.so",temp_name);
+   if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW))printf("fail");//LAZT,全局;
     return 0;
 }
 
