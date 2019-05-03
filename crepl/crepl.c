@@ -52,7 +52,10 @@ int main(int argc, char *argv[]) {
     char in[MAX_LEN];
     while(my_read(">>",in)!=NULL)
     {
+        if(strcmp(in,"exit()")==0)
+            break;
         printf("%s\n",in);
+
     }
 
     Exitcrepl();
