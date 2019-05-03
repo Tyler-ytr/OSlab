@@ -61,6 +61,12 @@ void *add_func_to_file(char *func,char*name)
     fprintf(fp,"%s\n",func);
     fclose(fp);
 
+    //执行指令;
+    if(system(gcc_command)!=0){
+        Somethingwrong("gcc_command");
+    }
+    //动态加载到内存;
+    return dlopen(SO_file,RTLD_LAZY|RTLD_GLOBAL);//LAZT,全局;
 
 }
 
@@ -75,7 +81,10 @@ void solve_func(char *buf)
     sprintf(temp_name,"_expr_wrap_%04d",cnt++);
     void *flag=add_func_to_file(buf,temp_name);
     // 对flag处理;
-    return;
+    if(flag!=NULL){
+        printf("Add:%s\n",buf);
+        return;
+    }
 }
 
 void solve_val(char *val)
