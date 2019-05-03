@@ -125,7 +125,7 @@ void solve_val(char *val)
 
     int (*temp)();
     if(handle==NULL)return;
-   temp=dlsym(handle,"temp_name");
+   temp=dlsym(handle,temp_name);
    if(temp!=NULL)
    {
        printf("%s = %d\n",val,temp());
