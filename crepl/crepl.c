@@ -61,7 +61,7 @@ int check_func_valid(char * func){
     {
         Somethingwrong("Test file GG");
     }
-    fprintf(fp," #include<stdio.h>\n#include<cmath.h>\n\nint main(){%s\nreturn 0;}\n",func);
+    fprintf(fp," #include<stdio.h>\n\nint main(){%s\nreturn 0;}\n",func);
     fclose(fp);
     int flag;
 
