@@ -44,7 +44,7 @@ char* my_read(const char *previous,char * buf){
 
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
-    printf("使用exit()退出;如果使用啦Ctrl 退出,需要在经历一次报错之后重新跑;\n");
+    printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
     if(system("mkdir lib")!=0)
