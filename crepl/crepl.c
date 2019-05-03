@@ -85,7 +85,7 @@ void solve_func(char *buf)
     int (*temp)();
     if(handle==NULL)assert(0);
     int result=temp();
-    printf("%d\n",temp);
+    printf("%d\n",result);
 
     // 对flag处理;
     if(flag!=NULL){
