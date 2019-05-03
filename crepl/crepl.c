@@ -42,6 +42,7 @@ char* my_read(const char *previous,char * buf){
 
 }
 
+
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
     printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
@@ -53,10 +54,20 @@ int main(int argc, char *argv[]) {
     char in[MAX_LEN];
     while(my_read(">>",in)!=NULL)
     {
+        if(in==NULL)continue;
         if(strcmp(in,"exit()")==0)
             break;
-        //printf("%s\n",in);
+        //判断是函数还是表达式;
+        if(strncmp("int",in,4)==0)
+        {
+            //是func
 
+        printf("Func:%s\n",in);
+        }else
+        {
+            //是表达式;
+        printf("Val:%s\n",in);
+        }
     }
 
     Exitcrepl();
