@@ -7,6 +7,11 @@
 #include <dlfcn.h>
 
 #define MAX_LEN 512
+#if defined(__i386__)
+    #define ENVIRONMENT 32
+#elif defined(__x86_64__)
+    #define ENVIRONMENT 64
+#endif
 
 int cnt=0;
 
@@ -54,8 +59,14 @@ void *add_func_to_file(char *func,char*name)
 
     sprintf(C_file,"./lib/C_%s.c",name);
     sprintf(SO_file,"./lib/SO_%s.so",name);
-    sprintf(gcc_command,"gcc -shared -fPIC -Wno-implicit-function-declaration -o %s %s",SO_file,C_file);
+//    sprintf(gcc_command,"gcc -shared -fPIC -Wno-implicit-function-declaration -o %s %s",SO_file,C_file);
+    int environment=ENVIRONMENT;
+    if(environment==32)
+    sprintf(gcc_command,"gcc -m32 -shared -fPIC -Wno-implicit-function-declaration  %s -o %s",C_file,SO_file);
+    else {
+    sprintf(gcc_command,"gcc -m64 -shared -fPIC -Wno-implicit-function-declaration  %s -o %s",C_file,SO_file);
 
+    }
     //so 编码指令;
     FILE *fp=fopen(C_file,"w+");
     fprintf(fp,"%s\n",func);
@@ -107,7 +118,8 @@ void solve_val(char *val)
 
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
-   /* printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
+    printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
+
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
     if(system("mkdir lib")!=0)
@@ -136,20 +148,21 @@ int main(int argc, char *argv[]) {
     Exitcrepl();
     printf("Success");
 
-*/
-    char temp_name[50];
-    char SO_file[50];
-    sprintf(temp_name,"_expr_wrap_%04d",0);
+
+/*    char temp_name[50];
+   char SO_file[50];
+   sprintf(temp_name,"_expr_wrap_%04d",0);
 
     sprintf(SO_file,"./lib/SO_%s.so",temp_name);
-   //if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW))printf("fail");else printf("success");//LAZT,全局;
-    void*handle=dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);
-    int (*temp)();
-    if(handle==NULL)assert(0);
-    temp=dlsym(handle,"func");
-    int result=temp();
-    printf("%d\n",result);
-
+    printf("%s\n,",SO_file);
+   if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW)==NULL)printf("fail");else printf("success");//LAZT,全局;
+    //void*handle=dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);
+    //int (*temp)();
+  //  if(handle==NULL)assert(0);
+   // temp=dlsym(handle,"func");
+    //int result=temp();
+    //printf("%d\n",result);
+*/
     return 0;
 }
 
