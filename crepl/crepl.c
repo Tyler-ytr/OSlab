@@ -84,6 +84,7 @@ void solve_func(char *buf)
     void*handle=flag;
     int (*temp)();
     if(handle==NULL)assert(0);
+    temp=dlsym(handle,"func");
     int result=temp();
     printf("%d\n",result);
 
