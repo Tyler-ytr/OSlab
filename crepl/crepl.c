@@ -165,6 +165,7 @@ int main(int argc, char *argv[]) {
         {
             //是表达式;
        // printf("Val:%s\n",in);
+            solve_val(in);
         }
     }
 
