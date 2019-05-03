@@ -16,7 +16,11 @@ void Exitcrepl()
     {
         perror("rm -rf test");
         assert(0);
-
+    }
+    if(system("rm -rf lib")!=0)
+    {
+        perror("rm -rf lib");
+        assert(0);
     }
 
 }
@@ -24,6 +28,9 @@ void Exitcrepl()
 int main(int argc, char *argv[]) {
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
+    if(system("mkdir lib")!=0)
+        Somethingwrong("mkdir lib");
+
 
     Exitcrepl();
     printf("Success");
