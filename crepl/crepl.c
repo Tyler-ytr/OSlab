@@ -142,7 +142,14 @@ int main(int argc, char *argv[]) {
     sprintf(temp_name,"_expr_wrap_%04d",0);
 
     sprintf(SO_file,"./lib/SO_%s.so",temp_name);
-   if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW))printf("fail");else printf("success");//LAZT,全局;
+   //if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW))printf("fail");else printf("success");//LAZT,全局;
+    void*handle=dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);
+    int (*temp)();
+    if(handle==NULL)assert(0);
+    temp=dlsym(handle,"func");
+    int result=temp();
+    printf("%d\n",result);
+
     return 0;
 }
 
