@@ -178,6 +178,7 @@ return;
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
     printf("使用exit()退出;如果使用了Ctrl+C 退出,需要在经历一次报错之后重新跑;\n");
+    printf("允许一定的错误(比如1++1),但是使用未定义的函数名会导致程序终止,如果这样的话,同样需要先执行一次经历一次报错之后才能重新跑\n")
 
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
