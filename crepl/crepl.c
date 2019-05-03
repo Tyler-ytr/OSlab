@@ -105,13 +105,35 @@ void solve_func(char *buf)
         return;
     }
     else{
-        printf("flag NULL!\n");
+        //printf("flag NULL!\n");
+        Somethingwrong("fail to dlopen.");
     }
 }
 
 void solve_val(char *val)
 {
     // to be continued
+    char temp_name[64];
+    char temp_val_func[64];
+    sprintf(temp_name,"_expr_wrap_%04d",cnt++);
+    sprintf(temp_val_func,"int %s(){return (%s);}",temp_name,val);
+
+    //to be continued
+    //检验正确性
+
+    void * handle=add_func_to_file(temp_val_func,temp_name);
+
+    int (*temp)();
+    if(handle==NULL)return;
+   temp=dlsym(handle,"temp_name");
+   if(temp!=NULL)
+   {
+       printf("%s = %d\n",val,temp());
+   }
+   else{
+       Somethingwrong(“dlsm_return_NULL”);
+   }
+return;
 }
 
 
