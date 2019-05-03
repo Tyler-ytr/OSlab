@@ -2,8 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <unistd.h>
+#include <signal.h>
+#include <dlfcn.h>
 
 #define MAX_LEN 512
+
+int cnt=0;
 
 void Exitcrepl();
 void Somethingwrong(char *str)
@@ -42,6 +47,43 @@ char* my_read(const char *previous,char * buf){
 
 }
 
+void *add_func_to_file(char *func,char*name)
+{
+    char C_file[64],SO_file[64];
+    char gcc_command[256];
+
+    sprintf(C_file,"./lib/C_%s.c",name);
+    sprintf(SO_file,"./lib/SO_%s.so",name);
+    sprintf(gcc_command,"gcc -shared -fPIC -Wno-implicit-function-declaration -o %s %s",SO_file,C_file);
+
+    //so 编码指令;
+    FILE *fp=fopen(SO_file,"w+");
+    fprintf(fp,"%s\n",func);
+    fclose(fp);
+
+
+}
+
+void solve_func(char *buf)
+{
+    char temp_name[64];
+
+    //首先预编译康康对不对;
+    // check_func;
+    //然后再加载到库里面;
+    //add_func_to_file;
+    sprintf(temp_name,"_expr_wrap_%04d",cnt++);
+    void *flag=add_func_to_file(buf,temp_name);
+    // 对flag处理;
+    return;
+}
+
+void solve_val(char *val)
+{
+    // to be continued
+}
+
+
 
 int main(int argc, char *argv[]) {
     //创建测试目录以及lib目录;
@@ -58,15 +100,15 @@ int main(int argc, char *argv[]) {
         if(strcmp(in,"exit()")==0)
             break;
         //判断是函数还是表达式;
-        if(strncmp("int",in,4)==0)
+        if(strncmp("int ",in,4)==0)
         {
             //是func
+     //   printf("Func:%s\n",in);
 
-        printf("Func:%s\n",in);
         }else
         {
             //是表达式;
-        printf("Val:%s\n",in);
+       // printf("Val:%s\n",in);
         }
     }
 
@@ -76,3 +118,6 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+//参考:
+//分析dl系列:https://blog.csdn.net/zhengqijun_/article/details/72540878
