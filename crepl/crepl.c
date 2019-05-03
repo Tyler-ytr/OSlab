@@ -53,7 +53,7 @@ void *add_func_to_file(char *func,char*name)
     char gcc_command[256];
 
     sprintf(C_file,"./lib/%s.c",name);
-    sprintf(SO_file,"./lib/%s.so",name);
+    sprintf(SO_file,"./lib/lib%s.so",name);
     sprintf(gcc_command,"gcc -shared -fPIC -Wno-implicit-function-declaration -o %s %s",SO_file,C_file);
 
     //so 编码指令;
