@@ -21,6 +21,7 @@ void Exitcrepl()
 int main(int argc, char *argv[]) {
     if(system("mkdir test")!=0)
         Somethingwrong("mkdir test");
+    Exitcrepl();
     printf("Success");
 
 
