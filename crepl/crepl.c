@@ -36,7 +36,7 @@ char* my_read(const char *previous,char * buf){
     {
         Somethingwrong("my_read");
     }
-    len=strlen(buf);
+    int len=strlen(buf);
     buf[len-1]='\0';
     return result;
 
