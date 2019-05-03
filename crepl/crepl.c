@@ -148,20 +148,20 @@ int main(int argc, char *argv[]) {
     Exitcrepl();
     printf("Success");
 
-
-/*    char temp_name[50];
+/*
+    char temp_name[50];
    char SO_file[50];
    sprintf(temp_name,"_expr_wrap_%04d",0);
 
     sprintf(SO_file,"./lib/SO_%s.so",temp_name);
     printf("%s\n,",SO_file);
    if( dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW)==NULL)printf("fail");else printf("success");//LAZT,全局;
-    //void*handle=dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);
-    //int (*temp)();
-  //  if(handle==NULL)assert(0);
-   // temp=dlsym(handle,"func");
-    //int result=temp();
-    //printf("%d\n",result);
+    void*handle=dlopen(SO_file,RTLD_GLOBAL|RTLD_NOW);
+   int (*temp)();
+    if(handle==NULL)assert(0);
+   temp=dlsym(handle,"func");
+    int result=temp();
+    printf("%d\n",result);
 */
     return 0;
 }
