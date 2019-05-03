@@ -151,6 +151,11 @@ void solve_val(char *val)
 
     //to be continued
     //检验正确性
+    if(check_func_valid(temp_val_func)==0)
+    {
+        printf("Something wrong of your expression;Please rewrite one.\n");
+        return;
+    }
 
     void * handle=add_func_to_file(temp_val_func,temp_name);
 
@@ -201,7 +206,7 @@ int main(int argc, char *argv[]) {
     }
 
     Exitcrepl();
-    printf("Success");
+//    printf("Success");
 
 /*
     char temp_name[50];
