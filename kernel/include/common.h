@@ -89,7 +89,7 @@ struct cpu {
 //void            panic(char*) __attribute__((noreturn));
 //struct cpu*     mycpu(void);
 
-#if ndef panic
+#if ndef printf
 #define panic printf
 #endif
 
