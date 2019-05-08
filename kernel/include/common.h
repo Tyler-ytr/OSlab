@@ -89,9 +89,8 @@ struct cpu {
 //void            panic(char*) __attribute__((noreturn));
 //struct cpu*     mycpu(void);
 
-#if ndef printf
-#define panic printf
-#endif
+
+//#define panic printf
 
 //一堆spin_lock
 //spinlock init_lk;
