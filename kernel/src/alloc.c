@@ -1,5 +1,5 @@
 #include <common.h>
-#include <klib.h>
+//#include <klib.h>
 
 static spinlock init_lk;
 static spinlock alloc_lk;
@@ -40,7 +40,7 @@ static void pmm_init() {
     cpu_head[i]->prev=cpu_head[i];
     cpu_head[i]->flag=2;
     cpu_head[i]->size=0;
-  }    
+  }
 
   printf("cpu_area: 0x%x, 1: 0x%x ; 4: 0x%x \n",cpu_head[0],cpu_head[1],cpu_head[4]);
   unused_space->addr=&(cpu_head[0])[9];
@@ -55,7 +55,7 @@ static void *kalloc(size_t size) {
   lock(a_lk);
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
-  _list now=cpu_head[cpu_num]; 
+  _list now=cpu_head[cpu_num];
   void *ret=NULL;
   int success_hint=0;
   if(size==0)
@@ -64,7 +64,7 @@ static void *kalloc(size_t size) {
   }
   else{
   while(now->next!=head)
-  { 
+  {
     now=now->next;
     assert(now!=NULL);
     if(now->flag==0&&now->size>=size)
@@ -78,14 +78,14 @@ static void *kalloc(size_t size) {
   {
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
-  
+
     new->next=now->next;
     now->next->prev=new;
     new->prev=now;
     new->addr=&new[1];
     new->flag=1;
     new->size=size;
-    
+
     now->next=new;
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
@@ -107,7 +107,7 @@ static void *kalloc(size_t size) {
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
-    
+
     if((int)(now->size-size-2*sizeof(_node))-4028>0&&size>4028)
     {
       assert((int)(now->size-size)>sizeof(_node));
@@ -116,9 +116,9 @@ static void *kalloc(size_t size) {
       assert(0);
       _list new=(void *)(now->addr+size);
 
-    
+
       new->next=now->next;
-      
+
       assert(now->next->prev==now);
       now->next->prev=new;
       new->next->prev=new;
@@ -140,7 +140,7 @@ static void *kalloc(size_t size) {
       assert(now->prev->next==now);
       assert(new->prev->next==new);
     }
-      
+
     else
     {
       now->flag=1;
