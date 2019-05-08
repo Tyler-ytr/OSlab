@@ -1,5 +1,5 @@
 #include <common.h>
-#include <klib.h>
+//#include <klib.h>
 //#include "types.h"
 //#include "defs.h"
 //#include "param.h"
@@ -14,7 +14,7 @@ intptr_t xchg(volatile intptr_t *addr, intptr_t newval) {
   intptr_t result;
 asm volatile ("lock xchgl %0, %1":
     "+m"(*addr), "=a"(result) : "1"(newval) : "cc");
-return result; 
+return result;
 }
 */
 /*
@@ -40,7 +40,7 @@ intptr_t my_spin_lock(intptr_t locked)
 
 intptr_t my_spin_unlock(intptr_t locked)
 {
-  
+
   printf("I am in unlock\n");
  my_atomic_xchg(&locked, 0);
  sti();
@@ -93,7 +93,7 @@ void popcli(void)
    /* if(readeflags()&FL_IF)
           {panic("popcli - interruptible");
           assert(0);}
-          
+
         printf("in popcli of cpu :%d",_cpu());
          // printf("in popcli of cpu :%d ncli before -1:%d \n",cpu_num,ncli[cpu_num]);
       if(--ncli[_cpu()] < 0)
@@ -127,7 +127,7 @@ getcallerpcs(void *v, uint pcs[])
                       break;
                   pcs[i] = ebp[1];     // saved %eip
                       ebp = (uint*)ebp[0]; // saved %ebp
-                        
+
         }
           for(; i < 10; i++)
                 pcs[i] = 0;
@@ -156,17 +156,17 @@ void lock(struct Spinlock *lk)
         // The xchg is atomic.
            while(xchg(&lk->locked, 1) != 0)
                ;
-        
+
        // printf("In lock \n");
                  // Tell the C compiler and the processor to not move loads or stores
                    // past this point, to ensure that the critical section's memory
                      // references happen after the lock is acquired.
                        //__sync_synchronize();
-        
+
                         // Record info about lock acquisition for debugging.
-                      
+
                             // getcallerpcs(&lk, lk->pcs);
-        
+
 }
 void unlock(struct Spinlock *lk)
 {
@@ -175,7 +175,7 @@ void unlock(struct Spinlock *lk)
           {panic("release");
           assert(0);}
 */
-     
+
 
           // Tell the C compiler and the processor to not move loads or stores
              // past this point, to ensure that all the stores in the critical
@@ -183,16 +183,16 @@ void unlock(struct Spinlock *lk)
                  // Both the C compiler and the hardware may re-order loads and
                    // stores; __sync_synchronize() tells them both not to.
                      //__sync_synchronize();
-          
+
                        // Release the lock, equivalent to lk->locked = 0.
                          // This code can't use a C assignment, since it might
                           // not be atomic. A real OS would use C atomics here.
                         //     asm volatile("movl $0, %0" : "+m" (lk->locked) : );
           xchg(&lk->locked, 0) ;
                 lk->pcs[0] = 0;
-        lk->cpu = 0;                
+        lk->cpu = 0;
                                popcli();
-          
+
 }
 
 
