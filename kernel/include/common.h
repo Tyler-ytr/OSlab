@@ -90,7 +90,7 @@ struct cpu {
 //struct cpu*     mycpu(void);
 
 
-#define panic my_printf
+//#define panic my_printf
 
 //一堆spin_lock
 //spinlock init_lk;
