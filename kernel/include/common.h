@@ -4,9 +4,9 @@
 #include <kernel.h>
 #include <nanos.h>
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
-extern intptr_t my_spin_unlock(intptr_t locked); 
+extern intptr_t my_spin_unlock(intptr_t locked);
 
 #define pthread_t intptr_t
 
@@ -84,7 +84,7 @@ struct cpu {
 };*/
 
 //int intena[8];
-#define KERNBASE 0x80000000  
+#define KERNBASE 0x80000000
 //void            panic(char*) __attribute__((noreturn));
 //struct cpu*     mycpu(void);
 
@@ -95,10 +95,10 @@ struct cpu {
 //一堆spin_lock
 //spinlock init_lk;
 //spinlock os_lk;
-=======
+//=======
 struct task {};
 struct spinlock {};
 struct semaphore {};
 
->>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
+//>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 #endif
