@@ -1,8 +1,10 @@
 #ifndef __COMMON_H__
+#define __COMMON_H__
 
 #include <kernel.h>
 #include <nanos.h>
 
+<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
 extern intptr_t my_spin_unlock(intptr_t locked); 
 
@@ -93,4 +95,10 @@ struct cpu {
 //一堆spin_lock
 //spinlock init_lk;
 //spinlock os_lk;
+=======
+struct task {};
+struct spinlock {};
+struct semaphore {};
+
+>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 #endif
