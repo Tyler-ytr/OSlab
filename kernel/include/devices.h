@@ -1,6 +1,6 @@
 #include <common.h>
 #include <amdev.h>
-#include <klib.h>
+//#include <klib.h>
 
 #define LENGTH(arr) ((sizeof(arr) / sizeof(arr[0])))
 
@@ -81,7 +81,7 @@ typedef struct {
 } fb_t;
 
 // -------------------------------------------------------------------
-// Virtual console on fb 
+// Virtual console on fb
 
 struct character {
   uint32_t metadata;

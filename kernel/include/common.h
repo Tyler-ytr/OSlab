@@ -3,6 +3,7 @@
 
 #include <kernel.h>
 #include <nanos.h>
+#include <klib.h>
 
 //<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
