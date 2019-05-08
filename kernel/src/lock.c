@@ -1,5 +1,5 @@
 #include <common.h>
-//#include <klib.h>
+#include <klib.h>
 //#include "types.h"
 //#include "defs.h"
 //#include "param.h"
