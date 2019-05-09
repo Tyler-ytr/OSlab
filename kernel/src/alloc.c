@@ -200,7 +200,7 @@ static void kfree(void *ptr) {
         now->flag=0;
       }
   }
-  printf("in free\n")
+  printf("in free\n");
   kmt->spin_unlock(a_lk);
 
 
