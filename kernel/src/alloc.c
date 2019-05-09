@@ -4,6 +4,7 @@
 static spinlock init_lk;
 //static spinlock alloc_lk;
 spinlock_t alloc_lk;
+spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
@@ -13,9 +14,11 @@ static void pmm_init() {
 
   //spinlock *a_lk=&alloc_lk;
   spinlock_t *a_lk=&alloc_lk;
+  spinlock_t *h_lk=&free_lk;
    spinlock *h_lk=&head_lk;
     //initlock(a_lk,NULL);
     kmt->spin_init(a_lk,"alloc");
+    kmt->spin_init(f_lk,"free");
 
     initlock(h_lk,NULL);
 
@@ -164,9 +167,9 @@ static void *kalloc(size_t size) {
 static void kfree(void *ptr) {
 
   //spinlock*a_lk=&alloc_lk;
-  spinlock_t *a_lk=&alloc_lk;
+  spinlock_t *f_lk=&free_lk;
   //lock(a_lk);
-  kmt->spin_lock(a_lk);
+  kmt->spin_lock(f_lk);
 
   //首先搜索这个地址的存在性；
   if(ptr!=NULL&&ptr!=(void *)pm_start)
@@ -201,7 +204,7 @@ static void kfree(void *ptr) {
       }
   }
   printf("in free\n");
-  kmt->spin_unlock(a_lk);
+  kmt->spin_unlock(f_lk);
 
 
 }
