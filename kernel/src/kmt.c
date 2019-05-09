@@ -12,7 +12,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     //TO BE DONE
 
 
-    return NULL;
+    return 0;
 }
 
 static void kmt_teardown(task_t *task){
