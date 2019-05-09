@@ -94,7 +94,7 @@ static void kmt_spin_lock(spinlock_t *lk){
  pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk))
     {
-      
+     printf("%d %d , " lk->locked,lk->cpu); 
       panic("Spin_lock");}
 
   // The xchg is atomic.
