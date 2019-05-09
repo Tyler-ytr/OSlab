@@ -9,18 +9,18 @@ void test_from_yzy(){
           for(i=0;i<500;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
                     printf("i: %d space:0x%x\n",i,space[i]);
-                        
+
           }}
           for(i=0;i<5000;++i){
                     int temp=rand()%10;
                             pmm->free(space[temp]);
                                     space[temp]=pmm->alloc(rand()&((1<<10)-1));
                     printf("temp: %d space:0x%x\n",temp,space[temp]);
-                                        
+
           }
           for(i=0;i<500;++i){
                     pmm->free(space[i]);
-                        
+
           }
           printf("success!!!!!!");
 
@@ -28,6 +28,11 @@ void test_from_yzy(){
 
 static void os_init() {
   pmm->init();
+  //To be continued:
+  //kmt->init();
+  //_vme_init(pmm->alloc, pmm->free);
+  //dev->init();
+  // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 }
 /*
 static void hello() {
@@ -47,7 +52,7 @@ static void os_run() {
   //hello();
   test_from_yzy();
   //void *p=NULL;
-  
+
  // p=pmm->alloc(1000);
   //printf("p:0x%x\n",p);
   //my_spin_unlock(locked);
