@@ -80,7 +80,7 @@ pushcli(void)
  ncli[(int)_cpu()]  += 1;
 }
 static int
-holding(struct spinlock_t *lock)
+holding(spinlock_t *lock)
 {
   int r;
   pushcli();
