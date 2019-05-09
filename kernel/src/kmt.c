@@ -7,7 +7,7 @@ static void kmt_init(){
     return;
 }
 
-static int kmt_create((task_t *task, const char *name, void (*entry)(void *arg), void *arg){
+static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
 
     //TO BE DONE
 
