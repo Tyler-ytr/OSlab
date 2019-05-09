@@ -56,7 +56,7 @@ popcli(void)
    { printf("cpu: %d %d: ",(int)_cpu(),ncli[(int)_cpu()]);
     panic("popcli");}
  // if(--ncli[(int)_cpu()] == 0 && mycpu()->intena)
- if(--ncli[(int)_cpu()] == 0&&intena[(int)_cpu()])
+ if(ncli[(int)_cpu()] == 0&&intena[(int)_cpu()])
     sti();
  /*ncli[(int)_cpu()]--;
     //printf("pop ncli: cpu %d ncli[_cpu]:%d \n",_cpu(),ncli[(int)_cpu()]);
