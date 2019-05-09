@@ -28,7 +28,7 @@ static void kmt_spin_init(spinlock_t *lk, const char *name){
 
     lk->name=name;
     lk->locked=0;
-    lk->cpu=0;
+    lk->cpu=-1;
     //TO BE DONE
     return ;
 }
