@@ -119,7 +119,7 @@ static void kmt_spin_unlock(spinlock_t *lk){
     panic("Unlock");
 
 //  lk->pcs[0] = 0;
-  lk->cpu = 0;
+  lk->cpu = -1;
 
   // Tell the C compiler and the processor to not move loads or stores
   // past this point, to ensure that all the stores in the critical
