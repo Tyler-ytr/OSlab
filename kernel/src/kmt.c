@@ -53,8 +53,8 @@ popcli(void)
   if(get_efl()&FL_IF)//readflags==get_efl
     panic("popcli - interruptible");
   if(--ncli[(int)_cpu()] < 0)
-    printf("cpu: %d %d: ",(int)_cpu(),ncli[(int)_cpu()]);
-    panic("popcli");
+   { printf("cpu: %d %d: ",(int)_cpu(),ncli[(int)_cpu()]);
+    panic("popcli");}
  // if(--ncli[(int)_cpu()] == 0 && mycpu()->intena)
  if(--ncli[(int)_cpu()] == 0&&intena[(int)_cpu()])
     sti();
