@@ -43,7 +43,7 @@ static void kmt_spin_unlock(spinlock_t *lk){
 
 
     //TO BE DONE
-    return ;    
+    return ;
 }
 static void kmt_sem_init(sem_t *sem, const char *name, int value){
 
@@ -57,8 +57,20 @@ static void kmt_sem_wait(sem_t *sem){
     return;
 }
 
-void kmt_sem_signal(sem_t *sem){
+static void kmt_sem_signal(sem_t *sem){
 
 
     return;
 }
+
+MODULE_DEF(kmt) {
+  .init   = kmt_init,
+  .create    = kmt_create,
+  .teardown   = kmt_teardown,
+  .spin_init=kmt_spin_init,
+  .spin_lock=kmt_spin_lock,
+  .spin_unlock=kmt_spin_unlock,
+  .sem_init=kmt_sem_init,
+  .sem_wait=kmt_sem_wait,
+  .sem_signal=kmt_sem_signal,
+};
