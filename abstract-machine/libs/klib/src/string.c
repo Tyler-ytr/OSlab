@@ -10,7 +10,7 @@ size_t strlen(const char *s) {
 	while(*p)
 	{p++;
 	}
-	
+
 //	_put((p-s));
   	return ((int)(p-s));*/
 	size_t i=0;
@@ -49,7 +49,7 @@ char *strcpy(char* dst,const char* src) {
 		{
 			*dst++=*src++;
 		}
-		
+
 	}
 //	_put(*ret);
 	return ret;
@@ -61,7 +61,7 @@ char* strncpy(char* dst, const char* src, size_t n) {
 	while(*src!='\0'&&0<n--)
 	{
 		*s++=*src++;
-	
+
 	}
 	while(0<n--)
 	{
@@ -122,7 +122,7 @@ return 0;
 
 
 int strncmp(const char* s1, const char* s2, size_t n) {
-  
+
 
   while(n)
   {
@@ -148,9 +148,9 @@ void* memset(void* v,int c,size_t n) {
 	*s=uc;
 	}
 	return v;
-	
-	
-	
+
+
+
 	//  return NULL;
 }
 
@@ -163,12 +163,12 @@ void* memcpy(void* out, const void* in, size_t n) {
 		s++;
 		sin++;
 	}
-	
-	
-	
+
+
+
 	return out;
-	
-	
+
+
 	// return NULL;
 }
 
@@ -185,15 +185,15 @@ int memcmp(const void* s1, const void* s2, size_t n){
 		else
 		{
 			return *a-*b;
-		
+
 		}
 		n--;
 	}
-   
+
 return *a-*b;
 */
 	for(int i=0;i<n;i++)
-	{	
+	{
 		if(a[i]>b[i])
 			return (a[i]-b[i]);
 		else if(a[i]<b[i])
@@ -204,7 +204,35 @@ return *a-*b;
 	}
 return 0;
 
-	
+
+}
+
+
+void *memmove(void *dest,const void *src,size_t n){
+// from src to dest
+//  <.......s....<...>.....d......>  从尾端开始复制
+//  <....d....<.....>.....s.....> 从头部开始复制
+//  <......ds.......> 不用复制
+    char *d = (char *)dest;
+    const char *s=(const char* )src;
+    if(s>d)
+    {
+        while(n--)
+        {
+            *d++=*s++;
+        }
+    }
+    else if (s<d)
+    {
+        d=d+n-1;
+        s=s+n-1;
+        while(n--)
+        {
+            *d--=*s--;
+        }
+    }
+    return dest;
+
 }
 
 #endif
