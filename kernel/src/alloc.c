@@ -156,6 +156,7 @@ static void *kalloc(size_t size) {
   }
   assert(ret!=NULL);
   //unlock(a_lk);
+  printf("In alloc\n");
   kmt->spin_unlock(a_lk);
   return ret;
 }
@@ -199,6 +200,7 @@ static void kfree(void *ptr) {
         now->flag=0;
       }
   }
+  printf("in free\n")
   kmt->spin_unlock(a_lk);
 
 

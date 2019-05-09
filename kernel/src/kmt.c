@@ -92,10 +92,10 @@ holding(spinlock_t *lock)
 
 static void kmt_spin_lock(spinlock_t *lk){
  pushcli(); // disable interrupts to avoid deadlock.
-  /*if(holding(lk))
+  if(holding(lk))
     {
       
-      panic("Spin_lock");}*/
+      panic("Spin_lock");}
 
   // The xchg is atomic.
   while(xchg(&lk->locked, 1) != 0)
