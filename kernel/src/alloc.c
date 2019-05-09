@@ -2,7 +2,8 @@
 //#include <klib.h>
 
 static spinlock init_lk;
-static spinlock alloc_lk;
+//static spinlock alloc_lk;
+spinlock_t alloc_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
@@ -10,9 +11,11 @@ static void pmm_init() {
   initlock(lk,NULL);
   lock(lk);
 
-  spinlock *a_lk=&alloc_lk;
+  //spinlock *a_lk=&alloc_lk;
+  spinlock_t *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
-    initlock(a_lk,NULL);
+    //initlock(a_lk,NULL);
+    kmt->spin_init(a_lk,"alloc");
     initlock(h_lk,NULL);
 
   pm_start = (uintptr_t)_heap.start;
@@ -51,8 +54,10 @@ static void pmm_init() {
 
 static void *kalloc(size_t size) {
 
-  spinlock*a_lk=&alloc_lk;
-  lock(a_lk);
+  //spinlock*a_lk=&alloc_lk;
+  spinlock_t*a_lk=&alloc_lk;
+  //lock(a_lk);
+  kmt->spin_lock(a_lk);
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
@@ -149,14 +154,17 @@ static void *kalloc(size_t size) {
   }
   }
   assert(ret!=NULL);
-  unlock(a_lk);
+  //unlock(a_lk);
+  kmt->spin_unlock(a_lk);
   return ret;
 }
 
 static void kfree(void *ptr) {
 
-  spinlock*a_lk=&alloc_lk;
-  lock(a_lk);
+  //spinlock*a_lk=&alloc_lk;
+  spinlock_t *a_lk=&alloc_lk;
+  //lock(a_lk);
+  kmt->spin_lock(a_lk);
 
   //首先搜索这个地址的存在性；
   if(ptr!=NULL&&ptr!=(void *)pm_start)
@@ -190,7 +198,7 @@ static void kfree(void *ptr) {
         now->flag=0;
       }
   }
-  unlock(a_lk);
+  kmt->spin_unlock(a_lk);
 
 
 }
