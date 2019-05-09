@@ -80,7 +80,7 @@ pushcli(void)
  ncli[(int)_cpu()]  += 1;
 }
 static int
-holding(struct spinlock *lock)
+holding(struct spinlock_t *lock)
 {
   int r;
   pushcli();
@@ -93,7 +93,9 @@ holding(struct spinlock *lock)
 static void kmt_spin_lock(spinlock_t *lk){
  pushcli(); // disable interrupts to avoid deadlock.
   if(holding(lk))
-    panic("Spin_lock");
+    {
+      
+      panic("Spin_lock");}
 
   // The xchg is atomic.
   while(xchg(&lk->locked, 1) != 0)
