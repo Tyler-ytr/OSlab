@@ -97,7 +97,15 @@ struct cpu {
 //spinlock os_lk;
 //=======
 struct task {};
-struct spinlock {};
+struct spinlock {
+  uint locked;       // Is the lock held?
+
+  // For debugging:
+  char *name;        // Name of lock.
+  int cpu;   // The cpu holding the lock.
+  //uint pcs[10];      // The call stack (an array of program counters)
+                     // that locked the lock.
+};
 struct semaphore {};
 
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
