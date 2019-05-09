@@ -15,7 +15,7 @@ static void pmm_init() {
   //spinlock_t *a_lk=&alloc_lk;
    spinlock *h_lk=&head_lk;
     //initlock(a_lk,NULL);
-    //kmt->spin_init(a_lk,"alloc");
+    kmt->spin_init(a_lk,"alloc");
 
     initlock(h_lk,NULL);
 
