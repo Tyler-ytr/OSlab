@@ -5,6 +5,8 @@
 #include <nanos.h>
 #include <klib.h>
 
+#include "debug.h"
+
 //<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
 extern intptr_t my_spin_unlock(intptr_t locked);
@@ -96,7 +98,29 @@ struct cpu {
 //spinlock init_lk;
 //spinlock os_lk;
 //=======
-struct task {};
+struct task {
+  const char *name;
+  _Context context;
+  char fence_1[32]={
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
+  char stack[4096];
+  char fence_2[32]={
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
+};
 struct spinlock {
   uint locked;       // Is the lock held?
 
@@ -107,6 +131,13 @@ struct spinlock {
                      // that locked the lock.
 };
 struct semaphore {};
+
+typedef struct HANDLER_LIST{
+  int seq=0x3f3f3f3f;
+  int event=-123;
+  handler_t handler;
+}Handler_list;
+#define MAX_HANDLIST_NUMBER 1024
 
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 #endif

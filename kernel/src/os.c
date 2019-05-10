@@ -1,6 +1,8 @@
 #include <common.h>
 #include <klib.h>
-spinlock os_lk;
+spinlock_t lk_irq;
+static Handler_list handler_list[MAX_HANDLIST_NUMBER];
+static int _handler_length=0;
 
 void test_from_yzy(){
       void *space[500];
@@ -28,6 +30,7 @@ void test_from_yzy(){
 
 static void os_init() {
   pmm->init();
+  kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   //To be continued:
   //kmt->init();
   //_vme_init(pmm->alloc, pmm->free);
@@ -64,10 +67,70 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  return context;
+  _Context *ret=NULL;
+  for(int i=0;i<_handler_length;i++)
+  {
+    if(handler_list[i].event==_EVENT_NULL||handler_list[i].event==ev.event){
+      _Context *next=handler_list[i].handler(ev,context);
+      if(next)ret=next;
+    }
+
+  }
+  return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
+    kmt->spin_lock(&lk_irq);
+    if(_handler_length==0)
+    {
+      handler_list[_handler_length].seq=seq;
+      handler_list[_handler_length].event=seq;
+      handler_list[_handler_length].handler=handler;
+
+      _handler_length++;
+      kmt->spin_unlock(&lk_irq);
+      return;
+    }
+    else{
+      int mid=0;
+      int tmp=0;
+      for(tmp=0;tmp<_handler_length;tmp++)
+      {
+        if(handler_list[tmp].seq<=seq)
+        {
+          continue;
+        }else break;
+      }        
+      mid=tmp;
+      _handler_length++;
+
+      for(int i=_handler_length;i>mid;i++)
+      {
+        handler_list[i].seq=handler_list[i-1].seq;
+        handler_list[i].event=handler_list[i-1].event;
+        handler_list[i].handler=handler_list[i-1].handler;
+      }
+
+      handler_list[mid].seq=seq;
+      handler_list[mid].event=event;
+      handler_list[mid].handler=handler;
+
+      assert(handler_list[mid].seq>=handler_list[mid-1].seq);
+      assert(handler_list[mid].seq<=handler_list[mid+1].seq);
+      assert(handler_list[_handler_length-1].seq!=0x3f3f3f3f&&handler_list[_handler_length-1].event!=-123);
+      kmt->spin_unlock(&lk_irq);
+      return;
+    }
+
+
+
+
+    
+
+
+
+
+
 }
 
 MODULE_DEF(os) {
