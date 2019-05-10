@@ -77,7 +77,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
     }
 
   }
-  if(ret==NULL)panic("os_trap");
+  if(ret==NULL)panic("%d,os_trap",ev.event);
   return ret;
 }
 
