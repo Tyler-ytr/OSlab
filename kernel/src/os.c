@@ -68,7 +68,7 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  _Context *ret=NULL;
+  /*_Context *ret=NULL;
   for(int i=0;i<_handler_length;i++)
   {
     if(handler_list[i].event==_EVENT_NULL||handler_list[i].event==ev.event){
@@ -80,7 +80,8 @@ static _Context *os_trap(_Event ev, _Context *context) {
   if(ret==NULL){
     printf("event: %d length %d\n",ev.event,_handler_length);
     panic("os_trap");}
-  return ret;
+  return ret;*/
+  return context;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
