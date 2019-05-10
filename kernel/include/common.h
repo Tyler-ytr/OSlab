@@ -133,8 +133,8 @@ struct spinlock {
 struct semaphore {};
 
 typedef struct HANDLER_LIST{
-  int seq=0x3f3f3f3f;
-  int event=-123;
+  int seq/*=0x3f3f3f3f*/;
+  int event/*=-123*/;
   handler_t handler;
 }Handler_list;
 #define MAX_HANDLIST_NUMBER 1024
