@@ -38,14 +38,14 @@ static void os_init() {
   //dev->init();
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 }
-/*
+
 static void hello() {
   for (const char *ptr = "Hello from CPU #"; *ptr; ptr++) {
     _putc(*ptr);
   }
   _putc("12345678"[_cpu()]); _putc('\n');
 }
-*/
+
 static void os_run() {
 //spinlock *lk=NULL;
  //spinlock * lk=&os_lk;
@@ -53,8 +53,8 @@ static void os_run() {
   //lock(lk);
   //int locked=0;
   //my_spin_lock(locked);
-  //hello();
-  test_from_yzy();
+  hello();
+  //test_from_yzy();
   //void *p=NULL;
 
  // p=pmm->alloc(1000);
