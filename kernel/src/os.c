@@ -31,6 +31,7 @@ void test_from_yzy(){
 static void os_init() {
   pmm->init();
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
+  
   //To be continued:
   //kmt->init();
   //_vme_init(pmm->alloc, pmm->free);
@@ -76,6 +77,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
     }
 
   }
+  if(ret==NULL)panic("os_trap");
   return ret;
 }
 
@@ -117,7 +119,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 
       assert(handler_list[mid].seq>=handler_list[mid-1].seq);
       assert(handler_list[mid].seq<=handler_list[mid+1].seq);
-      assert(handler_list[_handler_length-1].seq!=0x3f3f3f3f&&handler_list[_handler_length-1].event!=-123);
+      //assert(handler_list[_handler_length-1].seq!=0x3f3f3f3f&&handler_list[_handler_length-1].event!=-123);
       kmt->spin_unlock(&lk_irq);
       return;
     }
