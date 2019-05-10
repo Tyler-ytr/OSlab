@@ -51,7 +51,7 @@ xchg(volatile uint *addr, uint newval)
 static void
 popcli(void)
 {
-  if(get_efl()&fl_if)//readflags==get_efl
+  if(get_efl()&FL_IF)//readflags==get_efl
     panic("popcli - interruptible");
   if(--ncli[(int)_cpu()] < 0)
    { printf("cpu: %d %d: ",(int)_cpu(),ncli[(int)_cpu()]);
