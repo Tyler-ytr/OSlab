@@ -101,7 +101,7 @@ struct cpu {
 struct task {
   const char *name;
   _Context context;
-  char fence_1[32]={
+  char fence_1[32]/*={
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
@@ -109,9 +109,9 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
-                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc}*/;
   char stack[4096];
-  char fence_2[32]={
+  char fence_2[32]/*={
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
@@ -119,7 +119,7 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
-                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc}*/;
 };
 struct spinlock {
   uint locked;       // Is the lock held?
