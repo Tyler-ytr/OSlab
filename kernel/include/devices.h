@@ -12,7 +12,7 @@ struct device {
 };
 
 device_t *dev_lookup(const char *name);
-static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
+//static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 
 // Input
 // -------------------------------------------------------------------
