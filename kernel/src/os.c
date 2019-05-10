@@ -1,6 +1,7 @@
 #include <common.h>
 #include <klib.h>
 spinlock_t lk_irq;
+spinlock_t lk_test;
 static Handler_list handler_list[MAX_HANDLIST_NUMBER];
 static int _handler_length=0;
 
@@ -31,6 +32,7 @@ void test_from_yzy(){
 static void os_init() {
   pmm->init();
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
+  kmt->spin_init(&lk_test,"/src/os test");
   
   //To be continued:
   kmt->init();
@@ -53,7 +55,9 @@ static void os_run() {
   //lock(lk);
   //int locked=0;
   //my_spin_lock(locked);
+  kmt->spin_lock(&lk_test);
   hello();
+  kmt->spin_unlock(&lk_test);
   //test_from_yzy();
   //void *p=NULL;
 
@@ -68,7 +72,7 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  //_Context *ret=NULL;
+ // _Context *ret=NULL;
   _Context *ret=context;//记得修改
   for(int i=0;i<_handler_length;i++)
   {
