@@ -2,7 +2,7 @@
 #define _DEBUG_H
 #include "common.h"
 
-
+/*
 #define assert(cond) \
     do { \
       if (!(cond)) { \
@@ -10,7 +10,7 @@
         _halt(1); \
       } \
     } while (0)
-
+*/
 
 
 
