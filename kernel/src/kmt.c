@@ -4,7 +4,8 @@ static int ncli[9]={0,0,0,0,0,0,0,0,0};
 static int intena[9]={0,0,0,0,0,0,0,0,0};
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
-
+ os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
+  os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
     //TO BE DONE
     return;
 }
@@ -50,7 +51,7 @@ xchg(volatile uint *addr, uint newval)
 static void
 popcli(void)
 {
-  if(get_efl()&FL_IF)//readflags==get_efl
+  if(get_efl()&fl_if)//readflags==get_efl
     panic("popcli - interruptible");
   if(--ncli[(int)_cpu()] < 0)
    { printf("cpu: %d %d: ",(int)_cpu(),ncli[(int)_cpu()]);
