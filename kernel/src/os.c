@@ -142,7 +142,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 
       if(mid-1>0)assert(handler_list[mid].seq>=handler_list[mid-1].seq);
       if(mid+1<_handler_length) assert(handler_list[mid].seq<=handler_list[mid+1].seq);
-      printf("before\n");
+      printf("before out of on_irq\n");
       //assert(handler_list[_handler_length-1].seq!=0x3f3f3f3f&&handler_list[_handler_length-1].event!=-123);
       kmt->spin_unlock(&lk_irq);
       return;
