@@ -23,6 +23,7 @@ static const int /*_non=0,*/_runningable=1,_running=2,_waiting=3;
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
   //current_task=NULL;
+  printf("In kmt_init\n");
   for(int i=0;i<9;i++)
   {
     task_head[i]=NULL;
@@ -41,6 +42,7 @@ static void kmt_init(){
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
   kmt_spin_lock(&context_lock);
+  printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){
     current_task[(int)_cpu()]=task_head[(int)_cpu()];//等待修改;
   }
