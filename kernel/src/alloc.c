@@ -108,7 +108,7 @@ static void *kalloc(size_t size) {
     new->addr=&new[1];
     new->flag=1;
     new->size=size;
-
+__asm__ __volatile__(“mfence”: : :”memory”);
     now->next=new;
   printf("cpu%d, %x new:%x new->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],new,new->next,size);
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
