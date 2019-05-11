@@ -76,7 +76,7 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  _Context *ret=NULL;
+  _Context *ret=context;
  // _Context *ret=context;//记得修改
   for(int i=0;i<_handler_length;i++)
   {
