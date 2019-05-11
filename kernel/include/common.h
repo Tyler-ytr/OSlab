@@ -124,7 +124,7 @@ struct task {
 };*/
 
 struct task{
-  volatile int runnable;
+  volatile int status;//0 没有初始化 1 runningable 2 running 3 waiting 
 
   const char *name;
   _Context context;

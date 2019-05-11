@@ -12,14 +12,17 @@ static int intena[9]={0,0,0,0,0,0,0,0,0};
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
 static task_t * current_task=NULL;
-static task_t * task_head=NULL;//task 双向链表的头部;
+static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
 static int task_length=0;
-
+static const int _non=0,_runningable=1,_running=2,_waiting=3;
+//0 没有初始化 1 runningable 2 running 3 waiting 
 
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
   current_task=NULL;
-  task_head=NULL;
+  for(int i=0;i<9;i++)
+  {
+  task_head[i]=NULL;}
   task_length=0;
   kmt_spin_init(&sem_lock,"sem_lock");
   kmt_spin_init(&task_lock,"task_lock");
@@ -39,22 +42,22 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task->stack.start=pmm->alloc(MAX_STACK_SIZE);
     //Log1("finish task start alloc");
     task->stack.end=task->stack.start + MAX_STACK_SIZE;
-    task->runnable=1;
+    task->status=_runningable;
     task->name=name;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
 
     task_t * new_task=task;
 
     //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
-    if(task_head==NULL)
+    if(task_head[(int)_cpu()]==NULL)
     {
       new_task->next=NULL;
-      task_head=new_task;
+      task_head[(int)_cpu()]=new_task;
     }
     else
     {
-      new_task->next=task_head;//此时head是a
-      task_head=new_task;//把头变成c;
+      new_task->next=task_head[(int)_cpu()];//此时head是a
+      task_head[(int)_cpu()]=new_task;//把头变成c;
     }
     
     //-------------原子操作-----------------
@@ -64,9 +67,41 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
 }
 
 static void kmt_teardown(task_t *task){
-
+    //  从head 数组开始遍历,找到它然后释放;
     //TO BE DONE
+    TRACE_ENTRY; 
+    kmt_spin_lock(&task_lock);
+    //------------原子操作------------------ 
+    pmm->free(task->stack.start);
+    int success_find=0;
+    task_t *now=NULL;
+    for(int i=0;i<9;i++)
+    { now=task_head[i];
+      if(task_head[i]==NULL)continue;
+      else if(task_head[i]==task){
+        task_head[i]=now->next;
+        success_find=1;
+      }
+      else{
+       while(now->next!=NULL){
+          if(task==now->next){
+            task_t *find=now->next;
+            now->next=find->next;
+            success_find=1;
+            break; 
+          }
+          now=now->next;
+       } 
+      }
+    }
 
+    if(success_find==0)
+    {
+      panic("In kmt_teardown, can't find the task!!");
+    }
+    //-------------原子操作-----------------
+    kmt_spin_unlock(&task_lock);
+    TRACE_EXIT;
     return;
 }
 
