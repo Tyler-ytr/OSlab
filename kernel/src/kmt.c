@@ -1,20 +1,39 @@
 #include <common.h>
 #include "x86.h"
+
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
 static int intena[9]={0,0,0,0,0,0,0,0,0};
+
+static spinlock_t sem_lock;//信号量里面使用;
+static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
+static task_t * current_task=NULL;
+static task_t * task_head=NULL;//task 双向链表的头部;
+static int task_length=0;
+
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
- // os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
-  //os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
+  current_task=NULL;
+  task_head=NULL;
+  task_length=0;
+  kmt_spin_init(&sem_lock,"sem_lock");
+  kmt_spin_init(&task_lock,"task_lock");
+ 
+  os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
+  os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
     //TO BE DONE
     return;
 }
 
 static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-
+    TRACE_ENTRY;
     //TO BE DONE
+    kmt_spin_lock(&task_lock);
+    //------------原子操作------------------ 
+    //Log1("Before allocate in create");
 
-
+    //-------------原子操作-----------------
+    kmt_spin_unlock(&task_unlock);
+    TRACE_EXIT;
     return 0;
 }
 

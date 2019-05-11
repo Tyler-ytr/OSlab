@@ -98,10 +98,11 @@ struct cpu {
 //spinlock init_lk;
 //spinlock os_lk;
 //=======
+/*
 struct task {
   const char *name;
   _Context context;
-  char fence_1[32]/*={
+  char fence_1[32]={
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
@@ -109,9 +110,9 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
-                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc}*/;
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
   char stack[4096];
-  char fence_2[32]/*={
+  char fence_2[32]={
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
@@ -119,8 +120,22 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
-                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc}*/;
+                  (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
+};*/
+
+struct task{
+  volatile int runnable;
+
+  const char *name;
+  _Area stack;// in am.h void* start,void* end;
+  sem_t *waiting_sem;//记录信号量
+  struct task *prev;
+  struct task *next;
+
+
+
 };
+
 struct spinlock {
   uint locked;       // Is the lock held?
 
@@ -138,6 +153,7 @@ typedef struct HANDLER_LIST{
   handler_t handler;
 }Handler_list;
 #define MAX_HANDLIST_NUMBER 1024
+#define MAX_STACK_SIZE 4096
 static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 #endif
