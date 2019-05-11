@@ -93,9 +93,10 @@ static void *kalloc(size_t size) {
 
   if(success_hint!=1)
   {
-  printf("here in if !1 hint %d!\n",success_hint);
+  printf("here in if !1 hint %d!\n\n\n",success_hint);
   
     assert(head==now->next);
+    assert(hread->prev==now->next);
     
     _list new=(void*)unused_space->addr;//记得更新unused->space;
     printf("new: %x\n",new);
