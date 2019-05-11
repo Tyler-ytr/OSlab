@@ -14,7 +14,7 @@ static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task�
 //static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
 static task_t * current_task[9]//当前的进程;
-static int task_length=0;
+//static int task_length=0;
 static const int _non=0,_runningable=1,_running=2,_waiting=3;
 //0 没有初始化 1 runningable 2 running 3 waiting 
 
@@ -26,7 +26,7 @@ static void kmt_init(){
     task_head[i]=NULL;
     current_task=NULL;
   }
-  task_length=0;
+  //int task_length=0;
   kmt_spin_init(&sem_lock,"sem_lock");
   kmt_spin_init(&task_lock,"task_lock");
  
