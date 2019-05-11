@@ -35,7 +35,7 @@ static void kmt_init(){
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
-  printf("hererer!!!!");
+  printf("before out of kmt_init");
     //TO BE DONE
     return;
 }
