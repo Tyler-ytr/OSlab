@@ -55,6 +55,7 @@ static void pmm_init() {
   printf("first_area: 0x%x \n",unused_space->addr);
 
   unlock(lk);
+  assert(0);
   return;
 }
 
