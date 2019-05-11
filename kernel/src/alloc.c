@@ -70,6 +70,7 @@ static void *kalloc(size_t size) {
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
   printf("now->prev:0x%x",now->prev);
+  assert(0);
   while(now->next!=head)
   {
     printf("now->next:0x%x\n",now->next);
