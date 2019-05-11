@@ -39,6 +39,7 @@ static void os_init() {
   //To be continued:
   kmt->init();
   printf("%d\n\n\n\n\n",(int)_cpu());
+  assert(0);
   _vme_init(pmm->alloc, pmm->free);
   printf("before dev\n");
   assert(0);
