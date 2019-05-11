@@ -32,7 +32,6 @@ static void kmt_init(){
   kmt_spin_init(&sem_lock,"sem_lock");
   kmt_spin_init(&task_lock,"task_lock");
   kmt_spin_init(&context_lock,"context_lock");
-  printf("here\n\n");
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
@@ -53,6 +52,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
   kmt_spin_lock(&context_lock);
+  printf("In switch!");
   _Context *result=NULL;
   if(current_task[(int)_cpu()]==NULL){
     if(task_head[(int)_cpu]->status==_runningable){
