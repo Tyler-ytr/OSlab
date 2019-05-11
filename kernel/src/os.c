@@ -129,6 +129,11 @@ static void os_on_irq(int seq, int event, handler_t handler) {
         
       }
 
+      for(int i=0;i<_handler_length;i++)
+      {
+        printf("%d： seq:%d\n",i,handler_list[i].seq);
+      }
+
       
       handler_list[mid].seq=seq;
       handler_list[mid].event=event;
