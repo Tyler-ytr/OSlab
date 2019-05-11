@@ -10,7 +10,7 @@ static uintptr_t pm_start, pm_end;
 static void pmm_init() {
   spinlock*lk=&init_lk;
   initlock(lk,NULL);
-  lock(lk);
+  //lock(lk);
 
   //spinlock *a_lk=&alloc_lk;
   spinlock_t *a_lk=&alloc_lk;
@@ -55,7 +55,7 @@ static void pmm_init() {
   unused_space->addr=&(cpu_head[0])[9];
   printf("first_area: 0x%x \n",unused_space->addr);
 
-  unlock(lk);
+//  unlock(lk);
   return;
 }
 
