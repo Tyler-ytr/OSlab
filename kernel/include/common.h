@@ -127,7 +127,7 @@ struct task{
   volatile int status;//0 没有初始化 1 runningable 2 running 3 waiting 
 
   const char *name;
-  _Context *context;
+  _Context context;
   _Area stack;// in am.h void* start,void* end;
   //sem_t *waiting_sem;//记录信号量
   //struct task *prev;
