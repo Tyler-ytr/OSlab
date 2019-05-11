@@ -94,8 +94,10 @@ static void *kalloc(size_t size) {
   if(success_hint!=1)
   {
   printf("here in if !1 hint %d!\n",success_hint);
+  
     assert(head==now->next);
     _list new=(void*)unused_space->addr;//记得更新unused->space;
+    printf("new: %x",new);
 
     new->next=now->next;
     now->next->prev=new;
@@ -105,6 +107,7 @@ static void *kalloc(size_t size) {
     new->size=size;
 
     now->next=new;
+  printf("cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now->next,size);
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
     {
