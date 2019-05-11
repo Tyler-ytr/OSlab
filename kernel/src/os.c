@@ -7,7 +7,6 @@ static int _handler_length=0;
 
 void test_from_yzy(){
       void *space[500];
-          int i;
           /*for(int j=0;i<=7;j++){
           for(i=0;i<500;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
