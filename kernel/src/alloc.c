@@ -1,16 +1,16 @@
 #include <common.h>
 //#include <klib.h>
 
-//static spinlock init_lk;
+static spinlock init_lk;
 //static spinlock alloc_lk;
-static spinlock_t alloc_lk;
-static spinlock_t free_lk;
+spinlock_t alloc_lk;
+spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
-  //spinlock*lk=&init_lk;
-  //initlock(lk,NULL);
-  //lock(lk);
+  spinlock*lk=&init_lk;
+  initlock(lk,NULL);
+  lock(lk);
 
   //spinlock *a_lk=&alloc_lk;
   spinlock_t *a_lk=&alloc_lk;
@@ -26,7 +26,6 @@ static void pmm_init() {
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
   printf("end:0x%x\n",pm_end);
-  printf("total:0x%x\n",pm_end-pm_start);
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
@@ -39,7 +38,6 @@ static void pmm_init() {
   cpu_head[0]->prev=cpu_head[0];
   cpu_head[0]->flag=2;
   cpu_head[0]->size=0;
-    printf("i : 0 cpu_head ->next :0x%x",cpu_head[0]->next);
   for (int i=1;i<=8;i++)
   {
     cpu_head[i]=&(cpu_head[0])[i];
@@ -55,30 +53,18 @@ static void pmm_init() {
   unused_space->addr=&(cpu_head[0])[9];
   printf("first_area: 0x%x \n",unused_space->addr);
 
-//  unlock(lk);
-  return;
+  unlock(lk);
 }
 
 static void *kalloc(size_t size) {
 
   //spinlock*a_lk=&alloc_lk;
   spinlock_t*a_lk=&alloc_lk;
-  printf("\nIn alloc\n");
   //lock(a_lk);
   kmt->spin_lock(a_lk);
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
-  printf("now->prev:0x%x",now->prev);
-  while(now->next!=head)
-  {
-    printf("now->next:0x%x\n",now->next);
-    now=now->next;
-    assert(now!=NULL);
-  }
-    printf("should be head: now->next:0x%x\n\n",now->next);
-  
-  printf("first,cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now,size);
   void *ret=NULL;
   int success_hint=0;
   if(size==0)
@@ -88,7 +74,6 @@ static void *kalloc(size_t size) {
   else{
   while(now->next!=head)
   {
-    printf("cpu%d, %x now:%x now->next->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],now,now->next->prev,size);
     now=now->next;
     assert(now!=NULL);
     if(now->flag==0&&now->size>=size)
@@ -97,30 +82,21 @@ static void *kalloc(size_t size) {
       break;
     }
   }
-  printf("here success hint %d!\n",success_hint);
-  printf("cpu%d, %x %x now->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now->next,size);
 
   if(success_hint!=1)
   {
-  printf("here in if !1 hint %d!\n\n\n",success_hint);
-  
     assert(head==now->next);
-    assert(head->prev==now);
-    
     _list new=(void*)unused_space->addr;//记得更新unused->space;
-    printf("new: %x\n",new);
 
     new->next=now->next;
-    printf("new->next: %x\n",new->next);
     now->next->prev=new;
     new->prev=now;
     new->addr=&new[1];
     new->flag=1;
     new->size=size;
-     __sync_synchronize();
+
     now->next=new;
-  printf("cpu%d, %x new:%x new->next:%x head->prev:0x%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],new,new->next,cpu_head[0]->prev,size);
-    unused_space->addr=(void *)&new[1]+size+20;//一定保护好unused_space
+    unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
     {
       printf("Your memory is filled. I am sorry!");
@@ -140,7 +116,7 @@ static void *kalloc(size_t size) {
   }
   else
   {//下面的操作是拆分或者直接使用,所以不用修改unused_space；
-    assert(0);
+
     if((int)(now->size-size-2*sizeof(_node))-4028>0&&size>4028)
     {
       assert((int)(now->size-size)>sizeof(_node));
@@ -183,6 +159,7 @@ static void *kalloc(size_t size) {
   }
   assert(ret!=NULL);
   //unlock(a_lk);
+  printf("In alloc\n");
   kmt->spin_unlock(a_lk);
   return ret;
 }
