@@ -11,6 +11,7 @@ static int intena[9]={0,0,0,0,0,0,0,0,0};
 
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
+static spinlock_t context_lock;//在switch 以及 save里面使用;
 //static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
 static task_t * current_task[9];//当前的进程;
@@ -29,6 +30,7 @@ static void kmt_init(){
   //int task_length=0;
   kmt_spin_init(&sem_lock,"sem_lock");
   kmt_spin_init(&task_lock,"task_lock");
+  kmt_spin_init(&context_lock,"context_lock");
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
@@ -36,7 +38,71 @@ static void kmt_init(){
     return;
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
+  kmt_spin_lock(&context_lock);
+  if(current_task[(int)_cpu()]==NULL){
+    current_task[(int)_cpu()]=task_head[(int)_cpu()];//等待修改;
+  }
+  else{
+  current_task[(int)_cpu()]->context=context;}
+  kmt_spin_unlock(&context_lock);
 
+  return NULL;
+  
+}
+static _Context *kmt_context_switch(_Event ev, _Context *context){
+  kmt_spin_lock(&context_lock);
+  _Context *result=NULL;
+  if(current_task[(int)_cpu()]==NULL){
+    if(task_head[(int)_cpu]->status==_runningable){
+      current_task[(int)_cpu()]=task_head[(int)_cpu()];
+      current_task[(int)_cpu()]->status=_running;
+      result=&current_task[(int)_cpu()]->context;
+    }else{
+      task_t *now=task_head[(int)_cpu()];
+      while(now->next!=NULL){
+        if(now->next->status==_runningable){
+          current_task[(int)_cpu()]=now->next;
+          current_task[(int)_cpu()]->status=_running;
+          result=&current_task[(int)_cpu()]->context;
+          break;
+        }
+        now=now->next;
+      }
+    }
+  }
+  else{
+    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+    task_t *now=NULL;
+    if(current_task[(int)_cpu()]->next==NULL){
+      now=task_head[(int)_cpu())];
+    }
+    else
+    {
+      now=current_task[(int)_cpu()]->next;
+    }
+
+    while(1){
+      if(now!=NULL&&now->status==_runningable){
+        now->status=_running;
+        current_task[(int)_cpu]=now;
+        result=&current_task[(int)_cpu()]->context;
+        break;
+      }
+
+      if(now->next!=NULL){
+        now=now->next;
+      }
+      else{
+        now=task_head[(int)_cpu()];
+      }
+    }
+
+  }
+  if(result==NULL){
+    panic("In switch result==NULL!!");
+  }
+  kmt_spin_unlock(&context_lock);
+  return result;
 }
 
 
@@ -276,6 +342,7 @@ static void kmt_sem_signal(sem_t *sem){
   }else
   {
     sem->start%=sem->MAXSIZE; 
+    if(sem->task_list[sem->start]==NULL)panic("In sem_signal task_list meeting NULL");
     sem->task_list[sem->start]->status=_runningable;
     sem->start+=1;
   }
