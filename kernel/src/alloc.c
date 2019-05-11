@@ -79,7 +79,7 @@ static void *kalloc(size_t size) {
   else{
   while(now->next!=head)
   {
-    printf("cpu%d, %x %x now->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now->next,size);
+    printf("cpu%d, %x now:%x now->next->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],now,now->next->next,size);
     now=now->next;
     assert(now!=NULL);
     if(now->flag==0&&now->size>=size)
