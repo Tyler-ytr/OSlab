@@ -151,7 +151,7 @@ struct semaphore {
   task_t *task_list[256];
   int start;
   int end; 
-  const int MAXSIZE=256;
+  int MAXSIZE;//=256;
 };
 
 typedef struct HANDLER_LIST{
