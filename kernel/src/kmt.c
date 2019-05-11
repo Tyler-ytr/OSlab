@@ -101,6 +101,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
 
   }
+  printf("here going to out of switch");
   if(result==NULL){
     panic("In switch result==NULL!!");
   }
