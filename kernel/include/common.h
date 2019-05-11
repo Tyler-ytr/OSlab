@@ -129,7 +129,7 @@ struct task{
   const char *name;
   _Context context;
   _Area stack;// in am.h void* start,void* end;
-  sem_t *waiting_sem;//记录信号量
+  //sem_t *waiting_sem;//记录信号量
   //struct task *prev;
   struct task *next;
 
@@ -148,9 +148,10 @@ struct semaphore {
   spinlock_t lock;
   int value;
   const int name;
-
-
-
+  task_t *task_list[256];
+  int start;
+  int end; 
+  const int MAXSIZE=256;
 };
 
 typedef struct HANDLER_LIST{

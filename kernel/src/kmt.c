@@ -11,18 +11,21 @@ static int intena[9]={0,0,0,0,0,0,0,0,0};
 
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
-static task_t * current_task=NULL;
+//static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
+static task_t * current_task[9]//当前的进程;
 static int task_length=0;
 static const int _non=0,_runningable=1,_running=2,_waiting=3;
 //0 没有初始化 1 runningable 2 running 3 waiting 
 
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
-  current_task=NULL;
+  //current_task=NULL;
   for(int i=0;i<9;i++)
   {
-  task_head[i]=NULL;}
+    task_head[i]=NULL;
+    current_task=NULL;
+  }
   task_length=0;
   kmt_spin_init(&sem_lock,"sem_lock");
   kmt_spin_init(&task_lock,"task_lock");
@@ -220,20 +223,51 @@ static void kmt_spin_unlock(spinlock_t *lk){
     return ;
 }
 static void kmt_sem_init(sem_t *sem, const char *name, int value){
-
-
-    return ;
+  sem->value=value;
+  sem->name=name;
+//  kmt_spin_init(sem->lock);  
+  sem->end=0;
+  sem->start=sem->MAXSIZE;//当head%MAXSIZE与tail%MAXSIZE相等的时候,队列是空的;
+                          //当(tail+1)%MAXSIZE与head%MAXSIZE相等的时候,队列是满的;
+  return ;
 }
 
 static void kmt_sem_wait(sem_t *sem){
+  kmt_spin_lock(&sem_lock);
+  //------------原子操作------------------ 
+  sem->value--;
+  if(current_task[(int)_cpu()]==NULL){
+    panic("In sem_wait No task in this cpu");
+  }
+  //---------对于每一个sem: tasklist:
+  //----先进先出；参考数据结构:https://blog.csdn.net/a04081122/article/details/51985873
+  while(sem->value<0){
+    current_task[(int)_cpu()]->status=_waiting;
+    //sem->end++;
+    if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIEZ))panic("In sem_wait, the task_list is full;");
+    //int if_sleep;
+    sem->task_list[sem->end]=current_task[_cpu()];
+    sem->end++;
+    sem->end%=sem->MAXSIZE;
+    kmt_spin_unlock(&sem_lock);
+    _yield();
+    kmt_spin_lock(&sem_lock);
+    //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
+  }
+  //------------原子操作------------------ 
+  kmt_spin_unlock(&sem_lock);
 
-
-    return;
+  return;
 }
 
 static void kmt_sem_signal(sem_t *sem){
+  kmt_spin_lock(&sem_lock);
+  //------------原子操作------------------ 
+  sem->value++;
+  
 
-
+  //------------原子操作------------------ 
+  kmt_spin_unlock(&sem_lock);
     return;
 }
 
