@@ -35,7 +35,6 @@ static void os_init() {
   printf("%d\n\n\n\n\n",(int)_cpu());
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   kmt->spin_init(&lk_test,"/src/os test");
-  assert(0);
   
   //To be continued:
   kmt->init();
