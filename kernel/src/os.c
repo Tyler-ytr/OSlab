@@ -6,7 +6,7 @@ static Handler_list handler_list[MAX_HANDLIST_NUMBER];
 static int _handler_length=0;
 
 void test_from_yzy(){
-      void *space[500];
+     // void *space[500];
           /*for(int j=0;i<=7;j++){
           for(i=0;i<500;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
@@ -25,11 +25,11 @@ void test_from_yzy(){
 
           }
 */        
-          space[0]=pmm->alloc(4096);
-          space[1]=pmm->alloc(4096);
-          space[2]=pmm->alloc(4096);
-          space[3]=pmm->alloc(4096);
-          
+         int *arr = (int*)pmm->alloc(20 * sizeof(int));
+         for (int i = 0; i < 20; i++){
+    arr[i] = i;
+  }
+  for (int i = 0; i < 20; i++){printf("arr[%d]: %d", i, arr[i]);}
           printf("success!!!!!!");
 
 }
