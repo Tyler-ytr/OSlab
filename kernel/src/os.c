@@ -100,7 +100,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
     if(_handler_length==0)
     {
       handler_list[_handler_length].seq=seq;
-      handler_list[_handler_length].event=seq;
+      handler_list[_handler_length].event=event;
       handler_list[_handler_length].handler=handler;
 
       _handler_length++;
