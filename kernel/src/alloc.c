@@ -108,7 +108,7 @@ static void *kalloc(size_t size) {
     new->size=size;
 
     now->next=new;
-  printf("cpu%d, %x %x new->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,new->next,size);
+  printf("cpu%d, %x new:%x new->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],new,new->next,size);
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
     {
