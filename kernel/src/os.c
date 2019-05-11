@@ -84,9 +84,9 @@ static _Context *os_trap(_Event ev, _Context *context) {
     }
 
   }
-  /*if(ret==NULL){
+  if(ret==NULL){
     printf("event: %d length %d\n",ev.event,_handler_length);
-    panic("os_trap");}*/
+    panic("os_trap");}
   return ret;
   //return context;
 }
