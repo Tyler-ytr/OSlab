@@ -55,6 +55,7 @@ static void pmm_init() {
   printf("first_area: 0x%x \n",unused_space->addr);
 
   unlock(lk);
+  return;
 }
 
 static void *kalloc(size_t size) {
