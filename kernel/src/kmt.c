@@ -4,7 +4,8 @@
 static void kmt_spin_init(spinlock_t *lk, const char *name);
 static void kmt_spin_lock(spinlock_t *lk);
 static void kmt_spin_unlock(spinlock_t *lk);
-
+static _Context *kmt_context_save(_Event ev, _Context *context);
+static _Context *kmt_context_switch(_Event ev, _Context *context);
 
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
 static int intena[9]={0,0,0,0,0,0,0,0,0};
@@ -74,7 +75,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
     task_t *now=NULL;
     if(current_task[(int)_cpu()]->next==NULL){
-      now=task_head[(int)_cpu())];
+      now=task_head[(int)_cpu()];
     }
     else
     {
