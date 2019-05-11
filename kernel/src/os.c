@@ -36,8 +36,8 @@ static void os_init() {
   
   //To be continued:
   kmt->init();
-  //_vme_init(pmm->alloc, pmm->free);
-  //dev->init();
+  _vme_init(pmm->alloc, pmm->free);
+  dev->init();
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 }
 
