@@ -127,9 +127,10 @@ struct task{
   volatile int runnable;
 
   const char *name;
+  _Context context;
   _Area stack;// in am.h void* start,void* end;
   sem_t *waiting_sem;//记录信号量
-  struct task *prev;
+  //struct task *prev;
   struct task *next;
 
 };

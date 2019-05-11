@@ -37,7 +37,26 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     //------------原子操作------------------ 
     //Log1("Before allocate in create");
     task->stack.start=pmm->alloc(MAX_STACK_SIZE);
+    //Log1("finish task start alloc");
+    task->stack.end=task->stack.start + MAX_STACK_SIZE;
+    task->runnable=1;
+    task->name=name;
+    task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
 
+    task_t * new_task=task;
+
+    //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
+    if(task_head==NULL)
+    {
+      new_task->next=NULL;
+      task_head=new_task;
+    }
+    else
+    {
+      new_task->next=task_head;//此时head是a
+      task_head=new_task;//把头变成c;
+    }
+    
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
     TRACE_EXIT;

@@ -26,6 +26,7 @@ static void pmm_init() {
   printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
   printf("end:0x%x\n",pm_end);
+  printf("total:0x%x\n",pm_end-pm_start);
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
