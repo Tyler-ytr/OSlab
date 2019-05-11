@@ -96,6 +96,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 
 static void os_on_irq(int seq, int event, handler_t handler) {
     kmt->spin_lock(&lk_irq);
+    printf("length:%d \n",_handler_length);
     if(_handler_length==0)
     {
       handler_list[_handler_length].seq=seq;
