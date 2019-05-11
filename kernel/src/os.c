@@ -31,10 +31,10 @@ void test_from_yzy(){
 
 static void os_init() {
   pmm->init();
+  printf("here!!\n");
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   kmt->spin_init(&lk_test,"/src/os test");
   
-  printf("here!!\n");
   //To be continued:
   kmt->init();
   _vme_init(pmm->alloc, pmm->free);
