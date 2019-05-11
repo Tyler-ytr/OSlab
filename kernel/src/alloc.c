@@ -8,7 +8,7 @@ spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
-  spinlock*lk=&init_lk;
+  //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
   //lock(lk);
 
