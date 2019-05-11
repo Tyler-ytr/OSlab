@@ -160,7 +160,7 @@ typedef struct HANDLER_LIST{
   handler_t handler;
 }Handler_list;
 #define MAX_HANDLIST_NUMBER 1024
-#define MAX_STACK_SIZE 4096*16
+#define MAX_STACK_SIZE 4096*2
 static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 #endif
