@@ -30,11 +30,11 @@ void test_from_yzy(){
 }
 
 static void os_init() {
-  pmm->init();
-  printf("here!!\n");
   assert(0);
+  pmm->init();
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   kmt->spin_init(&lk_test,"/src/os test");
+  assert(0);
   
   //To be continued:
   kmt->init();
