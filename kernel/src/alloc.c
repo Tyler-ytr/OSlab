@@ -69,7 +69,7 @@ static void *kalloc(size_t size) {
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
   
-  printf("cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now,size);
+  printf("first,cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now,size);
   void *ret=NULL;
   int success_hint=0;
   if(size==0)
