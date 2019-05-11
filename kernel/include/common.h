@@ -147,7 +147,7 @@ struct spinlock {
 struct semaphore {
   spinlock_t lock;
   int value;
-  const int name;
+  const char * name;
   task_t *task_list[256];
   int start;
   int end; 
