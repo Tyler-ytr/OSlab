@@ -1,6 +1,11 @@
 #include <common.h>
 #include "x86.h"
 
+static void kmt_spin_init(spinlock_t *lk, const char *name);
+static void kmt_spin_lock(spinlock_t *lk);
+static void kmt_spin_unlock(spinlock_t *lk);
+
+
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
 static int intena[9]={0,0,0,0,0,0,0,0,0};
 
@@ -9,6 +14,7 @@ static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task�
 static task_t * current_task=NULL;
 static task_t * task_head=NULL;//task 双向链表的头部;
 static int task_length=0;
+
 
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){

@@ -132,8 +132,6 @@ struct task{
   struct task *prev;
   struct task *next;
 
-
-
 };
 
 struct spinlock {
