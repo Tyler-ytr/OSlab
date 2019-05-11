@@ -54,6 +54,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
+  assert(0);
   kmt_spin_lock(&context_lock);
   printf("In switch!");
   _Context *result=NULL;
@@ -155,6 +156,7 @@ static void kmt_teardown(task_t *task){
     TRACE_ENTRY; 
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
+    printf("In kmt_treardown\n");
     pmm->free(task->stack.start);
     int success_find=0;
     task_t *now=NULL;
