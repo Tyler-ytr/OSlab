@@ -43,7 +43,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
     current_task[(int)_cpu()]=task_head[(int)_cpu()];//等待修改;
   }
   else{
-  current_task[(int)_cpu()]->context=*context;}
+  current_task[(int)_cpu()]->context=context;}
   kmt_spin_unlock(&context_lock);
 
   return NULL;
