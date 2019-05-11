@@ -88,7 +88,7 @@ static void *kalloc(size_t size) {
       break;
     }
   }
-  printf("here");
+  printf("here success hint %d!\n",success_hint);
 
   if(success_hint!=1)
   {
