@@ -63,7 +63,7 @@ static void *kalloc(size_t size) {
 
   //spinlock*a_lk=&alloc_lk;
   spinlock_t*a_lk=&alloc_lk;
-  printf("In alloc\n");
+  printf("\nIn alloc\n");
   //lock(a_lk);
   kmt->spin_lock(a_lk);
    int cpu_num=_cpu();
@@ -75,6 +75,7 @@ static void *kalloc(size_t size) {
     printf("now->next:0x%x\n",now->next);
     now=now->next;
   }
+    printf("should be head: now->next:0x%x\n\n",now->next);
   
   printf("first,cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now,size);
   void *ret=NULL;
