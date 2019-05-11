@@ -18,6 +18,7 @@ static void push_event(input_t *in, struct input_event ev) {
   if (in->rear == in->front) { panic("input queue full"); }
   kmt->spin_unlock(&in->lock);
   kmt->sem_signal(&in->event_sem);
+  girlfriend=0;
 }
 
 static struct input_event pop_event(input_t *in) {

@@ -35,6 +35,12 @@ static void kmt_init(){
     //TO BE DONE
     return;
 }
+static _Context *kmt_context_save(_Event ev, _Context *context){
+
+}
+
+
+
 
 static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
     TRACE_ENTRY;
