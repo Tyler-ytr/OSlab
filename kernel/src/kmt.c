@@ -15,8 +15,8 @@ static void kmt_init(){
   current_task=NULL;
   task_head=NULL;
   task_length=0;
-  kmt_spin_init(&sem_lock,"sem_lock");
-  kmt_spin_init(&task_lock,"task_lock");
+  kmt->spin_init(&sem_lock,"sem_lock");
+  kmt->spin_init(&task_lock,"task_lock");
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
@@ -30,6 +30,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
     //Log1("Before allocate in create");
+    task->stack.start=pmm->alloc(MAX_STACK_SIZE);
 
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_unlock);
