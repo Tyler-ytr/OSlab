@@ -30,7 +30,6 @@ void test_from_yzy(){
 }
 
 static void os_init() {
-  assert(0);
   pmm->init();
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   kmt->spin_init(&lk_test,"/src/os test");
