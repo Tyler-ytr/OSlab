@@ -54,7 +54,6 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
-  assert(0);
   kmt_spin_lock(&context_lock);
   printf("In switch!");
   _Context *result=NULL;
