@@ -118,6 +118,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
         }else break;
       }        
       mid=tmp;
+      printf("mid %d\n",mid);
       _handler_length++;
 
       for(int i=_handler_length;i>mid;i++)
