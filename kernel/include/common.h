@@ -144,7 +144,14 @@ struct spinlock {
   //uint pcs[10];      // The call stack (an array of program counters)
                      // that locked the lock.
 };
-struct semaphore {};
+struct semaphore {
+  spinlock_t lock;
+  int value;
+  const int name;
+
+
+
+};
 
 typedef struct HANDLER_LIST{
   int seq/*=0x3f3f3f3f*/;
