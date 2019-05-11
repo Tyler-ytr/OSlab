@@ -121,13 +121,15 @@ static void os_on_irq(int seq, int event, handler_t handler) {
       printf("mid %d\n",mid);
       _handler_length++;
 
-      for(int i=_handler_length;i>mid;i--)
+      for(int i=_handler_length-1;i>mid;i--)
       {
         handler_list[i].seq=handler_list[i-1].seq;
         handler_list[i].event=handler_list[i-1].event;
         handler_list[i].handler=handler_list[i-1].handler;
+        
       }
 
+      
       handler_list[mid].seq=seq;
       handler_list[mid].event=event;
       handler_list[mid].handler=handler;
