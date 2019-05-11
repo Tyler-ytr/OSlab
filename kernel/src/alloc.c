@@ -110,6 +110,7 @@ static void *kalloc(size_t size) {
     printf("new: %x\n",new);
 
     new->next=now->next;
+    new->next=head;
     printf("new->next: %x\n",new->next);
     now->next->prev=new;
     new->prev=now;
@@ -118,6 +119,7 @@ static void *kalloc(size_t size) {
     new->size=size;
      __sync_synchronize();
     now->next=new;
+    new->next=head;
   printf("cpu%d, %x new:%x new->next:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],new,new->next,size);
     unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
