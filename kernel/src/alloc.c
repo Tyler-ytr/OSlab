@@ -3,8 +3,8 @@
 
 static spinlock init_lk;
 //static spinlock alloc_lk;
-spinlock_t alloc_lk;
-spinlock_t free_lk;
+static spinlock_t alloc_lk;
+static spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
@@ -55,7 +55,6 @@ static void pmm_init() {
   printf("first_area: 0x%x \n",unused_space->addr);
 
   unlock(lk);
-  assert(0);
   return;
 }
 
