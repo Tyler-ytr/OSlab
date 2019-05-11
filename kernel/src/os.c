@@ -41,6 +41,7 @@ static void os_init() {
   printf("%d\n\n\n\n\n",(int)_cpu());
   _vme_init(pmm->alloc, pmm->free);
   printf("before dev\n");
+  assert(0);
   dev->init();
   printf("after init");
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
