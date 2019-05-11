@@ -69,6 +69,12 @@ static void *kalloc(size_t size) {
    int cpu_num=_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
+  printf("now:0x%x",now);
+  while(now->next!=head)
+  {
+    printf("now->next:0x%x\n",now->next);
+    now=now->next;
+  }
   
   printf("first,cpu%d, %x %x now:%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],cpu_head[(int)_cpu()]->next,now,size);
   void *ret=NULL;
