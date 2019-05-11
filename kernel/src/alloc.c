@@ -120,7 +120,7 @@ static void *kalloc(size_t size) {
      __sync_synchronize();
     now->next=new;
   printf("cpu%d, %x new:%x new->next:%x head->prev:0x%x size:%d\n",(int)_cpu(),cpu_head[(int)_cpu()],new,new->next,cpu_head[0]->prev,size);
-    unused_space->addr=(void *)&new[1]+size;//一定保护好unused_space
+    unused_space->addr=(void *)&new[1]+size+20;//一定保护好unused_space
     if(unused_space->addr>(void*)pm_end)
     {
       printf("Your memory is filled. I am sorry!");

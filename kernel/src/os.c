@@ -8,7 +8,7 @@ static int _handler_length=0;
 void test_from_yzy(){
       void *space[500];
           int i;
-          for(int j=0;i<=7;j++){
+          /*for(int j=0;i<=7;j++){
           for(i=0;i<500;++i){
                     space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
                     printf("i: %d space:0x%x\n",i,space[i]);
@@ -25,6 +25,12 @@ void test_from_yzy(){
                     pmm->free(space[i]);
 
           }
+*/        
+          space[0]=pmm->alloc(4096);
+          space[1]=pmm->alloc(4096);
+          space[2]=pmm->alloc(4096);
+          space[3]=pmm->alloc(4096);
+          
           printf("success!!!!!!");
 
 }
@@ -63,6 +69,7 @@ static void os_run() {
   //my_spin_lock(locked);
   kmt->spin_lock(&lk_test);
   hello();
+  test_from_yzy();
   kmt->spin_unlock(&lk_test);
   //test_from_yzy();
   //void *p=NULL;
