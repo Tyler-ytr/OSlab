@@ -24,7 +24,7 @@ static void kmt_init(){
   for(int i=0;i<9;i++)
   {
     task_head[i]=NULL;
-    current_task=NULL;
+    current_task[i]=NULL;
   }
   //int task_length=0;
   kmt_spin_init(&sem_lock,"sem_lock");
@@ -245,7 +245,7 @@ static void kmt_sem_wait(sem_t *sem){
   while(sem->value<0){
     current_task[(int)_cpu()]->status=_waiting;
     //sem->end++;
-    if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIEZ))panic("In sem_wait, the task_list is full;");
+    if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))panic("In sem_wait, the task_list is full;");
     //int if_sleep;
     sem->task_list[sem->end]=current_task[_cpu()];
     sem->end++;
