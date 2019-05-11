@@ -122,7 +122,8 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     //TO BE DONE
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
-    Log1("Before allocate in create");
+    Log1("Before allocate in create\n");
+    Log1("create in cpu %d,name:%s",(int)_cpu(),name);
    // printf("Before allocate in create");
     task->stack.start=pmm->alloc(MAX_STACK_SIZE);
     //Log1("finish task start alloc");
