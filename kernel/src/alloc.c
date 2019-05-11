@@ -1,15 +1,15 @@
 #include <common.h>
 //#include <klib.h>
 
-static spinlock init_lk;
+//static spinlock init_lk;
 //static spinlock alloc_lk;
 static spinlock_t alloc_lk;
 static spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 static void pmm_init() {
-  spinlock*lk=&init_lk;
-  initlock(lk,NULL);
+  //spinlock*lk=&init_lk;
+  //initlock(lk,NULL);
   //lock(lk);
 
   //spinlock *a_lk=&alloc_lk;
