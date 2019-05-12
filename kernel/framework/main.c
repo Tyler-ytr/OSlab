@@ -19,7 +19,7 @@ kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
 
 static void echo_task(void *arg){
   char *name=(char*)arg;
-  printf("%d",(int)_cpu());
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
   char text[128]="",line[128]="";
   device_t *tty=dev_lookup(name);
   while(1){
