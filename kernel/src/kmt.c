@@ -193,7 +193,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         current_task[(int)_cpu()]=now;
         current_task[(int)_cpu()]->status=_running;
         result=&current_task[(int)_cpu()]->context;
-      }
+      }}
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
