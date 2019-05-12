@@ -497,7 +497,11 @@ static void kmt_sem_signal(sem_t *sem){
   {
     sem->start%=sem->MAXSIZE; 
     if(sem->task_list[sem->start]==NULL)panic("In sem_signal task_list meeting NULL");
-    sem->task_list[sem->start]->status=_runningable;
+    if(sem->task_list[sem->start]->status==_waiting)
+    {sem->task_list[sem->start]->status=_runningable;}
+    else{
+      assert(0);
+    }
     sem->start+=1;
   }
   
