@@ -406,7 +406,7 @@ static void kmt_sem_wait(sem_t *sem){
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
-      for(int i=0;i<MAXSIZE;i++)
+      for(int i=0;i<sen->MAXSIZE;i++)
       {
         printf("%d %s\n",i,sem->task->list[i]->name);
       }
