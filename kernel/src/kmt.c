@@ -157,13 +157,13 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         success_hint=1;
         break;
       }
-
+      else{
       if(now->next!=NULL){
         now=now->next;
       }
       else{
         now=task_head[(int)_cpu()];
-      }
+      }}
     }
     if(success_hint==0){
       panic("ALL IS RUNNING!!");
