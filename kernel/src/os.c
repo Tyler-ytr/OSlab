@@ -75,6 +75,7 @@ static void os_run() {
   kmt->spin_unlock(&lk_test);
   //test_from_yzy();
   //void *p=NULL;
+  _yield();
 
  // p=pmm->alloc(1000);
   //printf("p:0x%x\n",p);
