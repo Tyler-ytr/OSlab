@@ -1,4 +1,5 @@
 #include <kernel.h>
+#include <devices.h>
 #include <klib.h>
 static void echo_task(void *arg);
 int main() {
