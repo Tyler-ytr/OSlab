@@ -205,7 +205,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     
     panic("In switch result==NULL!!");
   }
-  printf("out of switch!\n");
+ // printf("out of switch!\n");
 //    TRACE_EXIT;
   kmt_spin_unlock(&context_lock);
   return result;
