@@ -24,10 +24,12 @@ static void echo_task(void *arg){
   device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     tty->ops->write(tty,0,text,strlen(text));
     int nread=tty->ops->read(tty,0,line,sizeof(line));
     line[nread-1]='\0';
     sprintf(text,"Echo:%s.\n",line);
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     tty->ops->write(tty,0,text,strlen(text));
   }
 }
