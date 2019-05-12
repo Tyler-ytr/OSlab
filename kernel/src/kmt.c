@@ -121,6 +121,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   }
   else{
 //    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+    Log1("in else");
     task_t *now=NULL;
     int success_hint=0;
     if(current_task[(int)_cpu()]->next==NULL){
