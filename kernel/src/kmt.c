@@ -61,7 +61,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
     while(now->next!=NULL){
       now=now->next;
     }
-    current_task[(int)_cpu()]=now;//等待修改;*/;
+    current_task[(int)_cpu()]=now;//等待修改;*/assert(0);
   }
   else{
   current_task[(int)_cpu()]->context=*context;}
