@@ -406,6 +406,10 @@ static void kmt_sem_wait(sem_t *sem){
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
+      for(int i=0;i<MAXSIZE;i++)
+      {
+        printf("%d %s\n",i,sem->task->list[i]->name);
+      }
      printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
@@ -424,6 +428,7 @@ static void kmt_sem_wait(sem_t *sem){
 }
 
 static void kmt_sem_signal(sem_t *sem){
+  TRACE_ENTRY;
   kmt_spin_lock(&sem_lock);
   //------------原子操作------------------ 
   sem->value++;
@@ -436,8 +441,10 @@ static void kmt_sem_signal(sem_t *sem){
     sem->task_list[sem->start]->status=_runningable;
     sem->start+=1;
   }
+  
   //------------原子操作------------------ 
   kmt_spin_unlock(&sem_lock);
+  TRACE_EXIT;
   return;
 }
 
