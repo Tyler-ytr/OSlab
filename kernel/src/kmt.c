@@ -118,7 +118,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
 
   }
-  Log1("here going to out of switch");
+  Log1("now: %s\n",now->name);
   if(result==NULL){
     Log1("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
     
