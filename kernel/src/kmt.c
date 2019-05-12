@@ -124,15 +124,14 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     Log1("in else");
     task_t *now=NULL;
     int success_hint=0;
+    Log1("current; name:%s status:%d",current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
     if(current_task[(int)_cpu()]->next==NULL){
       now=task_head[(int)_cpu()];
-    Log1("in NULL:now=task_head[(int)_cpu()];");
       //now->status=_runningable;
     }
     else
     {
       now=current_task[(int)_cpu()];
-    Log1("in else: now:name %s status:%d;",now->name,now->status);
 
     }
     task_t *temp=task_head[(int)_cpu()];
