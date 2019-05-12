@@ -57,7 +57,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   //  TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   //printf("in kmt_save\n");
-  if(current_task[(int)_cpu()]==NULL){printf("herer\n\n");
+  if(current_task[(int)_cpu()]==NULL){printf("%d herer\n\n",(int)_cpu());
     /*task_t *now=task_head[(int)_cpu()];
     while(now->next!=NULL){
       now=now->next;
