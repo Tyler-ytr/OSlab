@@ -106,8 +106,6 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   printf("here going to out of switch");
   if(result==NULL){
     printf("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
-    
-    
     panic("In switch result==NULL!!");
   }
   kmt_spin_unlock(&context_lock);
