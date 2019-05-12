@@ -77,7 +77,6 @@ static void os_run() {
   //printf("p:0x%x\n",p);
   //my_spin_unlock(locked);
   //unlock(lk);
-  assert(0);
   _intr_write(1);
   assert(0);
   while (1) {
