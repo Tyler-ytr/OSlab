@@ -117,8 +117,8 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       }
     }
 
+  Log1("current_task[%d]: %s\n",(int)_cpu(),current_task[(int)_cpu()]->name);
   }
-  Log1("now: %s\n",now->name);
   if(result==NULL){
     Log1("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
     
