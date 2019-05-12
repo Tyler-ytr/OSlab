@@ -535,7 +535,7 @@ static void kmt_sem_wait(sem_t *sem){
      printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
-    sem->task_list[sem->end]=current_task[_cpu()];
+    sem->task_list[sem->end]=current_task[(int)_cpu()];
     sem->end++;
     sem->end%=sem->MAXSIZE;
      printf("in semi: name:%s status:%d \n\n",sem->name,sem->task_list[sem->end-1]->name); 
