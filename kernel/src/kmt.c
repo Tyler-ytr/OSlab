@@ -214,7 +214,7 @@ Log2("temp: name:%s status:%d",temp->name,temp->status);
 
 }
 
-  Log1("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
+  Log2("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   Log1("head_task[%d]: %s status:%d\n",(int)_cpu(),task_head[(int)_cpu()]->name,task_head[(int)_cpu()]->status);
 
   if(result==NULL){
@@ -313,7 +313,6 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     int least=0x3f3f3f3f;
     int least_cpu=0;
     if(task_length[0]>=4){
-    
     for(int i=0;i<_ncpu();i++){
       if(task_length[i]<least){least=task_length[i];least_cpu=i;}
     }}
