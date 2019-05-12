@@ -62,7 +62,7 @@ static void *kalloc(size_t size) {
   spinlock_t*a_lk=&alloc_lk;
   //lock(a_lk);
   kmt->spin_lock(a_lk);
-   int cpu_num=_cpu();
+   int cpu_num=(int)_cpu();
   _list head=cpu_head[cpu_num];
   _list now=cpu_head[cpu_num];
   void *ret=NULL;
