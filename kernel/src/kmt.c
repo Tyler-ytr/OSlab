@@ -569,6 +569,7 @@ static void kmt_sem_signal(sem_t *sem){
     }
      printf("in semi signal: name:%s status:%d\n\n",sem->task_list[sem->start]->name,sem->task_list[sem->start]->status); 
     sem->start+=1;
+    sem->start%=sem->MAXSIZE;
   }
   
   //------------原子操作------------------ 
