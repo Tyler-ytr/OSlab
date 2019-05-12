@@ -20,7 +20,7 @@ static int intena[9]={0,0,0,0,0,0,0,0,0};
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
 static spinlock_t context_lock;//在switch 以及 save里面使用;
-static spinlock_t yield_lock;//在切换
+//static spinlock_t yield_lock;//在切换
 //static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
 static task_t * current_task[9];//当前的进程;
