@@ -55,7 +55,8 @@ static void kmt_init(){
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
   //  TRACE_ENTRY;
-  kmt_spin_lock(&context_lock);
+  //kmt_spin_lock(&context_lock);
+  kmt_spin_lock(&task_lock);
   //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){printf("%d herer\n\n",(int)_cpu());
     /*task_t *now=task_head[(int)_cpu()];
@@ -70,14 +71,16 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   current_task[(int)_cpu()]->status=_runningable;
   
   }
-  kmt_spin_unlock(&context_lock);
+  //kmt_spin_unlock(&context_lock);
+  kmt_spin_unlock(&task_lock);
    // TRACE_EXIT;
 
   return context;
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
-  kmt_spin_lock(&context_lock);
+  //kmt_spin_lock(&context_lock);
+  kmt_spin_lock(&task_lock);
     //TRACE_ENTRY;
   //printf("In switch!");
   _Context *result=NULL;
@@ -228,7 +231,8 @@ Log2("temp: name:%s status:%d",temp->name,temp->status);
   }
  // printf("out of switch!\n");
 //    TRACE_EXIT;
-  kmt_spin_unlock(&context_lock);
+  //kmt_spin_unlock(&context_lock);
+  kmt_spin_unlock(&task_lock);
   return result;
 }
 
