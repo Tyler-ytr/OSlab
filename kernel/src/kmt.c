@@ -121,9 +121,10 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   else{
 //    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
     task_t *now=NULL;
+    int success_hint=0;
     if(current_task[(int)_cpu()]->next==NULL){
       now=task_head[(int)_cpu()];
-      now->status=_runningable;
+      //now->status=_runningable;
     }
     else
     {
@@ -135,6 +136,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         now->status=_running;
         current_task[(int)_cpu]=now;
         result=&current_task[(int)_cpu()]->context;
+        success_hint=1；
         break;
       }
 
@@ -144,6 +146,9 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       else{
         now=task_head[(int)_cpu()];
       }
+    }
+    if(success_hint==0){
+      panic("ALL IS RUNNING!!");
     }
 
   Log1("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
