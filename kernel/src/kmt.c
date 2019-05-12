@@ -567,6 +567,7 @@ static void kmt_sem_signal(sem_t *sem){
     else{
       assert(0);
     }
+     printf("in semi signal: name:%s\n\n",sem->task_list[sem->start]->name); 
     sem->start+=1;
   }
   
