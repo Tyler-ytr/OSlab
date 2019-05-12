@@ -120,54 +120,80 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
   }
   else{
-//    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
-    Log1("in else");
-    task_t *now=NULL;
-    int success_hint=0;
-    Log1("current; name:%s status:%d",current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
-    //if(current_task[(int)_cpu()]->next==NULL){
-      now=task_head[(int)_cpu()];
-      //now->status=_runningable;
-    //}
-    //else
-    //{
-     // now=current_task[(int)_cpu()];
+// //    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+//     Log1("in else");
+//     task_t *now=NULL;
+//     int success_hint=0;
+//     Log1("current; name:%s status:%d",current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
+//     //if(current_task[(int)_cpu()]->next==NULL){
+//       now=task_head[(int)_cpu()];
+//       //now->status=_runningable;
+//     //}
+//     //else
+//     //{
+//      // now=current_task[(int)_cpu()];
 
-//    }
-    task_t *temp=task_head[(int)_cpu()];
-    Log1("temp: name:%s status:%d",temp->name,temp->status);
-    while(temp->next!=NULL){
-      temp=temp->next;
-    Log1("temp: name:%s status:%d",temp->name,temp->status);
+// //    }
+//     task_t *temp=task_head[(int)_cpu()];
+//     Log1("temp: name:%s status:%d",temp->name,temp->status);
+//     while(temp->next!=NULL){
+//       temp=temp->next;
+//     Log1("temp: name:%s status:%d",temp->name,temp->status);
 
-    }
+//     }
 
-    Log1("current; name:%s status:%d",current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
-    while(1){
-        //printf("ererer");
-      if(now->status==_runningable&&now!=NULL){
-        Log1("now name:%s",now->name);
-        now->status=_running;
-        if(current_task[(int)_cpu()]->status==_running)current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+//     Log1("current; name:%s status:%d",current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
+//     while(1){
+//         //printf("ererer");
+//       if(now->status==_runningable&&now!=NULL){
+//         Log1("now name:%s",now->name);
+//         now->status=_running;
+//         if(current_task[(int)_cpu()]->status==_running)current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
         
-        Log1("now name:%s",now->name);
+//         Log1("now name:%s",now->name);
+//         current_task[(int)_cpu()]=now;
+//         Log1("current name:%s!!!",current_task[(int)_cpu()]->name);
+//         result=&current_task[(int)_cpu()]->context;
+//         success_hint=1;
+//         break;
+//       }
+//       else{
+//       if(now->next!=NULL){
+//         now=now->next;
+//       }
+//       else{
+//         now=task_head[(int)_cpu()];
+//       }}
+//     }
+//     if(success_hint==0){
+//       panic("ALL IS RUNNING!!");
+//     }
+  task_t *now=NULL;
+  int success_hint=0;
+  now=task_head[(int)_cpu()];
+  if(now->status==_runningable){
+      current_task[(int)_cpu()]=now;
+      current_task[(int)_cpu()]->status=_running;
+      result=&current_task[(int)_cpu()]->context;
+      success_hint=1;
+    }
+    else{
+      while(now->next!=NULL){
+        now=now->next;
+        if(now->status==_runningable){
         current_task[(int)_cpu()]=now;
-        Log1("current name:%s!!!",current_task[(int)_cpu()]->name);
+        current_task[(int)_cpu()]->status=_running;
         result=&current_task[(int)_cpu()]->context;
         success_hint=1;
         break;
+        }  
       }
-      else{
-      if(now->next!=NULL){
-        now=now->next;
+
+      if(success_hint==0&&now->next==NULL){
+        current_task[(int)_cpu()]=now;
+        current_task[(int)_cpu()]->status=_running;
+        result=&current_task[(int)_cpu()]->context;
       }
-      else{
-        now=task_head[(int)_cpu()];
-      }}
-    }
-    if(success_hint==0){
-      panic("ALL IS RUNNING!!");
-    }
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
