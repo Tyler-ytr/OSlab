@@ -53,7 +53,7 @@ static void kmt_init(){
     return;
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
-    TRACE_ENTRY;
+  //  TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){
@@ -62,13 +62,13 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   else{
   current_task[(int)_cpu()]->context=*context;}
   kmt_spin_unlock(&context_lock);
-    TRACE_EXIT;
+   // TRACE_EXIT;
 
   return NULL;
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
-    TRACE_ENTRY;
+  //  TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   printf("In switch!");
   _Context *result=NULL;
@@ -125,12 +125,12 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     panic("In switch result==NULL!!");
   }
   kmt_spin_unlock(&context_lock);
-    TRACE_EXIT;
+   // TRACE_EXIT;
   return result;
 }
 
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu){
-    TRACE_ENTRY;
+  //  TRACE_ENTRY;
     //TO BE DONE
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
@@ -155,7 +155,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
    
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
-    TRACE_EXIT;
+ //   TRACE_EXIT;
     return 0;
 
 
@@ -192,7 +192,7 @@ static void cpu3_task(void *arg){
 */
 
 static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
-    TRACE_ENTRY;
+  //  TRACE_ENTRY;
     //TO BE DONE
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
@@ -222,14 +222,14 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
-    TRACE_EXIT;
+  //  TRACE_EXIT;
     return 0;
 }
 
 static void kmt_teardown(task_t *task){
     //  从head 数组开始遍历,找到它然后释放;
     //TO BE DONE
-    TRACE_ENTRY; 
+  //  TRACE_ENTRY; 
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
     printf("In kmt_treardown\n");
@@ -262,7 +262,7 @@ static void kmt_teardown(task_t *task){
     }
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
-    TRACE_EXIT;
+  //  TRACE_EXIT;
     return;
 }
 
