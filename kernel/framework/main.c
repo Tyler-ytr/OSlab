@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include <devices.h>
 #include <klib.h>
-//static void echo_task(void *arg);
+static void echo_task(void *arg);
 int main() {
   _ioe_init();
   _cte_init(os->trap);
@@ -16,7 +16,7 @@ kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
 
   return 1;
 }
-/*
+
 static void echo_task(void *arg){
   char *name=(char*)arg;
   char text[128]="",line[128]="";
@@ -30,4 +30,3 @@ static void echo_task(void *arg){
     tty->ops->write(tty,0,text,strlen(text));
   }
 }
-*/
