@@ -20,6 +20,7 @@ static int intena[9]={0,0,0,0,0,0,0,0,0};
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
 static spinlock_t context_lock;//在switch 以及 save里面使用;
+static spinlock_t yield_lock;//在切换
 //static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
 static task_t * current_task[9];//当前的进程;
@@ -43,15 +44,16 @@ static void kmt_init(){
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
-   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_0 yield", cpu0_task, NULL,0);
-   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu1_task, NULL,1);
-   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu2_task, NULL,2);
-   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu3_task, NULL,3);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_0 yield", cpu_task, NULL,0);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu_task, NULL,1);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu_task, NULL,2);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu_task, NULL,3);
   printf("before out of kmt_init");
     //TO BE DONE
     return;
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
+    TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){
@@ -60,6 +62,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   else{
   current_task[(int)_cpu()]->context=*context;}
   kmt_spin_unlock(&context_lock);
+    TRACE_EXIT;
 
   return NULL;
   
@@ -158,14 +161,14 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
 
 
 }
-static void cpu0_task(void *arg){
-  if((int)_cpu()==0){
+static void cpu_task(void *arg){
+  /*if((int)_cpu()==0){*/
     while(1){
       _yield();
     }
-  }
+  //}
 };
-static void cpu1_task(void *arg){
+/*static void cpu1_task(void *arg){
   if((int)_cpu()==1){
     while(1){
       _yield();
@@ -186,7 +189,7 @@ static void cpu3_task(void *arg){
     }
   }
 };
-
+*/
 
 static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
     TRACE_ENTRY;
