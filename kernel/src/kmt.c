@@ -110,6 +110,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         current_task[(int)_cpu()]->status=_running;
         result=&current_task[(int)_cpu()]->context;
         success_hint=1;
+        printf("ererer");
         break;
         }  
       }
