@@ -55,7 +55,8 @@ static void kmt_init(){
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
   //  TRACE_ENTRY;
-  kmt_spin_lock(&context_lock);
+  //kmt_spin_lock(&context_lock);
+  kmt_spin_lock(&task_lock);
   //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){printf("%d herer\n\n",(int)_cpu());
     /*task_t *now=task_head[(int)_cpu()];
@@ -66,14 +67,16 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   }
   else{
   current_task[(int)_cpu()]->context=*context;}
-  kmt_spin_unlock(&context_lock);
+  //kmt_spin_unlock(&context_lock);
+  kmt_spin_unlock(&task_lock);
    // TRACE_EXIT;
 
   return NULL;
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
-  kmt_spin_lock(&context_lock);
+  //kmt_spin_lock(&context_lock);
+  kmt_spin_lock(&task_lock);
     //TRACE_ENTRY;
   //printf("In switch!");
   _Context *result=NULL;
@@ -224,7 +227,8 @@ Log1("temp: name:%s status:%d",temp->name,temp->status);
   }
  // printf("out of switch!\n");
 //    TRACE_EXIT;
-  kmt_spin_unlock(&context_lock);
+  //kmt_spin_unlock(&context_lock);
+  kmt_spin_unlock(&task_lock);
   return result;
 }
 
@@ -515,7 +519,8 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
 }
 
 static void kmt_sem_wait(sem_t *sem){
-  kmt_spin_lock(&sem_lock);
+  //kmt_spin_lock(&sem_lock);
+  kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
   sem->value--;
   if(current_task[(int)_cpu()]==NULL){
@@ -546,14 +551,16 @@ static void kmt_sem_wait(sem_t *sem){
     //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
   }
   //------------原子操作------------------ 
-  kmt_spin_unlock(&sem_lock);
+  //kmt_spin_unlock(&sem_lock);
+  kmt_spin_unlock(&task_lock);
 
   return;
 }
 
 static void kmt_sem_signal(sem_t *sem){
   //TRACE_ENTRY;
-  kmt_spin_lock(&sem_lock);
+  //kmt_spin_lock(&sem_lock);
+  kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
   sem->value++;
   if(sem->start%sem->MAXSIZE==sem->end){
@@ -573,7 +580,8 @@ static void kmt_sem_signal(sem_t *sem){
   }
   
   //------------原子操作------------------ 
-  kmt_spin_unlock(&sem_lock);
+ // kmt_spin_unlock(&sem_lock);
+  kmt_spin_unlock(&task_lock);
   //TRACE_EXIT;
   return;
 }
