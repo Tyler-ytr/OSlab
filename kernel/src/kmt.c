@@ -205,7 +205,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
 
-  //printf("\n");
+  printf("\n");
  task_t *temp=task_head[(int)_cpu()];
  Log2("temp: cpu: %d name:%s status:%d",(int)_cpu(),temp->name,temp->status);
 while(temp->next!=NULL){
