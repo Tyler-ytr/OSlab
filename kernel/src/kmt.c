@@ -65,11 +65,14 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
     current_task[(int)_cpu()]=now;*///等待修改;assert(0);
   }
   else{
-  current_task[(int)_cpu()]->context=*context;}
+  current_task[(int)_cpu()]->context=*context;
+  current_task[(int)_cpu()]->status=_runningable;
+  
+  }
   kmt_spin_unlock(&context_lock);
    // TRACE_EXIT;
 
-  return NULL;
+  return context;
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
