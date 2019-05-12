@@ -78,6 +78,7 @@ static void os_run() {
   //my_spin_unlock(locked);
   //unlock(lk);
   _intr_write(1);
+  assert(0);
   while (1) {
     _yield();
   }
