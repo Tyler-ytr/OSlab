@@ -58,6 +58,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   kmt_spin_lock(&context_lock);
   //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){;
+    printf("In null of save !!!!!!!!!\n\n\n\n\n")
     task_t *now=task_head[(int)_cpu()];
     while(now->next!=NULL){
       now=now->next;
@@ -311,8 +312,8 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
 
     //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
     int least=0x3f3f3f3f;
-    int least_cpu=0;
-    if(task_length[0]>=4){
+    int least_cpu=(int)_cpu();
+    if(task_length[0]>=10){
     for(int i=0;i<_ncpu();i++){
       if(task_length[i]<least){least=task_length[i];least_cpu=i;}
     }}
