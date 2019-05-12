@@ -58,10 +58,10 @@ kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
 static void echo_task(void *arg){
   char *name=(char*)arg;
   char text[128]="",line[128]="";
-  device_t *tty=dev_loopup(name);
+  device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
-    ttp->ops->write(tty,0,text,strlen(text));
+    tty->ops->write(tty,0,text,strlen(text));
     int nread=tty->ops->read(tty,0,line.sizeof(line));
     line[nread-1]='\0';
     sprintf(text,"Echo:%s.\n",line);
