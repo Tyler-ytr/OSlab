@@ -538,7 +538,7 @@ static void kmt_sem_wait(sem_t *sem){
     sem->task_list[sem->end]=current_task[(int)_cpu()];
     sem->end++;
     sem->end%=sem->MAXSIZE;
-     printf("in semi: name:%s status:%d \n\n",sem->name,sem->task_list[sem->end-1]->status); 
+     printf("in semi: name:%s task_name:%s status:%d \n\n",sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
     
     kmt_spin_unlock(&sem_lock);
     _yield();
