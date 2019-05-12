@@ -206,7 +206,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task->status=_runningable;
     task->name=name;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
-
+    Log1("create: name:%s\tstatus:%d\n",task->name,task->status);
     task_t * new_task=task;
 
     //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
