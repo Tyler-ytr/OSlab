@@ -23,6 +23,7 @@ static spinlock_t context_lock;//在switch 以及 save里面使用;
 //static spinlock_t yield_lock;//在切换
 //static task_t * current_task=NULL;
 static task_t * task_head[9];//task 链表的头部; 每一个cpu对应一个头部;
+static int task_length[9]={0,0,0,0,0,0,0,0,0};
 static task_t * current_task[9];//当前的进程;
 //static int task_length=0;
 static const int /*_non=0,*/_runningable=1,_running=2,_waiting=3;
@@ -250,6 +251,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
       new_task->next=NULL;
       task_head[cpu]=new_task;
     }
+    task_length[cpu]+=1;
   Log1("head_task[%d]: %s status:%d\n",(int)_cpu(),task_head[(int)_cpu()]->name,task_head[(int)_cpu()]->status);
    
     //-------------原子操作-----------------
@@ -308,8 +310,14 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task_t * new_task=task;
 
     //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
+    int least=0x3f3f3f3f;
+    int least_cpu=0;
+    for(int i=0;i<_ncpu();i++){
+      if(cpu_task[i]<least){least=cpu_task[i];least_cpu=i;}
+    }
+
     assert(task_head[(int) _cpu()]!=NULL);
-    if(task_head[(int)_cpu()]==NULL)
+    /*if(task_head[(int)_cpu()]==NULL)
     {
       new_task->next=NULL;
       task_head[(int)_cpu()]=new_task;
@@ -321,7 +329,18 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
       new_task->next=task_head[(int)_cpu()];//此时head是a
       task_head[(int)_cpu()]=new_task;//把头变成c;
     }
-    
+*/    if(task_head[least_cpu]==NULL)
+    {
+      new_task->next=NULL;
+      task_head[least_cpu]=new_task;
+
+      assert(0);
+    }
+    else
+    {
+      new_task->next=task_head[least_cpu];//此时head是a
+      task_head[least_cpu]=new_task;//把头变成c;
+    }
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
   //  TRACE_EXIT;
