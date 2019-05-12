@@ -151,6 +151,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         current_task[(int)_cpu]=now;
         result=&current_task[(int)_cpu()]->context;
         success_hint=1;
+        Log1("now name:%s",now->name);
         break;
       }
 
