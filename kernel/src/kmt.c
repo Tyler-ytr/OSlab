@@ -6,6 +6,12 @@ static void kmt_spin_lock(spinlock_t *lk);
 static void kmt_spin_unlock(spinlock_t *lk);
 static _Context *kmt_context_save(_Event ev, _Context *context);
 static _Context *kmt_context_switch(_Event ev, _Context *context);
+static void cpu0_task(void *arg);
+static void cpu1_task(void *arg);
+static void cpu2_task(void *arg);
+static void cpu3_task(void *arg);
+
+
 
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
 static int intena[9]={0,0,0,0,0,0,0,0,0};
@@ -36,6 +42,10 @@ static void kmt_init(){
  
   os->on_irq(INT8_MIN, _EVENT_NULL, kmt_context_save); // 总是最先调用
   os->on_irq(INT8_MAX, _EVENT_NULL, kmt_context_switch); // 总是最后调用
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_0 yield", cpu0_task, NULL,0);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu1_task, NULL,1);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu2_task, NULL,2);
+   kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu3_task, NULL,3);
   printf("before out of kmt_init");
     //TO BE DONE
     return;
@@ -107,6 +117,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   Log1("here going to out of switch");
   if(result==NULL){
     Log1("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
+    
     panic("In switch result==NULL!!");
   }
   kmt_spin_unlock(&context_lock);
@@ -114,7 +125,66 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   return result;
 }
 
+static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu){
+    TRACE_ENTRY;
+    //TO BE DONE
+    kmt_spin_lock(&task_lock);
+    //------------原子操作------------------ 
+    Log1("Before allocate in create\n");
+    Log1("create in cpu %d,name:%s",(int)_cpu(),name);
+   // printf("Before allocate in create");
+    task->stack.start=pmm->alloc(MAX_STACK_SIZE);
+    //Log1("finish task start alloc");
+    task->stack.end=task->stack.start + MAX_STACK_SIZE;
+    task->status=_runningable;
+    task->name=name;
+    task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
 
+    task_t * new_task=task;
+    assert(task_head[cpu]==NULL);
+    //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
+    if(task_head[cpu]==NULL)
+    {
+      new_task->next=NULL;
+      task_head[cpu]=new_task;
+    }
+   
+    //-------------原子操作-----------------
+    kmt_spin_unlock(&task_lock);
+    TRACE_EXIT;
+    return 0;
+
+
+
+}
+static void cpu0_task(void *arg){
+  if((int)_cpu()==0){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu1_task(void *arg){
+  if((int)_cpu()==1){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu2_task(void *arg){
+  if((int)_cpu()==2){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu3_task(void *arg){
+  if((int)_cpu()==3){
+    while(1){
+      _yield();
+    }
+  }
+};
 
 
 static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), void *arg){
