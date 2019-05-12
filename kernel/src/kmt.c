@@ -94,7 +94,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         now=now->next;
       }
     }*/
-    task_t now=task_head[(int)_cpu()];
+    task_t *now=task_head[(int)_cpu()];
     int success_hint=0;
     if(now->status==_runningable){
       current_task[(int)_cpu()]=now;
