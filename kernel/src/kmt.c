@@ -172,7 +172,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   int success_hint=0;
   now=task_head[(int)_cpu()];
   if(now->status==_runningable){
-      if(current_task[(int)_cpu()]->status=_running;)
+      if(current_task[(int)_cpu()]->status=_running)
       {current_task[(int)_cpu()]->status=_runnable;}
 
       current_task[(int)_cpu()]=now;
@@ -184,7 +184,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       while(now->next!=NULL){
         now=now->next;
         if(now->status==_runningable){
-        if(current_task[(int)_cpu()]->status=_running;)
+        if(current_task[(int)_cpu()]->status=_running)
       {current_task[(int)_cpu()]->status=_runnable;}
         current_task[(int)_cpu()]=now;
         current_task[(int)_cpu()]->status=_running;
