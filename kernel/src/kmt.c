@@ -461,7 +461,10 @@ static void kmt_sem_wait(sem_t *sem){
   //---------对于每一个sem: tasklist:
   //----先进先出；参考数据结构:https://blog.csdn.net/a04081122/article/details/51985873
   while(sem->value<0){
-    current_task[(int)_cpu()]->status=_waiting;
+    if(current_task[(int)_cpu()]->status==_runningable)current_task[(int)_cpu()]->status=_waiting;
+    else{
+      assert(0);
+    }
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
