@@ -463,7 +463,9 @@ static void kmt_sem_wait(sem_t *sem){
   while(sem->value<0){
     if(current_task[(int)_cpu()]->status==_runningable)current_task[(int)_cpu()]->status=_waiting;
     else{
-      assert(0);
+     kmt_spin_unlock(&sem_lock);
+    _yield();
+    kmt_spin_lock(&sem_lock);
     }
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
