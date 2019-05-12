@@ -77,7 +77,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   printf("In switch!");
   _Context *result=NULL;
   if(current_task[(int)_cpu()]==NULL){
-    assert(task_head[(int)_cpu()]!=NULL);
+    /*assert(task_head[(int)_cpu()]!=NULL);
     if(task_head[(int)_cpu]->status==_runningable){//如果头可以跑就跑
       current_task[(int)_cpu()]=task_head[(int)_cpu()];
       current_task[(int)_cpu()]->status=_running;
@@ -93,13 +93,37 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         }
         now=now->next;
       }
+    }*/
+    task_t now=task_head[(int)_cpu()];
+    int success_hint=0;
+    if(now->status==_runningable){
+      current_task[(int)_cpu()]=now;
+      current_task[(int)_cpu()]->status=_running;
+      result=&current_task[(int)_cpu()]->context;
+      success_hint=1;
+    }
+    else{
+      while(now->next!=NULL){
+        now=now->next;
+        if(now->status==_runningable){
+        current_task[(int)_cpu()]=now;
+        current_task[(int)_cpu()]->status=_running;
+        result=&current_task[(int)_cpu()]->context;
+        success_hint=1;
+        break;
+        }  
+      }
+    }
+    if(success_hint==0){
+      panic("ALL IS RUNNING!!");
     }
   }
   else{
-    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+//    current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
     task_t *now=NULL;
     if(current_task[(int)_cpu()]->next==NULL){
       now=task_head[(int)_cpu()];
+      now->status=_runningable;
     }
     else
     {
