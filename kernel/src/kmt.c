@@ -205,10 +205,10 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   }
 
  task_t *temp=task_head[(int)_cpu()];
- Log2("temp: name:%s status:%d",temp->name,temp->status);
+ Log1("temp: name:%s status:%d",temp->name,temp->status);
 while(temp->next!=NULL){
  temp=temp->next;
-Log2("temp: name:%s status:%d",temp->name,temp->status);
+Log1("temp: name:%s status:%d",temp->name,temp->status);
 
 }
 
