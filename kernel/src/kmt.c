@@ -55,7 +55,7 @@ static void kmt_init(){
 static _Context *kmt_context_save(_Event ev, _Context *context){
   //  TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
-  printf("in kmt_save\n");
+  //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){
     task_t *now=task_head[(int)_cpu()];
     while(now->next!=NULL){
@@ -74,7 +74,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
 static _Context *kmt_context_switch(_Event ev, _Context *context){
   kmt_spin_lock(&context_lock);
     //TRACE_ENTRY;
-  printf("In switch!");
+  //printf("In switch!");
   _Context *result=NULL;
   if(current_task[(int)_cpu()]==NULL){
     /*assert(task_head[(int)_cpu()]!=NULL);
