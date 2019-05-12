@@ -68,7 +68,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
-  //  TRACE_ENTRY;
+    TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   printf("In switch!");
   _Context *result=NULL;
@@ -126,12 +126,12 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   }
   printf("out of switch!\n");
   kmt_spin_unlock(&context_lock);
-   // TRACE_EXIT;
+    TRACE_EXIT;
   return result;
 }
 
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu){
-    TRACE_ENTRY;
+    //TRACE_ENTRY;
     //TO BE DONE
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
@@ -156,7 +156,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
    
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
-    TRACE_EXIT;
+//    TRACE_EXIT;
     return 0;
 
 
