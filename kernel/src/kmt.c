@@ -89,7 +89,6 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         }
         now=now->next;
       }
-      assert(now==task_head);
     }
   }
   else{
