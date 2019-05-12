@@ -4,6 +4,7 @@ spinlock_t lk_irq;
 spinlock_t lk_test;
 static Handler_list handler_list[MAX_HANDLIST_NUMBER];
 static int _handler_length=0;
+static void echo_task(void *arg);
 
 void test_from_yzy(){
      // void *space[500];
@@ -50,8 +51,23 @@ static void os_init() {
   dev->init();
   printf("after init");
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
+kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
+
 }
 
+static void echo_task(void *arg){
+  char *name=(char*)arg;
+  char text[128]="",line[128]="";
+  device_t *tty=dev_loopup(name);
+  while(1){
+    sprintf(text,"(%s)$",name);
+    ttp->ops->write(tty,0,text,strlen(text));
+    int nread=tty->ops->read(tty,0,line.sizeof(line));
+    line[nread-1]='\0';
+    sprintf(text,"Echo:%s.\n",line);
+    tty->ops->write(tty,0,text,strlen(text));
+  }
+}
 static void hello() {
   for (const char *ptr = "Hello from CPU #"; *ptr; ptr++) {
     _putc(*ptr);
