@@ -15,7 +15,7 @@ static void cpu_task(void *arg);
 
 
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
-static int intena[9]={0,0,0,0,0,0,0,0,0};
+static uint8_t intena[9]={0,0,0,0,0,0,0,0,0};
 
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
