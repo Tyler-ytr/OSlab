@@ -66,6 +66,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   }
   else{
   current_task[(int)_cpu()]->context=*context;
+  if(current_task[(int)_cpu()]->status==_running)
   current_task[(int)_cpu()]->status=_runningable;
   
   }
