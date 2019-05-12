@@ -218,7 +218,7 @@ Log1("temp: name:%s status:%d",temp->name,temp->status);
 
 }
 
-  Log1("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
+  Log2("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   Log1("head_task[%d]: %s status:%d\n",(int)_cpu(),task_head[(int)_cpu()]->name,task_head[(int)_cpu()]->status);
 
   if(result==NULL){
