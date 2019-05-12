@@ -428,7 +428,7 @@ static void kmt_sem_wait(sem_t *sem){
 }
 
 static void kmt_sem_signal(sem_t *sem){
-  TRACE_ENTRY;
+  //TRACE_ENTRY;
   kmt_spin_lock(&sem_lock);
   //------------原子操作------------------ 
   sem->value++;
@@ -444,7 +444,7 @@ static void kmt_sem_signal(sem_t *sem){
   
   //------------原子操作------------------ 
   kmt_spin_unlock(&sem_lock);
-  TRACE_EXIT;
+  //TRACE_EXIT;
   return;
 }
 
