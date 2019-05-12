@@ -7,10 +7,10 @@ static void kmt_spin_unlock(spinlock_t *lk);
 static _Context *kmt_context_save(_Event ev, _Context *context);
 static _Context *kmt_context_switch(_Event ev, _Context *context);
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu);
-static void cpu0_task(void *arg);
-static void cpu1_task(void *arg);
-static void cpu2_task(void *arg);
-static void cpu3_task(void *arg);
+static void cpu_task(void *arg);
+//static void cpu1_task(void *arg);
+//static void cpu2_task(void *arg);
+//static void cpu3_task(void *arg);
 
 
 
