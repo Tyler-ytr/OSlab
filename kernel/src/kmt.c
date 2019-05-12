@@ -313,7 +313,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     //c--------head-->a-->b-->NULL-->>>>head-->c-->a-->b-->NULL
     int least=0x3f3f3f3f;
     int least_cpu=0;
-    if(task_length[0]>=2){
+    if(task_length[0]>=3){
     for(int i=0;i<_ncpu();i++){
       if(task_length[i]<least){least=task_length[i];least_cpu=i;}
     }}
