@@ -408,7 +408,7 @@ static void kmt_sem_wait(sem_t *sem){
     {
       for(int i=0;i<sem->MAXSIZE;i++)
       {
-        printf("%d %s\n",i,sem->task->list[i]->name);
+        printf("%d %s\n",i,sem->task_list[i]->name);
       }
      printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
