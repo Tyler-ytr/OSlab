@@ -15,7 +15,7 @@ static void cpu_task(void *arg);
 
 
 static int ncli[9]={0,0,0,0,0,0,0,0,0};
-static uint8_t intena[9]={0,0,0,0,0,0,0,0,0};
+static int intena[9]={0,0,0,0,0,0,0,0,0};
 
 static spinlock_t sem_lock;//信号量里面使用;
 static spinlock_t task_lock;//在kmt_create,kmt_teardown里面使用,操作task链表;
@@ -408,7 +408,7 @@ static void kmt_sem_wait(sem_t *sem){
     {
       for(int i=0;i<sem->MAXSIZE;i++)
       {
-        printf("%d %s\n",i,sem->task_list[i]->name);
+        printf("%d %s status: \n",i,sem->task_list[i]->name,sem->task_list[i]->status);
       }
      printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
