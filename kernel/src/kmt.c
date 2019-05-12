@@ -131,7 +131,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
     else
     {
-      now=current_task[(int)_cpu()]->next;
+      now=current_task[(int)_cpu()];
     Log1("in else: now=current_task[(int)_cpu()]->next :name %s status:%d;",now->name,now->status);
 
     }
