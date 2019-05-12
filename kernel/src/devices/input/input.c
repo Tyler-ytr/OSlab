@@ -23,6 +23,7 @@ static void push_event(input_t *in, struct input_event ev) {
 static struct input_event pop_event(input_t *in) {
   kmt->sem_wait(&in->event_sem);
   kmt->spin_lock(&in->lock);
+  printf("in input\n\n");
   if (in->rear == in->front) { panic("input queue empty"); }
   int idx = in->front;
   in->front = (in->front + 1) % NEVENTS;
