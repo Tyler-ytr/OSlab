@@ -4,6 +4,10 @@ spinlock_t lk_irq;
 spinlock_t lk_test;
 static Handler_list handler_list[MAX_HANDLIST_NUMBER];
 static int _handler_length=0;
+static void cpu0_task(void *arg);
+static void cpu1_task(void *arg);
+static void cpu2_task(void *arg);
+static void cpu3_task(void *arg);
 
 void test_from_yzy(){
      // void *space[500];
@@ -33,6 +37,34 @@ void test_from_yzy(){
           printf("success!!!!!!");
 
 }
+static void cpu0_task(void *arg){
+  if((int)_cpu()==0){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu1_task(void *arg){
+  if((int)_cpu()==0){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu2_task(void *arg){
+  if((int)_cpu()==0){
+    while(1){
+      _yield();
+    }
+  }
+};
+static void cpu3_task(void *arg){
+  if((int)_cpu()==0){
+    while(1){
+      _yield();
+    }
+  }
+};
 
 static void os_init() {
   printf("%d\n\n\n\n\n",(int)_cpu());
@@ -49,6 +81,10 @@ static void os_init() {
   //assert(0);
   dev->init();
   printf("after init");
+   kmt->create(pmm->alloc(sizeof(task_t)), "cpu_0 yield", cpu0_task, NULL);
+   kmt->create(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu1_task, NULL);
+   kmt->create(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu2_task, NULL);
+   kmt->create(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu3_task, NULL);
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 }
 

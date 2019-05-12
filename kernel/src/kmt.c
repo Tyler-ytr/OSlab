@@ -54,6 +54,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
+    TRACE_ENTRY;
   kmt_spin_lock(&context_lock);
   printf("In switch!");
   _Context *result=NULL;
@@ -103,12 +104,13 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
 
   }
-  printf("here going to out of switch");
+  Log1("here going to out of switch");
   if(result==NULL){
-    printf("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
+    Log1("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
     panic("In switch result==NULL!!");
   }
   kmt_spin_unlock(&context_lock);
+    TRACE_EXIT;
   return result;
 }
 
