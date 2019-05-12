@@ -254,6 +254,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
     }
     task_length[cpu]+=1;
   Log1("head_task[%d]: %s status:%d\n",(int)_cpu(),task_head[(int)_cpu()]->name,task_head[(int)_cpu()]->status);
+    current_task[cpu]=task;
    
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
