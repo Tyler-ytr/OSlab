@@ -149,10 +149,11 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         Log1("now name:%s",now->name);
         now->status=_running;
         if(current_task[(int)_cpu()]->status==_running)current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
+        
+        Log1("now name:%s",now->name);
         current_task[(int)_cpu]=now;
         result=&current_task[(int)_cpu()]->context;
         success_hint=1;
-        Log1("now name:%s",now->name);
         break;
       }
 
