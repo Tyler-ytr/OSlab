@@ -1,22 +1,22 @@
 #include <kernel.h>
 #include <devices.h>
 #include <klib.h>
-static void echo_task(void *arg);
+//static void echo_task(void *arg);
 int main() {
   _ioe_init();
   _cte_init(os->trap);
 
   // call sequential init code
   os->init();
-kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
-kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
-kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
-kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
+//kmt->create(pmm->alloc(sizeof(task_t)), "print1", echo_task, "tty1");
+//kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
+//kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task, "tty3");
+//kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
   _mpe_init(os->run); // all cores call os->run()
 
   return 1;
 }
-
+/*
 static void echo_task(void *arg){
   char *name=(char*)arg;
   char text[128]="",line[128]="";
@@ -30,3 +30,4 @@ static void echo_task(void *arg){
     tty->ops->write(tty,0,text,strlen(text));
   }
 }
+*/
