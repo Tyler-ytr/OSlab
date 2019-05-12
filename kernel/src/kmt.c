@@ -545,9 +545,11 @@ static void kmt_sem_wait(sem_t *sem){
     sem->end%=sem->MAXSIZE;
      printf("in semi: name:%s task_name:%s status:%d \n\n",sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
     
-    kmt_spin_unlock(&sem_lock);
+    //kmt_spin_unlock(&sem_lock);
+    kmt_spin_unlock(&task_lock);
     _yield();
-    kmt_spin_lock(&sem_lock);
+    //kmt_spin_lock(&sem_lock);
+    kmt_spin_lock(&task_lock);
     //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
   }
   //------------原子操作------------------ 
