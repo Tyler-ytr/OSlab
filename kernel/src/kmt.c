@@ -73,12 +73,13 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
   printf("In switch!");
   _Context *result=NULL;
   if(current_task[(int)_cpu()]==NULL){
-    if(task_head[(int)_cpu]->status==_runningable){
+    assert(task_head[(int)_cpu()]!=NULL);
+    if(task_head[(int)_cpu]->status==_runningable){//如果头可以跑就跑
       current_task[(int)_cpu()]=task_head[(int)_cpu()];
       current_task[(int)_cpu()]->status=_running;
       result=&current_task[(int)_cpu()]->context;
     }else{
-      task_t *now=task_head[(int)_cpu()];
+      task_t *now=task_head[(int)_cpu()];//如果不能跑就找到能跑的;
       while(now->next!=NULL){
         if(now->next->status==_runningable){
           current_task[(int)_cpu()]=now->next;
@@ -88,6 +89,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         }
         now=now->next;
       }
+      assert(now==task_head);
     }
   }
   else{
@@ -117,7 +119,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       }
     }
 
-  Log1("current_task[%d]: %s\n",(int)_cpu(),current_task[(int)_cpu()]->name);
+  Log1("current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
   if(result==NULL){
     Log1("task_list_head[%d]->status %d\n",(int)_cpu(),task_head[(int)_cpu()]->status);
