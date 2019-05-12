@@ -124,6 +124,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     
     panic("In switch result==NULL!!");
   }
+  printf("out of switch!\n");
   kmt_spin_unlock(&context_lock);
    // TRACE_EXIT;
   return result;
@@ -403,7 +404,10 @@ static void kmt_sem_wait(sem_t *sem){
   while(sem->value<0){
     current_task[(int)_cpu()]->status=_waiting;
     //sem->end++;
-    if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))panic("In sem_wait, the task_list is full;");
+    if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
+    {
+     printf("name:%s",sem->name); 
+      panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
     sem->task_list[sem->end]=current_task[_cpu()];
     sem->end++;
