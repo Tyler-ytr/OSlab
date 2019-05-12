@@ -135,9 +135,16 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     Log1("in else: now=current_task[(int)_cpu()]->next :name %s status:%d;",now->name,now->status);
 
     }
+    task_t *temp=task_head[(int)_cpu()];
+    Log1("temp: name:%s status:%d",temp->name,temp->status);
+    while(temp->next!=NULL){
+      temp=temp->next;
+    Log1("temp: name:%s status:%d",temp->name,temp->status);
+
+    }
 
     while(1){
-        printf("ererer");
+        //printf("ererer");
       if(now!=NULL&&now->status==_runningable){
         now->status=_running;
     current_task[(int)_cpu()]->status=_runningable; //如果这个cpu只有一个线程,那就让它跑把;
