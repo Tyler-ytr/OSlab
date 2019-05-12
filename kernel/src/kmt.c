@@ -406,7 +406,7 @@ static void kmt_sem_wait(sem_t *sem){
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
-     printf("name:%s",sem->name); 
+     printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
     sem->task_list[sem->end]=current_task[_cpu()];
