@@ -564,11 +564,11 @@ static void kmt_sem_wait(sem_t *sem){
     sem->task_list[sem->end]=current_task[(int)_cpu()];
     sem->end++;
     sem->end%=sem->MAXSIZE;
-     printf("in semi: start :%d end:%d sem->name:%s task_name:%s status:%d \n",sem->start,sem->end,sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
-    for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
+     //printf("in semi: start :%d end:%d sem->name:%s task_name:%s status:%d \n",sem->start,sem->end,sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
+    /*for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
       printf("in semi[%d] name:%s\n",i,sem->task_list[i]->name);
     }
-    printf("\n");
+    printf("\n");*/
     
     kmt_spin_unlock(&sem_lock);
     //kmt_spin_unlock(&task_lock);
@@ -597,11 +597,11 @@ static void kmt_sem_signal(sem_t *sem){
   }else
   {
     sem->start%=sem->MAXSIZE;
-    printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start]->name,sem->task_list[sem->start]->status); 
+    /*printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start]->name,sem->task_list[sem->start]->status); 
      for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
       printf("in semi-signal[%d] name:%s\n",i,sem->task_list[i]->name);
     }
-    printf("\n");
+    printf("\n");*/
     sem->start%=sem->MAXSIZE; 
     if(sem->task_list[sem->start]==NULL)panic("In sem_signal task_list meeting NULL");
     if(sem->task_list[sem->start]->status==_waiting)
@@ -612,11 +612,11 @@ static void kmt_sem_signal(sem_t *sem){
      
     sem->start+=1;
     sem->start%=sem->MAXSIZE;
-    printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start-1]->name,sem->task_list[sem->start-1]->status); 
+   /* printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start-1]->name,sem->task_list[sem->start-1]->status); 
      for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
       printf("in semi-signal[%d] name:%s\n",i,sem->task_list[i]->name);
     }
-    printf("\n");
+    printf("\n");*/
   }
   
   //------------原子操作------------------ 
