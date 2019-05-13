@@ -59,7 +59,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
     //TRACE_ENTRY;
   //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){
-    Log2("in %d, NULL!!!",(int)_cpu());
+    Log1("in %d, NULL!!!",(int)_cpu());
     //kmt_spin_unlock(&task_lock);
     //_yield();
     //kmt_spin_lock(&task_lock);
@@ -73,7 +73,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   else{
   current_task[(int)_cpu()]->context=*context;
   if( current_task[(int)_cpu()]->next!=NULL)
-  Log2("in save: cpu:%d name:%s status:%d",(int)_cpu(), current_task[(int)_cpu()]->name, current_task[(int)_cpu()]->status);
+  Log1("in save: cpu:%d name:%s status:%d",(int)_cpu(), current_task[(int)_cpu()]->name, current_task[(int)_cpu()]->status);
   if(current_task[(int)_cpu()]->status==_running)
   current_task[(int)_cpu()]->status=_runningable;
   //if(current_task[(int)_cpu()]->next==NULL){
@@ -591,7 +591,7 @@ static void kmt_sem_signal(sem_t *sem){
 //  kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
   sem->value++;
-  Log2("value:%d",sem->value);
+  Log1("value:%d",sem->value);
   if(sem->start%sem->MAXSIZE==sem->end){
     assert(sem->value>0);//队列为空;
   }else
