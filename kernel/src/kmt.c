@@ -86,7 +86,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
 //    TRACE_EXIT;
   kmt_spin_unlock(&task_lock);
 
-  return context;
+  return NULL;
   
 }
 static _Context *kmt_context_switch(_Event ev, _Context *context){
@@ -294,9 +294,9 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
 }
 static void cpu_task(void *arg){
   /*if((int)_cpu()==0){*/
-   // while(1){
+    while(1){
       _yield();
-    //}
+   }
   //}
 };
 /*static void cpu1_task(void *arg){
