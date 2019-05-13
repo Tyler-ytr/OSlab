@@ -54,9 +54,9 @@ static void kmt_init(){
     return;
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
-    TRACE_ENTRY;
   //kmt_spin_lock(&context_lock);
   kmt_spin_lock(&task_lock);
+    TRACE_ENTRY;
   //printf("in kmt_save\n");
   if(current_task[(int)_cpu()]==NULL){printf("%d herer\n\n",(int)_cpu());
     /*task_t *now=task_head[(int)_cpu()];
@@ -74,8 +74,8 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   }
 
   //kmt_spin_unlock(&context_lock);
-  kmt_spin_unlock(&task_lock);
     TRACE_EXIT;
+  kmt_spin_unlock(&task_lock);
 
   return context;
   
