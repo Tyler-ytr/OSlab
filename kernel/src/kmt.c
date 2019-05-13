@@ -123,13 +123,52 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
     }
   }
   else{
-  task_t *now=NULL;
-  int success_hint=0;
-  now=task_head[(int)_cpu()];
-  if(now->status==_runningable){
-      if(current_task[(int)_cpu()]->status==_running)
-      {current_task[(int)_cpu()]->status=_runningable;}
+  // task_t *now=NULL;
+  // int success_hint=0;
+  // now=task_head[(int)_cpu()];
+  // if(now->status==_runningable){
+  //     if(current_task[(int)_cpu()]->status==_running)
+  //     {current_task[(int)_cpu()]->status=_runningable;}
 
+  //     current_task[(int)_cpu()]=now;
+  //     current_task[(int)_cpu()]->status=_running;
+  //     result=&current_task[(int)_cpu()]->context;
+  //     success_hint=1;
+  //   }
+  //   else{
+  //     while(now->next!=NULL){
+  //       now=now->next;
+  //       if(now->status==_runningable){
+  //       if(current_task[(int)_cpu()]->status==_running)
+  //     {current_task[(int)_cpu()]->status=_runningable;}
+  //       current_task[(int)_cpu()]=now;
+  //       current_task[(int)_cpu()]->status=_running;
+  //       result=&current_task[(int)_cpu()]->context;
+  //       success_hint=1;
+  //       break;
+  //       }  
+  //     }
+
+  //     if(success_hint==0&&now->next==NULL){
+  //       current_task[(int)_cpu()]=now;
+  //       current_task[(int)_cpu()]->status=_running;
+  //       result=&current_task[(int)_cpu()]->context;
+  //     }}
+  //上面是从头遍历
+    task_t *now=NULL;
+    int success_hint=0;
+    now=current_task[(int)_cpu()];
+    
+    if(now->next==NULL){
+      now=task_head[(int)_cpu()];
+  }
+    else{
+      now=now->next;
+    }
+    task_t * test=now;
+    if(now->status==_runningable){
+      if(current_task[(int)_cpu()]->status==_running)
+        {current_task[(int)_cpu()]->status=_runningable;}
       current_task[(int)_cpu()]=now;
       current_task[(int)_cpu()]->status=_running;
       result=&current_task[(int)_cpu()]->context;
@@ -139,21 +178,40 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       while(now->next!=NULL){
         now=now->next;
         if(now->status==_runningable){
-        if(current_task[(int)_cpu()]->status==_running)
-      {current_task[(int)_cpu()]->status=_runningable;}
-        current_task[(int)_cpu()]=now;
-        current_task[(int)_cpu()]->status=_running;
-        result=&current_task[(int)_cpu()]->context;
-        success_hint=1;
-        break;
-        }  
+          if(current_task[(int)_cpu()]->status==_running)
+        {current_task[(int)_cpu()]->status=_runningable;}
+      current_task[(int)_cpu()]=now;
+      current_task[(int)_cpu()]->status=_running;
+      result=&current_task[(int)_cpu()]->context;
+      success_hint=1;
+      break;
+        }
       }
-
-      if(success_hint==0&&now->next==NULL){
+      if(success_hint!=1){
+        now=task_head[(int)_cpu()];
+        while(now!=test){
+          if(now->status==_runningable){
+          if(current_task[(int)_cpu()]->status==_running)
+        {current_task[(int)_cpu()]->status=_runningable;}
+      current_task[(int)_cpu()]=now;
+      current_task[(int)_cpu()]->status=_running;
+      result=&current_task[(int)_cpu()]->context;
+      success_hint=1;
+      break;
+        }
+        now=now->next;
+        }
+      }
+      if(success_hint!=1){
+        while(now->next!=NULL){
+          now=now->next;
+        }
         current_task[(int)_cpu()]=now;
         current_task[(int)_cpu()]->status=_running;
         result=&current_task[(int)_cpu()]->context;
-      }}
+
+      }
+    }
 
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
