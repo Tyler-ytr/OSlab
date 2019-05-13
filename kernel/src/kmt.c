@@ -54,7 +54,7 @@ static void kmt_init(){
     return;
 }
 static _Context *kmt_context_save(_Event ev, _Context *context){
-  //  TRACE_ENTRY;
+    TRACE_ENTRY;
   //kmt_spin_lock(&context_lock);
   kmt_spin_lock(&task_lock);
   //printf("in kmt_save\n");
@@ -67,13 +67,15 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   }
   else{
   current_task[(int)_cpu()]->context=*context;
+  Log2("in save: cpu:%d name:%s status:%d",(int)_cpu(), current_task[(int)_cpu()]->name, current_task[(int)_cpu()]->status);
   //if(current_task[(int)_cpu()]->status==_running)
   //current_task[(int)_cpu()]->status=_runningable;
   //
   }
+
   //kmt_spin_unlock(&context_lock);
   kmt_spin_unlock(&task_lock);
-   // TRACE_EXIT;
+    TRACE_EXIT;
 
   return context;
   
