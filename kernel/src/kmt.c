@@ -531,7 +531,7 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
   sem->value=value;
   sem->MAXSIZE=256;
   sem->name=name;
-//  kmt_spin_init(sem->lock);  
+  kmt_spin_init(sem->lock);  
   sem->end=0;
   sem->start=0;//当head%MAXSIZE与tail%MAXSIZE相等的时候,队列是空的;
                           //当(tail+1)%MAXSIZE与head%MAXSIZE相等的时候,队列是满的;
@@ -540,8 +540,8 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
 }
 
 static void kmt_sem_wait(sem_t *sem){
-  //kmt_spin_lock(&sem_lock);
-  kmt_spin_lock(&task_lock);
+  kmt_spin_lock(&sem_lock);
+//  kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
  
   if(current_task[(int)_cpu()]==NULL){
@@ -570,25 +570,25 @@ static void kmt_sem_wait(sem_t *sem){
     }
     printf("\n");
     
-    //kmt_spin_unlock(&sem_lock);
-    kmt_spin_unlock(&task_lock);
+    kmt_spin_unlock(&sem_lock);
+    //kmt_spin_unlock(&task_lock);
     _yield();
-    //kmt_spin_lock(&sem_lock);
-    kmt_spin_lock(&task_lock);
+    kmt_spin_lock(&sem_lock);
+//    kmt_spin_lock(&task_lock);
     //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
   }
    sem->value--;
   //------------原子操作------------------ 
-  //kmt_spin_unlock(&sem_lock);
-  kmt_spin_unlock(&task_lock);
+  kmt_spin_unlock(&sem_lock);
+  //kmt_spin_unlock(&task_lock);
 
   return;
 }
 
 static void kmt_sem_signal(sem_t *sem){
   //TRACE_ENTRY;
-  //kmt_spin_lock(&sem_lock);
-  kmt_spin_lock(&task_lock);
+  kmt_spin_lock(&sem_lock);
+//  kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
   sem->value++;
   Log2("value:%d",sem->value);
@@ -620,7 +620,8 @@ static void kmt_sem_signal(sem_t *sem){
   }
   
   //------------原子操作------------------ 
-  kmt_spin_unlock(&task_lock);
+//  kmt_spin_unlock(&task_lock);
+  kmt_spin_unlock(&sem_lock);
   //TRACE_EXIT;
   return;
 }
