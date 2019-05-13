@@ -543,13 +543,13 @@ static void kmt_sem_wait(sem_t *sem){
   //kmt_spin_lock(&sem_lock);
   kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
-  sem->value--;
+ 
   if(current_task[(int)_cpu()]==NULL){
     panic("In sem_wait No task in this cpu");
   }
   //---------对于每一个sem: tasklist:
   //----先进先出；参考数据结构:https://blog.csdn.net/a04081122/article/details/51985873
-  while(sem->value<0){
+  while(sem->value<=0){
     current_task[(int)_cpu()]->status=_waiting;
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
@@ -577,6 +577,7 @@ static void kmt_sem_wait(sem_t *sem){
     kmt_spin_lock(&task_lock);
     //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
   }
+   sem->value--;
   //------------原子操作------------------ 
   //kmt_spin_unlock(&sem_lock);
   kmt_spin_unlock(&task_lock);
