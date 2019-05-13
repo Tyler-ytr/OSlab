@@ -162,7 +162,6 @@ static void tty_putc(tty_t *tty, char ch) {
 
 int tty_init(device_t *dev) {
   tty_t *tty = dev->ptr;
-  printf("here!");
   tty->fbdev = dev_lookup("fb");
   fb_t *fb = tty->fbdev->ptr;
   tty->display = dev->id - 1; // tty1 is on display #0
