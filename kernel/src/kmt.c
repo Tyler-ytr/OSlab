@@ -76,9 +76,9 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   Log2("in save: cpu:%d name:%s status:%d",(int)_cpu(), current_task[(int)_cpu()]->name, current_task[(int)_cpu()]->status);
   if(current_task[(int)_cpu()]->status==_running)
   current_task[(int)_cpu()]->status=_runningable;
-  if(current_task[(int)_cpu()]->next==NULL){
-    printf("yield save!!!!\n\n\n\n");
-  }
+  //if(current_task[(int)_cpu()]->next==NULL){
+   // printf("yield save!!!!\n\n\n\n");
+ // }
   //
   }
 
