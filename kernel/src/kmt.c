@@ -611,7 +611,7 @@ static void kmt_sem_signal(sem_t *sem){
      
     sem->start+=1;
     sem->start%=sem->MAXSIZE;
-    printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start]->name,sem->task_list[sem->start]->status); 
+    printf("in semi signal: semi->name:%s,task->name:%s status:%d\n",sem->name,sem->task_list[sem->start-1]->name,sem->task_list[sem->start-1]->status); 
      for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
       printf("in semi-signal[%d] name:%s\n",i,sem->task_list[i]->name);
     }
