@@ -22,3 +22,5 @@ run2: image
 
 run4: image
 	qemu-system-i386 -smp 4 $(QEMU_FLAGS)
+run1: image
+	qemu-system-i386 -smp 1 $(QEMU_FLAGS)
