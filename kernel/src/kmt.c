@@ -590,6 +590,7 @@ static void kmt_sem_signal(sem_t *sem){
   kmt_spin_lock(&task_lock);
   //------------原子操作------------------ 
   sem->value++;
+  Log2("value:%d",sem->value);
   if(sem->start%sem->MAXSIZE==sem->end){
     assert(sem->value>0);//队列为空;
   }else
