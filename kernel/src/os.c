@@ -6,34 +6,34 @@ static Handler_list handler_list[MAX_HANDLIST_NUMBER];
 static int _handler_length=0;
 
 
-void test_from_yzy(){
-     // void *space[500];
-          /*for(int j=0;i<=7;j++){
-          for(i=0;i<500;++i){
-                    space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
-                    printf("i: %d space:0x%x\n",i,space[i]);
+// void test_from_yzy(){
+//      // void *space[500];
+//           /*for(int j=0;i<=7;j++){
+//           for(i=0;i<500;++i){
+//                     space[i]=pmm->alloc(rand()%((1<<10)-1)+4028);
+//                     printf("i: %d space:0x%x\n",i,space[i]);
 
-          }}
-          for(i=0;i<5000;++i){
-                    int temp=rand()%10;
-                            pmm->free(space[temp]);
-                                    space[temp]=pmm->alloc(rand()&((1<<10)-1));
-                    printf("temp: %d space:0x%x\n",temp,space[temp]);
+//           }}
+//           for(i=0;i<5000;++i){
+//                     int temp=rand()%10;
+//                             pmm->free(space[temp]);
+//                                     space[temp]=pmm->alloc(rand()&((1<<10)-1));
+//                     printf("temp: %d space:0x%x\n",temp,space[temp]);
 
-          }
-          for(i=0;i<500;++i){
-                    pmm->free(space[i]);
+//           }
+//           for(i=0;i<500;++i){
+//                     pmm->free(space[i]);
 
-          }
-*/        
-         int *arr = (int*)pmm->alloc(20 * sizeof(int));
-         for (int i = 0; i < 20; i++){
-    arr[i] = i;
-  }
-  for (int i = 0; i < 20; i++){printf("arr[%d]: %d", i, arr[i]);}
-          printf("success!!!!!!");
+//           }
+// */        
+//          int *arr = (int*)pmm->alloc(20 * sizeof(int));
+//          for (int i = 0; i < 20; i++){
+//     arr[i] = i;
+//   }
+//   for (int i = 0; i < 20; i++){printf("arr[%d]: %d", i, arr[i]);}
+//           printf("success!!!!!!");
 
-}
+// }
 
 static void os_init() {
   printf("%d\n\n\n\n\n",(int)_cpu());
@@ -71,7 +71,7 @@ static void os_run() {
   //my_spin_lock(locked);
   kmt->spin_lock(&lk_test);
   hello();
-  test_from_yzy();
+  //test_from_yzy();
   kmt->spin_unlock(&lk_test);
   //test_from_yzy();
   //void *p=NULL;
