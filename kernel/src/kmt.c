@@ -74,8 +74,8 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
   current_task[(int)_cpu()]->context=*context;
   if( current_task[(int)_cpu()]->next!=NULL)
   Log2("in save: cpu:%d name:%s status:%d",(int)_cpu(), current_task[(int)_cpu()]->name, current_task[(int)_cpu()]->status);
-  if(current_task[(int)_cpu()]->status==_running)
-  current_task[(int)_cpu()]->status=_runningable;
+ // if(current_task[(int)_cpu()]->status==_running)
+ // current_task[(int)_cpu()]->status=_runningable;
   //
   }
 
@@ -538,6 +538,7 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
   sem->end=0;
   sem->start=sem->MAXSIZE;//当head%MAXSIZE与tail%MAXSIZE相等的时候,队列是空的;
                           //当(tail+1)%MAXSIZE与head%MAXSIZE相等的时候,队列是满的;
+     printf("int init: name:%s\n\n",sem->name); 
   return ;
 }
 
@@ -566,7 +567,7 @@ static void kmt_sem_wait(sem_t *sem){
     sem->task_list[sem->end]=current_task[(int)_cpu()];
     sem->end++;
     sem->end%=sem->MAXSIZE;
-     printf("in semi: start :%d end:%d name:%s task_name:%s status:%d \n",sem->start,sem->end,sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
+     printf("in semi: start :%d end:%d sem->name:%s task_name:%s status:%d \n",sem->start,sem->end,sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
     for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
       printf("in semi[%d] name:%s\n",i,sem->task_list[i]->name);
     }
