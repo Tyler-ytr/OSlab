@@ -63,7 +63,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context){
     kmt_spin_unlock(&task_lock);
     _yield();
     kmt_spin_lock(&task_lock);
-    kmt_context_save(_Event ev, _Context *context);
+    kmt_context_save(ev,context);
     /*task_t *now=task_head[(int)_cpu()];
     while(now->next!=NULL){
       now=now->next;
