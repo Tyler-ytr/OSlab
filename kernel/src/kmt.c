@@ -213,38 +213,38 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
 
       }
     }
-      if(temptask!=current_task[(int)_cpu()]&&temptask->alive==0){
-        if(temptask->alive==0){
+  //     if(temptask!=current_task[(int)_cpu()]&&temptask->alive==0){
+  //       if(temptask->alive==0){
   
-          pmm->free(temptask->stack.start);
-          int success_find=0;
-          task_t *now_task=NULL;
-          for(int i=0;i<9;i++)
-          { now_task=task_head[i];
-            if(task_head[i]==NULL)continue;
-            else if(task_head[i]==temptask){
-              task_head[i]=now_task->next;
-              success_find=1;
-          }
-        else{
-          while(now_task->next!=NULL){
-            if(temptask==now_task->next){
-              task_t *find=now_task->next;
-              now_task->next=find->next;
-              success_find=1;
-              break; 
-            }
-           now_task=now_task->next;
-          } 
-        }
-      } 
+  //         pmm->free(temptask->stack.start);
+  //         int success_find=0;
+  //         task_t *now_task=NULL;
+  //         for(int i=0;i<9;i++)
+  //         { now_task=task_head[i];
+  //           if(task_head[i]==NULL)continue;
+  //           else if(task_head[i]==temptask){
+  //             task_head[i]=now_task->next;
+  //             success_find=1;
+  //         }
+  //       else{
+  //         while(now_task->next!=NULL){
+  //           if(temptask==now_task->next){
+  //             task_t *find=now_task->next;
+  //             now_task->next=find->next;
+  //             success_find=1;
+  //             break; 
+  //           }
+  //          now_task=now_task->next;
+  //         } 
+  //       }
+  //     } 
 
-        if(success_find==0)
-      {
-       panic("In kmt_teardown, can't find the task!!");
-      }
-    }
-  }
+  //       if(success_find==0)
+  //     {
+  //      panic("In kmt_teardown, can't find the task!!");
+  //     }
+  //   }
+  // }
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
