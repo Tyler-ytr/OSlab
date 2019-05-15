@@ -213,7 +213,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
 
       }
     }
-      if(temptask!=current_task[(int)_cpu()]){
+      if(temptask!=current_task[(int)_cpu()]&&temptask->alive==0){
         if(temptask->alive==0){
   
           pmm->free(temptask->stack.start);
