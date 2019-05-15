@@ -165,7 +165,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
       now=now->next;
     }
     task_t * test=now;
-    task_t *temptask=current_task[(int)_cpu()];
+    //task_t *temptask=current_task[(int)_cpu()];
 
     if(now->status==_runningable){
       if(current_task[(int)_cpu()]->status==_running)
