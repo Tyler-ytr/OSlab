@@ -113,7 +113,6 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
         current_task[(int)_cpu()]->status=_running;
         result=&current_task[(int)_cpu()]->context;
         success_hint=1;
-        printf("ererdsdsdsdr");
         break;
         }  
       }
@@ -329,6 +328,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task->stack.end=task->stack.start + MAX_STACK_SIZE;
     task->status=_runningable;
     task->name=name;
+    task->alive=1;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
     Log1("create: name:%s\tstatus:%d\n",task->name,task->status);
     task_t * new_task=task;
@@ -380,6 +380,7 @@ static void kmt_teardown(task_t *task){
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
     printf("In kmt_treardown\n");
+    if(task->status==_runningable){
     pmm->free(task->stack.start);
     int success_find=0;
     task_t *now=NULL;
@@ -406,10 +407,16 @@ static void kmt_teardown(task_t *task){
     if(success_find==0)
     {
       panic("In kmt_teardown, can't find the task!!");
+    }}
+    else{
+      task->alive=0;
     }
     //-------------原子操作-----------------
     kmt_spin_unlock(&task_lock);
   //  TRACE_EXIT;
+  //如果他runningable--->删掉;
+  //如果他waiting--->alive=0;在switch里面runningable的时候他杀
+  //如果running----->alive=0;在switch里面runningable的时候他杀
     return;
 }
 

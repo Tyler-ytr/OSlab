@@ -125,7 +125,7 @@ struct task {
 
 struct task{
   volatile int status;//0 没有初始化 1 runningable 2 running 3 waiting 
-
+  int alive;
   const char *name;
   _Context context;
   _Area stack;// in am.h void* start,void* end;
