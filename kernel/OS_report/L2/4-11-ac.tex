@@ -1,0 +1,118 @@
+%TC第34.2节练习 11
+%TC第34.4节练习 7
+%TC第34.5节练习 6
+%(选做) TC第34.5节练习 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt, a4paper, UTF8]{ctexart}
+\input{preamble}
+\usepackage{graphicx}
+\title{L1、L2实验报告}
+%\me{张天昀}{171860508}
+\me{殷天润}{171240565}
+\date{\today}
+
+\renewcommand\thesection{\Alph{section}}
+\begin{document}
+\maketitle
+%\noplagiarism
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       Homework START!                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\beginthishw
+%%%%%%%%%%%%%%%%%%%%
+\section{L1}
+\subsection{alloc以及lock}
+\begin{enumerate}
+\item 我的 L1 中的工作主要由 alloc.c,common.h 以及 lock.c 组成；
+\item 我的自旋锁通过 ncli 数组记录相应的 cpu 进行中断的数量, 在 popcli 中用
+assert 来确保 ncli 中的值恒大于 0,否则就 assert 然后 printf 报错;lock 以及
+unlock 都是非常简单的标准实现。(在L2中我重新写了一遍,主要增加了intena的判断;)
+\item alloc.c 里面主要实现了可以拆分空间的 kalloc 函数以及一个比较简单的 free
+函数;
+\item kalloc与kfree函数:
+\begin{enumerate}
+    \item 我通过一个双向链表数组 cpu\_head 以及一个结点 unused\_space 来维护
+    我的空间分配;unused\_space 用来记录未分配的空间位置;
+    \item 我在 kalloc 函数中实现了对空间的优化: 如果申请的空间适当正好小于
+    等于已经开出来的但是之前被 free 的空间 S, 并且 size 本身 > 某一个值,
+    那么我的算法将拆分 S 为$ S _1$ =size,$S _2$ =S-size-sizeof(\_node); 限制 size 大
+    小的操作是为了防止最后的空间过于碎片化;
+    \item 我的 kfree 实现了搜索整个链表链然后返回搜索的相应地址的操作;
+    \item 对于申请 size=0 的操作, 我将返回 pm.start, 如果 kfree 的 ptr 为 NULL
+    那么我将不会进行任何操作;
+\end{enumerate}
+\item 为了保证程序的正确性 (主要是指针不飘), 我在程序中加入了很多的 assert
+来保证; 我在 os.c 中首先进行了申请空间的简单测试, 然后借助, 修改鄢振宇
+同学的随机测试框架进行了进一步的测试, 调试, 也发现了一些问题;
+
+\end{enumerate}
+\section{L2}
+\subsection{OS}
+\begin{enumerate}
+    \item 主要的工作是os->trap,os\_on\_irq,\_handler\_length以及common.h中的handler\_list 结构体;总体思路是os\_on\_irq用来增添handler\_list,注册函数,并且保证以seq的大小作为list排序的依据;然后os\_trap在符合情况的时候进行调用;
+    \item handler\_list：seq,event两个int用来记录信息,handler一个handler\_t用来保存handler；
+    \item os\_on\_irq:当\_handler\_length长度为0的时候直接在handler\_list里面注册;否则遍历handler\_list,根据seq找到可以插入的位置,并且插入,注册;同时都维护\_handler\_length的长度;
+    \item os\_trap:遍历handler\_list如果这个event是\_EVENT\_NULL或者与ev.event一致,就调用,用上下文(\_Context)结构体的next保存;如果next存在,ret=next;执行完遍历之后,如果ret还是NULL,那说明有问题(因为在init里面肯定已经注册了两个函数kmt\_swicth以及kmt\_save)
+
+\end{enumerate}
+\subsection{KMT}
+\subsubsection{锁}
+用am里面存在的函数改造了xv6的spin\_lock,用全局的static的两个int数组来记录intena以及ncli;
+\subsubsection{kmt的其余内容}
+\begin{enumerate}
+\item 数据结构:
+\begin{itemize}\item task \begin{enumerate}
+    \item int status用来记录状态,我申请了3个const int类型的变量:
+    
+   \_runningable=1 ,\_running=2,\_waiting=3; 
+   \item name,\_Context类型的context,\_Area 类型的stack;
+   \item task\_t *next,链表连接下一个; 
+\end{enumerate}
+\item semaphore 
+\begin{enumerate}
+\item int value;const char * name;记录相应信息;
+\item task\_t 类型的数组task\_list,我通过int类型的start,end,MAXSIZE将这个数组维护成了一个先进先出的队列结构;
+\end{enumerate}
+\end{itemize}
+\item 全局的变量:\begin{enumerate}
+\item static task\_t * task\_head[9]~;~static task\_t * current\_task[9]:对于每一个cpu我都维护了一个链表头和一个当前正在跑的任务;
+\item task\_length[9]用来记录某一个cpu对应的task链表里面有几个任务;
+\end{enumerate}
+\item kmt\_context\_create:我通过task\_length数组获得最少任务的cpu编号,然后将task存进去,并且对状态进行更新;
+\item kmt\_context\_save:正常的存context;因为我锁了核并且有\_running 状态,所以我可以将\_running在存了之后改成\_runningable状态; 
+\item 信号量:
+\begin{itemize}
+\item kmt\_sem\_wait: while(sem->value<=0)\{设置当前任务的状态为waiting;更新task\_list队列;开锁;\_yield();关锁\};然后sem->value-=1;
+这里比较重要的是sem->value-=1的顺序;我之前在while之前进行了这个操作,导致了我的进程会永远的睡着,没有办法多核多线程,只能单核的跑单个echo\_task;
+\item kmt\_sem\_signal:先进先出的从sem的task\_list里面唤醒进程;
+
+\end{itemize}
+\item kmt\_context\_save:如果当前没有任务,我选择不记录这个上下文;如果当前有任务,我就用task里面的context属性记录上下文;如果现在的状态是\_running,我会改成\_runningable;因为我的cpu与task是锁住的,并且有三个状态记录,因此不会出现stack smach；
+\item kmt\_context\_swicth:写的比较复杂,核心思想就是:如果当前cpu没有current\_就从task\_head开始找到第一个\_runningable的task然后选做当前cpu的current\_task并且修改状态;如果有current\_task,就从current\_task的下一个task开始找到一个\_runningable的task然后修改current\_task的状态并且将找到的task设置为current\_task;
+\item kmt\_teardown:还不是很完善,不确定能不能通过测试;我在task里面加了一个int类型的alive变量;在调用teardown的时候,如果要求释放的task的状态是\_runningable的,那就删除掉;如果不是,就把alive标记为0,然后在switch的时候进行删除;
+\end{enumerate}
+
+\begincorrection
+\section{L1}
+\subsection{lock}主要是 spin\_lock 中的 bug; 因为对 lock 的不甚了解, 我一共用了三个版本的
+spin\_lock, 第一个版本仅仅是一个不关中断的玩具实现, 在 tcg 环境下看不出;什么问题, 在 kvm 中效果很差; 第二个版本参考了开源的 xv6 实现, 可能移植
+的时候出了一些问题, 一直会报错; 最后我简化了 xv6 实现变成了目前的版本;(L2中进一步改进了锁)
+\subsection{alloc}在 alloc 中的主要 bug 是初始化的问题, 指针乱飘导致的 while 中的死循环,
+在遇到死循环的时候因为我的 spin\_lock 无法确认心理上的正确性; 所以调的
+比较艰辛
+\section{L2}
+\subsection{笔误型bug:}将\_cpu()写成\_cpu,找了很久
+\subsection{算法型bug:}
+\begin{enumerate}
+\item 信号量里面sem->value要在yield之后改变,不然会多次wait导致问题;
+\item 在switch、save里面的时候遇到了一些设计的问题;
+\end{enumerate}
+\subsection{总结：}这次的bug很难定位,我只能通过尽可能多的输出相关信息来debug,因此也耗费了很长时间;
+\beginfb
+\section{L1}
+我可以将 head 数组变成一个 head 来维护, 在这个基础上就可以在 free 里面合并了;
+\section{L2}
+\subsection{debug工具}在debug.h里面宏定义了TRACE以及log用于显示信息
+
+\end{document}
