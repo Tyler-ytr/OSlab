@@ -411,6 +411,9 @@ static void kmt_teardown(task_t *task){
     //  从head 数组开始遍历,找到它然后释放;
     //TO BE DONE
   //  TRACE_ENTRY; 
+
+
+  //没有修改task_length!!可能会产生问题;
     kmt_spin_lock(&task_lock);
     //------------原子操作------------------ 
     printf("In kmt_treardown\n");
@@ -605,17 +608,10 @@ static void kmt_sem_wait(sem_t *sem){
     sem->task_list[sem->end]=current_task[(int)_cpu()];
     sem->end++;
     sem->end%=sem->MAXSIZE;
-     //printf("in semi: start :%d end:%d sem->name:%s task_name:%s status:%d \n",sem->start,sem->end,sem->name,sem->task_list[sem->end-1]->name,sem->task_list[sem->end-1]->status); 
-    /*for(int i=sem->start%sem->MAXSIZE;i<sem->end;i=(i+1)%sem->MAXSIZE){
-      printf("in semi[%d] name:%s\n",i,sem->task_list[i]->name);
-    }
-    printf("\n");*/
     
     kmt_spin_unlock(&sem_lock);
-    //kmt_spin_unlock(&task_lock);
     _yield();
     kmt_spin_lock(&sem_lock);
-//    kmt_spin_lock(&task_lock);
     //理论上不可能发生进入两次队列的情况 如果后面有bug可以在这个地方加一个assert;
   }
    sem->value--;
