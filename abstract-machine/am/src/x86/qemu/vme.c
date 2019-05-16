@@ -21,7 +21,6 @@ static void (*pgfree_usr)(void *);
 
 int vme_init(void *(*pgalloc_f)(size_t), void (*pgfree_f)(void *)) {
   if (_cpu() != 0) panic("init VME in non-bootstrap CPU");
-
   pgalloc_usr = pgalloc_f;
   pgfree_usr = pgfree_f;
 
@@ -34,6 +33,7 @@ int vme_init(void *(*pgalloc_f)(size_t), void (*pgfree_f)(void *)) {
                   pa += PGSIZE) {
       PTE *ptab;
       if (!(kpt[PDX(pa)] & PTE_P)) {
+        
         ptab = pgalloc();
         kpt[PDX(pa)] = PTE_P | PTE_W | (uint32_t)ptab;
       } else {
