@@ -46,7 +46,7 @@ struct MBR *test1;
   test1=start;
 
   
-  printf("0x%x",(void *)test1);
+  printf("0x%p",(void *)test1);
 
   return 0;
 }
