@@ -8,11 +8,9 @@
 #include<stdlib.h>
 #include <sys/stat.h> 
 
-// struct {
-//   int
-
-
-// }MBR;
+ typedef struct {
+   int8_t test;
+ }MBR;
 
 
 
@@ -20,6 +18,7 @@
 
 int main(int argc, char *argv[]) {
 struct stat file_stat;
+struct MBR *test1;
   for(int i=0;i<argc;i++)
   {
     printf("argc %d : %s \n",i,argv[i]);
@@ -44,8 +43,9 @@ struct stat file_stat;
   }
   printf("Success mmap!");
   close(fd);
-
-
+  test1=start;
+  int8_t a=test1->test;
+  printf("0x%x",a);
 
   return 0;
 }
