@@ -42,6 +42,7 @@ struct stat file_stat;
     perror("Mmap!");
     return 0;
   }
+  printf("Success mmap!");
   close(fd);
 
 
