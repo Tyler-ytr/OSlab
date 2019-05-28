@@ -45,7 +45,7 @@ struct stat file_stat;
   MBR *test1=(void *)start;
 
   
-  printf("0x%x",test1[0].test);
+  printf("0x%c",test1[0].test);
 
   return 0;
 }
