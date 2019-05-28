@@ -18,7 +18,6 @@
 
 int main(int argc, char *argv[]) {
 struct stat file_stat;
-struct MBR *test1;
   for(int i=0;i<argc;i++)
   {
     printf("argc %d : %s \n",i,argv[i]);
@@ -41,12 +40,12 @@ struct MBR *test1;
     perror("Mmap!");
     return 0;
   }
-  printf("Success mmap!");
+  printf("Success mmap!\n");
   close(fd);
-  test1=start;
+  MBR *test1=(void *)start;
 
   
-  printf("0x%p",(void *)test1);
+  printf("0x%x",test1[0].test);
 
   return 0;
 }
