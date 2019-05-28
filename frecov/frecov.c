@@ -78,7 +78,7 @@ struct stat file_stat;
   MBR *test1=(void *)start;
 
   
-  printf("0x%02x\n",test1[0].fs_ascii[7]);
+  printf("0x%02x\n",test1[0].useless3[0]);
   for(int i=0;i<15;i++){
   printf("0x%02x\n",test1[0].end[i]);
   }
