@@ -79,7 +79,7 @@ struct stat file_stat;
 
   
   printf("0x%02x\n",test1[0].useless3[0]);
-  printf("0x%02x\n",test1[0].mark[1]);
+  printf("0x%02x\n",test1[0].end[1]);
 
   return 0;
 }
