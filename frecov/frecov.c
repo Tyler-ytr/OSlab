@@ -37,7 +37,7 @@
   uint8_t vol_num[4];//卷序列号;
   uint8_t vol_ascii[11];//卷标(ASCII);
   uint8_t fs_ascii[8];//文件系统的ASCII码;
-  uint8_t useless3[410];
+  uint8_t useless3[419];
   uint8_t end[15];//结束标志;
 
 
