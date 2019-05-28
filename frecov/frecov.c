@@ -45,8 +45,8 @@ struct MBR *test1;
   close(fd);
   test1=start;
 
-  int8_t a=test1->test;
-  printf("0x%x",a);
+  
+  printf("0x%x",test1);
 
   return 0;
 }
