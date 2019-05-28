@@ -81,6 +81,7 @@ struct stat file_stat;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   
   printf("0x%x\n",my_mbr.sec_bit_num);
-  printf("0x%02x\n",test1[0].end[1]);
+  printf("0x%02x\n",test1[0].sec_bit_num[0]);
+  printf("0x%02x\n",test1[0].sec_bit_num[1]);
   return 0;
 }
