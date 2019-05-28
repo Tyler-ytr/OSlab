@@ -10,6 +10,7 @@
 
  typedef struct mbr{
    int8_t test;
+   int8_t test2;
  }MBR;
 
 
@@ -45,7 +46,8 @@ struct stat file_stat;
   MBR *test1=(void *)start;
 
   
-  printf("0x%02x",test1[0].test);
+  printf("0x%02x\n",test1[0].test);
+  printf("0x%02x\n",test1[0].test2);
 
   return 0;
 }
