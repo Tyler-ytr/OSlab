@@ -38,11 +38,7 @@
   uint8_t vol_ascii[11];//卷标(ASCII);
   uint8_t fs_ascii[8];//文件系统的ASCII码;
   uint8_t useless3[420];
-  uint8_t end[15];//结束标志;
-
-
-
-
+  uint8_t end[2];//结束标志;
  }MBR;
 
 
@@ -79,8 +75,6 @@ struct stat file_stat;
 
   
   printf("0x%02x\n",test1[0].useless3[0]);
-  for(int i=0;i<15;i++){
-  printf("0x%02x\n",test1[0].end[i]);
-  }
+  printf("0x%02x\n",test1[0].end[1]);
   return 0;
 }
