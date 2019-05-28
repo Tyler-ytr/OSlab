@@ -40,6 +40,11 @@
   uint8_t useless3[420];
   uint8_t end[2];//结束标志;
  }MBR;
+typedef struct My_mbr{
+  uint16_t sec_bit_num;
+
+
+}MY_MBR;
 
 
 
@@ -53,6 +58,7 @@ struct stat file_stat;
   }
 
   void * start;
+  MY_MBR my_mbr;
   int fd;
   fd=open(argv[1],O_RDONLY);
   if(fd==-1){
@@ -72,9 +78,9 @@ struct stat file_stat;
   printf("Success mmap!\n");
   close(fd);
   MBR *test1=(void *)start;
-
+  my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   
-  printf("0x%02x\n",test1[0].useless3[0]);
+  printf("0x%x\n",my_mbr.sec_bit_num);
   printf("0x%02x\n",test1[0].end[1]);
   return 0;
 }
