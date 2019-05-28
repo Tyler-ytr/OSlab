@@ -8,7 +8,7 @@
 #include<stdlib.h>
 #include <sys/stat.h> 
 
- typedef struct {
+ typedef struct mbr{
    int8_t test;
  }MBR;
 
