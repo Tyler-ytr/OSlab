@@ -43,7 +43,8 @@ struct MBR *test1;
   }
   printf("Success mmap!");
   close(fd);
-  test1=start;
+  test1=(MBR *)start;
+
   int8_t a=test1->test;
   printf("0x%x",a);
 
