@@ -34,7 +34,7 @@
   uint8_t bios_device[1];//bios设备号码;
   uint8_t useless2[1];
   uint8_t extend_mark[1];//扩展引导标志;
-  uint8_t vol_num[1];//卷序列号;
+  uint8_t vol_num[4];//卷序列号;
   uint8_t vol_ascii[11];//卷标(ASCII);
   uint8_t fs_ascii[8];//文件系统的ASCII码;
   uint8_t useless3[410];
