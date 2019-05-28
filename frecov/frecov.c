@@ -78,7 +78,7 @@ struct stat file_stat;
   MBR *test1=(void *)start;
 
   
-  printf("0x%02x\n",test1[0].vol_ascii[0]);
+  printf("0x%02x\n",test1[0].extend_mark[0]);
   printf("0x%02x\n",test1[0].mark[1]);
 
   return 0;
