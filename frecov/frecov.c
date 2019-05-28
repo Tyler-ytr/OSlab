@@ -78,8 +78,8 @@ struct stat file_stat;
   MBR *test1=(void *)start;
 
   
-  printf("0x%02x\n",test1[0].medium[0]);
-  printf("0x%02x\n",test1[0].end[1]);
+  printf("0x%02x\n",test1[0].mark[0]);
+  printf("0x%02x\n",test1[0].mark[1]);
 
   return 0;
 }
