@@ -191,7 +191,7 @@ struct stat file_stat;
       }
       temp_name[length_of_filename]='\0';
 
-      if(temp_name[length_of_filename-1]=='1'&&temp_name[length_of_filename-2]=='～'){
+      if(temp_name[length_of_filename-1]=='1'&&temp_name[length_of_filename-2]=='~'){
 
 
       //短文件名已经找好了,现在来找长文件名,然后把短文件名的扩展名拼接在后面就行了
