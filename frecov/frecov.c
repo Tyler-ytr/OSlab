@@ -68,7 +68,7 @@ typedef struct Directory_short_item{
 }dir_s_item;
 
 typedef struct My_dir_s_item{
-  char file_name[8];//文件名;
+  char file_name[9];//文件名;
   char extend_name[8];//文件扩展名;`
   uint32_t located_cluster;//文件所在的簇;
   void *address;
@@ -167,7 +167,7 @@ struct stat file_stat;
         (uint8_t)(0x50)==test2[cnt].bit[10]
       )//匹配BMP
       {
-
+       FILE *fp=NULL;
       short_item=(void *)&(test2[cnt].bit[0]);
       uint32_t cluster_num=
                             (short_item->h_b_cluster[0]<<2*8)+(short_item->h_b_cluster[1]<<3*8)+  
@@ -178,7 +178,6 @@ struct stat file_stat;
 
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256];
-      //char *end="\0"; 
       char temp_name[9];
       for(int i=0;i<8;i++){
         temp_name[i]=(char)short_item->file_name[i];
@@ -187,6 +186,11 @@ struct stat file_stat;
       //strcpy(temp_name,(char*)short_item->file_name);
      // strcat(temp_name,"\0");
       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
+
+      fp=fopen(file_name,"w+");
+
+      memcpy(fp,file_address,file_length);
+      fclose(fp);
       printf("name : %s\n",file_name);
 
 
