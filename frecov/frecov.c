@@ -126,33 +126,33 @@ struct stat file_stat;
   //     printf(" row[10]:0x%x",test2[cnt].bit[2]);
 
 
-  while(1){
+  // while(1){
 
-    if((uint8_t)(0x2e)==test2[cnt].bit[0]&&(uint8_t)(0x20)==test2[cnt].bit[1]){
-      now=(void*)&(test2[cnt].bit[0]);
-      printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      printf(" row[8]:0x%x",test2[cnt].bit[0]);
-      printf(" row[9]:0x%x",test2[cnt].bit[1]);
-      printf(" row[10]:0x%x",test2[cnt].bit[2]);
-      printf("\n");
+  //   if((uint8_t)(0x2e)==test2[cnt].bit[0]&&(uint8_t)(0x20)==test2[cnt].bit[1]){
+  //     now=(void*)&(test2[cnt].bit[0]);
+  //     printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+  //     printf(" row[8]:0x%x",test2[cnt].bit[0]);
+  //     printf(" row[9]:0x%x",test2[cnt].bit[1]);
+  //     printf(" row[10]:0x%x",test2[cnt].bit[2]);
+  //     printf("\n");
 
-      break;
+  //     break;
 
-    }cnt++;
+  //   }cnt++;
 
-  }
+  // }
 
-  cnt=0;
-  test2=now;
+  // cnt=0;
+  // test2=now;
   
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   while(1){
-    if((uint8_t)(0x20)==test2[cnt].bit[11]){
+    if((uint8_t)(0x20)==test2[cnt].bit[11]){//匹配短文件名的属性值;
       if(
         (uint8_t)(0x42)==test2[cnt].bit[8]&&
         (uint8_t)(0x4d)==test2[cnt].bit[9]&&
         (uint8_t)(0x50)==test2[cnt].bit[10]
-      )
+      )//匹配BMP
       // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
       // printf(" row[8]:0x%x",test2[cnt].bit[8]);
       // printf(" row[9]:0x%x",test2[cnt].bit[9]);
