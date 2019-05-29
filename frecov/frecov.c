@@ -210,7 +210,7 @@ struct stat file_stat;
       
       
 
-      if(long_item->state[0]!=0){//这是个东西；
+      if(long_item->reserved[0]==0x0f){//这是个东西；
       finished=0;
       long_filename_cnt=0;
 do{
