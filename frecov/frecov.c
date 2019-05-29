@@ -145,6 +145,7 @@ struct stat file_stat;
   test2=now;
 
   printf(" end:%p",end);
+  printf(" testttt:%p",end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0])));
   // while(1){
   //   if((uint8_t)(0x20)==test2[cnt].bit[11]){
   //     if(
