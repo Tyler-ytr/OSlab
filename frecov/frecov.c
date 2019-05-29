@@ -189,7 +189,7 @@ struct stat file_stat;
 
       fp=fopen(file_name,"w+");
 
-      memcpy(fp,file_address,file_length);
+      //memcpy(fp,file_address,file_length);
       fclose(fp);
       printf("name : %s\n",file_name);
 
