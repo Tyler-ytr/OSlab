@@ -163,7 +163,7 @@ struct stat file_stat;
       
 
       short_item=(void *)&(test2[cnt].bit[0]);
-      printf("short item: 0x%x",short_item->file_name[0]);
+      printf(" short item: 0x%x\n",short_item->file_name[0]);
 
       printf("0x%x",check);
       printf("\n");
