@@ -200,6 +200,8 @@ struct stat file_stat;
 
       printf("0x%x",check);
       printf("\n");
+
+      break;
       }
     }
     cnt++;
