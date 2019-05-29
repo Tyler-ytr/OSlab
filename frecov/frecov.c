@@ -200,11 +200,19 @@ struct stat file_stat;
 
       void *for_fun=(void *)((void *)&(test2[cnt].bit[0])-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
-      int finished=0;
-      finished=0;
-
-      if(long_item->state[0]!=0){
+      uint8_t now_checked=long_item->checked[0];
+ 
+ 
+ 
       int long_filename_cnt=0;
+      int finished=0;
+      
+
+      if(long_item->state[0]!=0){//这是个东西；
+      finished=0;
+      long_filename_cnt=0;
+      while(now_checked==long_item->checked[0]){
+
       //int success_flag=0;
       for(int i=0;i<10;i++){
         temp_name[i]=long_item->name1[i];
@@ -221,15 +229,27 @@ struct stat file_stat;
       }
 
       if(finished==0){
-        for(int i=0;i<4;i++){;
-
+        for(int i=0;i<4;i++){
+          if(long_item->name3[i]==0xff){
+            finished=1;
+            break;
+          }
+          temp_name[long_filename_cnt]=long_item->name3[i];
+          long_filename_cnt++;
         }
 
       }
+    
+      for_fun=(void *)((void *)long_item-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
+      long_item=(dir_l_item *)for_fun;
 
       printf("long state: 0x%x",long_item[0].state[0]);
 
-      temp_name[long_filename_cnt]='\0';}
+      }
+      
+      
+      temp_name[long_filename_cnt]='\0';
+      }
       }
       
       
