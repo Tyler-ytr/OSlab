@@ -146,6 +146,8 @@ struct stat file_stat;
   // test2=now;
   
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
+  
+  int check=0;
   while(1){
     if((uint8_t)(0x20)==test2[cnt].bit[11]){//匹配短文件名的属性值;
       if(
@@ -160,7 +162,7 @@ struct stat file_stat;
       printf("0x%x",cnt);
       printf("\n");
 
-    }cnt++;
+    }cnt++;check+=16;
     if((void *)&test2[cnt].bit[0]>=row_end){
        printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
       
