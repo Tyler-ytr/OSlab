@@ -114,31 +114,31 @@ struct stat file_stat;
   close(fd);
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
+
   row *test2=start;
   int cnt=4;
 
-  printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      printf(" row[8]:0x%x",test2[cnt].bit[11]==(uint8_t)(0x41));
-      printf(" row[9]:0x%x",test2[cnt].bit[1]);
-      printf(" row[10]:0x%x",test2[cnt].bit[2]);
-
-
-  // while(1){
-
-  //   if((uint8_t)(0x20)==test2[cnt].bit[11]){
-
   // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-  //     printf(" row[8]:0x%x",test2[cnt].bit[0]);
+  //     printf(" row[8]:0x%x",test2[cnt].bit[11]==(uint8_t)(0x41));
   //     printf(" row[9]:0x%x",test2[cnt].bit[1]);
   //     printf(" row[10]:0x%x",test2[cnt].bit[2]);
-  //     printf("\n");
 
 
+  while(1){
 
-  //   }cnt++;
+    if((uint8_t)(0x2e)==test2[cnt].bit[0]&&(uint8_t)(0x20)==test2[cnt].bit[1]){
 
-  //   if(cnt==10000)break;
-  // }
+  printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+      printf(" row[8]:0x%x",test2[cnt].bit[0]);
+      printf(" row[9]:0x%x",test2[cnt].bit[1]);
+      printf(" row[10]:0x%x",test2[cnt].bit[2]);
+      printf("\n");
+
+break;
+
+    }cnt++;
+
+  }
 
 
   printf("start:%p\n",start);
