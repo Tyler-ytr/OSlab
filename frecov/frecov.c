@@ -157,6 +157,7 @@ struct stat file_stat;
   void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
   dir_s_item* short_item=start;
+  dir_l_item* long_item=start;
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   int check=0;
   while(1){
@@ -187,8 +188,11 @@ struct stat file_stat;
         temp_name[i]=(char)short_item->file_name[i];
         length_of_filename++;
       }
-      //短文件名已经找好了,现在来找长文件名,然后把短文件名拼接在后面就行了
-
+      //短文件名已经找好了,现在来找长文件名,然后把短文件名的扩展名拼接在后面就行了
+      
+      void *for_fun=(void *)(file_address-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
+      long_item=(dir_l_item *)for_fun;
+      printf("long state: 0x%x",long_item[0].state);
 
 
 
