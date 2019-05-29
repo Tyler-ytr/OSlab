@@ -169,7 +169,8 @@ struct stat file_stat;
       {
        FILE *fp=NULL;
       short_item=(void *)&(test2[cnt].bit[0]);
-      if(short_item->file_name[0]==0xe5||short_item->file_name[0]==0x00){;}else{
+      if(short_item->file_name[0]==0xe5||short_item->file_name[0]==0x00){;}//如果这是一个被删除的或者没啥用的文件,那就恢复不能了;
+      else{
       uint32_t cluster_num=
                             (short_item->h_b_cluster[0]<<2*8)+(short_item->h_b_cluster[1]<<3*8)+  
                             (short_item->l_b_cluster[0]<<0*8)+(short_item->l_b_cluster[1]<<1*8); //起始簇号;
@@ -178,14 +179,20 @@ struct stat file_stat;
       void * file_address=(void *)((cluster_num-my_mbr.root_cluster)*my_mbr.cluster_sec_num*my_mbr.sec_bit_num+my_mbr.root_address);
 
       uint32_t file_length=*(int32_t *)short_item->length;
-      char file_name[256];
-      char temp_name[9];
+      char file_name[256+6];
+      char temp_name[9];//仅仅用于短文件名；
       int length_of_filename=0; 
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
         temp_name[i]=(char)short_item->file_name[i];
         length_of_filename++;
       }
+      //短文件名已经找好了,现在来找长文件名,然后把短文件名拼接在后面就行了
+
+
+
+
+
       temp_name[length_of_filename]='\0';
       //strcpy(temp_name,(char*)short_item->file_name);
      // strcat(temp_name,"\0");
