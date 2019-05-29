@@ -117,11 +117,13 @@ struct stat file_stat;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   my_mbr.cluster_sec_num=*(int8_t *)test1->cluster_sec_num;
   my_mbr.res_sec_num=*(int16_t *)test1->res_sec_num;
-  printf("ori_res_sec_num 0:0x%x\n",test1->res_sec_num[0]);
-  printf("ori_res_sec_num 1:0x%x\n",test1->res_sec_num[1]);
-
-  printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
+  // printf("ori_res_sec_num 0:0x%x\n",test1->res_sec_num[0]);
+  // printf("ori_res_sec_num 1:0x%x\n",test1->res_sec_num[1]);
+  // printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
+
+  my_mbr.root_address=(void *)((my_mbr.res_sec_num+my_mbr.fat_sec_num*2)*my_mbr.sec_bit_num);
+   printf("root address:%p\n",my_mbr.root_address);
 
   
 
