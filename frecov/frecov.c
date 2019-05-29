@@ -81,6 +81,7 @@ typedef struct My_dir_s_item{
 typedef struct Directory_long_item{
   uint8_t state[1];//0-4字节顺序取值,5保留,第6个字节表示是长文件最后一个目录项;
   uint8_t name1[10];//长文件名unicode码1
+  uint8_t attr[1];//文件属性,只能是0x0f;
   uint8_t reserved[1];//系统保留;
   uint8_t checked[1];//校验值;根据短文件名验证得到;
   uint8_t name2[12];//长文件名unicode码2；
@@ -190,7 +191,7 @@ struct stat file_stat;
       }
       //短文件名已经找好了,现在来找长文件名,然后把短文件名的扩展名拼接在后面就行了
       
-      void *for_fun=(void *)((void*)short_item-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
+      void *for_fun=(void *)((void *)&(test2[cnt].bit[0])-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
       printf("long state: 0x%x",long_item[0].state[0]);
 
