@@ -207,7 +207,6 @@ struct stat file_stat;
  
  
       int long_filename_cnt=0;
-      int GG=0;//用来筛去一些不自信的东西;
       
       
 
