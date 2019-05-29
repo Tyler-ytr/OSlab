@@ -313,11 +313,11 @@ do{
     }
     cnt++;
     check+=16;//check与hexdump前面的编号一样;
-    // if((void *)&test2[cnt].bit[0]>=row_end){
+     if((void *)&test2[cnt].bit[0]>=row_end){
     //    printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
       
       
-    //   break;}
+       break;}
   
   }
 
