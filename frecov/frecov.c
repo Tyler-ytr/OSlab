@@ -98,7 +98,9 @@ typedef struct Row{
 int main(int argc, char *argv[]) {
 
   if(system("mkdir FILE")!=0)
-        Somethingwrong("mkdir FILE");
+        {perror("mkdir FILE");
+        return 0;
+        }
 struct stat file_stat;
   for(int i=0;i<argc;i++)
   {
