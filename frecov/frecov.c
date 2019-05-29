@@ -187,13 +187,15 @@ struct stat file_stat;
       //strcpy(temp_name,(char*)short_item->file_name);
      // strcat(temp_name,"\0");
       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
+      printf(" file_address:%p\n",file_address);
+     printf(" name: %s\n",file_name);
 
       fp=fopen(file_name,"w+");
 
       fwrite(file_address,file_length,1,fp);
       //memcpy(fp,file_address,file_length);
       fclose(fp);
-      printf("name : %s\n",file_name);
+ //     printf("name : %s\n",file_name);
 
 
 
