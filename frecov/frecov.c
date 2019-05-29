@@ -67,6 +67,14 @@ typedef struct Directory_short_item{
   uint8_t length[4];//表示文件的长度;
 }dir_s_item;
 
+typedef struct My_dir_s_item{
+  char file_name[8];//文件名;
+  char extend_name[8];//文件扩展名;`
+  uint32_t located_cluster;//文件所在的簇;
+  void *address;
+
+}my_dir_s_item;
+
 
 
 typedef struct Directory_long_item{
@@ -142,8 +150,8 @@ struct stat file_stat;
   row *test2=start;//test2用来一行一行的遍历;
   void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
+  dir_s_item* short_item;
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
-  
   int check=0;
   while(1){
     if((uint8_t)(0x20)==test2[cnt].bit[11]){//匹配短文件名的属性值;
@@ -152,7 +160,8 @@ struct stat file_stat;
         (uint8_t)(0x4d)==test2[cnt].bit[9]&&
         (uint8_t)(0x50)==test2[cnt].bit[10]
       )//匹配BMP
-
+      
+      short_item=(void *)&(test2[cnt].bit[0]);
 
       printf("0x%x",check);
       printf("\n");
