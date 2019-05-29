@@ -221,9 +221,9 @@ do{
           finished=1;
           break;
         }
-        temp_name[i]=long_item->name1[i];
-        printf(" 1:0x%x ",temp_name[i]);
-        printf("\n",temp_name[i]);
+        temp_name[long_filename_cnt]=long_item->name1[i];
+        printf(" 1:0x%x ",temp_name[long_filename_cnt]);
+        printf("\n");
         long_filename_cnt+=1;
       }}
       if(finished==0){
