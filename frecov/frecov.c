@@ -122,8 +122,9 @@ struct stat file_stat;
   // printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
 
-  my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
+  //my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
   int temp=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
+  my_mbr.root_address=(void*)temp;
   printf("0x%x",temp);
    printf("root address:%p\n",my_mbr.root_address);
 
