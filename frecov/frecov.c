@@ -127,18 +127,25 @@ struct stat file_stat;
   while(1){
 
     if((uint8_t)(0x2e)==test2[cnt].bit[0]&&(uint8_t)(0x20)==test2[cnt].bit[1]){
-
-  printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+      now=test2[cnt].bit[0];
+      printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
       printf(" row[8]:0x%x",test2[cnt].bit[0]);
       printf(" row[9]:0x%x",test2[cnt].bit[1]);
       printf(" row[10]:0x%x",test2[cnt].bit[2]);
       printf("\n");
 
-break;
+      break;
 
     }cnt++;
 
   }
+
+  cnt=0;
+  test2=now;
+      printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+      printf(" row[8]:0x%x",test2[cnt].bit[0]);
+      printf(" row[9]:0x%x",test2[cnt].bit[1]);
+      printf(" row[10]:0x%x",test2[cnt].bit[2]);
 
 
   printf("start:%p\n",start);
