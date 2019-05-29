@@ -164,8 +164,8 @@ struct stat file_stat;
 
       short_item=(void *)&(test2[cnt].bit[0]);
       uint32_t cluster_num=
-                            (short_item->h_b_cluster[0]<<2)+(short_item->h_b_cluster[1]<<3)+  
-                            (short_item->l_b_cluster[0]<<0)+(short_item->l_b_cluster[1]<<1); 
+                            (short_item->h_b_cluster[0]<<2*8)+(short_item->h_b_cluster[1]<<3*8)+  
+                            (short_item->l_b_cluster[0]<<0*8)+(short_item->l_b_cluster[1]<<1*8); 
       printf(" cluster_num :0x%x\n",cluster_num);
       printf(" 0x%x,0x%x,0x%x,0x%x\n",short_item->h_b_cluster[0],short_item->h_b_cluster[1],short_item->l_b_cluster[0],short_item->l_b_cluster[1]);
 
