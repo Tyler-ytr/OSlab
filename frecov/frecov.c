@@ -105,13 +105,14 @@ struct stat file_stat;
   };
   
   start=mmap(0,file_stat.st_size ,PROT_READ,MAP_SHARED,fd,0);
+  void *now=start;
   if(start==(void*)-1){
     perror("Mmap!");
     return 0;
   }
   printf("Success mmap!\n");
   close(fd);
-  MBR *test1=(void *)start;
+  MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   
   printf("0x%x\n",my_mbr.sec_bit_num);
