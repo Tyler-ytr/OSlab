@@ -179,7 +179,7 @@ struct stat file_stat;
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256];
       //char *end="\0"; 
-      char temp_name[8];
+      char temp_name[9];
       strcpy(temp_name,(char*)short_item->file_name);
       strcat(temp_name,"\0");
       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
@@ -201,7 +201,6 @@ struct stat file_stat;
       printf("0x%x",check);
       printf("\n");
 
-      break;
       }
     }
     cnt++;
