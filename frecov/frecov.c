@@ -184,6 +184,7 @@ struct stat file_stat;
       char file_name[256+6];
       char temp_name[256+6];//仅仅用于短文件名；
       int length_of_filename=0; 
+      length_of_filename=0;
       int finished=0;//用来判断有没有走长文件名那条路;
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
