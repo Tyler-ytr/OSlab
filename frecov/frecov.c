@@ -211,8 +211,7 @@ struct stat file_stat;
       if(long_item->state[0]!=0){//这是个东西；
       finished=0;
       long_filename_cnt=0;
-      while(now_checked==long_item->checked[0]){
-
+do{
       //int success_flag=0;
       for(int i=0;i<10;i++){
         temp_name[i]=long_item->name1[i];
@@ -243,9 +242,10 @@ struct stat file_stat;
       for_fun=(void *)((void *)long_item-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
 
-      printf("long state: 0x%x",long_item[0].state[0]);
+      printf("long state: 0x%x\n",long_item[0].state[0]);
 
       }
+      while(now_checked==long_item->checked[0]);
       
       
       temp_name[long_filename_cnt]='\0';
