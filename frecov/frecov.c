@@ -116,7 +116,7 @@ struct stat file_stat;
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
 
-  int cnt=4;
+  int cnt=0;
   row *test2=start;//test2用来一行一行的遍历;
   void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
