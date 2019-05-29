@@ -96,6 +96,9 @@ typedef struct Row{
 
 
 int main(int argc, char *argv[]) {
+
+  if(system("mkdir FILE")!=0)
+        Somethingwrong("mkdir FILE");
 struct stat file_stat;
   for(int i=0;i<argc;i++)
   {
@@ -172,8 +175,15 @@ struct stat file_stat;
       void * file_address=(void *)((cluster_num-my_mbr.root_cluster)*my_mbr.cluster_sec_num*my_mbr.sec_bit_num+my_mbr.root_address);
 
       uint32_t file_length=*(int32_t *)short_item->length;
-       printf(" file_address:%p\n",file_address);
-       printf(" length:0x%x\n",file_length);
+      char file_name[256];
+      sprintf(file_name,"./FILE/%s.%s",short_item->file_name);
+      printf("name : %s\n",file_name);
+
+
+
+
+      printf(" file_address:%p\n",file_address);
+      printf(" length:0x%x\n",file_length);
 
 
       printf(" cluster_num :0x%x\n",cluster_num);
