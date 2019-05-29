@@ -124,6 +124,7 @@ struct stat file_stat;
 
   //my_mbr.root_address=(void *)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
   int temp=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
+  printf("0x%x",temp);
    printf("root address:%p\n",my_mbr.root_address);
 
   
