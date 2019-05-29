@@ -124,6 +124,10 @@ struct stat file_stat;
   // printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
   my_mbr.root_cluster=*(int32_t *)test1->root_cluster;
+   printf("ori_root_cluster:0x%x\n",test1->root_cluster[0]);
+   printf("ori_root_cluster:0x%x\n",test1->root_cluster[1]);
+   printf("ori_root_cluster:0x%x\n",test1->root_cluster[2]);
+   printf("ori_root_cluster:0x%x\n",test1->root_cluster[3]);
    printf("root_cluster:0x%x\n",my_mbr.root_cluster);
 
   //my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
