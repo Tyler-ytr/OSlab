@@ -160,14 +160,14 @@ struct stat file_stat;
         (uint8_t)(0x4d)==test2[cnt].bit[9]&&
         (uint8_t)(0x50)==test2[cnt].bit[10]
       )//匹配BMP
-      
+      {
 
       // short_item=(void *)&(test2[cnt].bit[0]);
       // printf(" short item: 0x%x\n",short_item->file_name[0]);
 
       printf("0x%x",check);
       printf("\n");
-
+      }
     }
     cnt++;
     check+=16;//check与hexdump前面的编号一样;
