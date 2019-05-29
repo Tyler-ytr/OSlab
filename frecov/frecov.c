@@ -179,11 +179,14 @@ struct stat file_stat;
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256];
       char temp_name[9];
+      int length_of_filename=0; 
+      if(short_item->file_name[0]==0xe5||short_item->file_name[0]==0x00)continue;
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
         temp_name[i]=(char)short_item->file_name[i];
+        length_of_filename++;
       }
-      temp_name[8]='\0';
+      temp_name[length_of_filename]='\0';
       //strcpy(temp_name,(char*)short_item->file_name);
      // strcat(temp_name,"\0");
       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
@@ -210,7 +213,7 @@ struct stat file_stat;
 
       printf(" short item: 0x%x\n",short_item->file_name[0]);
 
-      printf("0x%x",check);
+      printf("check:0x%x",check);
       printf("\n");
 
       }
