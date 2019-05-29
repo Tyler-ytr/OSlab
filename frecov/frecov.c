@@ -216,7 +216,7 @@ struct stat file_stat;
 do{
       //int success_flag=0;
       if(finished==0){
-      for(int i=0;i<10;i++){
+      for(int i=0;i<10;i+=2){
         if(long_item->name1[i]==0xff){
           finished=1;
           break;
@@ -227,7 +227,7 @@ do{
         long_filename_cnt+=1;
       }}
       if(finished==0){
-      for(int i=0;i<12;i++){
+      for(int i=0;i<12;i+=2){
         if(long_item->name2[i]==0xff){
           finished=1;
           break;
@@ -237,7 +237,7 @@ do{
       }
       }
       if(finished==0){
-        for(int i=0;i<4;i++){
+        for(int i=0;i<4;i+=2){
           if(long_item->name3[i]==0xff){
             finished=1;
             break;
