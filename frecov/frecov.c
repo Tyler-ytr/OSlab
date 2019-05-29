@@ -190,7 +190,7 @@ struct stat file_stat;
       }
       //短文件名已经找好了,现在来找长文件名,然后把短文件名的扩展名拼接在后面就行了
       
-      void *for_fun=(void *)(file_address-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
+      void *for_fun=(void *)((void*)short_item-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
       printf("long state: 0x%x",long_item[0].state[0]);
 
