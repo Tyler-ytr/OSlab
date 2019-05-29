@@ -176,7 +176,7 @@ struct stat file_stat;
 
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256];
-      sprintf(file_name,"./FILE/%s.%s",short_item->file_name);
+      sprintf(file_name,"./FILE/%s.%s",short_item->file_name,short_item->extend_name);
       printf("name : %s\n",file_name);
 
 
