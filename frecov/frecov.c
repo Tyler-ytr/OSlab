@@ -115,7 +115,7 @@ struct stat file_stat;
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   row *test2=start;
-  int cnt=0;
+  int cnt=1;
 
   printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
       printf(" row[8]:0x%x",test2[cnt].bit[0]);
