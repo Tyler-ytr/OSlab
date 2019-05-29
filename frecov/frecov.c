@@ -162,7 +162,11 @@ struct stat file_stat;
       printf("\n");
 
     }cnt++;
-    if((void *)&test2[cnt].bit[0]>row_end)break;
+    if((void *)&test2[cnt].bit[0]>row_end){
+       printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
+      
+      
+      break;}
   
   }
       // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
