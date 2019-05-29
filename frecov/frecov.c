@@ -128,7 +128,7 @@ struct stat file_stat;
     perror("Mmap!");
     return 0;
   }
-  printf("Success mmap!\n");
+  // printf("Success mmap!\n");
   close(fd);
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
@@ -139,17 +139,17 @@ struct stat file_stat;
   // printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
   my_mbr.root_cluster=*(int32_t *)test1->root_cluster;
-   printf("ori_root_cluster:0x%x\n",test1->root_cluster[0]);
-   printf("ori_root_cluster:0x%x\n",test1->root_cluster[1]);
-   printf("ori_root_cluster:0x%x\n",test1->root_cluster[2]);
-   printf("ori_root_cluster:0x%x\n",test1->root_cluster[3]);
-   printf("root_cluster:0x%x\n",my_mbr.root_cluster);
+  //  printf("ori_root_cluster:0x%x\n",test1->root_cluster[0]);
+  //  printf("ori_root_cluster:0x%x\n",test1->root_cluster[1]);
+  //  printf("ori_root_cluster:0x%x\n",test1->root_cluster[2]);
+  //  printf("ori_root_cluster:0x%x\n",test1->root_cluster[3]);
+  //  printf("root_cluster:0x%x\n",my_mbr.root_cluster);
 
   //my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
   my_mbr.difference=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);//距离首地址的bit差距值
   my_mbr.root_address=(void*)(my_mbr.difference+start);//实际内存的位置;
-  printf("%d",my_mbr.difference/my_mbr.sec_bit_num);
-   printf("root address:%p\n",my_mbr.root_address);
+  // printf("%d",my_mbr.difference/my_mbr.sec_bit_num);
+  //  printf("root address:%p\n",my_mbr.root_address);
 
   
 
@@ -159,7 +159,7 @@ struct stat file_stat;
 
   dir_s_item* short_item=start;
   dir_l_item* long_item=start;
-  printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
+  // printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   int check=0;
   while(1){
     if((uint8_t)(0x20)==test2[cnt].bit[11]){//匹配短文件名的属性值;
@@ -212,7 +212,7 @@ int GG=0;//用来筛去一些不自信的东西;
       
 
       if(long_item->attr[0]==0x0f){//这是个东西；
-      printf("reserved: 0x%x",long_item->reserved[0]);
+      // printf("reserved: 0x%x",long_item->reserved[0]);
       finished=0;
       long_filename_cnt=0;
 do{
@@ -224,8 +224,8 @@ do{
           break;
         }
         temp_name[long_filename_cnt]=long_item->name1[i];
-        printf(" 1:0x%x ",temp_name[long_filename_cnt]);
-        printf("\n");
+        // printf(" 1:0x%x ",temp_name[long_filename_cnt]);
+        // printf("\n");
         long_filename_cnt+=1;
       }}
       if(finished==0){
@@ -253,7 +253,7 @@ do{
       for_fun=(void *)((void *)long_item-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
 
-      printf("long state: 0x%x\n",long_item[0].state[0]);
+      // printf("long state: 0x%x\n",long_item[0].state[0]);
 
       }
       while(now_checked==long_item->checked[0]);
@@ -283,8 +283,8 @@ do{
 
       sprintf(file_name,"./FILE/%s",temp_name);}
       
-      printf(" file_address:%p\n",file_address);
-     printf(" name: %s\n",file_name);
+    //   printf(" file_address:%p\n",file_address);
+    //  printf(" name: %s\n",file_name);
 
       fp=fopen(file_name,"w+");
 
@@ -296,38 +296,38 @@ do{
 
 
 
-      printf(" file_address:%p\n",file_address);
-      printf(" length:0x%x\n",file_length);
+      // printf(" file_address:%p\n",file_address);
+      // printf(" length:0x%x\n",file_length);
 
 
-      printf(" cluster_num :0x%x\n",cluster_num);
-      printf(" 0x%x,0x%x,0x%x,0x%x\n",short_item->h_b_cluster[0],short_item->h_b_cluster[1],short_item->l_b_cluster[0],short_item->l_b_cluster[1]);
+      // printf(" cluster_num :0x%x\n",cluster_num);
+      // printf(" 0x%x,0x%x,0x%x,0x%x\n",short_item->h_b_cluster[0],short_item->h_b_cluster[1],short_item->l_b_cluster[0],short_item->l_b_cluster[1]);
 
 
-      printf(" short item: 0x%x\n",short_item->file_name[0]);
+      // printf(" short item: 0x%x\n",short_item->file_name[0]);
 
-      printf("check:0x%x",check);
-      printf("\n");}
+      // printf("check:0x%x",check);
+      // printf("\n");}
 
       }
     }
     cnt++;
     check+=16;//check与hexdump前面的编号一样;
-    if((void *)&test2[cnt].bit[0]>=row_end){
-       printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
+    // if((void *)&test2[cnt].bit[0]>=row_end){
+    //    printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
       
       
-      break;}
+    //   break;}
   
   }
 
 
 
-  printf("start:%p\n",start);
-  printf(" end:%p",end);
-  printf("test2:%p\n",(void*)&(test2[0].bit[0]));
-  printf("0x%x\n",my_mbr.sec_bit_num);
-  printf("0x%02x\n",test1[0].sec_bit_num[0]);
-  printf("0x%02x\n",test1[0].sec_bit_num[1]);
+  // printf("start:%p\n",start);
+  // printf(" end:%p",end);
+  // printf("test2:%p\n",(void*)&(test2[0].bit[0]));
+  // printf("0x%x\n",my_mbr.sec_bit_num);
+  // printf("0x%02x\n",test1[0].sec_bit_num[0]);
+  // printf("0x%02x\n",test1[0].sec_bit_num[1]);
   return 0;
 }
