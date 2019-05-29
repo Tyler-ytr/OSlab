@@ -152,7 +152,7 @@ struct stat file_stat;
       
 
       break;
-    }
+    }cnt++;
     
   }
       printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
