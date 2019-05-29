@@ -181,7 +181,7 @@ struct stat file_stat;
       //char *end="\0"; 
       char temp_name[9];
       for(int i=0;i<9;i++){
-        temp_name[i]=short_item->file_name[i];
+        temp_name[i]=(char)short_item->file_name[i];
       }
       //strcpy(temp_name,(char*)short_item->file_name);
       strcat(temp_name,"\0");
