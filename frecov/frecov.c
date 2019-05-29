@@ -278,10 +278,10 @@ do{
      // strcat(temp_name,"\0");
      if(GG==0){
       if(finished==0){
-      sprintf(file_name,"%s.bmp",temp_name);}
+      sprintf(file_name,"./FILE/%s.bmp",temp_name);}
       else{
 
-      sprintf(file_name,"%s",temp_name);}
+      sprintf(file_name,"./FILE/%s",temp_name);}
       
     //   printf(" file_address:%p\n",file_address);
     //  printf(" name: %s\n",file_name);
