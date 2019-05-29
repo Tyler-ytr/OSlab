@@ -105,6 +105,7 @@ struct stat file_stat;
   };
   
   start=mmap(0,file_stat.st_size ,PROT_READ,MAP_SHARED,fd,0);
+  void *end=start+file_stat.st_size;
   void *now=start;
   if(start==(void*)-1){
     perror("Mmap!");
@@ -142,27 +143,29 @@ struct stat file_stat;
 
   cnt=0;
   test2=now;
-  while(1){
-    if((uint8_t)(0x20)==test2[cnt].bit[11]){
-      if(
-        (uint8_t)(0x42)==test2[cnt].bit[8]&&
-        (uint8_t)(0x4d)==test2[cnt].bit[9]&&
-        (uint8_t)(0x50)==test2[cnt].bit[10]
-      )
-      // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      // printf(" row[8]:0x%x",test2[cnt].bit[8]);
-      // printf(" row[9]:0x%x",test2[cnt].bit[9]);
-      // printf(" row[10]:0x%x",test2[cnt].bit[10]);
-      printf("%d",cnt);
-      printf("\n");
 
-    }cnt++;
-    
-  }
-      printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      printf(" row[8]:0x%x",test2[cnt].bit[0]);
-      printf(" row[9]:0x%x",test2[cnt].bit[1]);
-      printf(" row[10]:0x%x",test2[cnt].bit[2]);
+  printf(" end:%p",end);
+  // while(1){
+  //   if((uint8_t)(0x20)==test2[cnt].bit[11]){
+  //     if(
+  //       (uint8_t)(0x42)==test2[cnt].bit[8]&&
+  //       (uint8_t)(0x4d)==test2[cnt].bit[9]&&
+  //       (uint8_t)(0x50)==test2[cnt].bit[10]
+  //     )
+  //     // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+  //     // printf(" row[8]:0x%x",test2[cnt].bit[8]);
+  //     // printf(" row[9]:0x%x",test2[cnt].bit[9]);
+  //     // printf(" row[10]:0x%x",test2[cnt].bit[10]);
+  //     printf("%d",cnt);
+  //     printf("\n");
+
+  //   }cnt++;
+  
+  // }
+      // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
+      // printf(" row[8]:0x%x",test2[cnt].bit[0]);
+      // printf(" row[9]:0x%x",test2[cnt].bit[1]);
+      // printf(" row[10]:0x%x",test2[cnt].bit[2]);
 
 
   printf("start:%p\n",start);
