@@ -117,34 +117,9 @@ struct stat file_stat;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
 
   int cnt=4;
-  row *test2=start;
-  void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));
+  row *test2=start;//test2用来一行一行的遍历;
+  void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
-  // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-  //     printf(" row[8]:0x%x",test2[cnt].bit[11]==(uint8_t)(0x41));
-  //     printf(" row[9]:0x%x",test2[cnt].bit[1]);
-  //     printf(" row[10]:0x%x",test2[cnt].bit[2]);
-
-
-  // while(1){
-
-  //   if((uint8_t)(0x2e)==test2[cnt].bit[0]&&(uint8_t)(0x20)==test2[cnt].bit[1]){
-  //     now=(void*)&(test2[cnt].bit[0]);
-  //     printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-  //     printf(" row[8]:0x%x",test2[cnt].bit[0]);
-  //     printf(" row[9]:0x%x",test2[cnt].bit[1]);
-  //     printf(" row[10]:0x%x",test2[cnt].bit[2]);
-  //     printf("\n");
-
-  //     break;
-
-  //   }cnt++;
-
-  // }
-
-  // cnt=0;
-  // test2=now;
-  
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   
   int check=0;
@@ -155,11 +130,8 @@ struct stat file_stat;
         (uint8_t)(0x4d)==test2[cnt].bit[9]&&
         (uint8_t)(0x50)==test2[cnt].bit[10]
       )//匹配BMP
-      // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      // printf(" row[8]:0x%x",test2[cnt].bit[8]);
-      // printf(" row[9]:0x%x",test2[cnt].bit[9]);
-      // printf(" row[10]:0x%x",test2[cnt].bit[10]);
-     // printf("0x%x",cnt);
+
+
       printf("0x%x",check);
       printf("\n");
 
