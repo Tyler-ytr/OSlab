@@ -119,10 +119,10 @@ struct stat file_stat;
   while(1){
 
     if((uint8_t)(0x20)==test2[cnt].bit[11]){
-      printf("row[8]:0x%x",test2[cnt].bit[8]);
-      printf("row[9]:0x%x",test2[cnt].bit[9]);
-      printf("row[10]:0x%x",test2[cnt].bit[10]);
-      
+      printf(" row[8]:0x%x",test2[cnt].bit[8]);
+      printf(" row[9]:0x%x",test2[cnt].bit[9]);
+      printf(" row[10]:0x%x",test2[cnt].bit[10]);
+      printf("\n")
 
 
 
