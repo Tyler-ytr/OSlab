@@ -159,7 +159,7 @@ struct stat file_stat;
       // printf(" row[8]:0x%x",test2[cnt].bit[8]);
       // printf(" row[9]:0x%x",test2[cnt].bit[9]);
       // printf(" row[10]:0x%x",test2[cnt].bit[10]);
-      printf("0x%x",cnt);
+     // printf("0x%x",cnt);
       printf("0x%x",check);
       printf("\n");
 
