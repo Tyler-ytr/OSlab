@@ -182,7 +182,7 @@ struct stat file_stat;
 
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256+6];
-      char temp_name[9];//仅仅用于短文件名；
+      char temp_name[256+6];//仅仅用于短文件名；
       int length_of_filename=0; 
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
@@ -190,9 +190,17 @@ struct stat file_stat;
         length_of_filename++;
       }
       //短文件名已经找好了,现在来找长文件名,然后把短文件名的扩展名拼接在后面就行了
+      //如果短文件名最后两个是~1那就有长文件名;
+      //记得加一个判断！！！;
       
       void *for_fun=(void *)((void *)&(test2[cnt].bit[0])-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
+      int long_filename_cnt=0;
+      int success_flag=0;
+      for(int i=0;i<10;i++){
+        temp_name[i]=long_item->name1[i];
+      }
+
       printf("long state: 0x%x",long_item[0].state[0]);
 
 
