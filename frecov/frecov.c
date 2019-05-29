@@ -150,7 +150,7 @@ struct stat file_stat;
   row *test2=start;//test2用来一行一行的遍历;
   void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
-  dir_s_item* short_item;
+  dir_s_item* short_item=start;
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   int check=0;
   while(1){
