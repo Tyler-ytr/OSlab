@@ -8,7 +8,7 @@
 #include<stdlib.h>
 #include <sys/stat.h> 
 #include <stdint.h>
-
+#include<string.h>
  typedef struct Mbr{
   uint8_t jmp_code[3];//跳转指令;
   uint8_t OEM[8];//OEM串;
