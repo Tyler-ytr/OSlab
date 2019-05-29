@@ -118,7 +118,7 @@ struct stat file_stat;
   int cnt=1;
 
   printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      printf(" row[8]:0x%x",test2[cnt].bit[0]);
+      printf(" row[8]:0x%x",test2[cnt].bit[11]);
       printf(" row[9]:0x%x",test2[cnt].bit[1]);
       printf(" row[10]:0x%x",test2[cnt].bit[2]);
 
