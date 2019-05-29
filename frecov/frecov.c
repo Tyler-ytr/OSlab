@@ -74,7 +74,7 @@ typedef struct My_dir_s_item{
   void *address;
 
 }my_dir_s_item;
-
+//my_dir_s_item short_list[1000];
 
 
 typedef struct Directory_long_item{
@@ -161,7 +161,9 @@ struct stat file_stat;
         (uint8_t)(0x50)==test2[cnt].bit[10]
       )//匹配BMP
       
+
       short_item=(void *)&(test2[cnt].bit[0]);
+      printf("short item: 0x%x",short_item->file_name[0]);
 
       printf("0x%x",check);
       printf("\n");
