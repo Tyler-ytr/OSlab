@@ -179,7 +179,7 @@ struct stat file_stat;
   //                            uint16_t sec_bit_num;     //每一个扇区的字节数
   // uint8_t cluster_sec_num;  //每簇的扇区数
       void * file_address=(void *)((cluster_num-my_mbr.root_cluster)*my_mbr.cluster_sec_num*my_mbr.sec_bit_num+my_mbr.root_address);
-
+int GG=0;//用来筛去一些不自信的东西;
       uint32_t file_length=*(int32_t *)short_item->length;
       char file_name[256+6];
       char temp_name[256+6];//仅仅用于短文件名；
@@ -207,6 +207,7 @@ struct stat file_stat;
  
  
       int long_filename_cnt=0;
+      
       
       
 
@@ -258,35 +259,39 @@ do{
       while(now_checked==long_item->checked[0]);
      finished=1; 
       
-
+      if(temp_name[long_filename_cnt-1]=='m'){
+        temp_name[long_filename_cnt]='p';
+        long_filename_cnt++;
+      }
       temp_name[long_filename_cnt]='\0';
- sprintf(file_name,"./FILE/%s",temp_name);
-fp=fopen(file_name,"w+");
+
+
+      }else
+      {
+        GG=1;
+      }
+      
+      }
+      
+      
+      //strcpy(temp_name,(char*)short_item->file_name);
+     // strcat(temp_name,"\0");
+     if(GG==0){
+      if(finished==0){
+      sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
+      else{
+
+      sprintf(file_name,"./FILE/%s",temp_name);}
+      
+      printf(" file_address:%p\n",file_address);
+     printf(" name: %s\n",file_name);
+
+      fp=fopen(file_name,"w+");
 
       fwrite(file_address,file_length,1,fp);
       //memcpy(fp,file_address,file_length);
-      fclose(fp);
-      }
-      }
-      
-      
-//       //strcpy(temp_name,(char*)short_item->file_name);
-//      // strcat(temp_name,"\0");
-//       if(finished==0){
-//       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
-//       else{
-
-//       sprintf(file_name,"./FILE/%s",temp_name);}
-      
-//       printf(" file_address:%p\n",file_address);
-//      printf(" name: %s\n",file_name);
-
-//       fp=fopen(file_name,"w+");
-
-//       fwrite(file_address,file_length,1,fp);
-//       //memcpy(fp,file_address,file_length);
-//       fclose(fp);
-//  //     printf("name : %s\n",file_name);
+      fclose(fp);}
+ //     printf("name : %s\n",file_name);
 
 
 
