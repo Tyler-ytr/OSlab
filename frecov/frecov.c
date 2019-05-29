@@ -165,7 +165,13 @@ struct stat file_stat;
       short_item=(void *)&(test2[cnt].bit[0]);
       uint32_t cluster_num=
                             (short_item->h_b_cluster[0]<<2*8)+(short_item->h_b_cluster[1]<<3*8)+  
-                            (short_item->l_b_cluster[0]<<0*8)+(short_item->l_b_cluster[1]<<1*8); 
+                            (short_item->l_b_cluster[0]<<0*8)+(short_item->l_b_cluster[1]<<1*8); //起始簇号;
+  //                            uint16_t sec_bit_num;     //每一个扇区的字节数
+  // uint8_t cluster_sec_num;  //每簇的扇区数
+      void * file_address=(void *)((cluster_num-my_mbr.root_cluster)*my_mbr.cluster_sec_num*my_mbr.sec_bit_num+my_mbr.root_address);
+       printf(" file_address:%p\n",file_address);
+
+
       printf(" cluster_num :0x%x\n",cluster_num);
       printf(" 0x%x,0x%x,0x%x,0x%x\n",short_item->h_b_cluster[0],short_item->h_b_cluster[1],short_item->l_b_cluster[0],short_item->l_b_cluster[1]);
 
