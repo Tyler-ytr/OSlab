@@ -150,7 +150,7 @@ struct stat file_stat;
   row *test2=start;//test2用来一行一行的遍历;
   void *row_end=(void *)(end-(void*)(&(test2[2].bit[0])-&(test2[0].bit[0])));//确定遍历的边界值;
 
-  dir_s_item* short_item=start;
+  //dir_s_item* short_item=start;
   printf(" testttt:%p",(void *)(end-(void*)(&(test2[1].bit[0])-&(test2[0].bit[0]))));
   int check=0;
   while(1){
@@ -162,8 +162,8 @@ struct stat file_stat;
       )//匹配BMP
       
 
-      short_item=(void *)&(test2[cnt].bit[0]);
-      printf(" short item: 0x%x\n",short_item->file_name[0]);
+      // short_item=(void *)&(test2[cnt].bit[0]);
+      // printf(" short item: 0x%x\n",short_item->file_name[0]);
 
       printf("0x%x",check);
       printf("\n");
