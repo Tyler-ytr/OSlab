@@ -9,7 +9,7 @@
 #include <sys/stat.h> 
 #include <stdint.h>
 
- typedef struct mbr{
+ typedef struct Mbr{
   uint8_t jmp_code[3];//跳转指令;
   uint8_t OEM[8];//OEM串;
   uint8_t sec_bit_num[2];//每一个扇区的字节数
@@ -41,11 +41,45 @@
   uint8_t end[2];//结束标志;
  }MBR;
 typedef struct My_mbr{
-  uint16_t sec_bit_num;
+  uint16_t sec_bit_num;     //每一个扇区的字节数
+  uint8_t cluster_sec_num;  //每簇的扇区数;
+
+
 
 
 }MY_MBR;
 
+typedef struct Directory_short_item{
+  uint8_t file_name[8];//文件名;
+  uint8_t extend_name[3];//文件扩展名;
+  uint8_t state[1];//文件的属性字节 0 读写 01 只读 10 隐藏 100系统 1000卷标 10000子目录 100000归档
+  uint8_t reserved[1];//系统保留;
+  uint8_t create_10m_time[1];//创建时间的10毫秒位;
+  uint8_t create_time[2];//文件创建时间;
+  uint8_t create_day[2];//文件创建日期;
+  uint8_t vis_day[2];//文件最后访问日期;
+  uint8_t h_b_cluster[2];//文件起始簇号的高16位
+  uint8_t modify_time[2];//文件最后修改时间;
+  uint8_t modify_day[2];//文件最后修改日期;
+  uint8_t l_b_cluster[2];//文件起始簇号的低16位;
+  uint8_t length[4];//表示文件的长度;
+}dir_s_item;
+
+
+
+typedef struct Directory_long_item{
+  uint8_t state[1];//0-4字节顺序取值,5保留,第6个字节表示是长文件最后一个目录项;
+  uint8_t name1[10];//长文件名unicode码1
+  uint8_t reserved[1];//系统保留;
+  uint8_t checked[1];//校验值;根据短文件名验证得到;
+  uint8_t name2[12];//长文件名unicode码2；
+  uint8_t b_cluster[2];//文件起始簇号;
+  uint8_t name3[4];//长文件名unicode码3;
+}dir_l_item;
+
+typedef struct Row{
+  uint8_t bit[16];
+}row;
 
 
 
