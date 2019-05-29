@@ -200,14 +200,31 @@ struct stat file_stat;
 
       void *for_fun=(void *)((void *)&(test2[cnt].bit[0])-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
-
+      int finished=0;
+      finished=0;
 
       if(long_item->state[0]!=0){
       int long_filename_cnt=0;
       //int success_flag=0;
       for(int i=0;i<10;i++){
         temp_name[i]=long_item->name1[i];
+        printf("0x%x",temp_name[i]);
         long_filename_cnt+=1;
+      }
+      for(int i=0;i<12;i++){
+        if(long_item->name2[i]==0xff){
+          finished=1;
+          break;
+        }
+        temp_name[long_filename_cnt]=long_item->name2[i];
+        long_filename_cnt++;
+      }
+
+      if(finished==0){
+        for(int i=0;i<4;i++){;
+
+        }
+
       }
 
       printf("long state: 0x%x",long_item[0].state[0]);
