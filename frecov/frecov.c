@@ -180,6 +180,7 @@ struct stat file_stat;
       char file_name[256];
       char temp_name[9];
       for(int i=0;i<8;i++){
+        if(short_item->file_name[i]!=0x20)
         temp_name[i]=(char)short_item->file_name[i];
       }
       temp_name[8]='\0';
