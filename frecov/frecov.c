@@ -169,6 +169,7 @@ struct stat file_stat;
       {
        FILE *fp=NULL;
       short_item=(void *)&(test2[cnt].bit[0]);
+      if(short_item->file_name[0]==0xe5||short_item->file_name[0]==0x00){;}else{
       uint32_t cluster_num=
                             (short_item->h_b_cluster[0]<<2*8)+(short_item->h_b_cluster[1]<<3*8)+  
                             (short_item->l_b_cluster[0]<<0*8)+(short_item->l_b_cluster[1]<<1*8); //起始簇号;
@@ -180,7 +181,6 @@ struct stat file_stat;
       char file_name[256];
       char temp_name[9];
       int length_of_filename=0; 
-      if(short_item->file_name[0]==0xe5||short_item->file_name[0]==0x00)continue;
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
         temp_name[i]=(char)short_item->file_name[i];
@@ -214,7 +214,7 @@ struct stat file_stat;
       printf(" short item: 0x%x\n",short_item->file_name[0]);
 
       printf("check:0x%x",check);
-      printf("\n");
+      printf("\n");}
 
       }
     }
