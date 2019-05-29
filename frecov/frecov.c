@@ -180,7 +180,7 @@ struct stat file_stat;
       char file_name[256];
       //char *end="\0"; 
       char temp_name[9];
-      for(int i=0;i<9;i++){
+      for(int i=0;i<8;i++){
         temp_name[i]=(char)short_item->file_name[i];
       }
       //strcpy(temp_name,(char*)short_item->file_name);
