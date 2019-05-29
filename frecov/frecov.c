@@ -47,6 +47,7 @@ typedef struct My_mbr{
   uint32_t fat_sec_num;//每一个FAT表的扇区数量; 
   //根目录起始扇区:N=保留区大小+2*FAT表大小;
   void * root_address;//起始扇区的位置=start+N*扇区大小;
+  int difference;
 }MY_MBR;
 
 typedef struct Directory_short_item{
@@ -123,9 +124,8 @@ struct stat file_stat;
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
 
   //my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
-  int temp=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
-  my_mbr.root_address=(void*)(temp+start);
-  printf("0x%x",temp);
+  my_mbr.difference=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
+  my_mbr.root_address=(void*)(my_mbr.difference+start);
    printf("root address:%p\n",my_mbr.root_address);
 
   
