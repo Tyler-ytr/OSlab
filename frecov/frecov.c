@@ -278,7 +278,7 @@ do{
      // strcat(temp_name,"\0");
      if(GG==0){
       if(finished==0){
-      sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
+      sprintf(file_name,"./FILE/%s.bmp",temp_name);}
       else{
 
       sprintf(file_name,"./FILE/%s",temp_name);}
