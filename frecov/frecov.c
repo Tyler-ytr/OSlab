@@ -183,8 +183,9 @@ struct stat file_stat;
       for(int i=0;i<8;i++){
         temp_name[i]=(char)short_item->file_name[i];
       }
+      temp_name[8]='\0';
       //strcpy(temp_name,(char*)short_item->file_name);
-      strcat(temp_name,"\0");
+     // strcat(temp_name,"\0");
       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
       printf("name : %s\n",file_name);
 
