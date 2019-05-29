@@ -259,35 +259,28 @@ do{
       while(now_checked==long_item->checked[0]);
      finished=1; 
       
-
       temp_name[long_filename_cnt]='\0';
- sprintf(file_name,"./FILE/%s",temp_name);
-fp=fopen(file_name,"w+");
+      }
+      }
+      
+      
+      //strcpy(temp_name,(char*)short_item->file_name);
+     // strcat(temp_name,"\0");
+      if(finished==0){
+      sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
+      else{
+
+      sprintf(file_name,"./FILE/%s",temp_name);}
+      
+      printf(" file_address:%p\n",file_address);
+     printf(" name: %s\n",file_name);
+
+      fp=fopen(file_name,"w+");
 
       fwrite(file_address,file_length,1,fp);
       //memcpy(fp,file_address,file_length);
       fclose(fp);
-      }
-      }
-      
-      
-//       //strcpy(temp_name,(char*)short_item->file_name);
-//      // strcat(temp_name,"\0");
-//       if(finished==0){
-//       sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
-//       else{
-
-//       sprintf(file_name,"./FILE/%s",temp_name);}
-      
-//       printf(" file_address:%p\n",file_address);
-//      printf(" name: %s\n",file_name);
-
-//       fp=fopen(file_name,"w+");
-
-//       fwrite(file_address,file_length,1,fp);
-//       //memcpy(fp,file_address,file_length);
-//       fclose(fp);
-//  //     printf("name : %s\n",file_name);
+ //     printf("name : %s\n",file_name);
 
 
 
