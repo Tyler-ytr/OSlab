@@ -290,7 +290,12 @@ do{
 
       fwrite(file_address,file_length,1,fp);
       //memcpy(fp,file_address,file_length);
-      fclose(fp);}
+      fclose(fp);
+      char systemcall[256+10+6];
+      sprinf(systemcall,"sha1sum %s",file_name);
+      
+      system(systemcall);
+      }
  //     printf("name : %s\n",file_name);
 
 
