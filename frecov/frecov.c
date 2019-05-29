@@ -45,6 +45,7 @@ typedef struct My_mbr{
   uint8_t cluster_sec_num;  //每簇的扇区数;
   uint16_t res_sec_num;     //保留的扇区数;
   uint32_t fat_sec_num;//每一个FAT表的扇区数量; 
+  uint32_t root_cluster;//根目录簇号;
   //根目录起始扇区:N=保留区大小+2*FAT表大小;
   void * root_address;//起始扇区的位置=start+N*扇区大小;
   int difference;
@@ -122,10 +123,12 @@ struct stat file_stat;
   // printf("ori_res_sec_num 1:0x%x\n",test1->res_sec_num[1]);
   // printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
   my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
+  my_mbr.root_cluster=*(int32_t *)test1->root_cluster;
+   printf("root_cluster:0x%x\n",my_mbr.root_cluster);
 
   //my_mbr.root_address=(void *)(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
-  my_mbr.difference=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);
-  my_mbr.root_address=(void*)(my_mbr.difference+start);
+  my_mbr.difference=(int)(((int)my_mbr.res_sec_num+(int)my_mbr.fat_sec_num*2)*(int)my_mbr.sec_bit_num);//距离首地址的bit差距值
+  my_mbr.root_address=(void*)(my_mbr.difference+start);//实际内存的位置;
   printf("%d",my_mbr.difference/my_mbr.sec_bit_num);
    printf("root address:%p\n",my_mbr.root_address);
 
