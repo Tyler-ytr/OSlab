@@ -115,6 +115,21 @@ struct stat file_stat;
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
   row *test2=start;
+  int cnt=0;
+  while(1){
+
+    if((uint8_t)(0x20)==test2[cnt].bit[11]){
+      printf("row[8]:0x%x",test2[cnt].bit[8]);
+      printf("row[9]:0x%x",test2[cnt].bit[9]);
+      printf("row[10]:0x%x",test2[cnt].bit[10]);
+assert(0);
+
+
+
+    }
+  }
+
+
   printf("start:%p\n",start);
   printf("test2:%p\n",(void*)&(test2[0].bit[0]));
   printf("0x%x\n",my_mbr.sec_bit_num);
