@@ -184,6 +184,7 @@ struct stat file_stat;
       char file_name[256+6];
       char temp_name[256+6];//仅仅用于短文件名；
       int length_of_filename=0; 
+      int finished=0;//用来判断有没有走长文件名那条路;
       for(int i=0;i<8;i++){
         if(short_item->file_name[i]!=0x20)
         temp_name[i]=(char)short_item->file_name[i];
@@ -205,7 +206,7 @@ struct stat file_stat;
  
  
       int long_filename_cnt=0;
-      int finished=0;
+      
       
 
       if(long_item->state[0]!=0){//这是个东西；
@@ -246,7 +247,7 @@ do{
 
       }
       while(now_checked==long_item->checked[0]);
-      
+     finished=1; 
       
       temp_name[long_filename_cnt]='\0';
       }
@@ -255,7 +256,12 @@ do{
       
       //strcpy(temp_name,(char*)short_item->file_name);
      // strcat(temp_name,"\0");
-      sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);
+      if(finished==0){
+      sprintf(file_name,"./FILE/%s.%s",temp_name,short_item->extend_name);}
+      else{
+
+      sprintf(file_name,"./FILE/%s",temp_name);}
+      
       printf(" file_address:%p\n",file_address);
      printf(" name: %s\n",file_name);
 
