@@ -78,7 +78,7 @@ typedef struct Directory_long_item{
 }dir_l_item;
 
 typedef struct Row{
-  uint8_t bit[16];
+  uint8_t bit[16];//0xB：描述文件的属性，该字段在短文件中不可取值0x0F，如果设置为0x0F则标志是长文件
 }row;
 
 
@@ -114,7 +114,9 @@ struct stat file_stat;
   close(fd);
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
-  
+  row *test2=start;
+  printf("start:0x%x",start);
+  printf("test2:0x%x",(int)&(test2[0].bit[0]));
   printf("0x%x\n",my_mbr.sec_bit_num);
   printf("0x%02x\n",test1[0].sec_bit_num[0]);
   printf("0x%02x\n",test1[0].sec_bit_num[1]);
