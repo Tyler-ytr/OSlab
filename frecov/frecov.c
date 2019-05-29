@@ -43,10 +43,10 @@
 typedef struct My_mbr{
   uint16_t sec_bit_num;     //每一个扇区的字节数
   uint8_t cluster_sec_num;  //每簇的扇区数;
-
-
-
-
+  uint16_t res_sec_num;     //保留的扇区数;
+  uint32_t fat_sec_num;//每一个FAT表的扇区数量; 
+  //根目录起始扇区:N=保留区大小+2*FAT表大小;
+  void * root_address;//起始扇区的位置=start+N*扇区大小;
 }MY_MBR;
 
 typedef struct Directory_short_item{
@@ -115,6 +115,15 @@ struct stat file_stat;
   close(fd);
   MBR *test1=(void *)now;
   my_mbr.sec_bit_num=*(int16_t *)test1->sec_bit_num;
+  my_mbr.cluster_sec_num=*(int8_t *)test1->cluster_sec_num;
+  my_mbr.res_sec_num=*(int16_t *)test1->res_sec_num;
+  printf("ori_res_sec_num 0:0x%x\n",test1->res_sec_num[0]);
+  printf("ori_res_sec_num 1:0x%x\n",test1->res_sec_num[1]);
+
+  printf("res_sec_num:0x%x\n",my_mbr.res_sec_num);
+  my_mbr.fat_sec_num=*(int32_t *)test1->fat_sec_num;
+
+  
 
   int cnt=0;
   row *test2=start;//test2用来一行一行的遍历;
@@ -135,7 +144,9 @@ struct stat file_stat;
       printf("0x%x",check);
       printf("\n");
 
-    }cnt++;check+=16;
+    }
+    cnt++;
+    check+=16;//check与hexdump前面的编号一样;
     if((void *)&test2[cnt].bit[0]>=row_end){
        printf("last:%p\n",(void*)&(test2[cnt].bit[0]));
       
@@ -143,10 +154,7 @@ struct stat file_stat;
       break;}
   
   }
-      // printf("test2:%p\n",(void*)&(test2[cnt].bit[0]));
-      // printf(" row[8]:0x%x",test2[cnt].bit[0]);
-      // printf(" row[9]:0x%x",test2[cnt].bit[1]);
-      // printf(" row[10]:0x%x",test2[cnt].bit[2]);
+
 
 
   printf("start:%p\n",start);
