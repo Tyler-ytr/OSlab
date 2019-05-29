@@ -72,6 +72,7 @@ typedef struct My_dir_s_item{
   char extend_name[8];//文件扩展名;`
   uint32_t located_cluster;//文件所在的簇;
   void *address;
+  uint32_t length;
 
 }my_dir_s_item;
 //my_dir_s_item short_list[1000];
@@ -169,7 +170,10 @@ struct stat file_stat;
   //                            uint16_t sec_bit_num;     //每一个扇区的字节数
   // uint8_t cluster_sec_num;  //每簇的扇区数
       void * file_address=(void *)((cluster_num-my_mbr.root_cluster)*my_mbr.cluster_sec_num*my_mbr.sec_bit_num+my_mbr.root_address);
+
+      uint32_t file_length=*(int32_t *)short_item->length;
        printf(" file_address:%p\n",file_address);
+       printf(" length:0x%x\n",file_length);
 
 
       printf(" cluster_num :0x%x\n",cluster_num);
