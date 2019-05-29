@@ -215,11 +215,18 @@ struct stat file_stat;
       long_filename_cnt=0;
 do{
       //int success_flag=0;
+      if(finished==0){
       for(int i=0;i<10;i++){
+        if(long_item->name1[i]==0xff){
+          finished=1;
+          break;
+        }
         temp_name[i]=long_item->name1[i];
-        printf("0x%x",temp_name[i]);
+        printf(" 1:0x%x ",temp_name[i]);
+        printf("\n",temp_name[i]);
         long_filename_cnt+=1;
-      }
+      }}
+      if(finished==0){
       for(int i=0;i<12;i++){
         if(long_item->name2[i]==0xff){
           finished=1;
@@ -228,7 +235,7 @@ do{
         temp_name[long_filename_cnt]=long_item->name2[i];
         long_filename_cnt++;
       }
-
+      }
       if(finished==0){
         for(int i=0;i<4;i++){
           if(long_item->name3[i]==0xff){
