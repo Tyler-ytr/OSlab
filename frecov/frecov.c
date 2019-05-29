@@ -192,7 +192,7 @@ struct stat file_stat;
       
       void *for_fun=(void *)(file_address-(void *)(&(long_item[1].state[0])-&(long_item[0].state[0])));
       long_item=(dir_l_item *)for_fun;
-      printf("long state: 0x%x",long_item[0].state);
+      printf("long state: 0x%x",long_item[0].state[0]);
 
 
 
