@@ -1,8 +1,12 @@
 #ifndef __KVDB_H__
 #define __KVDB_H__
-
-
+#include <stdio.h>
+#include <pthread.h>
 struct kvdb {
+  char name[256];
+  FILE *fp;
+  pthread_mutex_t mutex_lock;
+
 };
 typedef struct kvdb kvdb_t;
 
