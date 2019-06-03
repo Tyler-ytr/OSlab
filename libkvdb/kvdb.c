@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <assert.h>
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
-
+//fcntl来实现文件锁参考了:https://www.cnblogs.com/mingfeng002/p/6962915.html
 
 
 //kvdb_open打开filename数据库文件(例如filename指向"a.db")，并将信息保存到db中。如果文件不存在，则创建，如果文件存在，则在已有数据库的基础上进行操作。
