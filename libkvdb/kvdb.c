@@ -52,6 +52,7 @@ char *kvdb_get(kvdb_t *db, const char *key){
     }
     
   }
+  return result;
 
 }
 
