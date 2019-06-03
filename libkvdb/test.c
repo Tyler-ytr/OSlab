@@ -1,5 +1,6 @@
 #include "kvdb.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int main() {
   kvdb_t db;
