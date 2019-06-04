@@ -58,6 +58,7 @@ int kvdb_open_origin(kvdb_t *db, const char *filename)
   strcpy(db->name,filename);
   if((db->fp=fopen(filename,"a+"))==NULL){
     level1_error("fopen");
+    
     return -1;
   };
 
@@ -105,7 +106,6 @@ char *kvdb_get_origin(kvdb_t *db, const char *key){
 }
 
 
-
 int kvdb_open(kvdb_t *db, const char *filename){
   pthread_mutex_init(&db->mutex_lock,NULL);
 
@@ -120,6 +120,7 @@ int kvdb_open(kvdb_t *db, const char *filename){
   }
   return result;
 }
+
 int kvdb_close(kvdb_t *db){
   if(pthread_mutex_lock(&db->mutex_lock)!=0){
     perror("error: mutex_lock in kvdb_close");
@@ -139,6 +140,7 @@ if(pthread_mutex_lock(&db->mutex_lock)!=0){
   perror("error: mutex_lock in kvdb_get");
   return NULL;
 }
+
 char *result=kvdb_get_origin(db,key);
 if(pthread_mutex_unlock(&db->mutex_lock)!=0){
   perror("error: mutex_unlock in kvdb_get");
