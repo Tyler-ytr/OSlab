@@ -6,7 +6,7 @@
 #define Log2(format,...)\
  do { \
     printf("\33[1;34m[%s,%d,%s] " format "\33[0m\n", \
-        __FILE__, __LINE__, __func__, ## __VA_ARGS__); \
+        ); \
   } while (0)//蓝色;
 #define Log3(format,...)\
  do { \
@@ -142,7 +142,7 @@ int main() {
   process_test();
   thread_test();
  
- Log3("test");
+ Log2("test");
 
   return 0;
 }
