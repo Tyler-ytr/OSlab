@@ -233,7 +233,7 @@ int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
 char *kvdb_get_origin(kvdb_t *db, const char *key){
   //按照上面的不安全的存储,现在是 key,\n,value,\n;
   char *result=NULL;
-  static char _key[1<<20],_value[1<<20];
+  static char _key[1<<24],_value[1<<24];
   fseek(db->fp,0,SEEK_SET);//将读写位置移动到文件的开头;
 
   while(1){
