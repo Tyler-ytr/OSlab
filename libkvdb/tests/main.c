@@ -84,6 +84,7 @@ int main() {
 
   process_test();
   thread_test();
+  kvdb_open(&db, "a.db");
     int cnt=0;
     while(1){
       if(cnt==50)break;
