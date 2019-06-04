@@ -100,7 +100,7 @@ void process_test(){
   }
 
  kvdb_t db;
-  const char *key1="child";
+  const char *key1="child30";
   const char *key2="father";
   char *value1;
    kvdb_open(&db, "a.db"); // BUG: should check for errors
