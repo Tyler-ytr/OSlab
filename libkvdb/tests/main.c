@@ -245,6 +245,7 @@ int pthread_test(){
         if(rc){
             printf("ERROR, return code is %d\n", rc);
             handle_error("ERROR\n");
+            assert(0);
         }
     }
     for(t = 0; t < NUMTHREADS; t++){
@@ -254,6 +255,7 @@ int pthread_test(){
     int err = kvdb_close(&db);
     if(err == -1){
         handle_error("close file failed in tests\n");
+        assert(0);
     }
 }
 
