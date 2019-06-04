@@ -60,7 +60,7 @@ static void level1_error(const char *error){
 
 static void GG_error(const char *error){
   printf("\33[1;31m GG: %s, \33[0m\n",error);
-  exit(1);
+  exit(1);//需要修改；
   _exit(1);
 }//电脑炸了放弃吧;
 
