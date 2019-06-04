@@ -5,6 +5,7 @@
 #include <sys/file.h>
 #include <pthread.h>
 #include <assert.h>
+static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
 //fcntl来实现文件锁参考了:https://www.cnblogs.com/mingfeng002/p/6962915.html
 
@@ -107,7 +108,7 @@ char *kvdb_get_origin(kvdb_t *db, const char *key){
 
 
 int kvdb_open(kvdb_t *db, const char *filename){
-  pthread_mutex_init(&db->mutex_lock,NULL);
+//  pthread_mutex_init(&db->mutex_lock,NULL);
 
   if(pthread_mutex_lock(&db->mutex_lock)!=0){
     perror("error: mutex_lock in kvdb_open");
@@ -131,7 +132,7 @@ int kvdb_close(kvdb_t *db){
     perror("error: mutex_unlock in kvdb_close");
     return -1;
   }
-  pthread_mutex_destroy(&db->mutex_lock);
+ // pthread_mutex_destroy(&db->mutex_lock);
   return result;
 }
 
