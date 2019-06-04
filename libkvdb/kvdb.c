@@ -141,7 +141,7 @@ static void file_recovery(kvdb_t *db,const char *error){
         //写入;
         fwrite(_content, 1, strlen(_content), db->fp);
         if (ferror(db->fp)){
-          fatal_error("fwrite from log to db");
+          GG_error("fwrite from log to db");
         }
       _content[0]='0';
         temp_offset = 0;
