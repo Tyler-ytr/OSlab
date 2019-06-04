@@ -10,7 +10,7 @@
   } while (0)//蓝色;
 #define Log3(format,...)\
  do { \
-    printf("\33[1;31m" format "\33[0m\n" \
+    printf("\33[1;31m format \33[0m\n" \
         ); \
   } while (0)//红色;
 void process_test(){
@@ -19,7 +19,7 @@ void process_test(){
   pid_t fpid;
 
   if((fpid=fork())<0){
-    Log3("GG in fork!");
+    Log3(GG in fork!);
     return ;
   }
   else if(fpid==0){
@@ -53,7 +53,8 @@ void process_test(){
       }
       cnt++;
     }
-    char *value;
+    char *valuea;
+    cnt=0;
     while(1){
       if(cnt==50)break;
       char str[3];
@@ -71,15 +72,15 @@ void process_test(){
       key[6]=str[1];
       key[7]=str[2];
      // printf("%s\n",str);
-     value = kvdb_get(&db, key);
-     if(value==(void *)-1){
+     valuea = kvdb_get(&db, key);
+     if(valuea==(void *)-1){
        Log3("GG in child get process!");
        return ;
      }
-     free(value);
      if(cnt==30){
-      printf("[%s]: [%s]\n", key, value);
+      printf("[%s]: [%s]\n", key, valuea);
      }
+     free(valuea);
       cnt++;
     }
     kvdb_close(&db);
