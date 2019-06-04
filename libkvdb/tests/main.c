@@ -290,5 +290,6 @@ int main(){
     // FILE* fp;
     // fp=fopen("a.db","w");
     // fwrite("yignyingying",1,strlen("yingyingying"),fp);
+    printf("\33[1;31m format \33[0m\n" );
     return 0;
 }
