@@ -13,44 +13,100 @@
         __FILE__, __LINE__, __func__, ## __VA_ARGS__); \
   } while (0)//红色;
 void process_test(){
-//  kvdb_t db;
-// //  const char *key = "operating-systems";
-//   char *value;
-//   pid_t fpid;
+//  const char *key = "operating-systems";
+  char *value;
+  pid_t fpid;
 
-//   if((fpid=fork())<0){
-//     Log3("GG in fork!");
-//     return 0;
-//   }
-//   else if(fpid==0){
-//     kvdb_open(&db, "process.db"); 
-//     const char *key="child";
-//     kvdb_put(&db,key,"possiblity");
-//     int cnt=0;
-//     while(1){
-//       if(cnt==500)break;
-//       char str[3];
-//       str[0]=cnt%100+'0';
-//       str[1]=cnt%10+'0';
-//       str[2]='\0';
+  if((fpid=fork())<0){
+    Log3("GG in fork!");
+    return 0;
+  }
+  else if(fpid==0){
+ kvdb_t db;
+    kvdb_open(&db, "process.db"); 
+    const char *keyc="child";
+    kvdb_put(&db,keyc,"possiblity");
+    kvdb_close(&db);
+    kvdb_open(&db, "process.db"); 
+    int cnt=0;
+    while(1){
+      if(cnt==50)break;
+      char str[3];
+      char key[8];
+     // str[0]=cnt%100+'0';
+      str[0]=cnt/10+'0';
+      str[1]=cnt%10+'0';
+      str[2]='\0';
+      key[0]='c';
+      key[1]='h';
+      key[2]='i';
+      key[3]='l';
+      key[4]='d';
+      key[5]=str[0];
+      key[6]=str[1];
+      key[7]=str[2];
+     // printf("%s\n",str);
+      if(kvdb_put(&db,key,str)!=0){
+        Log3("GG in child put process!");
+        return 0;
+      }
+      cnt++;
+    }
+    char *value;
+    while(1){
+      if(cnt==50)break;
+      char str[3];
+      char key[8];
+     // str[0]=cnt%100+'0';
+      str[0]=cnt/10+'0';
+      str[1]=cnt%10+'0';
+      str[2]='\0';
+      key[0]='c';
+      key[1]='h';
+      key[2]='i';
+      key[3]='l';
+      key[4]='d';
+      key[5]=str[0];
+      key[6]=str[1];
+      key[7]=str[2];
+     // printf("%s\n",str);
+     value = kvdb_get(&db, key);
+     if(value==-1){
+       Log3("GG in child get process!");
+       return 0;
+     }
+     free(value);
+     if(cnt==30){
+      printf("[%s]: [%s]\n", key, value);
+     }
+      cnt++;
+    }
+    kvdb_close(&db);
 
-//       if(kvdb_put(&db,"child",str)!=0){
-//         Log3("GG in child process!");
-//         return 0;
-//       }
-//       cnt++;
-//     }
+    return 0;
 
-//     return 0;
+  }else{
+ kvdb_t db;
+    kvdb_open(&db, "process.db"); 
+    int cnt=0;
+    while(1){
+      if(cnt==50)break;
+    const char *key="father";
+    kvdb_put(&db,key,"ability");
+    cnt++;
+    }
+    kvdb_close(&db);
+  }
 
-//   }else{
-//     kvdb_open(&db, "process.db"); 
-//     const char *key="father";
-//     kvdb_put(&db,key,"ability");
-//   }
-
-//   const char *key1="child";
-//   const char *key2="father";
+ kvdb_t db;
+  const char *key1="child";
+  const char *key2="father";
+  char *value1;
+   kvdb_open(&db, "a.db"); // BUG: should check for errors
+  value = kvdb_get(&db, key1);
+  kvdb_close(&db);
+  printf("[%s]: [%s]\n", key1, value);
+  free(value);
   
 
 
@@ -84,32 +140,7 @@ int main() {
 
   process_test();
   thread_test();
-  kvdb_open(&db, "a.db");
-    int cnt=0;
-    while(1){
-      if(cnt==50)break;
-      char str[3];
-      char key[8];
-     // str[0]=cnt%100+'0';
-      str[0]=cnt/10+'0';
-      str[1]=cnt%10+'0';
-      str[2]='\0';
-      key[0]='c';
-      key[1]='h';
-      key[2]='i';
-      key[3]='l';
-      key[4]='d';
-      key[5]=str[0];
-      key[6]=str[1];
-      key[7]=str[2];
-      printf("%s\n",str);
-      if(kvdb_put(&db,key,str)!=0){
-        Log3("GG in child process!");
-        return 0;
-      }
-      cnt++;
-    }
-
+ 
 
 
   return 0;
