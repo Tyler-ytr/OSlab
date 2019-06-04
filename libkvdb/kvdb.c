@@ -136,11 +136,11 @@ int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
     return -1;
   }
 
-  if(fseek(db->fp,0,SEEK_END)!=0);//读写位置移动到文件尾
-{
-    level1_error("error: kvdb_put_origin's file can't fseek;");
-    return -1;
-}
+//   if(fseek(db->fp,0,SEEK_END)!=0);//读写位置移动到文件尾
+// {
+//     level1_error("error: kvdb_put_origin's file can't fseek;");
+//     return -1;
+// }
   fwrite(key,1,strlen(key),db->fp);
   if(ferror(db->fp)){
     //To be continued; recovery;
