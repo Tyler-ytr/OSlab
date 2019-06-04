@@ -19,7 +19,7 @@ void process_test(){
   pid_t fpid;
 
   if((fpid=fork())<0){
-    Log3("GG in fork!");
+    Log3(GG in fork!);
     return ;
   }
   else if(fpid==0){
