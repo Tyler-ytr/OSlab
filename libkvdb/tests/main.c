@@ -1,6 +1,7 @@
 #include "kvdb.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #define Log2(format,...)\
  do { \
