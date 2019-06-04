@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <assert.h>
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
+//关于ferror等函数的使用:https://blog.csdn.net/qq_29350001/article/details/53100563
 
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
 
