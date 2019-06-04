@@ -54,6 +54,7 @@ void process_test(){
       cnt++;
     }
     char *value;
+    cnt=0;
     while(1){
       if(cnt==50)break;
       char str[3];
