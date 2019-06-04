@@ -6,6 +6,7 @@ struct kvdb {
   char name[256];
   FILE *fp;
   pthread_mutex_t mutex_lock;
+  int inited;
 
 };
 typedef struct kvdb kvdb_t;
