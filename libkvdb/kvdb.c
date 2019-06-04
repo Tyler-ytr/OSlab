@@ -58,11 +58,11 @@ static void level1_error(const char *error){
   printf("\33[1;33m %s \33[0m\n",error);
 }//程序有问题 重新跑吧;
 
-static void GG_error(const char *error){
-  printf("\33[1;31m GG: %s, \33[0m\n",error);
-  exit(1);
-  _exit(1);
-}//电脑炸了放弃吧;
+// static void GG_error(const char *error){
+//   printf("\33[1;31m GG: %s, \33[0m\n",error);
+//   exit(1);
+//   _exit(1);
+// }//电脑炸了放弃吧;
 
 // static char *input_line(FILE* fp,char *buf){
 //   ;
