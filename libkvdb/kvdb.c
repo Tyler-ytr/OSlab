@@ -139,33 +139,31 @@ static void file_recovery(kvdb_t *db,const char *error){
       if(strcmp(_origin,"Your value is above :)")==0){
         find_flag=0;
         //写入;
-      
+        fwrite(_content, 1, strlen(_content), db->fp);
+        if (ferror(db->fp)){
+          fatal_error("fwrite from log to db");
+        }
+      _content[0]='0';
+        temp_offset = 0;
+        offset=0;
+        continue;
       }
-      else{
-         temp_offset=sprintf(_content+offset,"%s\n",_origin);
-
+      else{      
+        temp_offset=sprintf(_content+offset,"%s\n",_origin);
+        if(temp_offset==-1){
+          GG_error("file_recovery failed in sprinf");
+        }
 
         offset+=temp_offset;
         _content[offset-1]='\0';
         printf("\n%s\n",_content);
-
-
       }
 
 
 
-
-
-
-
-
-
     };
-
-
     return ;
-}
-
+}}
 
 //kvdb_open打开filename数据库文件(例如filename指向"a.db")，并将信息保存到db中。如果文件不存在，则创建，如果文件存在，则在已有数据库的基础上进行操作。
 int kvdb_open_origin(kvdb_t *db, const char *filename)
