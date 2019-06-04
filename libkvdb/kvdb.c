@@ -7,7 +7,7 @@
 #include <assert.h>
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 static FILE * fp_log;
-static char  _content[1<<24],_origin[1<<24];//恢复文件的时候使用;
+//static char  _content[1<<24],_origin[1<<24];//恢复文件的时候使用;
 //关于ferror等函数的使用:https://blog.csdn.net/qq_29350001/article/details/53100563
 
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
