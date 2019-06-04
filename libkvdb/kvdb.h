@@ -10,7 +10,8 @@ struct kvdb {
 
 };
 typedef struct kvdb kvdb_t;
-
+#define _MAX_LINE_LENGTH 1<<24
+//1<<24=16*1024*1024;
 int kvdb_open(kvdb_t *db, const char *filename);
 //kvdb_open打开filename数据库文件(例如filename指向"a.db")，并将信息保存到db中。如果文件不存在，则创建，如果文件存在，则在已有数据库的基础上进行操作。
 int kvdb_close(kvdb_t *db);

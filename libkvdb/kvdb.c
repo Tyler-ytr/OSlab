@@ -7,7 +7,7 @@
 #include <assert.h>
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 static FILE * fp_log;
-//static char  _content[1<<24],_origin[1<<24];//恢复文件的时候使用;
+static char  _content[1<<24+128],_origin[1<<24+128];//恢复文件的时候使用;
 //关于ferror等函数的使用:https://blog.csdn.net/qq_29350001/article/details/53100563
 
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
@@ -58,67 +58,112 @@ static void level1_error(const char *error){
   printf("\33[1;33m %s \33[0m\n",error);
 }//程序有问题 重新跑吧;
 
-// static void GG_error(const char *error){
-//   printf("\33[1;31m GG: %s, \33[0m\n",error);
-//   exit(1);
-//   _exit(1);
-// }//电脑炸了放弃吧;
+static void GG_error(const char *error){
+  printf("\33[1;31m GG: %s, \33[0m\n",error);
+  exit(1);
+  _exit(1);
+}//电脑炸了放弃吧;
 
-// static char *input_line(FILE* fp,char *buf){
-//   ;
-//   char * result=NULL;
+static char *input_line(FILE* fp,char *buf){
+  ;
+  char * result=NULL;
+  if((result = fgets(buf, _MAX_LINE_LENGTH, fp)) == NULL){
+    GG_error("fget error in input_line");
+  }
+  if(ferror(fp)){
+    GG_error("fget error in input_line");
+  }
+
+  int temp_length=strlen(buf);
+  buf[temp_length-1]='\0';
+
+  return result;
+}
+
+static void file_recovery(kvdb_t *db,const char *error){
+  if(error!=NULL)
+   printf("\33[1;34m %s \33[0m\n",error);
+
+  file_unlock(db->fp->_fileno);
+  if(fclose(db->fp)!=0){
+    GG_error("file_recovery can't close the file");
+    return ;//理论上不会return 
+  }
+
+  if((db->fp=fopen(db->name,"w"))==NULL){
+    GG_error("file_recovery can't open the file to rewrite");
+    return;
+  }
+  printf("\33[1;34m Recory begin! \33[0m\n");
+  set_writelock(db->fp->_fileno);
+
+  if((fp_log=fopen("log.db","r"))==NULL) {
+    //代表还没有创建log.db;
+    file_unlock(db->fp->_fileno);
+  if(fclose(db->fp)!=0){
+    GG_error("file_recovery can't close the file");
+    return ;//理论上不会return 
+  }
+  return ;
+  }
+
+  set_readlock(fp_log->_fileno);//可读不可修改log.db;
+
+  //从头开始一步步恢复;
+  //找到  :):Your key is below: Your value is above :) 之间的key value然后搬运过去;
+
+  int find_flag=0;
+  _content[0]='\0';
+  int offset=0;
+  int temp_offset=0;
+  if((fseek(fp_log,0,SEEK_SET)!=0)){
+    GG_error("file_recevery can't fseek the log file");
+    return ;
+  }
 
 
-//   return result;
-// }
+  while(1){
+    if(input_line(fp_log,_origin)==NULL){
+      break;
+    }
 
-// static void file_recovery(kvdb_t *db,const char *error){
-//   if(error!=NULL)
-//    printf("\33[1;34m %s \33[0m\n",error);
+    if(strcmp(_origin,":):Your key is below:")==0){
+      find_flag=1;
+      offset=0;
+      temp_offset=0;
+      _content[0]='0';
+    }
+    else{
+      if(find_flag==0)continue;
 
-//   file_unlock(db->fp->_fileno);
-//   if(fclose(db->fp)!=0){
-//     GG_error("file_recovery can't close the file");
-//     return ;//理论上不会return 
-//   }
+      if(strcmp(_origin,"Your value is above :)")==0){
+        find_flag=0;
+        //写入;
+      
+      }
+      else{
+        int temp_offset=sprintf(_content+offset,"%s\n",_origin);
 
-//   if((db->fp=fopen(db->name,"w"))==NULL){
-//     GG_error("file_recovery can't open the file to rewrite");
-//     return;
-//   }
-//   printf("\33[1;34m Recory begin! \33[0m\n");
-//   set_writelock(db->fp->_fileno);
 
-//   if((fp_log=fopen("log.db","r"))==NULL) {
-//     //代表还没有创建log.db;
-//     file_unlock(db->fp->_fileno);
-//   if(fclose(db->fp)!=0){
-//     GG_error("file_recovery can't close the file");
-//     return ;//理论上不会return 
-//   }
-//   return ;
-//   }
+        offset+=temp_offset;
+        _content[offset-1]='\0';
+        printf("\n%s\n",_content);
 
-//   set_readlock(fp_log->_fileno);//可读不可修改log.db;
 
-//   //从头开始一步步恢复;
-//   //找到  :):Your key is below: Your value is above :) 之间的key value然后搬运过去;
-
-//   int find_flag=0;
-//   _content[0]='\0';
-//   if((fseek(fp_log,0,SEEK_SET)!=0)){
-//     GG_error("file_recevery can't fseek the log file");
-//     return ;
-//   }
-
- 
+      }
 
 
 
 
 
 
-// }
+
+
+
+    };
+
+
+}
 
 
 //kvdb_open打开filename数据库文件(例如filename指向"a.db")，并将信息保存到db中。如果文件不存在，则创建，如果文件存在，则在已有数据库的基础上进行操作。
