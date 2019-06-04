@@ -72,7 +72,7 @@ void process_test(){
       key[7]=str[2];
      // printf("%s\n",str);
      value = kvdb_get(&db, key);
-     if((int)value==-1){
+     if(value==(void *)-1){
        Log3("GG in child get process!");
        return ;
      }
