@@ -107,7 +107,7 @@ int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
     return -1;
   }
 
-  fwrite("\n",1,1,fp_log);
+  fwrite("\n",1,strlen("\n"),fp_log);
   
   if(ferror(fp_log)){
     level1_error("error: kvdb_put_origin's log can't write \n after key");
