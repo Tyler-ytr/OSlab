@@ -6,6 +6,8 @@
 #include <pthread.h>
 #include <assert.h>
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+static FILE * fp_log;
+static char  _content[1<<20],_origin[1<<20];//恢复文件的时候使用;
 //关于ferror等函数的使用:https://blog.csdn.net/qq_29350001/article/details/53100563
 
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
@@ -14,42 +16,42 @@ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 //文件锁的实现:
 
-// static void set_readlock(pid_t fd){
-//   struct flock lock;
-//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-//   lock.l_whence=SEEK_SET;//决定l_start位置；
-//   lock.l_start=0;//锁定区域开头位置
-//   lock.l_len=0;//锁定区域大小; 
-//   lock.l_type=F_RDLCK;//锁定的状态; 现在表示读取锁;
-//   lock.l_pid=getpid();//锁定动作的进程；
+static void set_readlock(pid_t fd){
+  struct flock lock;
+  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+  lock.l_whence=SEEK_SET;//决定l_start位置；
+  lock.l_start=0;//锁定区域开头位置
+  lock.l_len=0;//锁定区域大小; 
+  lock.l_type=F_RDLCK;//锁定的状态; 现在表示读取锁;
+  lock.l_pid=getpid();//锁定动作的进程；
   
-//   fcntl(fd, F_SETLK, &lock);//F_SETLK:给文件上锁的参数;
+  fcntl(fd, F_SETLK, &lock);//F_SETLK:给文件上锁的参数;
 
-// }
-// static void set_writelock(pid_t fd){
-//   struct flock lock;
-//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-//   lock.l_whence=SEEK_SET;//决定l_start位置；
-//   lock.l_start=0;//锁定区域开头位置
-//   lock.l_len=0;//锁定区域大小; 
-//   lock.l_type=F_WRLCK;//锁定的状态; 现在表示写入锁;
-//   lock.l_pid=getpid();//锁定动作的进程；
+}
+static void set_writelock(pid_t fd){
+  struct flock lock;
+  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+  lock.l_whence=SEEK_SET;//决定l_start位置；
+  lock.l_start=0;//锁定区域开头位置
+  lock.l_len=0;//锁定区域大小; 
+  lock.l_type=F_WRLCK;//锁定的状态; 现在表示写入锁;
+  lock.l_pid=getpid();//锁定动作的进程；
   
-//   fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
+  fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
 
-// }
-// static void file_unlock(pid_t fd){
-//   struct flock lock;
-//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-//   lock.l_whence=SEEK_SET;//决定l_start位置；
-//   lock.l_start=0;//锁定区域开头位置
-//   lock.l_len=0;//锁定区域大小; 
-//   lock.l_type=F_UNLCK;//锁定的状态; 现在表示解锁;
-//   lock.l_pid=getpid();//锁定动作的进程；
+}
+static void file_unlock(pid_t fd){
+  struct flock lock;
+  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+  lock.l_whence=SEEK_SET;//决定l_start位置；
+  lock.l_start=0;//锁定区域开头位置
+  lock.l_len=0;//锁定区域大小; 
+  lock.l_type=F_UNLCK;//锁定的状态; 现在表示解锁;
+  lock.l_pid=getpid();//锁定动作的进程；
   
-//   fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
+  fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
 
-// }
+}
 static void level1_error(const char *error){
   perror(error);
 }
@@ -77,11 +79,89 @@ int kvdb_close_origin(kvdb_t *db){
 }
 //kvdb_put建立key到value的映射，如果把db看成是一个std::map<std::string,std::string>，则相当于执行db[key] = value;。因此如果在kvdb_put执行之前db[key]已经有一个对应的字符串，它将被value覆盖。
 int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
-  fseek(db->fp,0,SEEK_END);//读写位置移动到文件尾
+  //新建一个备份,建的过程还爆炸那请用户自己重新来过吧。有空再考虑源文件恢复日志文件把
+  if((fp_log=fopen("log","a+"))==NULL){
+    level1_error("fopen log");
+    return -1;
+  }
+  set_readlock(fp_log->_fileno);
+  set_writelock(fp_log->_fileno);//锁定读写;
+//记得解锁！！
+
+  if(fseek(fp_log,0,SEEK_END)!=0){
+    level1_error("error: kvdb_put_origin's log can't fseek");
+    return -1;
+  }
+
+  fwrite(":):Your key is below:\n",1,strlen(":):Your key is below:\n"),fp_log);
+
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write key flag");
+    return -1;
+  }
+
+  fwrite(key,1,strlen(key),fp_log);
+
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write key");
+    return -1;
+  }
+
+  fwrite("\n",1,1,db->fp);
+  
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write \n after key");
+    return -1;
+  }
+  fwrite(value,1,strlen(value),fp_log);
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write value");
+    return -1;
+  }
+  fwrite("\n",1,1,fp_log);
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write \n after value");
+    return -1;
+  }
+
+  fwrite("Your value is above :)\n",1,strlen("Your value is above :)\n"),fp_log);
+  if(ferror(fp_log)){
+    level1_error("error: kvdb_put_origin's log can't write value flag");
+    return -1;
+  }
+  file_unlock(fp_log->_fileno);
+
+  if(fclose(fp_log)!=0){
+    level1_error("error: can't close the log file");
+    return -1;
+  }
+
+  if(fseek(db->fp,0,SEEK_END)!=0);//读写位置移动到文件尾
+{
+    level1_error("error: kvdb_put_origin's file can't fseek;");
+    return -1;
+}
   fwrite(key,1,strlen(key),db->fp);
+  if(ferror(db->fp)){
+    //To be continued; recovery;
+    return -1;
+  }
+
   fwrite("\n",1,1,db->fp);
+  if(ferror(db->fp)){
+    //To be continued; recovery;
+    return -1;
+  }
   fwrite(value,1,strlen(value),db->fp);
+  if(ferror(db->fp)){
+    //To be continued; recovery;
+    return -1;
+  }
   fwrite("\n",1,1,db->fp);
+  if(ferror(db->fp)){
+    //To be continued; recovery;
+    return -1;
+  }
   return 0;
 
 }
