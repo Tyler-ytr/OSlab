@@ -10,8 +10,8 @@
   } while (0)//蓝色;
 #define Log3(format,...)\
  do { \
-    printf("\33[1;33m[%s,%d,%s] " format "\33[0m\n", \
-        __FILE__, __LINE__, __func__, ## __VA_ARGS__); \
+    printf("\33[1;33m" format "\33[0m\n" \
+        ); \
   } while (0)//红色;
 void process_test(){
 //  const char *key = "operating-systems";
@@ -142,7 +142,7 @@ int main() {
   process_test();
   thread_test();
  
-
+ Log3("test");
 
   return 0;
 }
