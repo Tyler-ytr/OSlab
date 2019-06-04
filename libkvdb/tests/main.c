@@ -84,10 +84,10 @@ void process_test(){
     }
     kvdb_close(&db);
 
-    return ;
+  //  return ;
 
   }else{
- kvdb_t db;
+    kvdb_t db;
     kvdb_open(&db, "process.db"); 
     int cnt=0;
     while(1){
@@ -142,7 +142,6 @@ int main() {
   process_test();
   thread_test();
  
- Log3("test");
 
   return 0;
 }
