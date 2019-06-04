@@ -260,7 +260,7 @@ int pthread_test(){
 }
 
 int main(){
-    test1(100);
+    test1((void *)100);
 
     // pid_t pid = fork();
     // if(pid == 0){
