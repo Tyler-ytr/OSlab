@@ -10,7 +10,7 @@
   } while (0)//蓝色;
 #define Log3(format,...)\
  do { \
-    printf("\33[1;33m" format "\33[0m\n" \
+    printf("\33[1;31m" format "\33[0m\n" \
         ); \
   } while (0)//红色;
 void process_test(){
@@ -142,7 +142,7 @@ int main() {
   process_test();
   thread_test();
  
- Log2("test");
+ Log3("test");
 
   return 0;
 }
