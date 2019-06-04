@@ -88,12 +88,21 @@ int main() {
     while(1){
       if(cnt==50)break;
       char str[3];
+      char key[8];
      // str[0]=cnt%100+'0';
-      str[0]=cnt%10+'0';
-      str[1]=cnt/10+'0';
+      str[0]=cnt/10+'0';
+      str[1]=cnt%10+'0';
       str[2]='\0';
+      key[0]='c';
+      key[1]='h';
+      key[2]='i';
+      key[3]='l';
+      key[4]='d';
+      key[5]=str[0];
+      key[6]=str[1];
+      key[7]=str[2];
       printf("%s\n",str);
-      if(kvdb_put(&db,"child",str)!=0){
+      if(kvdb_put(&db,key,str)!=0){
         Log3("GG in child process!");
         return 0;
       }
