@@ -77,7 +77,7 @@ void process_test(){
        Log3("GG in child get process!");
        return ;
      }
-     if(cnt==30){
+     if(cnt==29){
       printf("[%s]: [%s]\n", key, valuea);
      }
      free(valuea);
