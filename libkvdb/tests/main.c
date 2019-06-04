@@ -287,8 +287,8 @@ int main(){
     kvdb_close(&db);
 
     //just for test
-    FILE* fp;
-    fp=fopen("a.db","w");
-    fwrite("yignyingying",1,strlen("yingyingying"),fp);
+    // FILE* fp;
+    // fp=fopen("a.db","w");
+    // fwrite("yignyingying",1,strlen("yingyingying"),fp);
     return 0;
 }
