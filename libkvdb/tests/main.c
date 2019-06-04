@@ -104,9 +104,9 @@ void process_test(){
   const char *key2="father";
   char *value1;
    kvdb_open(&db, "process.db"); // BUG: should check for errors
-  value1 = kvdb_get(&db, key2);
+  value1 = kvdb_get(&db, key1);
   kvdb_close(&db);
-  printf("[%s]: [%s]\n", key2, value1);
+  printf("[%s]: [%s]\n", key1, value1);
   free(value1);
   
 
