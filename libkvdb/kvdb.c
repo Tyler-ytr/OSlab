@@ -5,7 +5,7 @@
 #include <sys/file.h>
 #include <pthread.h>
 #include <assert.h>
-//static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 //pthread锁的使用参考了:https://feng-qi.github.io/2017/05/08/pthread-mutex-basic-usage/
@@ -116,14 +116,14 @@ int kvdb_open(kvdb_t *db, const char *filename){
   db->inited=1984;
   }
 
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
-  //if(pthread_mutex_lock(&mutex)!=0){
+  //if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_open");
     return -1;
   }
   int result=kvdb_open_origin(db,filename);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
-  //if(pthread_mutex_unlock(&mutex)!=0){
+  //if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_open");
     return -1;
   }
@@ -131,33 +131,33 @@ int kvdb_open(kvdb_t *db, const char *filename){
 }
 
 int kvdb_close(kvdb_t *db){
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
-  //if(pthread_mutex_lock(&mutex)!=0){
+  //if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_close");
     return -1;
   }
   int result=kvdb_close_origin(db);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
-//  if(pthread_mutex_unlock(&mutex)!=0){
+//  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_close");
     return -1;
   }
-  pthread_mutex_destroy(&db->mutex_lock);
+//  pthread_mutex_destroy(&db->mutex_lock);
   
   return result;
 }
 
 
 char *kvdb_get(kvdb_t *db, const char *key){
-if(pthread_mutex_lock(&db->mutex_lock)!=0){
-//if(pthread_mutex_lock(&mutex)!=0){
+//if(pthread_mutex_lock(&db->mutex_lock)!=0){
+if(pthread_mutex_lock(&mutex)!=0){
   perror("error: mutex_lock in kvdb_get");
   return NULL;
 }
 
 char *result=kvdb_get_origin(db,key);
-if(pthread_mutex_unlock(&db->mutex_lock)!=0){
-//if(pthread_mutex_unlock(&mutex)!=0){
+//if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+if(pthread_mutex_unlock(&mutex)!=0){
   perror("error: mutex_unlock in kvdb_get");
   return NULL;
 }
@@ -165,14 +165,14 @@ if(pthread_mutex_unlock(&db->mutex_lock)!=0){
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
- // if(pthread_mutex_lock(&mutex)!=0){
+ // if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_put");
     return -1;
   }
   int result=kvdb_put_origin(db,key,value);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
-  //if(pthread_mutex_unlock(&mutex)!=0){
+ // if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_put");
     return -1;
   }
