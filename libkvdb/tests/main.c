@@ -19,7 +19,7 @@ void process_test(){
   pid_t fpid;
 
   if((fpid=fork())<0){
-    Log3(GG in fork!);
+    Log3("GG in fork!");
     return ;
   }
   else if(fpid==0){
@@ -54,7 +54,6 @@ void process_test(){
       cnt++;
     }
     char *value;
-    cnt=0;
     while(1){
       if(cnt==50)break;
       char str[3];
@@ -104,7 +103,7 @@ void process_test(){
   const char *key1="child";
   const char *key2="father";
   char *value1;
-   kvdb_open(&db, "process.db"); // BUG: should check for errors
+   kvdb_open(&db, "a.db"); // BUG: should check for errors
   value = kvdb_get(&db, key1);
   kvdb_close(&db);
   printf("[%s]: [%s]\n", key1, value);
