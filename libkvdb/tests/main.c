@@ -5,7 +5,7 @@
 
 #define Log2(format,...)\
  do { \
-    printf("\33[1;34m[%s,%d,%s] " format "\33[0m\n" \
+    printf("\33[1;34m" format "\33[0m\n" \
         ); \
   } while (0)//蓝色;
 #define Log3(format,...)\
