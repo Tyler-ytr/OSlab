@@ -168,7 +168,7 @@ void * test1(void *data){
     char *value;
 
     /*kvdb_t db;*/
-    kvdb_open(&db, "a.db"); // BUG: should check for errors
+    kvdb_open(&db, "a.db"); // BUG: should /heck for errors
     /*kvdb_put(&db, key, "three-easy-pieces");*/
     char *buf = malloc(sizeof(char)*FILESIZE);
     if (buf == NULL) handle_error("malloc failure\n");
@@ -271,7 +271,7 @@ int main(){
     //         pthread_test();
     // }
 
-    /*pthread_test(1);*/
+    pthread_test(1);
 
     kvdb_open(&db, "a.db");
     const char *key = "operating-systems";
