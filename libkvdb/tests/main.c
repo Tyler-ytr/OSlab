@@ -260,18 +260,18 @@ int pthread_test(){
 }
 
 int main(){
-    test1((void *)100);
+    //test1((void *)100);
 
-    // pid_t pid = fork();
-    // if(pid == 0){
-    //     pthread_test();
-    // }else{
-    //     pid_t ppid = fork();
-    //     if(ppid == 0)
-    //         pthread_test();
-    //     else
-    //         pthread_test();
-    // }
+    pid_t pid = fork();
+    if(pid == 0){
+        pthread_test();
+    }else{
+        pid_t ppid = fork();
+        if(ppid == 0)
+            pthread_test();
+        else
+            pthread_test();
+    }
 
     //pthread_test(1);
 
