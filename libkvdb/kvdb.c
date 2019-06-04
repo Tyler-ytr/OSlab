@@ -80,7 +80,7 @@ int kvdb_close_origin(kvdb_t *db){
 //kvdb_put建立key到value的映射，如果把db看成是一个std::map<std::string,std::string>，则相当于执行db[key] = value;。因此如果在kvdb_put执行之前db[key]已经有一个对应的字符串，它将被value覆盖。
 int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
   //新建一个备份,建的过程还爆炸那请用户自己重新来过吧。有空再考虑源文件恢复日志文件把
-  if((fp_log=fopen("log","a+"))==NULL){
+  if((fp_log=fopen("log.db","a+"))==NULL){
     level1_error("fopen log");
     return -1;
   }
