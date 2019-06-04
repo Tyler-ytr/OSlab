@@ -20,7 +20,7 @@ void process_test(){
 
   if((fpid=fork())<0){
     Log3("GG in fork!");
-    return 0;
+    return ;
   }
   else if(fpid==0){
  kvdb_t db;
@@ -72,7 +72,7 @@ void process_test(){
       key[7]=str[2];
      // printf("%s\n",str);
      value = kvdb_get(&db, key);
-     if(value==-1){
+     if((int)value==-1){
        Log3("GG in child get process!");
        return ;
      }
