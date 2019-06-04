@@ -10,42 +10,42 @@
 
 //文件锁的实现:
 
-static void set_readlock(pid_t fd){
-  struct flock lock;
-  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-  lock.l_whence=SEEK_SET;//决定l_start位置；
-  lock.l_start=0;//锁定区域开头位置
-  lock.l_len=0;//锁定区域大小; 
-  lock.l_type=F_RDLCK;//锁定的状态; 现在表示读取锁;
-  lock.l_pid=getpid();//锁定动作的进程；
+// static void set_readlock(pid_t fd){
+//   struct flock lock;
+//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+//   lock.l_whence=SEEK_SET;//决定l_start位置；
+//   lock.l_start=0;//锁定区域开头位置
+//   lock.l_len=0;//锁定区域大小; 
+//   lock.l_type=F_RDLCK;//锁定的状态; 现在表示读取锁;
+//   lock.l_pid=getpid();//锁定动作的进程；
   
-  fcntl(fd, F_SETLK, &lock);//F_SETLK:给文件上锁的参数;
+//   fcntl(fd, F_SETLK, &lock);//F_SETLK:给文件上锁的参数;
 
-}
-static void set_writelock(pid_t fd){
-  struct flock lock;
-  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-  lock.l_whence=SEEK_SET;//决定l_start位置；
-  lock.l_start=0;//锁定区域开头位置
-  lock.l_len=0;//锁定区域大小; 
-  lock.l_type=F_WRLCK;//锁定的状态; 现在表示写入锁;
-  lock.l_pid=getpid();//锁定动作的进程；
+// }
+// static void set_writelock(pid_t fd){
+//   struct flock lock;
+//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+//   lock.l_whence=SEEK_SET;//决定l_start位置；
+//   lock.l_start=0;//锁定区域开头位置
+//   lock.l_len=0;//锁定区域大小; 
+//   lock.l_type=F_WRLCK;//锁定的状态; 现在表示写入锁;
+//   lock.l_pid=getpid();//锁定动作的进程；
   
-  fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
+//   fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
 
-}
-static void file_unlock(pid_t fd){
-  struct flock lock;
-  //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
-  lock.l_whence=SEEK_SET;//决定l_start位置；
-  lock.l_start=0;//锁定区域开头位置
-  lock.l_len=0;//锁定区域大小; 
-  lock.l_type=F_UNLCK;//锁定的状态; 现在表示解锁;
-  lock.l_pid=getpid();//锁定动作的进程；
+// }
+// static void file_unlock(pid_t fd){
+//   struct flock lock;
+//   //以下的三个参数用于分段对文件加锁，若对整个文件加锁，则：l_whence=SEEK_SET, l_start=0, l_len=0
+//   lock.l_whence=SEEK_SET;//决定l_start位置；
+//   lock.l_start=0;//锁定区域开头位置
+//   lock.l_len=0;//锁定区域大小; 
+//   lock.l_type=F_UNLCK;//锁定的状态; 现在表示解锁;
+//   lock.l_pid=getpid();//锁定动作的进程；
   
-  fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
+//   fcntl(fd, F_SETLKW, &lock);//F_SETLK:给文件上锁的参数;
 
-}
+// }
 static void level1_error(const char *error){
   perror(error);
 }
@@ -58,7 +58,7 @@ static void level1_error(const char *error){
 int kvdb_open_origin(kvdb_t *db, const char *filename)
 {//绝对不安全,请记得修改;
   strcpy(db->name,filename);
-  if((db->fp=fopen(filename,"a+")==NULL)){
+  if((db->fp=fopen(filename,"a+"))==NULL){
     level1_error("fopen");
     return -1;
   };
