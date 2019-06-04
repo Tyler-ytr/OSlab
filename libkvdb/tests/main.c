@@ -87,10 +87,11 @@ int main() {
     int cnt=0;
     while(1){
       if(cnt==50)break;
-      char str[2];
+      char str[3];
      // str[0]=cnt%100+'0';
       str[0]=cnt%10+'0';
-      str[1]='\0';
+      str[1]=cnt/10+'0';
+      str[2]='\0';
       printf("%s\n",str);
       if(kvdb_put(&db,"child",str)!=0){
         Log3("GG in child process!");
