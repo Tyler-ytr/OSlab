@@ -49,7 +49,7 @@ void process_test(){
      // printf("%s\n",str);
       if(kvdb_put(&db,key,str)!=0){
         Log3("GG in child put process!");
-        return 0;
+        return ;
       }
       cnt++;
     }
@@ -74,7 +74,7 @@ void process_test(){
      value = kvdb_get(&db, key);
      if(value==-1){
        Log3("GG in child get process!");
-       return 0;
+       return ;
      }
      free(value);
      if(cnt==30){
@@ -84,7 +84,7 @@ void process_test(){
     }
     kvdb_close(&db);
 
-    return 0;
+    return ;
 
   }else{
  kvdb_t db;
