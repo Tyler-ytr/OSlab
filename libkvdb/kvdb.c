@@ -157,13 +157,26 @@ static void file_recovery(kvdb_t *db,const char *error){
         offset+=temp_offset;
         _content[offset-1]='\0';
         printf("\n%s\n",_content);
+        continue;
       }
 
-
-
     };
-    return ;
-}}
+}
+
+  file_unlock(fp_log->_fileno);
+  if(fclose(fp_log)!=0){
+    GG_error("file_recovery fclose_log GG");
+    return;
+  }
+
+  file_unlock(db->fp->_fileno);
+  if(fclose(fp_log)!=0){
+    GG_error("file_recovery fclose_db GG");
+    return;
+  }
+
+
+}
 
 //kvdb_open打开filename数据库文件(例如filename指向"a.db")，并将信息保存到db中。如果文件不存在，则创建，如果文件存在，则在已有数据库的基础上进行操作。
 int kvdb_open_origin(kvdb_t *db, const char *filename)
@@ -251,22 +264,26 @@ int kvdb_put_origin(kvdb_t *db, const char *key, const char *value){
   fwrite(key,1,strlen(key),db->fp);
   if(ferror(db->fp)){
     //To be continued; recovery;
+    file_recovery(db,"fwrite key error");
     return -1;
   }
 
   fwrite("\n",1,1,db->fp);
   if(ferror(db->fp)){
     //To be continued; recovery;
+    file_recovery(db,"fwrite \n after key error");
     return -1;
   }
   fwrite(value,1,strlen(value),db->fp);
   if(ferror(db->fp)){
     //To be continued; recovery;
+    file_recovery(db,"fwrite value error");
     return -1;
   }
   fwrite("\n",1,1,db->fp);
   if(ferror(db->fp)){
     //To be continued; recovery;
+    file_recovery(db,"fwrite \n after key error");
     return -1;
   }
   return 0;
