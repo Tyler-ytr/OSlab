@@ -91,7 +91,7 @@ int main() {
       str[0]=cnt%100+'0';
       str[1]=cnt%10+'0';
       str[2]='\0';
-      printf("%s",str);
+      printf("%s\n",str);
       if(kvdb_put(&db,"child",str)!=0){
         Log3("GG in child process!");
         return 0;
