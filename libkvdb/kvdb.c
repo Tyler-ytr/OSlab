@@ -110,12 +110,14 @@ char *kvdb_get_origin(kvdb_t *db, const char *key){
 int kvdb_open(kvdb_t *db, const char *filename){
 //  pthread_mutex_init(&db->mutex_lock,NULL);
 
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_open");
     return -1;
   }
   int result=kvdb_open_origin(db,filename);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_open");
     return -1;
   }
@@ -123,12 +125,14 @@ int kvdb_open(kvdb_t *db, const char *filename){
 }
 
 int kvdb_close(kvdb_t *db){
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_close");
     return -1;
   }
   int result=kvdb_close_origin(db);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_close");
     return -1;
   }
@@ -138,13 +142,15 @@ int kvdb_close(kvdb_t *db){
 
 
 char *kvdb_get(kvdb_t *db, const char *key){
-if(pthread_mutex_lock(&db->mutex_lock)!=0){
+//if(pthread_mutex_lock(&db->mutex_lock)!=0){
+if(pthread_mutex_lock(&mutex)!=0){
   perror("error: mutex_lock in kvdb_get");
   return NULL;
 }
 
 char *result=kvdb_get_origin(db,key);
-if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+//if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+if(pthread_mutex_unlock(&mutex)!=0){
   perror("error: mutex_unlock in kvdb_get");
   return NULL;
 }
@@ -152,12 +158,14 @@ if(pthread_mutex_unlock(&db->mutex_lock)!=0){
 }
 
 int kvdb_put(kvdb_t *db, const char *key, const char *value){
-  if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_lock(&db->mutex_lock)!=0){
+  if(pthread_mutex_lock(&mutex)!=0){
     perror("error: mutex_lock in kvdb_put");
     return -1;
   }
   int result=kvdb_put_origin(db,key,value);
-  if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  //if(pthread_mutex_unlock(&db->mutex_lock)!=0){
+  if(pthread_mutex_unlock(&mutex)!=0){
     perror("error: mutex_unlock in kvdb_put");
     return -1;
   }
