@@ -273,7 +273,7 @@ int main(){
     //         pthread_test();
     // }
 
-    pthread_test(1);
+   // pthread_test(1);
 
     kvdb_open(&db, "a.db");
     const char *key = "operating-systems";
@@ -285,5 +285,10 @@ int main(){
     printf("[%s]:[%s]\n", key, value);
     free(value);
     kvdb_close(&db);
+
+    //just for test
+    pid_t fp;
+    fp=fopen("a.db","w");
+    fwrite("yignyingying",1,strlen("yingyingying"),fp);
     return 0;
 }
