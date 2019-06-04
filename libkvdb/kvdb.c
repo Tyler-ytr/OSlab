@@ -142,7 +142,7 @@ static void file_recovery(kvdb_t *db,const char *error){
       
       }
       else{
-        int temp_offset=sprintf(_content+offset,"%s\n",_origin);
+         temp_offset=sprintf(_content+offset,"%s\n",_origin);
 
 
         offset+=temp_offset;
