@@ -131,7 +131,7 @@ int kvdb_close(kvdb_t *db){
     perror("error: mutex_unlock in kvdb_close");
     return -1;
   }
-  pthread_mutex_destroy(db);
+  pthread_mutex_destroy(&db->mutex_lock);
   return result;
 }
 
