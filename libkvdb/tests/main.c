@@ -274,7 +274,7 @@ int main(){
     //         pthread_test();
     // }
 
-    //pthread_test(1);
+    pthread_test(1);
 
     kvdb_open(&db, "a.db");
     const char *key = "operating-systems";
