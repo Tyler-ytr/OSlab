@@ -154,6 +154,7 @@
 #include <pthread.h>
 #include <stdint.h>
 #include <assert.h>
+ #include <unistd.h>
 
 #define NUMTHREADS 100
 #define TESTNUM 100
