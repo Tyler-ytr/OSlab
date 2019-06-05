@@ -184,6 +184,7 @@ int kvdb_open_origin(kvdb_t *db, const char *filename)
   strcpy(db->name,filename);
   if((db->fp=fopen(filename,"a+"))==NULL){
     level1_error("fopen");
+    file_recovery(db,"kvdb_open_origin fopen");
     
     return -1;
   };
@@ -194,7 +195,11 @@ int kvdb_open_origin(kvdb_t *db, const char *filename)
 
 //kvdb_close关闭数据库并释放相关资源。关闭后的kvdb_t将不再能执行put/get操作；但不影响其他打开的kvdb_t。
 int kvdb_close_origin(kvdb_t *db){
-  fclose(db->fp);
+ if( fclose(db->fp)!=0){
+   level1_error("fclose");
+   return -1;
+ }
+  
   return 0;
 }
 //kvdb_put建立key到value的映射，如果把db看成是一个std::map<std::string,std::string>，则相当于执行db[key] = value;。因此如果在kvdb_put执行之前db[key]已经有一个对应的字符串，它将被value覆盖。
@@ -308,6 +313,12 @@ char *kvdb_get_origin(kvdb_t *db, const char *key){
       result = strdup(_value);
     }
     
+  }
+
+  if(ferror(db->fp)){
+    level1_error("kvdb_get error!");
+
+    return NULL;
   }
   return result;
 
