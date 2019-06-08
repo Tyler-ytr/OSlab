@@ -163,4 +163,14 @@ typedef struct HANDLER_LIST{
 #define MAX_STACK_SIZE 4096*2
 static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
+
+//下面是关于 vfs的内容:
+
+
+
+
+
+
+
+
 #endif
