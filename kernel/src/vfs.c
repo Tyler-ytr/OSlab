@@ -33,7 +33,13 @@ MODULE_DEF(vfs) {
 };
 
 
-void vfs_init();
+void vfs_init(){
+
+
+
+  ;
+}
+
   int vfs_access(const char *path, int mode);
   int vfs_mount(const char *path, filesystem_t *fs);
   int vfs_unmount(const char *path);
@@ -46,6 +52,14 @@ void vfs_init();
   ssize_t vfs_write(int fd, void *buf, size_t nbyte);
   off_t vfs_lseek(int fd, off_t offset, int whence);
   int vfs_close(int fd);
+
+
+
+
+
+  void ext2ops_init(struct filesystem *fs, const char *name, dev_t *dev){
+    ext2_init(fs,name,dev);
+  }
 
 
 

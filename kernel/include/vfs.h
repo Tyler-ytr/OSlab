@@ -6,6 +6,8 @@ typedef struct indeops indeops_t;
 typedef struct inode inode_t;
 typedef struct filesystem fs_t;
 
+#define MAX_FILE_NAME 256
+
 struct inode {
   
   int refcnt;      //次数;
@@ -14,7 +16,17 @@ struct inode {
  // inodeops_t *ops; // 在inode被创建时，由文件系统的实现赋值
                    // inode ops也是文件系统的一部分
   int mode;       //文件格式;
-  
+  uint16_t can_read;
+  uint16_t can_write; 
+};
+struct file{
+    char name[MAX_FILE_NAME];
+    //fileops_t *ops;
+    inode_t *f_inode;
+    int open_offset;
+    int fd;
+    uint16_t can_read;
+    uint16_t can_write;
 };
 // struct inodeops {
 //   int (*open)(file_t *file, int flags);
@@ -30,9 +42,10 @@ struct inode {
 // };
 
 struct filesystem {
-  void*fs;
+  void*fs;//指向某一个操作系统的缓冲;
   fsops_t *ops;
   dev_t *dev;
+  filesystem_t * next_filesystem;
 };
 struct fsops {
   void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
