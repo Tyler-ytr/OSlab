@@ -60,6 +60,7 @@ void vfs_init(){
   void ext2ops_init(struct filesystem *fs, const char *name, dev_t *dev){
     ext2_init(fs,name,dev);
   }
+  inode_t *ext2ops_lookup(struct filesystem *fs, const char *path, int flags){;}
 
 
 

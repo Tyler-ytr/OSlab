@@ -305,6 +305,9 @@ uint32_t ext2_research_file(ext2_t *ext2,char *name,int file_type,
 
 
 
+//下面是交给vfs的借口;
+
+
 
 
 
