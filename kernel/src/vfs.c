@@ -108,7 +108,7 @@ void vfs_init(){
     return 0;
 
   }
-  int vfs_lose(int fd){
+  int vfs_close(int fd){
     assert(0);
     return 0;
 
