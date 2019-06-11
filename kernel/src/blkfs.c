@@ -280,7 +280,7 @@ void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
 
 //根据文件名文件类型,在当前目录里面寻找文件,并且把文件信息存到inode_num,block_num,dir_num 中;
 //如果找不到,那么返回0,找到了就返回1;
-uint32_t ext2_research_file(ext2_t *ext2,char *name,int file_type
+uint32_t ext2_research_file(ext2_t *ext2,char *name,int file_type,
                            uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num)
 {
   ext2_rd_ind(ext2,ext2->current_dir);//获得当前的目录节点信息,记录到ext2->inode上面;
