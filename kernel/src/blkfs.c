@@ -22,7 +22,8 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   //初始化super block;
   ext2->sb.disk_size=DISK_SIZE;
   ext2->sb.blocks_per_group=BLK_PER_GROUP;
-  ext2->sb.volume_name=VOLUME_NAME;
+  //ext2->sb.volume_name=VOLUME_NAME;
+  strcpy(ext2->sb.volume_name,VOLUME_NAME);
   ext2_wr_sb(ext2);
 
   //初始化gdt;

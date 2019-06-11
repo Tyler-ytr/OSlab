@@ -16,6 +16,7 @@
 #define VOLUME_NAME "EXT2FS"               // volume name
 #define BLK_PER_GROUP (4096)               //block per group
 
+
 #define INODE_TABLE_COUNT 4096
 #define DATA_BLOCK_COUNT 4096  
 
@@ -107,6 +108,15 @@ void ext2_rd_inodebitmap(ext2_t* ext2);
 void ext2_wr_inodebitmap(ext2_t* ext2);
 void ext2_rd_datablock(ext2_t* ext2, uint32_t i);
 void ext2_wr_datablock(ext2_t* ext2, uint32_t i);
+
+uint32_t ext2_alloc_block(ext2_t* ext2);
+void ext2_remove_block(ext2_t * ext2,uint32_t del_num);
+uint32_t ext2_alloc_inode(ext2_t * ext2);
+void ext2_remove_inode(ext2_t * ext2,uint32_t del_num);
+void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type);
+uint32_t ext2_research_file(ext2_t *ext2,char *name,int file_type
+                           uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num);
+
 
 void ext2_ls(ext2_t* ext2, char* dirname, char* out);
 
