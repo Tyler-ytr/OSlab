@@ -212,6 +212,39 @@ uint32_t tmp = (del_num - 1) / 8;
 
 }
 
+//关于目录项的初始化;
+void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
+ // enum { TYPE_FILE = 1, TYPE_DIR = 2 };
+  ext2_rd_ind(ext2,index);//取出相应index的inode;
+  if(type==2){
+    ext2->ind.size=2*DIR_SIZE;      //存放 '.' '..'; 修改inode的大小;
+    ext2->ind.blocks=1;//只使用到一个块;
+    ext2->ind.block[0]=ext2_alloc_block(ext2);//新建块;
+    ext2->dir[0].inode=index;     //给目录项inode赋值;
+    ext2->dir[1].inode=ext2->current_dir;//给'..'的inode赋值为当前的目录;
+    ext2->dir[0].name_len=len;
+    ext2->dir[1].name_len=ext2->current_dir_name_len;
+    ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+
+    for(int i=2;i<DIR_AMUT;i++){
+      ext2->dir[i].inode=0;//将无用的目录项赋值为0;
+    }
+
+    strcpy(ext2->dir[0].name,".");
+    strcpy(ext2->dir[1].name,"..");
+
+    ext2_wr_dir(ext2,ext2->ind.block[0]);
+    ext2->ind.mode=01006;/* drwxrwxrwx:目录 */
+  }
+  else{//文件初始化;
+    ext2->ind.size=0;
+    ext2->ind.blocks=0;
+    ext2->ind.mode=00407;
+  }
+
+  ext2_wr_ind(ext2,index);
+
+}
 
 
 
