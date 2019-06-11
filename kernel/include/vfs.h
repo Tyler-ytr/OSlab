@@ -4,7 +4,7 @@
 typedef struct fsops fsops_t;
 typedef struct indeops indeops_t;
 typedef struct inode inode_t;
-typedef struct filesystem fs_t;
+typedef struct filesystem filesystem_t;
 
 struct inode {
   
