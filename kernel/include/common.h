@@ -4,7 +4,7 @@
 #include <kernel.h>
 #include <nanos.h>
 #include <klib.h>
-
+#include "vfs.h"
 #include "debug.h"
 
 //<<<<<<< HEAD
@@ -164,9 +164,23 @@ typedef struct HANDLER_LIST{
 static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
 
-//下面是关于 vfs的内容:
+// //下面是关于 vfs的内容:
+// #define MAX_FS_NAME_LEN 128
+// #define MAX_INODE_NAME_LEN 128
+// #define BLOCKSIZE 1024
+// typedef struct filesystem filesystem_t;
+// typedef struct fsops fsops_t;
+// typedef struct file file_t;
+// typedef struct inode inode_t;
 
 
+
+// struct filesystem{
+//   char name[MAX_FS_NAME_LEN];
+
+
+
+// };
 
 
 
