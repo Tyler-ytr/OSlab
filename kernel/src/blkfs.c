@@ -12,11 +12,41 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   for (int i = 0; i < MAX_OPEN_FILE_AMUT; i++){
     ext2->file_open_table[i] = 0;
     }
+
+  //初始化缓冲区;
+  ext2_rd_ind(ext2,1);
+  ext2_rd_dir(ext2,0);//第零块数据区保留作为根目录;
+  ext2_rd_sb(ext2);
+  ext2_rd_gd(ext2);
   
+  //初始化super block;
+  ext2->sb.disk_size=DISK_SIZE;
+  ext2->sb.blocks_per_group=BLK_PER_GROUP;
+  ext2->sb.volume_name=VOLUME_NAME;
+  ext2_wr_sb(ext2);
 
+  //初始化gdt;
 
-;
+  ext2->gdt.block_bitmap=BLK_BITMAP;
+  ext2->gdt.inode_bitmap=IND_BITMAP;
+  ext2->gdt.inode_table=INDT_START;//初始化各个块地址;
+  ext2->gdt.free_blocks_count=DATA_BLOCK_COUNT;//所有的都能用;
+  ext2->gdt.free_inodes_count=INODE_TABLE_COUNT;//+1
+  ext2->gdt.used_dirs_count=0;//本组目录个数为0;
+  ext2_wr_gd(ext2);
 
+  //初始化inode；
+  ext2->current_dir=ext2_alloc_block(ext2);
+  strcpy(ext2->current_dir_name,"/");
+  ext2_wr_ind(ext2,ext2->current_dir);
+
+  ext2->dir[0].inode=ext2->dir[1].inode=ext2->current_dir;//根目录的. ..都是根目录
+  ext2->dir[0].name_len=ext2->dir[1].name_len=0;//文件名长度为0,隐藏文件;
+  ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+
+  strcpy(ext2->dir[0].name,".");
+  strcpy(ext2->dir[1].name,"..");
+  ext2_wr_dir(ext2,ext2->ind.block[0]);
 
 }
 //基本的小型操作
@@ -43,7 +73,7 @@ void ext2_wr_ind(ext2_t* ext2, uint32_t i){
 }
 void ext2_rd_dir(ext2_t* ext2, uint32_t i){
    uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
-  ext2->dev->ops->read(ext2->dev, offset, &ext2->dir, BLK_SIZE);//从第i块磁盘上面读取目录项信息;
+  ext2->dev->ops->read(ext2->dev, offset, &ext2->dir, BLK_SIZE);//从第i块block上面读取目录项信息;
 }
 void ext2_wr_dir(ext2_t* ext2, uint32_t i){
   uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
@@ -247,8 +277,30 @@ void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
 }
 
 
+//根据文件名文件类型,在当前目录里面寻找文件,并且把文件信息存到inode_num,block_num,dir_num 中;
+//如果找不到,那么返回0,找到了就返回1;
+uint32_t ext2_research_file(ext2_t *ext2,char *name,int file_type
+                           uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num)
+{
+  ext2_rd_ind(ext2,ext2->current_dir);//获得当前的目录节点信息,记录到ext2->inode上面;
 
-
+  for(uint32_t j=0;j<ext2->ind.blocks;j++){
+    ext2_rd_dir(ext2,ext2->ind.block[j]);
+      for(uint32_t k=0;k<DIR_AMUT;){
+        if(!ext2->dir[k].inode||ext2->dir[k].file_type!=file_type){
+          k++;
+        }
+        else{
+          *inode_num=ext2->dir[k].inode;
+          *block_num=j;
+          *dir_num=k;
+          return 1;
+        }
+      }
+  }
+  return 0;
+  
+}
 
 
 

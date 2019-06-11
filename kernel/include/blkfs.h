@@ -14,7 +14,7 @@
 #define DISK_SIZE (DATA_SIZE + 512)        // disk size(blocks)
 #define EXT2_N_BLOCKS (12)                 // ext2 inode blocks
 #define VOLUME_NAME "EXT2FS"               // volume name
-
+#define BLK_PER_GROUP (4096)               //block per group
 
 #define INODE_TABLE_COUNT 4096
 #define DATA_BLOCK_COUNT 4096  
@@ -74,10 +74,10 @@ typedef struct directory dir_t;
 #define MAX_OPEN_FILE_AMUT (16)
 
 struct ext2 {
-  struct super_block sb;        //超级快
-  struct group_desc gdt;        //组
-  struct inode_ext2 ind;             //inode块
-  struct directory dir[DIR_AMUT];//目录项
+  struct super_block sb;        //超级快缓冲区
+  struct group_desc gdt;        //组描述缓冲区
+  struct inode_ext2 ind;             //inode块缓冲区
+  struct directory dir[DIR_AMUT];//目录项缓冲区
   unsigned char blockbitmapbuf[BLK_SIZE];//bitmap
   unsigned char inodebitmapbuf[BLK_SIZE];//inodebitmap
   unsigned char datablockbuf[BLK_SIZE];
@@ -85,8 +85,8 @@ struct ext2 {
   uint32_t last_alloc_inode;//最近分配的数据块号
   uint32_t current_dir;//当前目录的节点号
   uint32_t current_dir_name_len;//当前目录的name长度
-  uint32_t file_open_table[MAX_OPEN_FILE_AMUT];//
-  char current_dir_name[256];
+  uint32_t file_open_table[MAX_OPEN_FILE_AMUT];//文件打开表
+  char current_dir_name[256];//当前路径名
   device_t* dev;//设备
 };
 
