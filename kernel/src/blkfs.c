@@ -83,7 +83,7 @@ uint32_t ext2_alloc_block(ext2_t* ext2){//新建一个块;
     printf("Error: There is no block to be allocked!!");
     return -1;
   }
-  ext2_rd_blockbitmap();
+  ext2_rd_blockbitmap(ext2);
   while(ext2->blockbitmapbuf[cur]==0xff){//直到扫到某一块是空的也就是不是0xff{
     if(cur==BLK_SIZE-1){
       cur=0;//从0开始重新搜;

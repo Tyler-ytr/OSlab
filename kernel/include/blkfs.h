@@ -43,7 +43,7 @@ struct group_desc {
   char pad[4];                  //填充
 };
 
-struct inode {
+struct inode_ext2 {
   /* inode, 64 bytes */
   uint16_t mode;                  //文件类型以及访问的权限'
   uint32_t blocks;                //文件的数据块个数(0-7)
@@ -63,7 +63,7 @@ struct directory {
 };
 typedef struct super_block sb_t;
 typedef struct group_desc gd_t;
-typedef struct inode ind_t;
+typedef struct inode_ext2 ind_t;
 typedef struct directory dir_t;
 
 #define SB_SIZE (sizeof(sb_t))
