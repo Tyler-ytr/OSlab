@@ -109,7 +109,7 @@ uint32_t ext2_alloc_block(ext2_t* ext2){//新建一个块;
 
 void ext2_remove_block(ext2_t * ext2,uint32_t del_num){//del_num:要删除的块号;
 
-  uint32_t temp=del_num/8; //一个数记录8个block信息;
+  uint32_t tmp=del_num/8; //一个数记录8个block信息;
   ext2_rd_blockbitmap(ext2);
   switch(del_num%8){
     case 0:
