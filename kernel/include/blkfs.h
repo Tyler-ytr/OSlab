@@ -76,7 +76,7 @@ typedef struct directory dir_t;
 struct ext2 {
   struct super_block sb;        //超级快
   struct group_desc gdt;        //组
-  struct inode ind;             //inode块
+  struct inode_ext2 ind;             //inode块
   struct directory dir[DIR_AMUT];//目录项
   unsigned char blockbitmapbuf[BLK_SIZE];//bitmap
   unsigned char inodebitmapbuf[BLK_SIZE];//inodebitmap
