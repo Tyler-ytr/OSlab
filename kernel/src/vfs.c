@@ -90,7 +90,7 @@ void vfs_init(){
 
   }
   int vfs_open(const char *path, int flags){
-    assert(0);
+    //assert(0);
     return 0;
   }
   ssize_t vfs_read(int fd, void *buf, size_t nbyte){

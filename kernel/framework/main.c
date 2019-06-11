@@ -55,3 +55,46 @@ static void echo_task2(void *arg){
     tty->ops->write(tty,0,text,strlen(text));
   }
 }
+
+
+// void shell_thread(int tty_id) {
+//   char buf[128];
+//   sprintf(buf, "/dev/tty%d", tty_id);
+//   //int stdin = vfs->open(buf, O_RDONLY);
+//   //int stdout = vfs->open(buf, O_WRONLY);
+//   while (1) {
+//     if (got_a_line()) {
+//        ...
+//     } else {
+//       ssize_t nread = fs->read(stdin, buf, sizeof(buf));
+//       ...
+//     }
+//     // supported commands:
+//     //   ls
+//     //   cd /proc
+//     //   cat filename
+//     //   mkdir /bin
+//     //   rm /bin/abc
+//     //   ...
+//   }
+// }
+
+
+static void shell_task(void *arg){
+  char *name=(char*)arg;
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
+  char text[128]="",line[128]="";
+  device_t *tty=dev_lookup(name);
+  while(1){
+    sprintf(text,"(%s)$",name);
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
+    tty->ops->write(tty,0,text,strlen(text));
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
+    int nread=tty->ops->read(tty,0,line,sizeof(line));
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
+    line[nread-1]='\0';
+    sprintf(text,"Echo:%s.\n",line);
+  printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
+    tty->ops->write(tty,0,text,strlen(text));
+  }
+}
