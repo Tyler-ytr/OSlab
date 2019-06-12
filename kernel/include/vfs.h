@@ -55,7 +55,7 @@ int vit_lookup_one(char *name,int dir_index);//在index=dir_index的目录找nam
 struct vinodeops {
   int (*open)(int index, int flags);//用vit_lookup(char *name)找到相应的index，调用open,就会在当前的task.flides表里面找到一个可用的块,并且做好初始化，返回fd;
   int (*close)(int fd);       //根据fd在flides表里面删除这一块;
-  ssize_t (*read)(int fd, char *buf, size_t size)//在编号为fd的内容里面根据fd的offset读取size大小的内容到buf里面,可能需要底层的read,write允许跨块读,但是问题不大;
+  ssize_t (*read)(int fd, char *buf, size_t size);//在编号为fd的内容里面根据fd的offset读取size大小的内容到buf里面,可能需要底层的read,write允许跨块读,但是问题不大;
   ssize_t (*write)(int fd, const char *buf, size_t size);
   off_t (*lseek)(int fd, off_t offset, int whence);//whence有三个参数: SEEK_SET,SEEK_CUR,SEEK_END,开头,当下,最后;
   int (*mkdir)(const char *name,int index);//没想好是支持绝对路径还是相对路径,相对路径的话需要知道当前目录,需要再加一个index参数;
@@ -68,12 +68,12 @@ struct file{
     int exist;        //这个块活着吗？在flides里面用到;
     char name[MAX_FILE_NAME];
     int refcnt;       //表示现在开了几个,初始化为一个,在open里面++,close里面--,为0的时候从flides里面去掉;
-    inode_t *f_inode;//可以用下面的inode_num算到,但是调用的时候还是下面的直接调用dev方便;
     uint32_t vinode_index;//所处的vinode表里面的index;
     uint32_t rinode_index;//可以删;也可以减少一层调用,存放rinode的位置;
 
     int open_offset;   //储存现在的偏移量;
     int fd;           //储存自己在flides数组里面的编号;
+    //随用随加;
     uint16_t can_read;
     uint16_t can_write;
 };
