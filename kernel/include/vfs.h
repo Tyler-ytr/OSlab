@@ -37,7 +37,7 @@ struct vinode {//暂时只允许单级cd;
   int prelink;
   int nextlink;
   //一开始的真实文件prelink,nextlink都是自身;加入一个link a之后 original.nextlink=a,a.prelink=original; 
-
+  //prelink是自身的保证是真实的文件;
   //只读只写等操作,随用随加;
   uint16_t can_read;
   uint16_t can_write; 
@@ -93,7 +93,7 @@ struct filesystem {
 struct fsops {
   void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
   int (*lookup)(void *fs, const char *path, int flags);
-  int (*close)(inode_t *inode);
+  int (*close)(int index);
 };
 
 struct mount_path_point{
