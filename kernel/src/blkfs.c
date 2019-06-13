@@ -312,28 +312,28 @@ int ext2_search_file(ext2_t* ext2, uint32_t idx) {
 //下面是交给vfs的借口;
 
 
-ind_t* ext2_open(ext2_t * ext2,char * file_name){
-  uint32_t flag,i,j,k;//inode block dir
-  flag=ext2_research_file(ext2,file_name,TYPE_FILE,&i,&j,&k);
+// ind_t* ext2_open(ext2_t * ext2,char * file_name){
+//   uint32_t flag,i,j,k;//inode block dir
+//   flag=ext2_research_file(ext2,file_name,TYPE_FILE,&i,&j,&k);
 
-  if(flag){
-    if(ext2_search_file(ext2,ext2->dir[k].inode)){
-      printf("Error:The file %s has opened!\n",file_name);
-    }
-    else{
-      flag=0;
-      while(ext2->file_open_table[flag]){
-        flag++;
-      }
-      ext2->file_open_table[flag]=ext2->dir[k].inode;
-      printf("File %s opened\n",file_name);
-    }
-  }
-  else{
-    printf("The file %s doesn't exist!\n");
-  }
+//   if(flag){
+//     if(ext2_search_file(ext2,ext2->dir[k].inode)){
+//       printf("Error:The file %s has opened!\n",file_name);
+//     }
+//     else{
+//       flag=0;
+//       while(ext2->file_open_table[flag]){
+//         flag++;
+//       }
+//       ext2->file_open_table[flag]=ext2->dir[k].inode;
+//       printf("File %s opened\n",file_name);
+//     }
+//   }
+//   else{
+//     printf("The file %s doesn't exist!\n");
+//   }
 
-}
+// }
 
 
 
