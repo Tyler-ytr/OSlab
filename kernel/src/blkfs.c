@@ -341,21 +341,21 @@ ind_t* ext2_open(ext2_t * ext2,char * file_name){
 
 
 
-// 交给shell的测试函数;
-void ext2_cd(ext2_t *ext2,char*name,char * current_dir){
-  uint32_t flag,i,j,k;//inode block dir
+// // 交给shell的测试函数;
+// void ext2_cd(ext2_t *ext2,char*name,char * current_dir){
+//   uint32_t flag,i,j,k;//inode block dir
 
-  if(strcmp(name,"../")==0){
-    name[2]='\0';//../==..;
-  }
-  else if(strcmp(name,"./")==0){
-    name[2]='\0';//../==..;
-  }
+//   if(strcmp(name,"../")==0){
+//     name[2]='\0';//../==..;
+//   }
+//   else if(strcmp(name,"./")==0){
+//     name[2]='\0';//../==..;
+//   }
 
-  flag=ext2_research_file(name,2,&i,&j,&k);
-  if(flag){
-;
-  }
+//   flag=ext2_research_file(name,2,&i,&j,&k);
+//   if(flag){
+// ;
+//   }
 
-}
+// }
 
