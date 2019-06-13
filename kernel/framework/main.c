@@ -88,14 +88,17 @@ static void shell_task(void *arg){
   device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
-  //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     tty->ops->write(tty,0,text,strlen(text));
-  //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     int nread=tty->ops->read(tty,0,line,sizeof(line));
-  //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     line[nread-1]='\0';
+    
+    printf("read: %s\n",line);
+    
+    
+    
+    
     sprintf(text,"Echo:%s.\n",line);
-  //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     tty->ops->write(tty,0,text,strlen(text));
+
   }
 }
