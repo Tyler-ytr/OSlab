@@ -21,6 +21,11 @@ vinode_t vit[MAX_VINODE_NUM];
   off_t vfs_lseek(int fd, off_t offset, int whence);
   int vfs_close(int fd);
 
+
+  void vfs_init(){
+    return ;
+  }
+
 MODULE_DEF(vfs) {
   .init   = vfs_init,
   .access=vfs_access,
