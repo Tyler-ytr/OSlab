@@ -1,5 +1,11 @@
 #include <blkfs.h>
 #include <vfs.h>
+//全局变量;
+vinode_t vit[MAX_VINODE_NUM];
+int
+
+
+
 
 
 void vfs_init();
@@ -34,7 +40,7 @@ MODULE_DEF(vfs) {
 
 
 void vfs_init(){
-
+  
 
 
   ;

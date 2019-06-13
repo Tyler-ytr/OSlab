@@ -9,9 +9,10 @@ typedef struct mount_path_point mpp_t;
 typedef struct filesystem fs_t;
 typedef struct file file_t;
 
-#define MAX_FILE_NAME 256
+#define MAX_FILE_NAME 64
 #define MAX_PATH_LENGTH 256
 #define MAX_NAME_LENGTH 64
+#define MAX_VINODE_NUM 128
 //enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
@@ -47,7 +48,8 @@ struct vinode {//暂时只允许单级cd;
 //下面是关于vinode_table操作的函数;
 int vit_item_alloc();//在vinode_table里面找到一个空块返回一个index;
 void vit_item_free(int index);//在vinode_table 里面释放这个空块;
-int vit_lookup(char *name);//遍历vinode表,匹配name,返回inode;如果不存在返回-1;
+int vit_lookup_root(char *name);//从根目录开始遍历找;如果不存在返回-1;
+int vit_lookup_auto(char *path);//自动找path;
 int vit_lookup_one(char *name,int dir_index);//在index=dir_index的目录找name匹配的文件;
 
 
