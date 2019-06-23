@@ -12,8 +12,8 @@ static int vit_init();
 static int vit_item_alloc();//在vinode_table里面找到一个空块返回一个index;
 static void vit_item_free(int index);//在vinode_table 里面释放这个空块;
 static int vit_lookup_root(char *name);//从根目录开始遍历找;如果不存在返回-1;
-static int vit_lookup_auto(char *path);//自动找path;
-static int vit_lookup_cur(char *name,int check,int dir_index);//在index=dir_index的目录找name匹配的文件;
+//static int vit_lookup_auto(char *path);//自动找path;
+//static int vit_lookup_cur(char *name,int check,int dir_index);//在index=dir_index的目录找name匹配的文件;
 static int vit_init(){
   for (int i = 0;i<MAX_VINODE_NUM;i++){
     vit[i].exist=0;//不存在;
@@ -42,14 +42,14 @@ static int vit_lookup_cur(char *name,int check,int dir_index){
 return 0;
 }
 
-static int vit_lookup_root(char *name)//从根目录开始遍历找;如果不存在返回-1;
-{
-  return 0 ;
-}
-static int vit_lookup_auto(char *path)//自动找path;
-{
-  return 0;
-}
+//static int vit_lookup_root(char *name)//从根目录开始遍历找;如果不存在返回-1;
+//{
+ // return 0 ;
+//}
+//static int vit_lookup_auto(char *path)//自动找path;
+//{
+//  return 0;
+//}
 
 
 
