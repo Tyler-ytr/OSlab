@@ -50,11 +50,6 @@ static int vit_lookup_auto(char *path)//自动找path;
 {
   return 0;
 }
-static int vit_lookup_cur(char *name,int check,int dir_index)//在index=dir_index的目录找name匹配的文件;
-{
-  return 0;
-}
-
 
 
 
