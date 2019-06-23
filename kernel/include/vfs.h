@@ -100,7 +100,7 @@ struct mount_path_point{
   int index;//vinode table里面的内容;
 };
 
-  int vfs_init();
+  void vfs_init();
   int vfs_access(const char *path, int mode);
   int vfs_mount(const char *path, filesystem_t *fs);
   int vfs_unmount(const char *path);
