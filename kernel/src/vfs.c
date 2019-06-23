@@ -93,6 +93,7 @@ static int vit_lookup_root(char *path,int * check){
   return vit_lookup_cur(path+1,check,0);//0是根目录的inode;
 }
 static int vit_lookup_real(char *path,int * check){//调用底层的fs并建立树结构;
+return 0;
 
 }
 
