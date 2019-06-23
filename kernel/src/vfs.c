@@ -58,7 +58,7 @@ static int vit_lookup_cur(char *path,int* check,int dir_index){//从cur这个目
 
   int name_len=first_name_len(path);
   int success=0;
-  for(int i=vinode[cur].child;i!=-1;i=vinode[cur].next){
+  for(int i=vinode[dir_index].child;i!=-1;i=vinode[cur].next){
     if(strncmp(vinode[i].name,path,name_len)==0){
       printf("In vit_lookup_cur: Match!\n")
       success=i;
@@ -116,6 +116,7 @@ static int vit_lookup_real(char *path,int * check){//调用底层的fs并建立�
 
 
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
+
 
 
   void vfs_init();

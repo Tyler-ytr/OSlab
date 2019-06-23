@@ -14,7 +14,7 @@ typedef struct file file_t;
 #define MAX_NAME_LENGTH 64
 #define MAX_VINODE_NUM 1024
 #define MAX_FS_NUM 8
-//enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1};
+enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
   //char name[MAX_NAME_LENGTH];
