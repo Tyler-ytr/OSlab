@@ -83,7 +83,7 @@ static void echo_task2(void *arg){
 
 static void shell_task(void *arg){
   char *name=(char*)arg;
-  char pwd[256];
+  //char pwd[256];
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
   char text[128]="",line[128]="";
   device_t *tty=dev_lookup(name);
