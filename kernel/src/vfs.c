@@ -69,6 +69,7 @@ return 0;
 
 
   void vfs_init(){
+    vit_init();
     return ;
   }
 
