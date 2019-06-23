@@ -59,8 +59,8 @@ static int vit_lookup_cur(char *path,int* check,int dir_index){//从cur这个目
   int name_len=first_name_len(path);
   int success=0;
   for(int i=vit[dir_index].child;i!=-1;i=vit[dir_index].next){
-    if(strncmp(vit[i].name,path,name_len)==0){
-      printf("In vit_lookup_cur: Match!\n")
+    if(strncmp(vit[i].path,path,name_len)==0){
+      printf("In vit_lookup_cur: Match!\n");
       success=i;
       break;
     }
@@ -72,14 +72,14 @@ static int vit_lookup_cur(char *path,int* check,int dir_index){//从cur这个目
   else{
     *check=0;
     //没找到;
-    return cur;
+    return dir_index;
   }
   //目前 ....../a/b/c的.....找到了; 需要判断文件格式;如果是目录,下一个,如果是文件,下一个,会在之前的那个if判断返回;,如果是软链接,下一个;
 
   int next=success;
   while(vit[next].mode==TYPE_LINK){
-    printf("In vit_look_up: link find, from :%s -> %s",vit[next].path,vit[vit[next].next_link].path);
-    next=vit[next].next_link;
+    printf("In vit_look_up: link find, from :%s -> %s",vit[next].path,vit[vit[next].nextlink].path);
+    next=vit[next].nextlink;
   }
 
   char *next_path=path+(name_len+(path[name_len]=='/'?1:0));
