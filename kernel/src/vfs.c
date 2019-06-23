@@ -18,6 +18,9 @@ static int vit_init(){
   for (int i = 0;i<MAX_VINODE_NUM;i++){
     vit[i].exist=0;//不存在;
   }
+
+
+  return 0;
 }
 
 static int vit_item_alloc(){
@@ -36,7 +39,7 @@ static void vit_item_free(int index){
 }
 
 static int vit_lookup_cur(char *name,int check;int dir_index){
-
+return 0;
 }
 
 
