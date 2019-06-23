@@ -11,7 +11,8 @@ filesystem_t fs_table[MAX_FS_NUM];//filesystem table;
 static int vit_init();
 static int vit_item_alloc();//在vinode_table里面找到一个空块返回一个index;
 static void vit_item_free(int index);//在vinode_table 里面释放这个空块;
-static int vit_lookup_root(char *path);//从根目录开始遍历找;如果不存在返回-1;
+//static int vit_lookup_root(char *path);//从根目录开始遍历找;如果不存在返回-1;
+static int vit_lookup_root(char *path,int * check){
 //static int vit_lookup_auto(char *path);//自动找path;
 static int vit_lookup_cur(char *path,int* check,int dir_index);//在index=dir_index的目录找name匹配的文件;
 static int vit_init(){
