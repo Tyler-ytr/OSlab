@@ -2,6 +2,7 @@
 #define _BLKFS_H
 
 #include <devices.h>
+#include <vfs.h>
 
 #define BLK_SIZE (512)                     //block size=512
 #define DISK_START (0 * BLK_SIZE)          // disk offset
@@ -21,7 +22,7 @@
 #define DATA_BLOCK_COUNT 4096  
 
 
-enum { TYPE_FILE = 1, TYPE_DIR = 2 };
+//enum FILE_TYPE{ TYPE_FILE = 1, TYPE_DIR = 2,TYPE_LINK=2};
 
 struct super_block {
   /* super block, 32 bytes */
