@@ -308,6 +308,11 @@ int ext2_search_file(ext2_t* ext2, uint32_t idx) {
   return 0;
 }//看看这个文件有没有被打开过;
 
+int ext2_lookup(ext2_t *ext2,char *path,int mode){
+  return 0;
+
+}
+
 
 //下面是交给vfs的借口;
 

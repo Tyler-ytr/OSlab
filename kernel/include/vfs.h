@@ -17,7 +17,7 @@ typedef struct file file_t;
 //enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
-  char name[MAX_NAME_LENGTH];
+  //char name[MAX_NAME_LENGTH];
   int exist;        //这个块活着吗?在vit_item_free里面用到;
 //服务于树结构;  
   int dir;          //type= “文件” 所属的目录项在vinode里面的编号,如果type="目录",那么就是它自身;
@@ -42,12 +42,12 @@ struct vinode {//暂时只允许单级cd;
   //只读只写等操作,随用随加;
   int mode; 
 
-  vinodeops_t *vinodeops;//我不太会写,可能我之后会拆开;
+ // vinodeops_t *vinodeops;//我不太会写,可能我之后会拆开;
 };
 //在vfs.c里面开一个全局的vinode_t数组,假设名叫 vinode_table;
 
 
-
+/*
 struct vinodeops {
   int (*open)(int index, int flags);//用vit_lookup(char *name)找到相应的index，调用open,就会在当前的task.flides表里面找到一个可用的块,并且做好初始化，返回fd;
   int (*close)(int fd);       //根据fd在flides表里面删除这一块;
@@ -58,7 +58,7 @@ struct vinodeops {
   int (*rmdir)(const char *name,int index);
   int (*link)(const char *name, int index);//如果是存的名字,那么可能只支持一级的link;如果name是绝对路径,我还没想好;
   int (*unlink)(const char *name);//在inode的name数组里面去掉这个name,refcnt--;
-};
+};*/
 //file 在common.h的task中属于一个 属于当前进程 的 file数组flide[MAX_FILE_NUM];
 struct file{
     int exist;        //这个块活着吗？在flides里面用到;
@@ -100,7 +100,7 @@ struct mount_path_point{
   int index;//vinode table里面的内容;
 };
 
-
+  int vfs_init();
   int vfs_access(const char *path, int mode);
   int vfs_mount(const char *path, filesystem_t *fs);
   int vfs_unmount(const char *path);
