@@ -12,7 +12,8 @@ typedef struct file file_t;
 #define MAX_FILE_NAME 64
 #define MAX_PATH_LENGTH 256
 #define MAX_NAME_LENGTH 64
-#define MAX_VINODE_NUM 128
+#define MAX_VINODE_NUM 1024
+#define MAX_FS_NUM 8
 //enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
@@ -28,7 +29,6 @@ struct vinode {//暂时只允许单级cd;
   int refcnt;      //次数,link,unlink维护;
 
   uint32_t rinode_index;//存储实际文件系统的编号;仅仅适用于ext32; 可能profs,devfs也能用index编号来处理;
-  //void *ptr;       // private data,指向数据区;
   uint32_t size;   //文件总大小;在write的时候会发生改变;
   filesystem_t *fs;//从属的文件系统;
   int fs_type;    //和vfs.h中的filesystem的type对应;
@@ -40,17 +40,11 @@ struct vinode {//暂时只允许单级cd;
   //一开始的真实文件prelink,nextlink都是自身;加入一个link a之后 original.nextlink=a,a.prelink=original; 
   //prelink是自身的保证是真实的文件;
   //只读只写等操作,随用随加;
-  uint16_t can_read;
-  uint16_t can_write; 
+  int mode; 
+
   vinodeops_t *vinodeops;//我不太会写,可能我之后会拆开;
 };
 //在vfs.c里面开一个全局的vinode_t数组,假设名叫 vinode_table;
-//下面是关于vinode_table操作的函数;
-int vit_item_alloc();//在vinode_table里面找到一个空块返回一个index;
-void vit_item_free(int index);//在vinode_table 里面释放这个空块;
-int vit_lookup_root(char *name);//从根目录开始遍历找;如果不存在返回-1;
-int vit_lookup_auto(char *path);//自动找path;
-int vit_lookup_one(char *name,int dir_index);//在index=dir_index的目录找name匹配的文件;
 
 
 
