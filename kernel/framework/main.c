@@ -92,7 +92,7 @@ static void shell_task(void *arg){
     sprintf(text,"(%s)$",name);
     tty->ops->write(tty,0,text,strlen(text));
     int nread=tty->ops->read(tty,0,readbuf,sizeof(readbuf));
-    line[nread-1]='\0';
+    readbuf[nread-1]='\0';
     
     printf("read: %s\n",line);
 
