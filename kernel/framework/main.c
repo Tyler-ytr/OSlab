@@ -94,12 +94,12 @@ static void shell_task(void *arg){
     int nread=tty->ops->read(tty,0,readbuf,sizeof(readbuf));
     readbuf[nread-1]='\0';
     
-    printf("read: %s\n",line);
+    printf("read: %s\n",readbuf);
 
 
 
     
-    sprintf(text,"Echo:%s.\n",line);
+    sprintf(text,"Echo:%s.\n",readbuf);
     tty->ops->write(tty,0,text,strlen(text));
 
   }
