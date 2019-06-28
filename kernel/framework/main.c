@@ -92,7 +92,7 @@ static void error_function(device_t *tty,const char *argv){
   int offset=0;
   char text[256];
   
-  offset+=sprintf(text+offset,"command not found: %s",argv);
+  offset+=sprintf(text+offset,"command not found: %s\n",argv);
   tty->ops->write(tty,0,text,strlen(text));
 
   return;
@@ -146,7 +146,7 @@ static void shell_task(void *arg){
 
 
     
-    sprintf(text,"Echo:%s.\n",readbuf);
+    //sprintf(text,"Echo:%s.\n",readbuf);
     
     tty->ops->write(tty,0,text,strlen(text));
 
