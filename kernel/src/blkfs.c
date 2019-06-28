@@ -344,7 +344,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
       if (ext2->dir[k].inode)
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
-          buf->ridx = ext2->dir[k].inode;
+          buf->rinode_index = ext2->dir[k].inode;
           buf->type = ext2->dir[k].file_type;
           return 1;
         }
