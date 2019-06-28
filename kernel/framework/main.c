@@ -86,20 +86,18 @@ static void shell_task(void *arg){
   char *name=(char*)arg;
   //char pwd[256];
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-  char text[128]="",line[128]="";
+  char text[128]="",readbuf[128]="";
   device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
     tty->ops->write(tty,0,text,strlen(text));
-    int nread=tty->ops->read(tty,0,line,sizeof(line));
+    int nread=tty->ops->read(tty,0,readbuf,sizeof(readbuf));
     line[nread-1]='\0';
     
     printf("read: %s\n",line);
 
 
-    
-    
-    
+
     
     sprintf(text,"Echo:%s.\n",line);
     tty->ops->write(tty,0,text,strlen(text));
