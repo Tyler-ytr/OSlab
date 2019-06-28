@@ -80,11 +80,38 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
+static void ls_function(device_t *tty,char *argv,char* pwd){
+  printf("In ls");
+  return ;
+}
+static void help_function(device_t *tty,char *argv,char*pwd){
+  printf("In help");
+  return;
+}
+static void error_function(device_t *tty,const char *argv){
+  int offset=0;
+  char text[256];
+  
+  offset+=sprintf(text+offset,"command not found: %s",argv);
 
+  return;
+}
+
+struct shell_function{
+  char *function_name;
+  void (*func)(device_t *tty,char *argv,char* pwd);
+  int offset;
+}Function[]={
+  {"help ",help_function,5},
+  {"ls ",ls_fuction,3}
+};
 
 static void shell_task(void *arg){
   char *name=(char*)arg;
-  //char pwd[256];
+  int function_num=sizeof(Function)/sizeof(struct shell_functio);
+  int find_func;
+  char pwd[256];
+  pwd="/";
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
   char text[128]="",readbuf[128]="";
   device_t *tty=dev_lookup(name);
@@ -95,11 +122,29 @@ static void shell_task(void *arg){
     readbuf[nread-1]='\0';
     
     printf("read: %s\n",readbuf);
-
+    if(strcmp(readbuf,"ls")==0){
+      strcpy(readbuf,"ls .");
+    }
+    if(strcmp(readbuf,"help")==0){
+      strcpy(readbuf,"help ");
+    }
+    find_func=0;
+    for(int i=0;i<function_num;i++){
+      if(strncmp(readbuf,Function[i].name,Function[i].offset)==0)
+      {
+        (*Function[i].func)(tty,readbuf+Function[i].offset,pwd);
+        find_func=1;break; 
+      }
+    } 
+    if(find_func!=1){
+      error_function(tty,readbuf);
+    }
+    
 
 
     
     sprintf(text,"Echo:%s.\n",readbuf);
+    
     tty->ops->write(tty,0,text,strlen(text));
 
   }
