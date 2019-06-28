@@ -377,7 +377,7 @@ void ext2_cd(ext2_t* ext2, char* dirname, char* out) {//显示在out里面;
   uint32_t i, j, k, flag;
   if (!strcmp(dirname, "../")) dirname[2] = '\0';
   if (!strcmp(dirname, "./")) dirname[1] = '\0';
-  flag = ext2_reserch_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
+  flag = ext2_research_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
   if (flag) {
     ext2->current_dir = i;
   } else {
