@@ -17,7 +17,7 @@ typedef struct file file_t;
 enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
-  //char name[MAX_NAME_LENGTH];
+  char name[MAX_NAME_LENGTH];
   int exist;        //这个块活着吗?在vit_item_free里面用到;
 //服务于树结构;  
   int dir;          //type= “文件” 所属的目录项在vinode里面的编号,如果type="目录",那么就是它自身;

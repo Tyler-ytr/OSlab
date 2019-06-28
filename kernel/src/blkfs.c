@@ -334,9 +334,9 @@ int ext2_lookup(filesystem_t *fs,const char *path,int mode){
 
 }
 int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
-  ext2_t* ext2=(ext2*)fs->real_fs;
+  ext2_t* ext2=(ext2_t*)fs->real_fs;
   int cnt = 0;
-  ext2_rd_ind(ext2, ridx);
+  ext2_rd_ind(ext2, rinode_idx);
   // printf("rinode: %d, kth: %d\n", ridx, kth);
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
@@ -345,7 +345,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->ridx = ext2->dir[k].inode;
-          buf->mode = ext2->dir[k].mode;
+          buf->type = ext2->dir[k].file_type;
           return 1;
         }
     }
