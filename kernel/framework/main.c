@@ -103,7 +103,7 @@ struct shell_function{
   int offset;
 }Function[]={
   {"help ",help_function,5},
-  {"ls ",ls_fucntion,3}
+  {"ls ",ls_function,3}
 };
 
 static void shell_task(void *arg){
@@ -111,7 +111,8 @@ static void shell_task(void *arg){
   int function_num=sizeof(Function)/sizeof(struct shell_function);
   int find_func;
   char pwd[256];
-  pwd="/";
+  pwd[0]='/';
+  pwd[1]='\0';
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
   char text[128]="",readbuf[128]="";
   device_t *tty=dev_lookup(name);
@@ -130,7 +131,7 @@ static void shell_task(void *arg){
     }
     find_func=0;
     for(int i=0;i<function_num;i++){
-      if(strncmp(readbuf,Function[i].name,Function[i].offset)==0)
+      if(strncmp(readbuf,Function[i].function_name,Function[i].offset)==0)
       {
         (*Function[i].func)(tty,readbuf+Function[i].offset,pwd);
         find_func=1;break; 
