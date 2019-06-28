@@ -108,7 +108,7 @@ struct shell_function{
 
 static void shell_task(void *arg){
   char *name=(char*)arg;
-  int function_num=sizeof(Function)/sizeof(struct shell_functio);
+  int function_num=sizeof(Function)/sizeof(struct shell_function);
   int find_func;
   char pwd[256];
   pwd="/";
