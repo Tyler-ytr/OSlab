@@ -93,6 +93,7 @@ static void error_function(device_t *tty,const char *argv){
   char text[256];
   
   offset+=sprintf(text+offset,"command not found: %s",argv);
+  tty->ops->write(tty,0,text,strlen(text));
 
   return;
 }
@@ -114,13 +115,14 @@ static void shell_task(void *arg){
   pwd[0]='/';
   pwd[1]='\0';
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-  char text[128]="",readbuf[128]="";
+  char text[128]="",readbuf[128]="",origin[128];
   device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
     tty->ops->write(tty,0,text,strlen(text));
     int nread=tty->ops->read(tty,0,readbuf,sizeof(readbuf));
     readbuf[nread-1]='\0';
+    strcpy(origin,readbuf);
     
     printf("read: %s\n",readbuf);
     if(strcmp(readbuf,"ls")==0){
@@ -138,7 +140,7 @@ static void shell_task(void *arg){
       }
     } 
     if(find_func!=1){
-      error_function(tty,readbuf);
+      error_function(tty,origin);
     }
     
 
