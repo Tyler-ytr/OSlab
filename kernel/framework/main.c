@@ -103,7 +103,7 @@ struct shell_function{
   int offset;
 }Function[]={
   {"help ",help_function,5},
-  {"ls ",ls_fuction,3}
+  {"ls ",ls_fucntion,3}
 };
 
 static void shell_task(void *arg){
