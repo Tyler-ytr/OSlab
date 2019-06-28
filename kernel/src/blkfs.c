@@ -192,6 +192,39 @@ void ext2_remove_block(ext2_t * ext2,uint32_t del_num){//del_num:要删除的块
 }
 
 //对inode的操作;
+void ext2_inode_prepare(ext2_t *ext2,uint32_t index,uint32_t par,int file_type){
+  ext2_rd_ind(ext2,idx);
+  if(file_type==TYPE_DIR){
+    ext2->ind.size=2*DIR_SIZE;
+    ext2->ind.blocks=1;
+    ext2->ind.block[0]=ext2_alloc_block(ext2);
+    ext2->dir[0].indoe=index;
+    ext2->dir[1].inode=par;//父亲节点的inode；
+    ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+    for(int k=2;k<DIR_AMUT;k++){
+      ext2->dir[k].inode=0;
+    }
+    strcpy(ext2->dir[0].name,".");
+    strcpy(ext2->dir[1].name,"..");
+    ext2_wr_dir(ext2,exy2->ind.block[0]);
+    ext2->ind.mode=0x26;//maybe wrong;
+    ext2->ind.file_type=file_type;
+  }
+  else if(file_type==TYPE_FILE){
+    ext2->ind.size=0;
+    ext2->ind.blocks=0;
+    ext2->ind.mode=0x17;
+    ext2->ind.file_type=file_type;
+  }
+  else{
+    printf("Wrong type");
+    assert(0);
+  }
+  ext2_wr_ind(ext2,index);
+
+}
+
+
 uint32_t ext2_alloc_inode(ext2_t * ext2){
   uint32_t cur=(ext2->last_alloc_inode-1)/8;
   uint32_t con=0x80;                         //0b 1000 0000
@@ -411,6 +444,40 @@ void ext2_cd(ext2_t* ext2, char* dirname, char* out) {//显示在out里面;
     printf("No directory: %s\n", dirname);
   }
 }
+
+ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
+                  uint32_t len){
+  
+  //读第index个inode的block;
+  ext2_rd_ind(ext2,index);
+
+  int result=0;
+  int current_block=offset/BLK_SIZE;//之前用不到的block；
+  int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
+
+  for(int i=current_block;i<ext2->ind.blocks;i++){
+    ext2_rd_datablock(ext2,ext2->ind.block[i]);
+
+    if(i==current_block){
+      for(int j=0;j<ext->ind.size-i*BLK_SIZE;j++){
+        if(result==len||result+offset==ext2->ind.size){
+          return result;
+        }
+        result+=sprintf(buf+result,"%c",ext2->datablockbuf[j+current_offset]);
+      }
+    }else{
+      for(int j=0;j<ext->ind.size-i*BLK_SIZE;j++){
+        if(result==len||result+offset==ext2->ind.size){
+          return result;
+        }
+        result+=sprintf(buf+result,"%c",ext2->datablockbuf[j]);
+      }
+
+    }
+  }
+  return result;
+}
+
 
 void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
   uint32_t i, j, k;

@@ -51,7 +51,8 @@ struct inode_ext2 {
   uint32_t blocks;                //文件的数据块个数(0-7)
   uint32_t size;                  // the size of file 
   uint32_t block[EXT2_N_BLOCKS];  // direct or indirect blocks
-  char pad[6];
+  uint8_t file_type;
+  char pad[5];
 };
 
 struct directory {
