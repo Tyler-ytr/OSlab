@@ -88,8 +88,8 @@ struct filesystem {
 };
 struct fsops {
   void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
-  int (*lookup)(void *fs, const char *path, int flags);
-  int (*close)(int index);
+  int (*lookup)(struct filesystem *fs, const char *path, int flags);
+  int (*readdir)(struct filesystem *fs, int vinode_idx, int kth, vinode_t *buf);
 };
 
 struct mount_path_point{

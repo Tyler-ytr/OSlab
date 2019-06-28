@@ -1,6 +1,7 @@
 #include <kernel.h>
 #include <devices.h>
 #include <klib.h>
+#include <blkfs.h>//temp;
 static void echo_task(void *arg);
 static void echo_task2(void *arg);
 static void shell_task(void *arg);

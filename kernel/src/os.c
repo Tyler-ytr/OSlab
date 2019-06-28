@@ -49,6 +49,7 @@ static void os_init() {
   //printf("before dev\n");
   //assert(0);
   dev->init();
+
   printf("after init");
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 
