@@ -466,7 +466,7 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
         result+=sprintf(buf+result,"%c",ext2->datablockbuf[j+current_offset]);
       }
     }else{
-      for(int j=0;j<ext->ind.size-i*BLK_SIZE;j++){
+      for(int j=0;j<ext2->ind.size-i*BLK_SIZE;j++){
         if(result==len||result+offset==ext2->ind.size){
           return result;
         }
