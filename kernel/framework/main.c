@@ -148,7 +148,7 @@ static void shell_task(void *arg){
     
     //sprintf(text,"Echo:%s.\n",readbuf);
     
-    tty->ops->write(tty,0,text,strlen(text));
+   // tty->ops->write(tty,0,text,strlen(text));
 
   }
 }
