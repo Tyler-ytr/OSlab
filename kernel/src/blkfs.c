@@ -398,7 +398,7 @@ void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
     for (int k = 0; k < DIR_AMUT; k++) {
       if (ext2->dir[k].inode) {
         offset += sprintf(out + offset, "%s", ext2->dir[k].name);
-        if (ext2->dir[k].mode & TYPE_DIR) {
+        if (ext2->dir[k].file_type==TYPE_DIR) {
           ext2_rd_ind(ext2, ext2->dir[k].inode);
           if (!strcmp(ext2->dir[k].name, ".")) {
             flag = 0;
@@ -444,7 +444,7 @@ void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
           else
             offset += sprintf(out + offset, "%6d", ext2->ind.size);
           offset += sprintf(out + offset, "\n");
-        } else if (ext2->dir[k].mode & TYPE_FILE) {
+        } else if (ext2->dir[k].file_type== TYPE_FILE) {
           ext2_rd_ind(ext2, ext2->dir[k].inode);
           for (int j = 0; j < 15 - ext2->dir[k].name_len; j++)
             offset += sprintf(out + offset, "%c", ' ');
