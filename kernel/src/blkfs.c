@@ -12,9 +12,11 @@ static int first_item_len(const char* path){
 }
 
 
+//交给上层
 
 
-void ext2_init(fs_t * fs,const char * name ,device_t* dev){
+
+int ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2_t* ext2=(ext2_t*)fs->real_fs;
   memset(ext2, 0x00, sizeof(ext2_t));
   ext2->dev=dev;
@@ -60,6 +62,9 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[0].name,".");
   strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
+
+
+  return 1;
 
 }
 //基本的小型操作
@@ -324,9 +329,30 @@ int ext2_search_file(ext2_t* ext2, uint32_t idx) {
   return 0;
 }//看看这个文件有没有被打开过;
 
-int ext2_lookup(ext2_t *ext2,char *path,int mode){
+int ext2_lookup(filesystem_t *fs,const char *path,int mode){
   return 0;
 
+}
+int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
+  ext2_t* ext2=(ext2*)fs->real_fs;
+  int cnt = 0;
+  ext2_rd_ind(ext2, ridx);
+  // printf("rinode: %d, kth: %d\n", ridx, kth);
+  for (int i = 0; i < ext2->ind.blocks; i++) {
+    ext2_rd_dir(ext2, ext2->ind.block[i]);
+    for (int k = 0; k < DIR_AMUT; k++) {
+      if (ext2->dir[k].inode)
+        if (++cnt == kth) {
+          strcpy(buf->name, ext2->dir[k].name);
+          buf->ridx = ext2->dir[k].inode;
+          buf->mode = ext2->dir[k].mode;
+          return 1;
+        }
+    }
+  }
+  return 0;
+  
+ 
 }
 
 // void ext2_mkdir(ext2_t * ext2,char * dirname,int type,char*out){
