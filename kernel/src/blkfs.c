@@ -389,7 +389,7 @@ void ext2_cd(ext2_t* ext2, char* dirname, char* out) {//显示在out里面;
 void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
   uint32_t i, j, k;
   int now_current_dir = ext2->current_dir;
-  ext2_reserch_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
+  ext2_research_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
   ext2_rd_ind(ext2, ext2->current_dir);
   uint32_t flag;
   int offset = sprintf(out, "items           type     mode     size\n");
