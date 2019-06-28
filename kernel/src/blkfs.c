@@ -5,8 +5,8 @@
 
 static int first_item_len(const char* path){
       int result=0;
-      for(;path[ret]!='\0'&& path[ret]!='/';){
-        ret++;
+      for(;path[result]!='\0'&& path[result]!='/';){
+        result++;
       }
       return result;
 }
@@ -329,17 +329,17 @@ int ext2_lookup(ext2_t *ext2,char *path,int mode){
 
 }
 
-void ext2_mkdir(ext2_t * ext2,char * dirname,int type,char*out){
-  int now_current_dir=ext2->current_dir;
-  uint32_t index,inode_num,block_num,dir_num;
-  int offset=sprintf(out,"");
+// void ext2_mkdir(ext2_t * ext2,char * dirname,int type,char*out){
+//   int now_current_dir=ext2->current_dir;
+//   uint32_t index,inode_num,block_num,dir_num;
+//   int offset=sprintf(out,"");
 
 
 
     
 
 
-}
+// }
 
 
 // ind_t* ext2_open(ext2_t * ext2,char * file_name){
