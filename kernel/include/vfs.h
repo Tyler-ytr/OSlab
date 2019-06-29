@@ -88,6 +88,9 @@ struct file{
     uint16_t can_read;
     uint16_t can_write;
 };
+typedef struct file file_t;
+
+
 //关于file以及flides表操作的函数;
 int file_item_alloc();  //返回fd;
 void file_free(int fd);//从flides里面释放相应的file_t;
