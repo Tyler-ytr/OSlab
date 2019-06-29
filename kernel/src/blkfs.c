@@ -489,7 +489,7 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
 
   if(ext2->ind.blocks<=total_block){
     while(ext2->ind.blocks<total_block){
-      ext2->ind.block[ext2-?ind.blocks++]=ext2_alloc_block(ext2);
+      ext2->ind.block[ext2->ind.blocks++]=ext2_alloc_block(ext2);
     }
   }else{
     while (ext2->ind.blocks>total_blocks)
