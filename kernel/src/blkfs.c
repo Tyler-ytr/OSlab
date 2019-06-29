@@ -451,7 +451,7 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
   //读第index个inode的block;
   ext2_rd_ind(ext2,index);
 
-  int result=0;
+  ssize_t result=0;
   int current_block=offset/BLK_SIZE;//之前用不到的block；
   int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
 
@@ -477,7 +477,55 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
   }
   return result;
 }
+ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t len){
+  ext2_rd_ind(ext2,index);
 
+  ssize_t result=0;
+  int current_block=offset/BLK_SIZE;//之前用不到的block；
+  int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
+  int total_block=(len+offset+(BLK_SIZE-1))/BLK_SIZE;//总共需要的块数量;
+
+  //可能需要修改mode;  
+
+  if(ext2->ind.blocks<=total_block){
+    while(ext2->ind.blocks<total_block){
+      ext2->ind.block[ext2-?ind.blocks++]=ext2_alloc_block(ext2);
+    }
+  }else{
+    while (ext2->ind.blocks>total_blocks)
+    {
+      ext2_remove_block(ext2,ext2->ind.block[--ext2->ind.blocks]);
+    }
+    
+  }
+
+  for (int n = skip_blocks; n < need_blocks; n++) {
+    if (n == skip_blocks) {
+      ext2_rd_datablock(ext2, ext2->ind.block[n]);
+      for (int k = first_offset; result < len && k < BLK_SIZE; k++, result++)
+        ext2->datablockbuf[k] = buf[result];
+      ext2_wr_datablock(ext2, ext2->ind.block[n]);
+    } else if (n != need_blocks - 1) {
+      ext2_rd_datablock(ext2, ext2->ind.block[n]);
+      for (int k = 0; result< len && k < BLK_SIZE; k++, result++)
+        ext2->datablockbuf[k] = buf[result];
+      ext2_wr_datablock(ext2, ext2->ind.block[n]);
+    } else {
+      ext2_rd_datablock(ext2, ext2->ind.block[n]);
+      for (int k = 0; k < len - result; k++, result++)
+        ext2->datablockbuf[k] = buf[result];
+      ext2_wr_datablock(ext2, ext2->ind.block[n]);
+    }
+  }
+
+  if(result!=len){
+    printf("Error int ext2_write: result=%d,len=%d\n",result,len);
+  }
+  ext2->ind.size=offset+len;
+  ext2_wr_ind(ext2,index);
+
+  return result;
+}
 
 void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
   uint32_t i, j, k;
