@@ -310,7 +310,7 @@ static int lookup_cur(char *path,int *find_flag,int cur_inode,int *path_offset){
   if(k==-1){
     *find_flag=0;//没有找到;
     printf("lookup_cur: File not found;\n");
-    return cur;
+    return cur_inode;
   }
 
  // 用于软链接； 
