@@ -24,8 +24,8 @@ uint32_t ext2_alloc_inode(ext2_t* ext2);
 uint32_t ext2_research_file(ext2_t *ext2,char *path,int mode,
                            uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num);
 
-
-
+char *init_str="Hello, World!\n"
+char zero[256];
 
 
 int ext2_init(fs_t * fs,const char * name ,device_t* dev){
@@ -63,6 +63,14 @@ int ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2_wr_gd(ext2);
 
   //初始化inode；
+  ext2_rd_blockbitmap(ext2);
+  ext2_rd_inodebitmap(ext2);
+  ext2->ind.mode = TYPE_DIR | RD_ABLE | WR_ABLE;
+  ext2->ind.blocks = 0;
+  ext2->ind.size = 2 * DIR_SIZE;  // . 和 ..
+  ext2->ind.block[0] = ext2_alloc_block(ext2);
+  ext2->ind.blocks++;
+
   ext2->current_dir=ext2_alloc_block(ext2);
   strcpy(ext2->current_dir_name,"/");
   ext2_wr_ind(ext2,ext2->current_dir);
@@ -74,6 +82,9 @@ int ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[0].name,".");
   strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
+
+  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
+  ext2_write(ext2,init_file,0,init_str,strlen(init_str));
 
 
   return 1;
