@@ -257,11 +257,71 @@ filesystem_t filesystems[MAX_FS_NUM];
 file_t flides[MAX_FILE_NUM];
 vinode_t vinodes[MAX_VINODE_NUM];
 
+//vfs inode table 操作;
 
+static int vit_item_alloc();
+static void vit_item_free(int index);
+static int vit_lookup_cur(char *path,int* check,int dir_index);//从cur这个目录开始遍历inode_list链表;
 
+static int vit_item_alloc(){
+  for (int i=0;i<MAX_VINODE_NUM;i++){
+    if(vit[i].mode==UNUSED){
+      vit[i].mode|=ALLOCED;
+      return i;
+    }
+  }
+  printf("Error： The vfs inode table is full!");
+  return -1;
+}
+static void vit_item_free(int index){
+  vit[index].mode=UNUSED;//不存在;
+}
+static int first_name_len(char *name){//返回/前面的第一个名字;
+  int name_len=strlen(name); 
+  int result=0;
+  while(result<name_len&&(name[result]!='/')){
+    result+=1;
+  }
+  return result;
+}
+static int check_item_match(const char *name1,const char *name2,int len){//name1放vit里面的成员,name2放待比较的外部字符串;
+  if(strncmp(name1,name2,len)){
+    return 0;
+  }
 
+  int result=(name1[len]=='\0');
+  return result;
+}
+static int lookup_cur(char *path,int *find_flag,int cur_inode,int *path_offset){
+  if(!strlen(path)){
+    *find_flag=1;
+    return cur_inode;
+  }
 
+  int k=0;
+  int len=first_name_len(path);
 
+  for(k=vinode[cur_inode].child;k!=-1;k=vinode[k].next){
+    if(check_item_match(vinode[k].name,path,len)){
+      break;
+    }
+  }
+
+  if(k==-1){
+    *find_flag=0;//没有找到;
+    printf("lookup_cur: File not found;\n");
+    return cur;
+  }
+
+ // 用于软链接； 
+  int real_file=k;
+  while(vinodes[real_file].mode&TYPE_LINK)
+    real_file=vinodes[real_file].next_link;
+
+  char *newpath=path+(len+(path[len]=='/'?1:0));
+  *path_offset+=len+(path[len]=='/'?1:0);
+  return lookup_cur(newpath,find_flag,real_file,path_offset);
+}
 
 
   void vfs_init(){
