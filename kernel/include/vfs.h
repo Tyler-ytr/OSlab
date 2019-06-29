@@ -88,7 +88,7 @@ struct file{
     uint16_t can_read;
     uint16_t can_write;
 };
-typedef struct file file_t;
+
 
 
 //关于file以及flides表操作的函数;
@@ -128,5 +128,6 @@ struct mount_path_point{
   ssize_t vfs_write(int fd, void *buf, size_t nbyte);
   off_t vfs_lseek(int fd, off_t offset, int whence);
   int vfs_close(int fd);
-
+ int vfs_remove(const char *path);
+  int vfs_create(const char *path);
 #endif
