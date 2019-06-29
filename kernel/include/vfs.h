@@ -45,7 +45,6 @@ struct vinode {//暂时只允许单级cd;
   //一开始的真实文件prelink,nextlink都是自身;加入一个link a之后 original.nextlink=a,a.prelink=original; 
   //prelink是自身的保证是真实的文件;
   //只读只写等操作,随用随加;
-  int mode; 
 
  // vinodeops_t *vinodeops;//我不太会写,可能我之后会拆开;
 };
