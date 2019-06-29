@@ -92,7 +92,7 @@ struct file{
 int file_item_alloc();  //返回fd;
 void file_free(int fd);//从flides里面释放相应的file_t;
 
-enum FS_TYPE{BLKFS=0,DEVFS=1,PROFS=2};
+//enum FS_TYPE{BLKFS=0,DEVFS=1,PROFS=2};
 struct filesystem {
   char name[MAX_NAME_LENGTH];
   void*real_fs;//指向某一个操作系统的缓冲;
