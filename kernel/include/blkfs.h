@@ -47,22 +47,22 @@ struct group_desc {
 
 struct inode_ext2 {
   /* inode, 64 bytes */
-  uint16_t mode;                  //文件类型以及访问的权限'
+  uint32_t mode;                  //文件类型以及访问的权限'
   uint32_t blocks;                //文件的数据块个数(0-7)
   uint32_t size;                  // the size of file 
   uint32_t block[EXT2_N_BLOCKS];  // direct or indirect blocks
-  uint8_t file_type;
-  char pad[5];
+  //uint8_t file_type;
+  char pad[4];
 };
 
 struct directory {
   /* directory entry, 32 bytes */
   uint32_t inode;                  //索引节点号
-  uint16_t rec_len;                //目录项长度
-  uint8_t name_len;                //文件名长度
-  uint8_t file_type;               //文件类型 (1: 普通文件， 2: 目录.. )
+  //uint16_t rec_len;                //目录项长度
+  uint32_t name_len;                //文件名长度
+  uint32_t mode;               //文件类型 (1: 普通文件， 2: 目录.. )
   char name[16];                   //文件名
-  char pad[8];                     //填充
+  char pad[4];                     //填充
 };
 typedef struct super_block sb_t;
 typedef struct group_desc gd_t;

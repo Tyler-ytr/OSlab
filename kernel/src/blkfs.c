@@ -194,7 +194,7 @@ void ext2_remove_block(ext2_t * ext2,uint32_t del_num){//del_num:要删除的块
 void ext2_inode_prepare(ext2_t *ext2,uint32_t index,uint32_t par,int mode){
   ext2_rd_ind(ext2,index);
  // if(file_type==TYPE_DIR){
-   if(mode&TYPE_DIR)
+   if(mode&TYPE_DIR){
     ext2->ind.size=2*DIR_SIZE;
     ext2->ind.blocks=1;
     ext2->ind.block[0]=ext2_alloc_block(ext2);

@@ -36,7 +36,7 @@ struct vinode {//暂时只允许单级cd;
   int father_dir;   //所属的当前目录项的父亲目录项,也就是当前目录项的".."对应的vinode里面的index;
   int child;//不是目录属性的就没有;
   int next;//专属于文件属性,最后的文件是-1;
-  int mode;
+  uint32_t mode;
 
   int refcnt;      //次数,link,unlink维护;
 
