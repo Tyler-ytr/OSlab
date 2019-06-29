@@ -122,7 +122,7 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
 };*/
-
+typedef struct file file_t;
 struct task{
   volatile int status;//0 没有初始化 1 runningable 2 running 3 waiting 
   int alive;
