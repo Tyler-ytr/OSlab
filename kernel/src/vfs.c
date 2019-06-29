@@ -262,6 +262,7 @@ vinode_t vinodes[MAX_VINODE_NUM];
 static int vit_item_alloc();
 static void vit_item_free(int index);
 static int vit_lookup_cur(char *path,int* check,int dir_index);//从cur这个目录开始遍历inode_list链表;
+static int lookup_root(char *path, int *find_flag, int *path_offset) ;
 
 static int vit_item_alloc(){
   for (int i=0;i<MAX_VINODE_NUM;i++){
@@ -321,6 +322,9 @@ static int lookup_cur(char *path,int *find_flag,int cur_inode,int *path_offset){
   char *newpath=path+(len+(path[len]=='/'?1:0));
   *path_offset+=len+(path[len]=='/'?1:0);
   return lookup_cur(newpath,find_flag,real_file,path_offset);
+}
+static int lookup_root(char *path, int *find_flag, int *path_offset) {
+  return lookup_cur(path + 1, pflag, VFS_ROOT, poffset);
 }
 
 
