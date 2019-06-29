@@ -1,6 +1,6 @@
 #ifndef _VFS_H
 #define _VFS_H
-
+#include <common.h>
 typedef struct fsops fsops_t;
 typedef struct indeops indeops_t;
 typedef struct vinode vinode_t;
@@ -24,6 +24,8 @@ typedef struct file file_t;
 #define TYPE_LINK 0x40
 #define ALLOCED 0x80
 
+enum SYS_TYPE{VFS=0x00,BLKFS=0x01,PROCFS=0x02};
+enum ROOT_LOCATION{VFS_ROOT=0,EXT2_ROOT=1,PROCFS_ROOT=-1};
 
 
 //enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
@@ -56,6 +58,8 @@ struct vinode {//暂时只允许单级cd;
  // vinodeops_t *vinodeops;//我不太会写,可能我之后会拆开;
 };
 //在vfs.c里面开一个全局的vinode_t数组,假设名叫 vinode_table;
+//vinode 函数;
+
 
 
 /*
@@ -90,16 +94,13 @@ void file_free(int fd);//从flides里面释放相应的file_t;
 
 enum FS_TYPE{BLKFS=0,DEVFS=1,PROFS=2};
 struct filesystem {
-  //char* name;
+  char name[MAX_NAME_LENGTH];
   void*real_fs;//指向某一个操作系统的缓冲;
   fsops_t *ops;
   dev_t *dev;
   //filesystem_t * next_filesystem;
   uint32_t type;
-};
-struct fsops {
   void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
-  int (*lookup)(struct filesystem *fs, const char *path, int flags);
   int (*readdir)(struct filesystem *fs, int vinode_idx, int kth, vinode_t *buf);
 };
 

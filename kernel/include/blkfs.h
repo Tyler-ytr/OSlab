@@ -2,7 +2,7 @@
 #define _BLKFS_H
 
 #include <devices.h>
-#include <vfs.h>
+//#include <vfs.h>
 
 #define BLK_SIZE (512)                     //block size=512
 #define DISK_START (0 * BLK_SIZE)          // disk offset
