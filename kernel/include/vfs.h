@@ -37,7 +37,7 @@ struct vinode {//暂时只允许单级cd;
   uint32_t size;   //文件总大小;在write的时候会发生改变;
   filesystem_t *fs;//从属的文件系统;
   int fs_type;    //和vfs.h中的filesystem的type对应;
-  //int type;       //文件格式; file为0,dir为1,link为2;
+  int type;       //文件格式; file为0,dir为1,link为2;
 
   //服务于link的双向链表;
   int prelink;
