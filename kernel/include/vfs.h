@@ -12,8 +12,9 @@ typedef struct file file_t;
 #define MAX_FILE_NAME 64
 #define MAX_PATH_LENGTH 256
 #define MAX_NAME_LENGTH 64
-#define MAX_VINODE_NUM 1024
-#define MAX_FS_NUM 8
+#define MAX_FILE_NUM 128
+#define MAX_VINODE_NUM 256
+#define MAX_FS_NUM 4
 
 #define UNUSED 0x00
 #define EX_ABLE 0x01

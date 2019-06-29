@@ -251,6 +251,18 @@
 //   //inode_t *ext2ops_lookup(struct filesystem *fs, const char *path, int flags){;}
 #include <vfs.h>
 #include <blkfs.h>
+extern device_t *dev_lookup(const char*name);
+
+filesystem_t filesystems[MAX_FS_NUM];
+file_t flides[MAX_FILE_NUM];
+vinode_t vinodes[MAX_VINODE_NUM];
+
+
+
+
+
+
+
 
   void vfs_init(){
     return;
