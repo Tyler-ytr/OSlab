@@ -324,7 +324,7 @@ static int lookup_cur(char *path,int *find_flag,int cur_inode,int *path_offset){
   return lookup_cur(newpath,find_flag,real_file,path_offset);
 }
 static int lookup_root(char *path, int *find_flag, int *path_offset) {
-  return lookup_cur(path + 1, pflag, VFS_ROOT, poffset);
+  return lookup_cur(path + 1, find_flag, VFS_ROOT, path_offset);
 }
 
 
