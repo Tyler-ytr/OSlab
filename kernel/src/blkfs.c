@@ -12,6 +12,19 @@ static int first_item_len(const char* path){
 
 
 //交给上层
+int ext2_init(fs_t * fs,const char * name ,device_t* dev);
+int ext2_create(ext2_t* ext2, int ridx, char* name, int mode);
+void ext2_cd(ext2_t* ext2, char* dirname);
+ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t len);
+ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
+                  uint32_t len);
+
+uint32_t ext2_alloc_block(ext2_t*ext2);
+uint32_t ext2_alloc_inode(ext2_t* ext2);
+uint32_t ext2_research_file(ext2_t *ext2,char *path,int mode,
+                           uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num);
+
+
 
 
 
@@ -450,7 +463,7 @@ void ext2_cd(ext2_t* ext2, char* dirname) {
 
 ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
                   uint32_t len){
-  
+  //可能有问题;
   //读第index个inode的block;
   ext2_rd_ind(ext2,index);
 
