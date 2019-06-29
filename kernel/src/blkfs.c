@@ -24,8 +24,8 @@ uint32_t ext2_alloc_inode(ext2_t* ext2);
 uint32_t ext2_research_file(ext2_t *ext2,char *path,int mode,
                            uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num);
 
-char *init_str="Hello, World!\n"
-char zero[256];
+char *init_str="Hello, World!\n";
+//char zero[256];
 
 
 int ext2_init(fs_t * fs,const char * name ,device_t* dev){
