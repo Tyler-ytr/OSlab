@@ -502,7 +502,7 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
   for (int n = current_block; n < total_block; n++) {
     if (n == current_block) {
       ext2_rd_datablock(ext2, ext2->ind.block[n]);
-      for (int k = first_offset; result < len && k < BLK_SIZE; k++, result++)
+      for (int k = current_offset; result < len && k < BLK_SIZE; k++, result++)
         ext2->datablockbuf[k] = buf[result];
       ext2_wr_datablock(ext2, ext2->ind.block[n]);
     } else if (n != total_block - 1) {
