@@ -191,29 +191,32 @@ void ext2_remove_block(ext2_t * ext2,uint32_t del_num){//del_num:要删除的块
 }
 
 //对inode的操作;
-void ext2_inode_prepare(ext2_t *ext2,uint32_t index,uint32_t par,int file_type){
+void ext2_inode_prepare(ext2_t *ext2,uint32_t index,uint32_t par,int mode){
   ext2_rd_ind(ext2,index);
-  if(file_type==TYPE_DIR){
+ // if(file_type==TYPE_DIR){
+   if(mode&TYPE_DIR)
     ext2->ind.size=2*DIR_SIZE;
     ext2->ind.blocks=1;
     ext2->ind.block[0]=ext2_alloc_block(ext2);
     ext2->dir[0].inode=index;
     ext2->dir[1].inode=par;//父亲节点的inode；
-    ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+    //ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+    ext2->dir[0].mode=ext2->dir[1].mode=TYPE_DIR;
     for(int k=2;k<DIR_AMUT;k++){
       ext2->dir[k].inode=0;
     }
     strcpy(ext2->dir[0].name,".");
     strcpy(ext2->dir[1].name,"..");
     ext2_wr_dir(ext2,ext2->ind.block[0]);
-    ext2->ind.mode=0x26;//maybe wrong;
-    ext2->ind.file_type=file_type;
+    //ext2->ind.mode=0x26;//maybe wrong;
+    ext2->ind.mode=mode;
+   // ext2->ind.file_type=file_type;
   }
-  else if(file_type==TYPE_FILE){
+  else if(mode&TYPE_FILE){
     ext2->ind.size=0;
     ext2->ind.blocks=0;
-    ext2->ind.mode=0x17;
-    ext2->ind.file_type=file_type;
+    ext2->ind.mode=mode;
+  //  ext2->ind.file_type=file_type;
   }
   else{
     printf("Wrong type");
@@ -292,46 +295,46 @@ uint32_t tmp = (del_num - 1) / 8;
 
 }
 
-//关于目录项的初始化;
-void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
- // enum { TYPE_FILE = 1, TYPE_DIR = 2 };
-  ext2_rd_ind(ext2,index);//取出相应index的inode;
-  if(type==TYPE_DIR){
-    ext2->ind.size=2*DIR_SIZE;      //存放 '.' '..'; 修改inode的大小;
-    ext2->ind.blocks=1;//只使用到一个块;
-    ext2->ind.block[0]=ext2_alloc_block(ext2);//新建块;
-    ext2->dir[0].inode=index;     //给目录项inode赋值;
-    ext2->dir[1].inode=ext2->current_dir;//给'..'的inode赋值为当前的目录;
-    ext2->dir[0].name_len=len;
-    ext2->dir[1].name_len=ext2->current_dir_name_len;
-    ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
+// //关于目录项的初始化;
+// void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
+//  // enum { TYPE_FILE = 1, TYPE_DIR = 2 };
+//   ext2_rd_ind(ext2,index);//取出相应index的inode;
+//   if(type==TYPE_DIR){
+//     ext2->ind.size=2*DIR_SIZE;      //存放 '.' '..'; 修改inode的大小;
+//     ext2->ind.blocks=1;//只使用到一个块;
+//     ext2->ind.block[0]=ext2_alloc_block(ext2);//新建块;
+//     ext2->dir[0].inode=index;     //给目录项inode赋值;
+//     ext2->dir[1].inode=ext2->current_dir;//给'..'的inode赋值为当前的目录;
+//     ext2->dir[0].name_len=len;
+//     ext2->dir[1].name_len=ext2->current_dir_name_len;
+//     ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
 
-    for(int i=2;i<DIR_AMUT;i++){
-      ext2->dir[i].inode=0;//将无用的目录项赋值为0;
-    }
+//     for(int i=2;i<DIR_AMUT;i++){
+//       ext2->dir[i].inode=0;//将无用的目录项赋值为0;
+//     }
 
-    strcpy(ext2->dir[0].name,".");
-    strcpy(ext2->dir[1].name,"..");
+//     strcpy(ext2->dir[0].name,".");
+//     strcpy(ext2->dir[1].name,"..");
 
-    ext2_wr_dir(ext2,ext2->ind.block[0]);
-    ext2->ind.mode=0x26;/* drwxrwxrwx:目录 */
-    ext2->ind.file_type=TYPE_DIR;
-  }
-  else{//文件初始化;
-    ext2->ind.size=0;
-    ext2->ind.blocks=0;
-    ext2->ind.mode=0x17;
-    ext2->ind.file_type=TYPE_FILE;
-  }
+//     ext2_wr_dir(ext2,ext2->ind.block[0]);
+//     ext2->ind.mode=0x26;/* drwxrwxrwx:目录 */
+//     ext2->ind.file_type=TYPE_DIR;
+//   }
+//   else{//文件初始化;
+//     ext2->ind.size=0;
+//     ext2->ind.blocks=0;
+//     ext2->ind.mode=0x17;
+//     ext2->ind.file_type=TYPE_FILE;
+//   }
 
-  ext2_wr_ind(ext2,index);
+//   ext2_wr_ind(ext2,index);
 
-}
+// }
 
 
 //根据文件名文件类型,在当前目录里面寻找文件,并且把文件信息存到inode_num,block_num,dir_num 中;
 //如果找不到,那么返回0,找到了就返回1;
-uint32_t ext2_research_file(ext2_t *ext2,char *path,int file_type,
+uint32_t ext2_research_file(ext2_t *ext2,char *path,int mode,
                            uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num)
 {
   ext2_rd_ind(ext2,ext2->current_dir);//获得当前的目录节点信息,记录到ext2->inode上面;
@@ -340,7 +343,8 @@ uint32_t ext2_research_file(ext2_t *ext2,char *path,int file_type,
     ext2_rd_dir(ext2,ext2->ind.block[j]);
     int len=first_item_len(path);
       for(uint32_t k=0;k<DIR_AMUT;){
-        if(!ext2->dir[k].inode||ext2->dir[k].file_type!=file_type||
+        if(!ext2->dir[k].inode||
+        !(ext2->dir[k].mode&mode)||//可能需要修改: mode不一样;0100 0010
             strncmp(ext2->dir[k].name,path,len)){
           k++;
         }
@@ -350,7 +354,7 @@ uint32_t ext2_research_file(ext2_t *ext2,char *path,int file_type,
           *dir_num=k;
           return (len==strlen(path))
                      ? 1
-                     : ext2_research_file(ext2,path+len+1,file_type,inode_num,block_num,dir_num);
+                     : ext2_research_file(ext2,path+len+1,mode,inode_num,block_num,dir_num);
         }
       }
   }
@@ -379,7 +383,8 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
-          buf->type = ext2->dir[k].file_type;
+          buf->mode=ext2->dir[k].mode;
+          //buf->type= ext2->dir[k].file_type;
           return 1;
         }
     }
@@ -432,18 +437,15 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
 
 
 // // 交给shell的测试函数;
-void ext2_cd(ext2_t* ext2, char* dirname, char* out) {//显示在out里面;
-  // int offset = sprintf(out, "");
+void ext2_cd(ext2_t* ext2, char* dirname) {
   uint32_t i, j, k, flag;
   if (!strcmp(dirname, "../")) dirname[2] = '\0';
   if (!strcmp(dirname, "./")) dirname[1] = '\0';
-  flag = ext2_research_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
-  if (flag) {
+  flag = ext2_reserch_file(ext2, dirname, TYPE_DIR, &i, &j, &k);
+  if (flag)
     ext2->current_dir = i;
-  } else {
-    // offset += sprintf(out + offset, "No directory: %s\n", dirname);
+  else
     printf("No directory: %s\n", dirname);
-  }
 }
 
 ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
@@ -487,7 +489,10 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
   int total_block=(len+offset+(BLK_SIZE-1))/BLK_SIZE;//总共需要的块数量;
 
   //可能需要修改mode;  
-
+ if ((ext2->ind.mode & WR_ABLE) == 0) {
+    printf("File can't be writed!\n");
+    return 0;
+  }
   if(ext2->ind.blocks<=total_block){
     while(ext2->ind.blocks<total_block){
       ext2->ind.block[ext2->ind.blocks++]=ext2_alloc_block(ext2);
@@ -527,31 +532,61 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
 
   return result;
 }
+int ext2_create(ext2_t* ext2, int ridx, char* name, int mode) {
+  ext2_rd_ind(ext2, ridx);
 
-// int ext2_remove(ext2_t* ext2,int index,char* name,int file_type){
+  assert(ext2->ind.size < 4096);
+  int idx;
+  // printf("create: ridx[%d], size[%d]\n", ridx, ext2->ind.size);
+  if (ext2->ind.size != ext2->ind.blocks * BLK_SIZE) {
+    int i, j;
+    for (i = 0; i < ext2->ind.blocks; i++) {
+      ext2_rd_dir(ext2, ext2->ind.block[i]);
+      for (j = 0; j < DIR_AMUT; j++)
+        if (ext2->dir[j].inode == 0) goto CreateEnd;
+    }
+  CreateEnd:
+    idx = ext2->dir[j].inode = ext2_alloc_inode(ext2);
+    ext2->dir[j].mode = mode;
+    ext2->dir[j].name_len = strlen(name);
+    strcpy(ext2->dir[j].name, name);
+    ext2_wr_dir(ext2, ext2->ind.block[i]);
+  } else {
+    ext2->ind.block[ext2->ind.blocks++] = ext2_alloc_block(ext2);
+    ext2_rd_dir(ext2, ext2->ind.block[ext2->ind.blocks - 1]);
+    idx = ext2->dir[0].inode = ext2_alloc_inode(ext2);
+    ext2->dir[0].mode = mode;
+    ext2->dir[0].name_len = strlen(name);
+    strcpy(ext2->dir[0].name, name);
+    for (int i = 1; i < DIR_AMUT; i++) ext2->dir[i].inode = 0;
+    ext2_wr_dir(ext2, ext2->ind.block[ext2->ind.blocks - 1]);
+  }
+  // printf("new create: %d\n", idx);
+  ext2->ind.size += DIR_SIZE;  // now 32
+  ext2_wr_ind(ext2, ridx);
+  ext2_ind_prepare(ext2, idx, ridx, mode);
+  return idx;
+}
+// int ext2_remove(ext2_t* ext2,int index,char* name,int mode){
 //   ext2_rd_ind(ext2,index);
-//   int flag=0;
-//   int i,j=0;
-//   for(i=0;i<ext2->blocks;i++){
-//     ext2_rd_dir(ext2,ext2->ind.block[i]);
-
-//     for(j=0;j<DIR_AMUT;j++){
-//       if(!strcmp(ext2->dir[j].name,name)){
-//         flag=1;
+//   int i, j, k = -1;
+//   for (i = 0; i < ext2->ind.blocks; i++) {
+//     ext2_rd_dir(ext2, ext2->ind.block[i]);
+//     for (j = 0; j < DIR_AMUT; j++)
+//       if (!strcmp(ext2->dir[j].name, name)) {
+//         k = ext2->dir[j].inode;
 //         break;
 //       }
-//     }
-//     if(flag==1)
-//     {
-//       break;
-//     }
+//     if (k != -1) break;
 //   }
-//   assert(0);
+
+//   if (k == -1) return 1;
 //   //需要修改;
-//   if(file_type==TYPE_DIR){
+//   if(mode&TYPE_DIR){
 //     ext2_rd_ind(ext2,ext2->dir[j].inode);
 
 //     if(ext2->ind.size==2*DIR_SIZE){
+//       assert(ext2->ind.blocks == 1);
 //       ext2->ind.size=ext2->int.blocks=0
 
 //       ext2_remove_block(ext2,ext2->ind.block[0]);//删除'.';

@@ -15,11 +15,18 @@ typedef struct file file_t;
 #define MAX_VINODE_NUM 1024
 #define MAX_FS_NUM 8
 
+#define UNUSED 0x00
+#define EX_ABLE 0x01
+#define WR_ABLE 0x02
+#define RD_ABLE 0x04
+#define TYPE_FILE 0x10
+#define TYPE_DIR 0x20
+#define TYPE_LINK 0x40
+#define ALLOCED 0x80
 
 
 
-
-enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
+//enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
 struct vinode {//暂时只允许单级cd;
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
   char name[MAX_NAME_LENGTH];
@@ -37,7 +44,7 @@ struct vinode {//暂时只允许单级cd;
   uint32_t size;   //文件总大小;在write的时候会发生改变;
   filesystem_t *fs;//从属的文件系统;
   int fs_type;    //和vfs.h中的filesystem的type对应;
-  int type;       //文件格式; file为0,dir为1,link为2;
+//  int type;       //文件格式; file为0,dir为1,link为2;
 
   //服务于link的双向链表;
   int prelink;
