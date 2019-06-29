@@ -294,7 +294,9 @@
   int vfs_remove(const char *path){
     return 0;
   }
-  int vfs_create(const char *path);
+  int vfs_create(const char *path){
+    return 0;
+  }
 
 MODULE_DEF(vfs){
     .init = vfs_init,
