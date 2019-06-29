@@ -1,7 +1,6 @@
 #include <klib.h>
 #include <blkfs.h>
 #include <vfs.h>
-#define ouput(str, ...) offset += sprintf(out + offset, str, ...)
 
 static int first_item_len(const char* path){
       int result=0;
@@ -316,11 +315,13 @@ void ext2_dir_prepare(ext2_t * ext2,uint32_t index,uint32_t len,int type){
 
     ext2_wr_dir(ext2,ext2->ind.block[0]);
     ext2->ind.mode=0x26;/* drwxrwxrwx:目录 */
+    ext2->ind.file_type=TYPE_DIR;
   }
   else{//文件初始化;
     ext2->ind.size=0;
     ext2->ind.blocks=0;
     ext2->ind.mode=0x17;
+    ext2->ind.file_type=TYPE_FILE;
   }
 
   ext2_wr_ind(ext2,index);
@@ -526,6 +527,47 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
 
   return result;
 }
+
+// int ext2_remove(ext2_t* ext2,int index,char* name,int file_type){
+//   ext2_rd_ind(ext2,index);
+//   int flag=0;
+//   int i,j=0;
+//   for(i=0;i<ext2->blocks;i++){
+//     ext2_rd_dir(ext2,ext2->ind.block[i]);
+
+//     for(j=0;j<DIR_AMUT;j++){
+//       if(!strcmp(ext2->dir[j].name,name)){
+//         flag=1;
+//         break;
+//       }
+//     }
+//     if(flag==1)
+//     {
+//       break;
+//     }
+//   }
+//   assert(0);
+//   //需要修改;
+//   if(file_type==TYPE_DIR){
+//     ext2_rd_ind(ext2,ext2->dir[j].inode);
+
+//     if(ext2->ind.size==2*DIR_SIZE){
+//       ext2->ind.size=ext2->int.blocks=0
+
+//       ext2_remove_block(ext2,ext2->ind.block[0]);//删除'.';
+//       ext2_remove_block(ext2,ext2->ind.block[1]);//删除'..';
+//       ext2_wr_ind(ext2,ext2->dir[j].inode);
+
+//       ext2_remove_block(ext2,ext2->dir[j].inode);
+
+//       ext2->dir[j].inode=0;
+
+//       ext2_wr_dir(ext2,ext2->dir[j].inode);
+      
+//     }
+//   }
+// }
+
 
 void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;
   uint32_t i, j, k;
