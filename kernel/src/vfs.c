@@ -265,8 +265,8 @@ static int vit_lookup_cur(char *path,int* check,int dir_index);//从cur这个目
 
 static int vit_item_alloc(){
   for (int i=0;i<MAX_VINODE_NUM;i++){
-    if(vit[i].mode==UNUSED){
-      vit[i].mode|=ALLOCED;
+    if(vinodes[i].mode==UNUSED){
+      vinodes[i].mode|=ALLOCED;
       return i;
     }
   }
@@ -274,7 +274,7 @@ static int vit_item_alloc(){
   return -1;
 }
 static void vit_item_free(int index){
-  vit[index].mode=UNUSED;//不存在;
+  vinodes[index].mode=UNUSED;//不存在;
 }
 static int first_name_len(char *name){//返回/前面的第一个名字;
   int name_len=strlen(name); 
@@ -301,8 +301,8 @@ static int lookup_cur(char *path,int *find_flag,int cur_inode,int *path_offset){
   int k=0;
   int len=first_name_len(path);
 
-  for(k=vinode[cur_inode].child;k!=-1;k=vinode[k].next){
-    if(check_item_match(vinode[k].name,path,len)){
+  for(k=vinodes[cur_inode].child;k!=-1;k=vinodes[k].next){
+    if(check_item_match(vinodes[k].name,path,len)){
       break;
     }
   }
