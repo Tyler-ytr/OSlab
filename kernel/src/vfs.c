@@ -554,14 +554,14 @@ MODULE_DEF(vfs){
 };
 
 //辅助函数;
-void double_link_add(int origin_index,int next_index){
-  //双向链表 前一个节点是origin_index,后一个节点是next_index;
+// void double_link_add(int origin_index,int next_index){
+//   //双向链表 前一个节点是origin_index,后一个节点是next_index;
 
-  int temp_index=vinodes[origin_index].next_link;
-  vinodes[next_index].next_link=temp_index;
-  vinodes[origin_index].next_link=next_index;
-  vinodes[next_index].pre_link=origin_index;
-  vinodes[temp_index].pre_link=next_index;
+//   int temp_index=vinodes[origin_index].next_link;
+//   vinodes[next_index].next_link=temp_index;
+//   vinodes[origin_index].next_link=next_index;
+//   vinodes[next_index].pre_link=origin_index;
+//   vinodes[temp_index].pre_link=next_index;
 
-}
+// }
 
