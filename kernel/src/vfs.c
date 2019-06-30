@@ -485,12 +485,7 @@ if(next_inode==-1){
   index=(path[0] == '/') ? lookup_root(path, &flag, &noffset)
                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
   assert(noffset>offset);
-  return (noffset == offset) ? -1 : lookup_auto(path);
-
-
-
-
-
+  return (noffset == offset) ? -1 : vinode_lookup(path);
 
 }
 
