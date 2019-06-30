@@ -370,9 +370,9 @@ if(flag==1){
 int find_flag;
 int file_len=first_name_len(path+offset);
 //根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
-if(vinodes[index]->child!=-1){return -1;//非空矛盾错误;} 
+if(vinodes[index].child!=-1){return -1;//非空矛盾错误;} 
 
-if(vinodes[index]->fs==NULL){
+if(vinodes[index].fs==NULL){
   return -2;//找不到系统的错误;
 }
 //现在开始,index是能找到的最后一个目录的inode,从blkfs里面找;
@@ -383,7 +383,7 @@ int dir_index=-2,father_dir=-1;
 
 int next_inode=-1;
 for(int kth=0;kth<DIR_AMUT;kth++){
-  result=vinodes[index]->fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
+  result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
     printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
@@ -422,7 +422,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
     voidx->father_dir=next_index;//".."是父亲目录的软链接;
 
     strcpy(vnidx->name,"..");
-    strcpy(vnidx->path,vinodes[vinodes[vidx->dir],child].path);//连接到父亲dir的.这个假文件;
+    strcpy(vnidx->path,vinodes[vinodes[vidx->dir].child].path);//连接到父亲dir的.这个假文件;
 
     vnidx->dir=origin_index;//在之前的文件目录里面;
     vnidx->father_dir=-1;
