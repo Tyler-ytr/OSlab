@@ -367,7 +367,7 @@ if(path[0]=='/'){
 if(flag==1){
   return index;
 }
-int find_flag;
+//int find_flag;
 int file_len=first_name_len(path+offset);
 //根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
 if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
@@ -481,7 +481,11 @@ if(next_inode==-1){
   return -1;
 }
 
-
+  int noffset=1;
+  index=(path[0] == '/') ? lookup_root(path, &flag, &noffset)
+                         : lookup_cur(path, &flag, VFS_ROOT, &noffset);
+  assert(noffset>offset);
+  return (noffset == offset) ? -1 : lookup_auto(path);
 
 
 
