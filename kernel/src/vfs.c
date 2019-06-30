@@ -355,6 +355,7 @@ static int vinode_lookup(char *path){
 int len=strlen(path);
 vinode_t buf;//inode 缓冲区;
 int flag=0,offset=1;
+int index=0;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
@@ -385,7 +386,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
   result=vinodes[index]->fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
-    printf("lookup；Vit is full. Wrong to vit_item_alloc,\n")
+    printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
     return -3;
   }//新建一个vinode 保存在next_index里面;
 
@@ -421,7 +422,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
     voidx->father_dir=next_index;//".."是父亲目录的软链接;
 
     strcpy(vnidx->name,"..");
-    strcpy(vnidx->path,vinodes[vinodes[pidx->dir],child].path);//连接到父亲dir的.这个假文件;
+    strcpy(vnidx->path,vinodes[vinodes[vidx->dir],child].path);//连接到父亲dir的.这个假文件;
 
     vnidx->dir=origin_index;//在之前的文件目录里面;
     vnidx->father_dir=-1;
@@ -439,7 +440,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
     assert(dir_index!=-1&&father_dir!=-1);
     assert(voidx->next==-1);
 
-    voidx->next=nidx;
+    voidx->next=next_index;
 
     strcpy(vnidx->name,buf.name);
     strcpy(vnidx->path,vidx->path);
@@ -468,7 +469,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
   origin_index=next_index;
 
 
-  if(check_item_match(buf.name,path+offset,first_name_len)){
+  if(check_item_match(buf.name,path+offset,file_len)){
     assert(next_index==-1);
     next_inode=next_index;
     
