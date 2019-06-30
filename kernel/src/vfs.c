@@ -122,13 +122,13 @@ int file_len=first_name_len(path+offset);
 if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
 
 if(vinodes[index].fs==NULL){
-  return -2;//找不到系统的错误;
+  return -1;//找不到系统的错误;
 }
 //现在开始,index是能找到的最后一个目录的inode,从blkfs里面找;
-int result=100;
+int result=-1;
 int next_index=0;
 int origin_index=-1;
-int dir_index=-2,father_dir=-1;
+int dir_index=-1,father_dir=-1;
 
 int next_inode=-1;
 for(int kth=0;kth<DIR_AMUT;kth++){
@@ -136,7 +136,7 @@ for(int kth=0;kth<DIR_AMUT;kth++){
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
     printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
-    return -3;
+    return -1;
   }//新建一个vinode 保存在next_index里面;
 
   if(strcmp(buf.name,".")==0){
