@@ -370,7 +370,7 @@ if(flag==1){
 int find_flag;
 int file_len=first_name_len(path+offset);
 //根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
-if(vinodes[index].child!=-1){return -1;//非空矛盾错误;} 
+if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
 
 if(vinodes[index].fs==NULL){
   return -2;//找不到系统的错误;
@@ -554,14 +554,14 @@ MODULE_DEF(vfs){
 };
 
 //辅助函数;
-// void double_link_add(int origin_index,int next_index){
-//   //双向链表 前一个节点是origin_index,后一个节点是next_index;
+void double_link_add(int origin_index,int next_index){
+  //双向链表 前一个节点是origin_index,后一个节点是next_index;
 
-//   int temp_index=vinodes[origin_index].next_link;
-//   vinodes[next_index].next_link=temp_index;
-//   vinodes[origin_index].next_link=next_index;
-//   vinodes[next_index].pre_link=origin_index;
-//   vinodes[temp_index].pre_link=next_index;
+  int temp_index=vinodes[origin_index].next_link;
+  vinodes[next_index].next_link=temp_index;
+  vinodes[origin_index].next_link=next_index;
+  vinodes[next_index].pre_link=origin_index;
+  vinodes[temp_index].pre_link=next_index;
 
-// }
+}
 
