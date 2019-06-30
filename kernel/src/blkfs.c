@@ -396,6 +396,7 @@ int ext2_lookup(filesystem_t *fs,const char *path,int mode){
 
 }
 int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
+  //根据rinode_idx 将这个目录项的第k个信息记录到buf里面;
   ext2_t* ext2=(ext2_t*)fs->real_fs;
   int cnt = 0;
   ext2_rd_ind(ext2, rinode_idx);
@@ -403,7 +404,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
     for (int k = 0; k < DIR_AMUT; k++) {
-      if (ext2->dir[k].inode)
+      if (ext2->dir[k].inode)//存在才返回;
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
