@@ -648,16 +648,7 @@ int ext2_remove(ext2_t* ext2,int index,char* name,int mode){
     ext2_wr_ind(ext2, index);
 
     return 0;
-
-
-
-
-
-
-
   }
-
-
 
   return 0;
 }
