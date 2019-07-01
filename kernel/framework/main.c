@@ -80,13 +80,13 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
-static void echo_function(device_t tty,char*argv,char *pwd){
+static void echo_function(device_t *tty,char*argv,char *pwd){
 
   char text[256];
-  sprintf(bigbuf, "%s\n", argv);
+  sprintf(text, "%s\n", argv);
   tty->ops->write(tty,0,text,strlen(text));
 }
-static void pwd_function(device_t tty,char*argv,char *pwd){
+static void pwd_function(device_t *tty,char*argv,char *pwd){
   //int offset=0;
   char text[256];
   sprintf(text,"%s\n",pwd);
