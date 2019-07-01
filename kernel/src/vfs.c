@@ -401,10 +401,29 @@ static int append_dir(int par,char *name,int mode,int fs_type,filesystem_t *fs){
 
 }
 
-// static int append_file(int par, char *name, int mode, int fs_type,
-//                        filesystem_t *fs){
+static int append_file(int par, char *name, int mode, int fs_type,
+                       filesystem_t *fs){
+  int next_index=vit_item_alloc();
+  int k=vinodes[par].child;
+  int dir=-1;
+  int father_dir=-1;
 
-// }
+  assert(k!=-1);
+
+  for (; vinodes[k].next != -1; k = vinodes[k].next) {
+    if (!strcmp(vinodes[k].name, ".")) {
+      dir = k;
+      father_dir = vinodes[k].next;
+    }
+  }
+  assert(dir != -1 && father_dir != -1);
+  vinodes[k].next=next_index;
+  strcpy(vnidx->name,name);
+  strcpy(vnidx->path,vdir->path);
+  strcat(vnidx->path,name);
+  vinode_prepare(next_index,-1,dir,father_dir,-1,-1,next_index,
+  next_index,1,mode,fs_type,fs,vnidx->name,vnidx->path);
+}
 
   void vfs_init(){
    // int success=vinode_lookup("/");
