@@ -382,23 +382,29 @@ static int append_dir(int par,char *name,int mode,int fs_type,filesystem_t *fs){
   strcpy(vnidx->path,vdir->path);
   strcat(vnidx->path,name);
   strcat(vnidx->path,"/");
-  vnidx->dir=dir;
-  //vnidx->dir=dir;
-  vnidx->father_dir=father_dir;
-  vfat->next=-1;
-  vfat->child=-1;
-  vfat->pre_link=vdir->next_link=next_index;
-  vfat->refcnt=1;
-  vfat->mode=mode;
-  //double_link_add(index,father_dir);
-  vfat->fs_type=fs_type;
-  vfat->fs=fs;
+  vinode_prepare(next_index,-1,dir,father_dir,-1,-1,next_index,
+  next_index,1,mode,fs_type,fs,vnidx->name,vnidx->path);
+  // vnidx->dir=dir;
+  // //vnidx->dir=dir;
+  // vnidx->father_dir=father_dir;
+  // vnidx->next=-1;
+  // vnidx->child=-1;
+  // vnidx->pre_link=vdir->next_link=next_index;
+  // vnidx->refcnt=1;
+  // vnidx->mode=mode;
+  // //double_link_add(index,father_dir);
+  // vnidx->fs_type=fs_type;
+  // vnidx->fs=fs;
   
   
   return next_index;
 
 }
 
+// static int append_file(int par, char *name, int mode, int fs_type,
+//                        filesystem_t *fs){
+
+// }
 
   void vfs_init(){
    // int success=vinode_lookup("/");
