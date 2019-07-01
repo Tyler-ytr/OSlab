@@ -623,7 +623,38 @@ int ext2_remove(ext2_t* ext2,int index,char* name,int mode){
       ext2_rd_ind(ext2, index);
       ext2->ind.size -= DIR_SIZE;
       ext2_wr_ind(ext2, index);
+      return 0;
     }
+    else{
+      //目录不是空的;错误信号1
+      return 1;
+    }
+  }
+  else{
+    //删除文件;
+    ext2_rd_ind(ext2, ext2->dir[j].inode);
+    for (int m = 0; m < ext2->ind.blocks; m++) {
+      ext2_remove_block(ext2, ext2->ind.block[m]);
+      ext2->ind.block[m] = 0;
+    }
+    ext2_wr_ind(ext2, ext2->dir[j].inode);
+
+    ext2_remove_inode(ext2, ext2->dir[j].inode);
+    ext2->dir[j].inode = 0;
+    ext2_wr_dir(ext2, ext2->ind.block[i]);
+
+    ext2_rd_ind(ext2, index);
+    ext2->ind.size -= DIR_SIZE;
+    ext2_wr_ind(ext2, index);
+
+    return 0;
+
+
+
+
+
+
+
   }
 
 
