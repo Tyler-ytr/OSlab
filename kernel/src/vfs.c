@@ -313,7 +313,7 @@ char path_buf[MAX_PATH_LENGTH];
   }
 
   void vfs_ls(char * dir,char *buf){
-    int index=lookup_auto(dirname);
+    int index=vinode_lookup(dir);
 
     if(index==-1)return ;
     int offset=sprintf(buf,"\n");
@@ -321,7 +321,7 @@ char path_buf[MAX_PATH_LENGTH];
     offset+=sprintf(buf+offset,"");
 
   printf("       index       name                  path\n");
-  printf("cur:   %4d        %12s          %s\n\n", idx, vinodes[index].name,
+  printf("cur:   %4d        %12s          %s\n\n", index, vinodes[index].name,
          vinodes[index].path);
   for (int k = vinodes[idx].child; k != -1; k = vinodes[k].next) {
     printf("child: %4d        %12s          %s\n", k, vinodes[k].name,
