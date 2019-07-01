@@ -312,6 +312,23 @@ char path_buf[MAX_PATH_LENGTH];
     return 0;
   }
 
+  void vfs_ls(char * dir,char *buf){
+    int index=lookup_auto(dirname);
+
+    if(index==-1)return ;
+    int offset=sprintf(buf,"\n");
+    
+    offset+=sprintf(buf+offset,"");
+
+  printf("       index       name                  path\n");
+  printf("cur:   %4d        %12s          %s\n\n", idx, vinodes[index].name,
+         vinodes[index].path);
+  for (int k = vinodes[idx].child; k != -1; k = vinodes[k].next) {
+    printf("child: %4d        %12s          %s\n", k, vinodes[k].name,
+           vinodes[k].path);
+  }
+}
+
 //辅助函数;
 void double_link_add(int origin_index,int next_index){
   //双向链表 前一个节点是origin_index,后一个节点是next_index;
