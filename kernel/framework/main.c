@@ -80,6 +80,18 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
+static void echo_function(device_t tty,char*argv,char *pwd){
+
+  char text[256];
+  sprintf(bigbuf, "%s\n", argv);
+  tty->ops->write(tty,0,text,strlen(text));
+}
+static void pwd_function(device_t tty,char*argv,char *pwd){
+  //int offset=0;
+  char text[256];
+  sprintf(text,"%s\n",pwd);
+  tty->ops->write(tty,0,text,strlen(text));
+}
 extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
@@ -106,7 +118,9 @@ struct shell_function{
   int offset;
 }Function[]={
   {"help ",help_function,5},
-  {"ls ",ls_function,3}
+  {"ls ",ls_function,3},
+  {"pwd ",pwd_function,4},
+  {"echo ",echo_function,5}
 };
 
 static void shell_task(void *arg){

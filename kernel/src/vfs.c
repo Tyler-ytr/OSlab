@@ -429,6 +429,9 @@ static int append_file(int par, char *name, int mode, int fs_type,
    // int success=vinode_lookup("/");
     //assert(success!=-1);
     int root=root_dir_prepare();
+    if(root==-1){
+      assert(0);
+    }
 
     return ;
   };
