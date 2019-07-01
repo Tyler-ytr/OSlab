@@ -369,7 +369,7 @@ static int append_dir(int par,char *name,int mode,int fs_type,filesystem_t *fs){
   int dir=-1,father_dir=-1;
 
   //找到最后一个节点;
-  for(k;vinodes[k].next!=-1;k=vinodes[k].next){
+  for(;vinodes[k].next!=-1;k=vinodes[k].next){
     if (!strcmp(vinodes[k].name, ".")) {//找到".""记录当前dir以及father_dir;
     dir=k;
     father_dir=vinodes[k].next;
