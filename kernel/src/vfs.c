@@ -251,6 +251,7 @@ static int filesystem_alloc(){
 }
 static int filesystem_free(int index){
   strcpy(filesystems[index].name,"");//清空名字;
+  return 0;
 }
 
 
@@ -264,7 +265,7 @@ char path_buf[MAX_PATH_LENGTH];
   int vfs_access(const char *path, int mode){
     strcpy(path_buf,path);
 
-    int index=lookup_auto(path_buf);
+    int index=vinode_lookup(path_buf);
     if(index==-1){
       return 1;
     }
