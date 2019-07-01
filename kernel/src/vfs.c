@@ -328,7 +328,7 @@ static int root_dir_prepare(){
   // vidx->fs=NULL;
   // strcpy(vidx->name,"/");
   // strcpy(vidx->path,"/");
-  vinode_root_prepare(int dir,int index);
+  vinode_root_prepare(dir,index);
 //"."初始化;
   // strcpy(vdir->name,".");
   // strcpy(vdir->path,vidx->path);
@@ -339,7 +339,7 @@ static int root_dir_prepare(){
   // vdir->pre_link=vdir->next_link=dir;
   // vdir->refcnt=1;
   // vdir->mode=TYPE_LINK;
-  vinode_dot_prepare(int dir,int index,int father_dir);
+  vinode_dot_prepare(dir, index, father_dir);
   double_link_add(index,dir);
   // vdir->fs_type=VFS;
   // vdir->fs=NULL;
@@ -353,7 +353,7 @@ static int root_dir_prepare(){
   // vfat->pre_link=vdir->next_link=father_dir;
   // vfat->refcnt=1;
   // vfat->mode=TYPE_LINK;
-  vinode_ddot_prepare(int dir,int index,int father_dir);
+  vinode_ddot_prepare( dir, index, father_dir);
   double_link_add(index,father_dir);
   // vfat->fs_type=VFS;
   // vfat->fs=NULL;
