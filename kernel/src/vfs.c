@@ -323,7 +323,7 @@ char path_buf[MAX_PATH_LENGTH];
   printf("       index       name                  path\n");
   printf("cur:   %4d        %12s          %s\n\n", index, vinodes[index].name,
          vinodes[index].path);
-  for (int k = vinodes[idx].child; k != -1; k = vinodes[k].next) {
+  for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
     printf("child: %4d        %12s          %s\n", k, vinodes[k].name,
            vinodes[k].path);
   }
