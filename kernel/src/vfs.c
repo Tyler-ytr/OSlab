@@ -3,6 +3,8 @@
 #define vidx (&vinodes[index])
 #define vnidx (&vinodes[next_index])
 #define voidx (&vinodes[origin_index])
+#define vdir (&vinodes[dir])
+#define vfat (&vinodes[father_dir])
 extern device_t *dev_lookup(const char*name);
 
 struct filesystem filesystems[MAX_FS_NUM];
@@ -269,19 +271,72 @@ static int vfs_init_devfs(const char *name, device_t *dev, size_t size,
   fidx->dev=dev;
   strcpy(fidx->name,name); 
   fidx->init(fidx,fidx->name,fidx->dev);
-  return idx;
+  return index;
 
 
 }
 
 
 char path_buf[MAX_PATH_LENGTH];
+static int root_dir_prepare(){
+  int index=vit_item_alloc();
+  int dir=vit_item_alloc();
+  int father_dir=vit_item_alloc();
+
+  if(index!=VFS_ROOT){
+    assert(0);
+  }  
+
+  vidx->rinode_index=-1;
+  vidx->dir=-1;
+  vidx->father_dir=-1;
+  vidx->next=-1;
+  vidx->child=dir;
+  vidx->next_link=vidx->pre_link=index;
+  vidx->refcnt=1;
+  vidx->modex=TYPE_DIR;
+  vidx->fs_type=VFS;
+  vidx->fs=NULL;
+  strcpy(vidx->name,"/");
+  strcpy(vidx->path,"/");
+//"."初始化;
+  strcpy(vdir->name,".");
+  strcpy(vdir->path,vidx->path);
+  vdir->dir=-1;
+  vdir->father_dir=father_dir;
+  vdir->next=father_dir;
+  vdir->child=index;
+  vdir->pre_link=vdir->next_link=dir;
+  vdir->refcnt=1;
+  vdir->mode=TYPE_LINK;
+  double_link_add(index,dir);
+  vdir->fs_type=VFS;
+  vdir->fs=NULL;
+//".."初始化;
+  strcpy(vfat->name,"..");
+  strcpy(vfat->path,vidx->path);
+  vfat->dir=dir;
+  vfat->father_dir=-1;
+  vfat->next=-1;
+  vfat->child=index;
+  vfat->pre_link=vdir->next_link=father_dir;
+  vfat->refcnt=1;
+  vfat->mode=TYPE_LINK;
+  double_link_add(index,father_dir);
+  vfat->fs_type=VFS;
+  vfat->fs=NULL;
+
+  return index;
+  
+
+}
 
   void vfs_init(){
-    int success=vinode_lookup("/");
-    assert(success!=-1);
-    
-    return 0;
+   // int success=vinode_lookup("/");
+    //assert(success!=-1);
+    int root=root_dir_prepare();
+
+    return ;
   };
   int vfs_access(const char *path, int mode){
     strcpy(path_buf,path);
