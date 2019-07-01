@@ -275,8 +275,37 @@ static int vfs_init_devfs(const char *name, device_t *dev, size_t size,
 
 
 }
-
-
+void vinode_prepare(int index,
+  int rinode_index,int dir,int father_dir,int next,int child,
+  int next_link,int pre_link,int refcnt,int mode,
+  int fs_type,filesystem_t*fs,
+  char *name,char *path
+){
+  vidx->rinode_index=index;
+  vidx->dir=dir;
+  vidx->father_dir=father_dir;
+  vidx->next=next;
+  vidx->child=child;
+  vidx->next_link=next_link;
+  vidx->pre_link=pre_link;
+  vidx->refcnt=refcnt;
+  vidx->mode=mode;
+  vidx->fs_type=fs_type;
+  vidx->fs=fs;
+  strcpy(vidx->name,name);
+  strcpy(vidx->path,path);
+}
+void vinode_root_prepare(int dir,int index){
+  vinode_prepare(index,-1,-1,-1,-1,dir,index,index,1,TYPE_DIR,VFS,NULL,"/","/");
+}
+void vinode_dot_prepare(int dir,int index,int father_dir){
+  vinode_prepare(dir,-1,-1,father_dir,father_dir,index,dir,dir,1,TYPE_LINK
+  ,VFS,NULL,".",vidx->path);
+}
+void vinode_ddot_prepare(int dir,int index,int father_dir){
+  vinode_prepare(father_dir,-1,dir,-1,-1,index,father_dir,
+  father_dir,1,TYPE_LINK,VFS,NULL,"..",vidx->path);
+}
 char path_buf[MAX_PATH_LENGTH];
 static int root_dir_prepare(){
   int index=vit_item_alloc();
@@ -287,49 +316,89 @@ static int root_dir_prepare(){
     assert(0);
   }  
 
-  vidx->rinode_index=-1;
-  vidx->dir=-1;
-  vidx->father_dir=-1;
-  vidx->next=-1;
-  vidx->child=dir;
-  vidx->next_link=vidx->pre_link=index;
-  vidx->refcnt=1;
-  vidx->mode=TYPE_DIR;
-  vidx->fs_type=VFS;
-  vidx->fs=NULL;
-  strcpy(vidx->name,"/");
-  strcpy(vidx->path,"/");
+  // vidx->rinode_index=-1;
+  // vidx->dir=-1;
+  // vidx->father_dir=-1;
+  // vidx->next=-1;
+  // vidx->child=dir;
+  // vidx->next_link=vidx->pre_link=index;
+  // vidx->refcnt=1;
+  // vidx->mode=TYPE_DIR;
+  // vidx->fs_type=VFS;
+  // vidx->fs=NULL;
+  // strcpy(vidx->name,"/");
+  // strcpy(vidx->path,"/");
+  vinode_root_prepare(int dir,int index);
 //"."初始化;
-  strcpy(vdir->name,".");
-  strcpy(vdir->path,vidx->path);
-  vdir->dir=-1;
-  vdir->father_dir=father_dir;
-  vdir->next=father_dir;
-  vdir->child=index;
-  vdir->pre_link=vdir->next_link=dir;
-  vdir->refcnt=1;
-  vdir->mode=TYPE_LINK;
+  // strcpy(vdir->name,".");
+  // strcpy(vdir->path,vidx->path);
+  // vdir->dir=-1;
+  // vdir->father_dir=father_dir;
+  // vdir->next=father_dir;
+  // vdir->child=index;
+  // vdir->pre_link=vdir->next_link=dir;
+  // vdir->refcnt=1;
+  // vdir->mode=TYPE_LINK;
+  vinode_dot_prepare(int dir,int index,int father_dir);
   double_link_add(index,dir);
-  vdir->fs_type=VFS;
-  vdir->fs=NULL;
+  // vdir->fs_type=VFS;
+  // vdir->fs=NULL;
 //".."初始化;
-  strcpy(vfat->name,"..");
-  strcpy(vfat->path,vidx->path);
-  vfat->dir=dir;
-  vfat->father_dir=-1;
-  vfat->next=-1;
-  vfat->child=index;
-  vfat->pre_link=vdir->next_link=father_dir;
-  vfat->refcnt=1;
-  vfat->mode=TYPE_LINK;
+  // strcpy(vfat->name,"..");
+  // strcpy(vfat->path,vidx->path);
+  // vfat->dir=dir;
+  // vfat->father_dir=-1;
+  // vfat->next=-1;
+  // vfat->child=index;
+  // vfat->pre_link=vdir->next_link=father_dir;
+  // vfat->refcnt=1;
+  // vfat->mode=TYPE_LINK;
+  vinode_ddot_prepare(int dir,int index,int father_dir);
   double_link_add(index,father_dir);
-  vfat->fs_type=VFS;
-  vfat->fs=NULL;
+  // vfat->fs_type=VFS;
+  // vfat->fs=NULL;
 
   return index;
-  
 
 }
+
+
+static int append_dir(int par,char *name,int mode,int fs_type,filesystem_t *fs){
+  int next_index=vit_item_alloc();
+  int k=vinodes[par].child;
+  int dir=-1,father_dir=-1;
+
+  //找到最后一个节点;
+  for(k;vinodes[k].next!=-1;k=vinodes[k].next){
+    if (!strcmp(vinodes[k].name, ".")) {//找到".""记录当前dir以及father_dir;
+    dir=k;
+    father_dir=vinodes[k].next;
+  }
+  }
+  assert(dir != -1 && father_dir != -1);
+  vinodes[k].next=next_index;
+  //目录初始化;
+  strcpy(vnidx->name,name);
+  strcpy(vnidx->path,vdir->path);
+  strcat(vnidx->path,name);
+  strcat(vnidx->path,"/");
+  vnidx->dir=dir;
+  //vnidx->dir=dir;
+  vnidx->father_dir=father_dir;
+  vfat->next=-1;
+  vfat->child=-1;
+  vfat->pre_link=vdir->next_link=next_index;
+  vfat->refcnt=1;
+  vfat->mode=mode;
+  //double_link_add(index,father_dir);
+  vfat->fs_type=fs_type;
+  vfat->fs=fs;
+  
+  
+  return next_index;
+
+}
+
 
   void vfs_init(){
    // int success=vinode_lookup("/");
