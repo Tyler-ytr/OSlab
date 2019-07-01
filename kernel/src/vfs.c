@@ -15,7 +15,7 @@ void double_link_add(int origin_index,int next_index);
 
 static int vit_item_alloc();
 static void vit_item_free(int index);
-static int vit_lookup_cur(char *path,int* check,int dir_index);//从cur这个目录开始遍历inode_list链表;
+static int lookup_cur(char *path,int* check,int dir_index);//从cur这个目录开始遍历inode_list链表;
 static int lookup_root(char *path, int *find_flag, int *path_offset) ;
 
 static int vit_item_alloc(){
