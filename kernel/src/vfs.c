@@ -5,7 +5,7 @@
 #define voidx (&vinodes[origin_index])
 extern device_t *dev_lookup(const char*name);
 
-filesystem_t filesystems[MAX_FS_NUM];
+struct filesystem filesystems[MAX_FS_NUM];
 file_t flides[MAX_FILE_NUM];
 vinode_t vinodes[MAX_VINODE_NUM];
 //辅助函数;
@@ -239,10 +239,30 @@ if(next_inode==-1){
 }
 
 
+//　文件系统的操作;
+static int filesystem_alloc(){
+  for(int i=0;i<MAX_FS_NUM;i++){
+    if(strlen(filesystems[i].name)==0){
+      return i;
+    }
+  }
+  return -1;//没有多余的了;
+}
+static int filesystem_free(int index){
+  strcpy(filesystems[index].name,"");//清空名字;
+}
+
+
+
+
+
+
   void vfs_init(){
     return;
   };
   int vfs_access(const char *path, int mode){
+
+
     return 0;
   };
   int vfs_mount(const char *path, filesystem_t *fs){
