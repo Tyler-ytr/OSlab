@@ -592,41 +592,40 @@ int ext2_create(ext2_t* ext2, int ridx, char* name, int mode) {
   ext2_inode_prepare(ext2, idx, ridx, mode);
   return idx;
 }
-// int ext2_remove(ext2_t* ext2,int index,char* name,int mode){
-//   ext2_rd_ind(ext2,index);
-//   int i, j, k = -1;
-//   for (i = 0; i < ext2->ind.blocks; i++) {
-//     ext2_rd_dir(ext2, ext2->ind.block[i]);
-//     for (j = 0; j < DIR_AMUT; j++)
-//       if (!strcmp(ext2->dir[j].name, name)) {
-//         k = ext2->dir[j].inode;
-//         break;
-//       }
-//     if (k != -1) break;
-//   }
+int ext2_remove(ext2_t* ext2,int index,char* name,int mode){
+  ext2_rd_ind(ext2,index);
+  int i, j, k = -1;
+  for (i = 0; i < ext2->ind.blocks; i++) {
+    ext2_rd_dir(ext2, ext2->ind.block[i]);
+    for (j = 0; j < DIR_AMUT; j++)
+      if (!strcmp(ext2->dir[j].name, name)) {
+        k = ext2->dir[j].inode;
+        break;
+      }
+    if (k != -1) break;
+  }
 
-//   if (k == -1) return 1;
-//   //需要修改;
-//   if(mode&TYPE_DIR){
-//     ext2_rd_ind(ext2,ext2->dir[j].inode);
+  if (k == -1) return 1;
+  //需要修改;
+  if(mode&TYPE_DIR){
+    ext2_rd_ind(ext2,ext2->dir[j].inode);
 
-//     if(ext2->ind.size==2*DIR_SIZE){
-//       assert(ext2->ind.blocks == 1);
-//       ext2->ind.size=ext2->int.blocks=0
+    if(ext2->ind.size==2*DIR_SIZE){
+      assert(ext2->ind.blocks == 1);
+      ext2->ind.size = ext2->ind.blocks = 0;
+      ext2_remove_block(ext2, ext2->ind.block[0]);
+      ext2_wr_ind(ext2, ext2->dir[j].inode);
 
-//       ext2_remove_block(ext2,ext2->ind.block[0]);//删除'.';
-//       ext2_remove_block(ext2,ext2->ind.block[1]);//删除'..';
-//       ext2_wr_ind(ext2,ext2->dir[j].inode);
+      ext2_remove_inode(ext2, ext2->dir[j].inode);
+      ext2->dir[j].inode = 0;
+      ext2_wr_dir(ext2, ext2->ind.block[i]);
 
-//       ext2_remove_block(ext2,ext2->dir[j].inode);
-
-//       ext2->dir[j].inode=0;
-
-//       ext2_wr_dir(ext2,ext2->dir[j].inode);
-      
-//     }
-//   }
-// }
+      ext2_rd_ind(ext2, index);
+      ext2->ind.size -= DIR_SIZE;
+      ext2_wr_ind(ext2, index);
+    }
+  }
+}
 
 
 // void ext2_ls(ext2_t * ext2,char * dirname,char * out){//显示在out里面;

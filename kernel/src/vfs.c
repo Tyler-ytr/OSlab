@@ -10,6 +10,7 @@ file_t flides[MAX_FILE_NUM];
 vinode_t vinodes[MAX_VINODE_NUM];
 //辅助函数;
 void double_link_add(int origin_index,int next_index);
+void double_link_add(int origin_index,int next_index);
 //vfs inode table 操作;
 
 static int vit_item_alloc();
@@ -255,15 +256,20 @@ static int filesystem_free(int index){
 
 
 
-
+char path_buf[MAX_PATH_LENGTH];
 
   void vfs_init(){
     return;
   };
   int vfs_access(const char *path, int mode){
+    strcpy(path_buf,path);
 
+    int index=lookup_auto(path_buf);
+    if(index==-1){
+      return 1;
+    }
 
-    return 0;
+    return (vinodes[index].mode&mode)!=mode;
   };
   int vfs_mount(const char *path, filesystem_t *fs){
     return 0;
@@ -305,6 +311,28 @@ static int filesystem_free(int index){
     return 0;
   }
 
+//辅助函数;
+void double_link_add(int origin_index,int next_index){
+  //双向链表 前一个节点是origin_index,后一个节点是next_index;
+
+  int temp_index=vinodes[origin_index].next_link;
+  vinodes[next_index].next_link=temp_index;
+  vinodes[origin_index].next_link=next_index;
+  vinodes[next_index].pre_link=origin_index;
+  vinodes[temp_index].pre_link=next_index;
+
+}
+void double_link_remove(int index){
+  int pre_link=vidx->pre_link;
+  int next_link=vidx->next_link;
+
+  vinodes[pre_link].next_link=vidx->next_link;
+  vinodes[next_link].pre_link=vidx->pre_link;
+}
+
+
+
+
 MODULE_DEF(vfs){
     .init = vfs_init,
     .access = vfs_access,
@@ -320,16 +348,4 @@ MODULE_DEF(vfs){
     .lseek = vfs_lseek,
     .close = vfs_close,
 };
-
-//辅助函数;
-void double_link_add(int origin_index,int next_index){
-  //双向链表 前一个节点是origin_index,后一个节点是next_index;
-
-  int temp_index=vinodes[origin_index].next_link;
-  vinodes[next_index].next_link=temp_index;
-  vinodes[origin_index].next_link=next_index;
-  vinodes[next_index].pre_link=origin_index;
-  vinodes[temp_index].pre_link=next_index;
-
-}
 
