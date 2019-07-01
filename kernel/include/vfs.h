@@ -100,7 +100,7 @@ void file_free(int fd);//从flides里面释放相应的file_t;
 struct filesystem {
   char name[MAX_NAME_LENGTH];
   void*real_fs;//指向某一个操作系统的缓冲;
-  fsops_t *ops;
+  //fsops_t *ops;
   dev_t *dev;
   //filesystem_t * next_filesystem;
   uint32_t type;

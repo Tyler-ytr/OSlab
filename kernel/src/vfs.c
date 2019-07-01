@@ -255,13 +255,33 @@ static int filesystem_free(int index){
   return 0;
 }
 
+//devvfs:
+#define fidx (&filesystems[index])
+static int vfs_init_devfs(const char *name, device_t *dev, size_t size,
+                             void (*init)(filesystem_t *, const char *,
+                                          device_t *),
+                             int (*readdir)(filesystem_t *, int, int,
+                                            vinode_t *)){
+  int index=filesystem_alloc();
+  fidx->real_fs=pmm->alloc(size);
+  fidx->init=init;
+  fidx->readdir=readdir;
+  fidx->dev=dev;
+  strcpy(fidx->name,name); 
+  fidx->init(fidx,fidx->name,fidx->dev);
+  return idx;
 
+
+}
 
 
 char path_buf[MAX_PATH_LENGTH];
 
   void vfs_init(){
-    return;
+    int success=vinode_lookup("/");
+    assert(success!=-1);
+    
+    return 0;
   };
   int vfs_access(const char *path, int mode){
     strcpy(path_buf,path);
