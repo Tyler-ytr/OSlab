@@ -294,7 +294,7 @@ static int root_dir_prepare(){
   vidx->child=dir;
   vidx->next_link=vidx->pre_link=index;
   vidx->refcnt=1;
-  vidx->modex=TYPE_DIR;
+  vidx->mode=TYPE_DIR;
   vidx->fs_type=VFS;
   vidx->fs=NULL;
   strcpy(vidx->name,"/");
