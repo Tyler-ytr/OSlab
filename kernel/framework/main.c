@@ -80,6 +80,7 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
+extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
   return ;
