@@ -170,6 +170,9 @@ static void shell_task(void *arg){
     if(strcmp(readbuf,"help")==0){
       strcpy(readbuf,"help ");
     }
+      if(strcmp(readbuf,"pwd")==0){
+      strcpy(readbuf,"pwd ");
+    }
     printf("readbuf:%s\n",readbuf);
     
     find_func=0;
