@@ -141,7 +141,7 @@ struct shell_function{
   {"help ",help_function,5},
   {"ls ",ls_function,3},
   {"pwd ",pwd_function,4},
-  {"echo ",echo_function,6}
+  {"echo ",echo_function,5}
 };
 
 static void shell_task(void *arg){
@@ -164,9 +164,9 @@ static void shell_task(void *arg){
     if(strcmp(readbuf,"ls")==0){
       strcpy(readbuf,"ls ");
     }
-       if(strcmp(readbuf,"echo")==0){
-      strcpy(readbuf,"echo ");
-    }
+    //    if(strcmp(readbuf,"echo")==0){
+    //   strcpy(readbuf,"echo ");
+    // }
     if(strcmp(readbuf,"help")==0){
       strcpy(readbuf,"help ");
     }
