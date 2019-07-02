@@ -81,7 +81,7 @@ static void echo_task2(void *arg){
 //   }
 // }
 char abs_path[MAX_PATH_LENGTH];//记得改成二维数组存tty;
-static change_into_abs_path(char *name,char*pwd){
+static void change_into_abs_path(char *name,char*pwd){
   if(name[0]!='/'){
     strcpy(abs_path,pwd);
     strcat(abs_path,name);
