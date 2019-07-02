@@ -24,19 +24,19 @@ kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
 static void echo_task(void *arg){
   char *name=(char*)arg;
  // printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-  char text[128]="",line[128]="";
+  char text1[128]="",line[128]="";
   device_t *tty=dev_lookup(name);
   while(1){
-    sprintf(text,"(%s)$",name);
+    sprintf(text1,"(%s)$",name);
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-    tty->ops->write(tty,0,text,strlen(text));
+    tty->ops->write(tty,0,text1,strlen(text1));
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     int nread=tty->ops->read(tty,0,line,sizeof(line));
  // printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
     line[nread-1]='\0';
-    sprintf(text,"Echo:%s.\n",line);
+    sprintf(text1,"Echo:%s.\n",line);
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-    tty->ops->write(tty,0,text,strlen(text));
+    tty->ops->write(tty,0,text1,strlen(text1));
   }
 }
 static void echo_task2(void *arg){
@@ -80,7 +80,8 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
-char abs_path[1024];//记得改成二维数组存tty;
+char text[256];
+char abs_path[256];//记得改成二维数组存tty;
 static void change_into_abs_path(char *name,char*pwd){
   if(name[0]!='/'){
     strcpy(abs_path,pwd);
@@ -92,20 +93,17 @@ static void change_into_abs_path(char *name,char*pwd){
 }
 static void echo_function(device_t *tty,char*argv,char *pwd){
 
-  char text[256];
   sprintf(text, "%s\n", argv);
   tty->ops->write(tty,0,text,strlen(text));
 }
 static void pwd_function(device_t *tty,char*argv,char *pwd){
   //int offset=0;
-  char text[256];
   sprintf(text,"%s\n",pwd);
   tty->ops->write(tty,0,text,strlen(text));
 }
 extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
-  char text[1024];
   change_into_abs_path(argv,pwd);
   printf("In ls");
   int abs_path_length=strlen(abs_path);
@@ -128,7 +126,6 @@ static void help_function(device_t *tty,char *argv,char*pwd){
 }
 static void error_function(device_t *tty,const char *argv){
   int offset=0;
-  char text[256];
   
   offset+=sprintf(text+offset,"command not found: %s. Input \'help\' for more information.\n",argv);
   tty->ops->write(tty,0,text,strlen(text));
@@ -155,7 +152,7 @@ static void shell_task(void *arg){
   pwd[0]='/';
   pwd[1]='\0';
   //printf("%d\n\n\n\n\n\n\n\n",(int)_cpu());
-  char text[128]="",readbuf[128]="",origin[128];
+  char readbuf[128]="",origin[128];
   device_t *tty=dev_lookup(name);
   while(1){
     sprintf(text,"(%s)$",name);
