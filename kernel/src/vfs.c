@@ -104,7 +104,7 @@ int get_name(char * path,int *name_len){
 static int vinode_lookup(char *path){
   //根据path从 blkfs里面获得而信息;并且更新vfs的inode;
 
-printf("here");
+printf("here\n");
 
 int len=strlen(path);
 vinode_t buf;//inode 缓冲区;
@@ -118,7 +118,7 @@ if(path[len-1]=='/'){
 // }else{
 //   index=lookup_cur(path,&flag,VFS_ROOT,&offset);
 // }
-printf("%c\n",path[0]);
+printf("%c\n",path[len-1]);
 int index=(path[0] == '/') ? lookup_root(path, &flag, &offset)
                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
 if(flag==1){
