@@ -12,7 +12,7 @@ file_t flides[MAX_FILE_NUM];
 vinode_t vinodes[MAX_VINODE_NUM];
 //辅助函数;
 void double_link_add(int origin_index,int next_index);
-void double_link_add(int origin_index,int next_index);
+void double_link_remove(int index);
 //vfs inode table 操作;
 
 static int vit_item_alloc();
@@ -441,7 +441,7 @@ static void vinode_delete(int index){
 }
 static int vfs_dir_remove(int index, int par){//在par目录删除index目录
 //首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
-int temp_index=index[par].child;
+int temp_index=vinodes[par].child;
 while(1){
   if(temp_index.next==index)break;
   temp_index=temp_index.next;
