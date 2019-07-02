@@ -80,7 +80,7 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
-char abs_path[MAX_PATH_LENGTH];//记得改成二维数组存tty;
+char abs_path[1024];//记得改成二维数组存tty;
 static void change_into_abs_path(char *name,char*pwd){
   if(name[0]!='/'){
     strcpy(abs_path,pwd);
@@ -116,6 +116,7 @@ static void ls_function(device_t *tty,char *argv,char* pwd){
   }
   printf("In ls");
   vfs_ls(abs_path,text);
+  printf("In ls");
   tty->ops->write(tty,0,text,strlen(text));
 
 
