@@ -121,7 +121,8 @@ uint32_t ext2_research_file(ext2_t *ext2,char *path,int file_type,
                            uint32_t * inode_num,uint32_t* block_num,uint32_t* dir_num);
 
 
-void ext2_ls(ext2_t* ext2, char* dirname, char* out);
+//void ext2_ls(ext2_t* ext2, char* dirname, char* out);
+int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 
 
 

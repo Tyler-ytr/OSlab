@@ -443,8 +443,8 @@ static int vfs_dir_remove(int index, int par){//在par目录删除index目录
 //首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
 int temp_index=vinodes[par].child;
 while(1){
-  if(temp_index.next==index)break;
-  temp_index=temp_index.next;
+  if(vinodes[temp_index].next==index)break;
+  temp_index=vinodes[temp_index].next;
 }
 vinodes[temp_index].next=vinodes[index].next;
 
@@ -458,6 +458,8 @@ return 0;
 
 }
 
+extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
+extern int ext2_init(fs_t * fs,const char * name ,device_t* dev);
   void vfs_init(){
    // int success=vinode_lookup("/");
     //assert(success!=-1);
