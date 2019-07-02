@@ -550,15 +550,15 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   int index=vinode_lookup(dir);
   printf("here\n");
   if (index == -1) return;
-   int offset = sprintf(
-       outbuf, "-----------------------------------------------------------\n");
+   //int offset = sprintf(
+     //  outbuf, "-----------------------------------------------------------\n");
 
-   offset += sprintf(outbuf + offset,
-                     "      index       name                  path        \n");
-   offset += sprintf(outbuf + offset, ">>   %4d         %12s          %s\n\n",
+//int offset += sprintf(outbuf + offset,
+  //                   "      index       name                  path        \n");
+   offset += sprintf(outbuf + offset, "In %4d %12s %s\n",
                      index, vinodes[index].name, vinodes[index].path);
    for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
-     offset += sprintf(outbuf + offset, "-    %4d         %12s          %s\n", k,
+     offset += sprintf(outbuf + offset, "-%4d %12s %s\n", k,
                        vinodes[k].name, vinodes[k].path);
    //printf("-    %4d         %12s          %s\n", k,
      //                  vinodes[k].name, vinodes[k].path);
