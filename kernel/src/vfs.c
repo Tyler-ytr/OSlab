@@ -252,10 +252,10 @@ static int filesystem_alloc(){
   }
   return -1;//没有多余的了;
 }
-static int filesystem_free(int index){
-  strcpy(filesystems[index].name,"");//清空名字;
-  return 0;
-}
+// static int filesystem_free(int index){
+//   strcpy(filesystems[index].name,"");//清空名字;
+//   return 0;
+// }
 
 //devvfs:
 #define fidx (&filesystems[index])
@@ -441,24 +441,24 @@ static void vinode_delete(int index){
   vit_item_free(index);
   double_link_remove(index);
 }
-static int vfs_dir_remove(int index, int par){//在par目录删除index目录
-//首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
-int temp_index=vinodes[par].child;
-while(1){
-  if(vinodes[temp_index].next==index)break;
-  temp_index=vinodes[temp_index].next;
-}
-vinodes[temp_index].next=vinodes[index].next;
+// static int vfs_dir_remove(int index, int par){//在par目录删除index目录
+// //首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
+// int temp_index=vinodes[par].child;
+// while(1){
+//   if(vinodes[temp_index].next==index)break;
+//   temp_index=vinodes[temp_index].next;
+// }
+// vinodes[temp_index].next=vinodes[index].next;
 
-//删除dir的所有节点;
-int k=vidx->child;
-for(;k!=-1;k=vinodes[index].next){
-  vinode_delete(k);
-}
-vinode_delete(index);
-return 0;
+// //删除dir的所有节点;
+// int k=vidx->child;
+// for(;k!=-1;k=vinodes[index].next){
+//   vinode_delete(k);
+// }
+// vinode_delete(index);
+// return 0;
 
-}
+// }
 
 extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
