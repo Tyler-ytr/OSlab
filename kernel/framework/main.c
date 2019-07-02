@@ -96,6 +96,7 @@ extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
 
+
   return ;
 }
 static void help_function(device_t *tty,char *argv,char*pwd){
@@ -141,7 +142,7 @@ static void shell_task(void *arg){
     strcpy(origin,readbuf);
     
     if(strcmp(readbuf,"ls")==0){
-      strcpy(readbuf,"ls .");
+      strcpy(readbuf,"ls ");
     }
     if(strcmp(readbuf,"help")==0){
       strcpy(readbuf,"help ");
