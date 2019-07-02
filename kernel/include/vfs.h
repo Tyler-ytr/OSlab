@@ -32,6 +32,10 @@ typedef struct file file_t;
 #define UNMNT_ABLE 0x0200
 #define ALLOCED 0x80000
 
+
+#define VFS_ROOT 0
+#define EXT2_ROOT 1
+#define PROCFS_ROOT -1
 //enum SYS_TYPE{VFS=0x00,BLKFS=0x01,PROCFS=0x02};
 //enum ROOT_LOCATION{VFS_ROOT=0,EXT2_ROOT=1,PROCFS_ROOT=-1};
 
