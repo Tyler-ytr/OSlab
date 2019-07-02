@@ -550,8 +550,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   int index=vinode_lookup(dir);
   printf("here\n");
   if (index == -1) return;
-  // int offset = sprintf(
-  //     outbuf, "-----------------------------------------------------------\n");
+   int offset = sprintf(
+       outbuf, "-----------------------------------------------------------\n");
 
   // offset += sprintf(outbuf + offset,
   //                   "      index       name                  path        \n");
