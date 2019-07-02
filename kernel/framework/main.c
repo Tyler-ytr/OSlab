@@ -172,9 +172,11 @@ static void shell_task(void *arg){
     }
     find_func=0;
     for(int i=0;i<function_num;i++){
+      int result=strncmp(readbuf,Function[i].function_name,Function[i].offset)
+      printf("%d\n",result);
       if(strncmp(readbuf,Function[i].function_name,Function[i].offset)==0)
       {
-        (*Function[i].func)(tty,origin+Function[i].offset,pwd);
+        (*Function[i].func)(tty,readbuf+Function[i].offset,pwd);
         find_func=1;break; 
       }
     } 
