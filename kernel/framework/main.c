@@ -117,7 +117,8 @@ static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
   vfs_ls(abs_path,text);
   printf("In ls");
-  tty->ops->write(tty,0,text,strlen(text));
+  printf("%s\n",text);
+  //tty->ops->write(tty,0,text,strlen(text));
 
 
   return ;
