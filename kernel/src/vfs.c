@@ -459,7 +459,7 @@ return 0;
 }
 
 extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
-extern int ext2_init(fs_t * fs,const char * name ,device_t* dev);
+extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   void vfs_init(){
    // int success=vinode_lookup("/");
     //assert(success!=-1);
