@@ -105,7 +105,7 @@ static void pwd_function(device_t *tty,char*argv,char *pwd){
 extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
-  char text[256];
+  char text[1024];
   change_into_abs_path(argv,pwd);
   printf("In ls");
   int abs_path_length=strlen(abs_path);
