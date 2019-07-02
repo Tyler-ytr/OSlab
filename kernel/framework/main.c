@@ -108,7 +108,7 @@ static void ls_function(device_t *tty,char *argv,char* pwd){
   char text[256];
   change_into_abs_path(argv,pwd);
   int abs_path_length=strlen(abs_path);
-  if(abs_path[strlen(abs_path)-1]=='/'){
+  if(abs_path[strlen(abs_path_length)-1]=='/'){
     strcat(abs_path,".");
   }else{
     strcat(abs_path,"/.");
