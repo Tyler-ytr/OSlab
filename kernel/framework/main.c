@@ -170,6 +170,8 @@ static void shell_task(void *arg){
     if(strcmp(readbuf,"help")==0){
       strcpy(readbuf,"help ");
     }
+    printf("readbuf:%s\n",readbuf);
+    
     find_func=0;
     for(int i=0;i<function_num;i++){
       int result=strncmp(readbuf,Function[i].function_name,Function[i].offset);
