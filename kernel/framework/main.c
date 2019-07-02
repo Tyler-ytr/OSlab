@@ -119,7 +119,6 @@ static void ls_function(device_t *tty,char *argv,char* pwd){
   printf("In ls");
   printf("%s\n",text);
   //tty->ops->write(tty,0,text,strlen(text));
-  assert(0);
 
   return ;
 }
