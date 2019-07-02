@@ -28,7 +28,7 @@ char *init_str="Hello, World!\n";
 //char zero[256];
 
 
-int ext2_init(fs_t * fs,const char * name ,device_t* dev){
+void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2_t* ext2=(ext2_t*)fs->real_fs;
   memset(ext2, 0x00, sizeof(ext2_t));
   ext2->dev=dev;
@@ -87,7 +87,7 @@ int ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2_write(ext2,init_file,0,init_str,strlen(init_str));
 
 
-  return 1;
+  return ;
 
 }
 //基本的小型操作

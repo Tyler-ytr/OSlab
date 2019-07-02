@@ -111,7 +111,7 @@ void ext2_wr_inodebitmap(ext2_t* ext2);
 void ext2_rd_datablock(ext2_t* ext2, uint32_t i);
 void ext2_wr_datablock(ext2_t* ext2, uint32_t i);
 
-int ext2_init(fs_t * fs,const char * name ,device_t* dev);
+void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 uint32_t ext2_alloc_block(ext2_t* ext2);
 void ext2_remove_block(ext2_t * ext2,uint32_t del_num);
 uint32_t ext2_alloc_inode(ext2_t * ext2);
