@@ -72,7 +72,7 @@ static int lookup_cur(char *path,int *find_flag,
     printf("lookup_cur: File not found;\n");
     return cur_inode;
   }
-  printf("here\n");
+ // printf("here\n");
 
  // 用于软链接； 
   int real_file=k;
@@ -122,7 +122,6 @@ printf("%s",path);
 // }
 int index=(path[0] == '/') ? lookup_root(path, &flag, &offset)
                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
-assert(0);
 if(flag==1){
   return index;
 }
