@@ -551,7 +551,7 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   offset += sprintf(outbuf + offset,
                     "      index       name                  path        \n");
   offset += sprintf(outbuf + offset, ">>   %4d         %12s          %s\n\n",
-                    idx, vinodes[idx].name, vinodes[idx].path);
+                    index, vinodes[index].name, vinodes[index].path);
   for (int k = vinodes[idx].child; k != -1; k = vinodes[k].next) {
     offset += sprintf(outbuf + offset, "-    %4d         %12s          %s\n", k,
                       vinodes[k].name, vinodes[k].path);
