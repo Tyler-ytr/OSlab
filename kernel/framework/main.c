@@ -93,7 +93,7 @@ static void change_into_abs_path(char *name,char*pwd){
 }
 static void echo_function(device_t *tty,char*argv,char *pwd){
 
-  sprintf(text, "%s\n", argv);
+  sprintf(text, "echo:%s\n", argv);
   tty->ops->write(tty,0,text,strlen(text));
 }
 static void pwd_function(device_t *tty,char*argv,char *pwd){
@@ -141,7 +141,7 @@ struct shell_function{
   {"help ",help_function,5},
   {"ls ",ls_function,3},
   {"pwd ",pwd_function,4},
-  {"echo ",echo_function,5}
+  {"echo",echo_function,4}
 };
 
 static void shell_task(void *arg){
