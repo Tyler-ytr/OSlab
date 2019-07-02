@@ -141,7 +141,7 @@ struct shell_function{
   {"help ",help_function,5},
   {"ls ",ls_function,3},
   {"pwd ",pwd_function,4},
-  {"echo ",echo_function,}
+  {"echo ",echo_function,5}
 };
 
 static void shell_task(void *arg){
