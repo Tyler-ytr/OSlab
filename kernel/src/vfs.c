@@ -437,10 +437,10 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   return dir;
 
 }
-static void vinode_delete(int index){
-  vit_item_free(index);
-  double_link_remove(index);
-}
+// static void vinode_delete(int index){
+//   vit_item_free(index);
+//   double_link_remove(index);
+// }
 // static int vfs_dir_remove(int index, int par){//在par目录删除index目录
 // //首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
 // int temp_index=vinodes[par].child;
