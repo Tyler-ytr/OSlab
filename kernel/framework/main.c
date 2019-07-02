@@ -103,18 +103,18 @@ static void pwd_function(device_t *tty,char*argv,char *pwd){
 }
 extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
-  printf("In ls");
+ // printf("In ls");
   change_into_abs_path(argv,pwd);
-  printf("In ls");
+  //printf("In ls");
   int abs_path_length=strlen(abs_path);
   if(abs_path[abs_path_length-1]=='/'){
     strcat(abs_path,".");
   }else{
     strcat(abs_path,"/.");
   }
-  printf("In ls");
+  //printf("In ls");
   vfs_ls(abs_path,text);
-  printf("In ls");
+  //printf("In ls");
   //printf("%s\n",text);
   tty->ops->write(tty,0,text,strlen(text));
 
