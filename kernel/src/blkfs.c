@@ -12,7 +12,7 @@ static int first_item_len(const char* path){
 
 
 //交给上层
-int ext2_init(fs_t * fs,const char * name ,device_t* dev);
+void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 int ext2_create(ext2_t* ext2, int ridx, char* name, int mode);
 void ext2_cd(ext2_t* ext2, char* dirname);
 ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t len);
