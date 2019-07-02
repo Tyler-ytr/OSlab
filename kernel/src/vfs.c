@@ -112,13 +112,13 @@ int flag=0,offset=1;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
+assert(0);
 
 // if(path[0]=='/'){
 //  index=lookup_root(path,&flag,&offset);
 // }else{
 //   index=lookup_cur(path,&flag,VFS_ROOT,&offset);
 // }
-printf("%c\n",path[len-1]);
 int index=(path[0] == '/') ? lookup_root(path, &flag, &offset)
                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
 if(flag==1){
