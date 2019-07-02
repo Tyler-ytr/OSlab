@@ -547,7 +547,7 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   }
 
   void vfs_ls(char * dir,char *outbuf){
-  int index =vinode_lookup(dir);
+  vinode_lookup(dir);
   printf("here\n");
   // if (index == -1) return;
   // int offset = sprintf(
