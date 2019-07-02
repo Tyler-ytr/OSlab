@@ -80,7 +80,7 @@ static void echo_task2(void *arg){
 //     //   ...
 //   }
 // }
-char text[256];
+char text[2048]={};
 char abs_path[256];//记得改成二维数组存tty;
 static void change_into_abs_path(char *name,char*pwd){
   if(name[0]!='/'){
