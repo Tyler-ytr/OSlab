@@ -112,6 +112,7 @@ int flag=0,offset=1;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
+printf("%s",path);
 
 // if(path[0]=='/'){
 //  index=lookup_root(path,&flag,&offset);
