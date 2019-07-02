@@ -16,14 +16,21 @@ typedef struct file file_t;
 #define MAX_VINODE_NUM 256
 #define MAX_FS_NUM 4
 
-#define UNUSED 0x00
-#define EX_ABLE 0x01
-#define WR_ABLE 0x02
-#define RD_ABLE 0x04
-#define TYPE_FILE 0x10
-#define TYPE_DIR 0x20
-#define TYPE_LINK 0x40
-#define ALLOCED 0x80
+#define VFS 0x00
+#define EXT2FS 0x01
+#define PROCFS 0x02
+#define TTY 0x04
+
+#define UNUSED 0x0000
+#define EX_ABLE 0x0001
+#define WR_ABLE 0x0002
+#define RD_ABLE 0x0004
+#define TYPE_FILE 0x0010
+#define TYPE_DIR 0x0020
+#define TYPE_LINK 0x0040
+#define MNT_ABLE 0x0100
+#define UNMNT_ABLE 0x0200
+#define ALLOCED 0x80000
 
 enum SYS_TYPE{VFS=0x00,BLKFS=0x01,PROCFS=0x02};
 enum ROOT_LOCATION{VFS_ROOT=0,EXT2_ROOT=1,PROCFS_ROOT=-1};
