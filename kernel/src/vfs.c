@@ -564,6 +564,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   offset +=
       sprintf(outbuf + offset,
               "-----------------------------------------------------------\n");
+
+  assert(0);
 }
 
 //辅助函数;
