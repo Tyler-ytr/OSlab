@@ -553,8 +553,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
    int offset = sprintf(
        outbuf, "-----------------------------------------------------------\n");
 
-  // offset += sprintf(outbuf + offset,
-  //                   "      index       name                  path        \n");
+   offset += sprintf(outbuf + offset,
+                     "      index       name                  path        \n");
   // offset += sprintf(outbuf + offset, ">>   %4d         %12s          %s\n\n",
   //                   index, vinodes[index].name, vinodes[index].path);
   // for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
