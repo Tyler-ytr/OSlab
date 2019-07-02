@@ -423,6 +423,8 @@ static int append_file(int par, char *name, int mode, int fs_type,
   strcat(vnidx->path,name);
   vinode_prepare(next_index,-1,dir,father_dir,-1,-1,next_index,
   next_index,1,mode,fs_type,fs,vnidx->name,vnidx->path);
+
+  return next_index;
 }
 static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   int dir=vit_item_alloc();
