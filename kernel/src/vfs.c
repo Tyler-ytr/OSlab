@@ -31,9 +31,9 @@ static int vit_item_alloc(){
   printf("Error： The vfs inode table is full!");
   return -1;
 }
-static void vit_item_free(int index){
-  vinodes[index].mode=UNUSED;//不存在;
-}
+// static void vit_item_free(int index){
+//   vinodes[index].mode=UNUSED;//不存在;
+// }
 static int first_name_len(char *name){//返回/前面的第一个名字;
   int name_len=strlen(name); 
   int result=0;
