@@ -542,20 +542,23 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   }
 
   void vfs_ls(char * dir,char *buf){
-    int index=vinode_lookup(dir);
+  int index =vinode_lookup(dir);
+  printf("here\n");
+  if (index == -1) return;
+  int offset = sprintf(
+      outbuf, "-----------------------------------------------------------\n");
 
-    if(index==-1)return ;
-    int offset=sprintf(buf,"\n");
-    
-    offset+=sprintf(buf+offset,"");
-
-  printf("       index       name                  path\n");
-  printf("cur:   %4d        %12s          %s\n\n", index, vinodes[index].name,
-         vinodes[index].path);
-  for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
-    printf("child: %4d        %12s          %s\n", k, vinodes[k].name,
-           vinodes[k].path);
+  offset += sprintf(outbuf + offset,
+                    "      index       name                  path        \n");
+  offset += sprintf(outbuf + offset, ">>   %4d         %12s          %s\n\n",
+                    idx, vinodes[idx].name, vinodes[idx].path);
+  for (int k = vinodes[idx].child; k != -1; k = vinodes[k].next) {
+    offset += sprintf(outbuf + offset, "-    %4d         %12s          %s\n", k,
+                      vinodes[k].name, vinodes[k].path);
   }
+  offset +=
+      sprintf(outbuf + offset,
+              "-----------------------------------------------------------\n");
 }
 
 //辅助函数;
