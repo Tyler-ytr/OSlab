@@ -108,7 +108,6 @@ static int vinode_lookup(char *path){
 int len=strlen(path);
 vinode_t buf;//inode 缓冲区;
 int flag=0,offset=1;
-int index=0;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
