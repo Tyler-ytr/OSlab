@@ -182,6 +182,7 @@ static void shell_task(void *arg){
       printf("%d\n",result);
       if(strncmp(readbuf,Function[i].function_name,Function[i].offset)==0)
       {
+        printf("argv:%s\n",readbuf+Function[i].offset);
         (*Function[i].func)(tty,readbuf+Function[i].offset,pwd);
         find_func=1;break; 
       }
