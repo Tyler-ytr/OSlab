@@ -116,6 +116,7 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
       strcat(abs_path,"/");
     } 
     
+    printf("abs_path: %s\n",abs_path);
     find_flag=vfs_access(abs_path,TYPE_DIR);
     if(find_flag==0){
       strcpy(pwd,vfs_real_path(abs_path));
