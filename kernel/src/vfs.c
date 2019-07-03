@@ -112,7 +112,6 @@ int flag=0,offset=1;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
-printf("look up:%s",path);
 
 // if(path[0]=='/'){
 //  index=lookup_root(path,&flag,&offset);
@@ -137,6 +136,7 @@ int result=-1;
 int next_index=0;
 int origin_index=-1;
 int dir_index=-1,father_dir=-1;
+printf("look up:%s",path);
 
 int next_inode=-1;
 for(int kth=0;kth<DIR_AMUT;kth++){
