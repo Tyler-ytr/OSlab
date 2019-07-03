@@ -96,6 +96,11 @@ static void echo_function(device_t *tty,char*argv,char *pwd){
   sprintf(text, "echo:%s\n", argv);
   tty->ops->write(tty,0,text,strlen(text));
 }
+static void cd_function(device_t *tty,char*argv,char *pwd){
+
+  sprintf(text, "cd:%s\n", argv);
+  tty->ops->write(tty,0,text,strlen(text));
+}
 static void pwd_function(device_t *tty,char*argv,char *pwd){
   //int offset=0;
   sprintf(text,"%s\n",pwd);
@@ -141,7 +146,8 @@ struct shell_function{
   {"help ",help_function,5},
   {"ls ",ls_function,3},
   {"pwd ",pwd_function,4},
-  {"echo ",echo_function,5}
+  {"echo ",echo_function,5},
+  {"cd ",cd_function,3}
 };
 
 static void shell_task(void *arg){
