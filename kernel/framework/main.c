@@ -96,9 +96,33 @@ static void echo_function(device_t *tty,char*argv,char *pwd){
   sprintf(text, "echo:%s\n", argv);
   tty->ops->write(tty,0,text,strlen(text));
 }
+extern char *vfs_real_path(const char *path);
 static void cd_function(device_t *tty,char*argv,char *pwd){
 
   sprintf(text, "cd:%s\n", argv);
+  change_into_abs_path(argv,pwd);
+  int find_flag=vfs_access(abs_path,TYPE_DIR);
+  if(find_flag==1){//没找到
+    sprintf(text,"Dir %s cannot be found!\n",argv);
+ //   tty->ops->write(tty,0,text,strlen(text));
+  //  return ;
+  }else{
+    int abs_length=strlen(abs_path);
+    if(abs_path[abs_length-1]!='/'){
+      strcat(abs_length,"/.");//软链接位置;
+    }
+    else{
+      strcat(abs_length,"/");
+    } 
+    
+    find_flag=vfs_access(abs_path,TYPE_DIR);
+    if(find_flag==0){
+      strcpy(pwd,vfs_real_path(abs_path));
+    }
+
+    sprintf(text,"Current dir:%s\n",pwd);
+  }
+
   tty->ops->write(tty,0,text,strlen(text));
 }
 static void pwd_function(device_t *tty,char*argv,char *pwd){

@@ -464,7 +464,12 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 // return 0;
 
 // }
+  char *vfs_real_path(const char *path){
+    strcpy(path_buf,path);
+    int index=vinode_lookup(path_buf);
+    return vidx->path;//忽略软链接;
 
+  }
 extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   void vfs_init(){
@@ -496,9 +501,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 
     return ;
   };
-  int vfs_access(const char *path, int mode){
+  int vfs_access(const char *path, int mode){//如果符合应该return 0;
     strcpy(path_buf,path);
-
     int index=vinode_lookup(path_buf);
     if(index==-1){
       return 1;
@@ -506,6 +510,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 
     return (vinodes[index].mode&mode)!=mode;
   };
+
+
   int vfs_mount(const char *path, filesystem_t *fs){
     return 0;
   };
