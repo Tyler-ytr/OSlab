@@ -109,10 +109,10 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
   }else{
     int abs_length=strlen(abs_path);
     if(abs_path[abs_length-1]!='/'){
-      strcat(abs_length,"/.");//软链接位置;
+      strcat(abs_path,"/.");//软链接位置;
     }
     else{
-      strcat(abs_length,"/");
+      strcat(abs_path,"/");
     } 
     
     find_flag=vfs_access(abs_path,TYPE_DIR);
