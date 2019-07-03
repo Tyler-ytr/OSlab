@@ -311,14 +311,14 @@ void vinode_prepare(int index,
   do {                                                          \
     strcpy(vdir->name, ".");                                    \
     strcpy(vdir->path, vinodes[CUR].path);                      \
-    vdir->dot = -1, pdir->ddot = ddot;                          \
-    vdir->next = ddot, vdir->child = CUR;                       \
-    vdir->pre_link = vdir->next_link = dir, vdir->linkcnt = 1; \
-    pdir->mode = TYPE_LINK, add_link(CUR, dot);                 \
-    pdir->fs_type = FSTYPE;                                     \
-    pdir->fs = FS;                                              \
+    vdir->dir = -1, vdir->father_dir = father_dir;                          \
+    vdir->next = father_dir, vdir->child = CUR;                       \
+    vdir->pre_link = vdir->next_link = dir, vdir->refcnt = 1; \
+    vdir->mode = TYPE_LINK, add_link(CUR, dot);                 \
+    vdir->fs_type = FSTYPE;                                     \
+    vdir->fs = FS;                                              \
   } while (0)
-
+/*
 // #define build_ddot(PARENT, FSTYPE, FS)                              \
 //   do {                                                              \
 //     strcpy(pddot->name, "..");                                      \
@@ -330,7 +330,7 @@ void vinode_prepare(int index,
 //     pddot->fs_type = FSTYPE;                                        \
 //     pddot->fs = FS;                                                 \
 //   } while (0)
-
+*/
 
 
 void vinode_root_prepare(int dir,int index){
