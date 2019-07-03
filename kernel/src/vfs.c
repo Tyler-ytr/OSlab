@@ -307,17 +307,17 @@ void vinode_prepare(int index,
 }
 
 
-#define build_dot(CUR, FSTYPE, FS)                              \
-  do {                                                          \
-    strcpy(vdir->name, ".");                                    \
-    strcpy(vdir->path, vinodes[CUR].path);                      \
-    vdir->dir = -1, vdir->father_dir = father_dir;                          \
-    vdir->next = father_dir, vdir->child = CUR;                       \
-    vdir->pre_link = vdir->next_link = dir, vdir->refcnt = 1; \
-    vdir->mode = TYPE_LINK, add_link(CUR, dot);                 \
-    vdir->fs_type = FSTYPE;                                     \
-    vdir->fs = FS;                                              \
-  } while (0)
+// #define build_dot(CUR, FSTYPE, FS)                              \
+//   do {                                                          \
+//     strcpy(vdir->name, ".");                                    \
+//     strcpy(vdir->path, vinodes[CUR].path);                      \
+//     vdir->dir = -1, vdir->father_dir = father_dir;                          \
+//     vdir->next = father_dir, vdir->child = CUR;                       \
+//     vdir->pre_link = vdir->next_link = dir, vdir->refcnt = 1; \
+//     vdir->mode = TYPE_LINK, add_link(CUR, dot);                 \
+//     vdir->fs_type = FSTYPE;                                     \
+//     vdir->fs = FS;                                              \
+//   } while (0)
 /*
 // #define build_ddot(PARENT, FSTYPE, FS)                              \
 //   do {                                                              \
@@ -471,10 +471,12 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   assert(vidx->child==-1);//子节点为空;
   vidx->child=dir;
 
-  build_dot(index, fs_type, fs);
+  //build_dot(index, fs_type, fs);
   //build_ddot(par, fs_type, fs);
-  // vinode_dot_prepare(dir, index, father_dir);
+   vinode_dot_prepare(dir, index, father_dir);
+  double_link_add(index,dir);
    vinode_ddot_prepare( dir, index, father_dir);
+  double_link_add(index,father_dir);
   return dir;
 
 }
