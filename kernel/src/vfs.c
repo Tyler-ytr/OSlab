@@ -463,6 +463,13 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 // return 0;
 
 // }
+void vfs_info(){
+  for(int i=0;i<MAX_VINODE_NUM;i++){
+    if(vinodes[i].mode!=UNUSED){
+      printf("name: %s\n;",vinodes[i].name);
+    }
+  }
+}
   char *vfs_real_path(const char *path){
     strcpy(path_buf,path);
     int index=vinode_lookup(path_buf);

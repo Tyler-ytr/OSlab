@@ -130,6 +130,13 @@ static void pwd_function(device_t *tty,char*argv,char *pwd){
   sprintf(text,"%s\n",pwd);
   tty->ops->write(tty,0,text,strlen(text));
 }
+extern void vfs_info();
+static void info_function(device_t *tty,char*argv,char *pwd){
+  //int offset=0;
+ // sprintf(text,"%s\n",pwd);
+  vfs_info();
+  //tty->ops->write(tty,0,text,strlen(text));
+}
 extern void vfs_ls(char * dir,char *buf);
 static void ls_function(device_t *tty,char *argv,char* pwd){
  // printf("In ls");
@@ -171,7 +178,8 @@ struct shell_function{
   {"ls ",ls_function,3},
   {"pwd ",pwd_function,4},
   {"echo ",echo_function,5},
-  {"cd ",cd_function,3}
+  {"cd ",cd_function,3},
+  {"info ",info_function,5}
 };
 
 static void shell_task(void *arg){
