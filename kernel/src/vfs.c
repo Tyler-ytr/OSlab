@@ -305,6 +305,34 @@ void vinode_prepare(int index,
   strcpy(vidx->name,name);
   strcpy(vidx->path,path);
 }
+
+
+#define build_dot(CUR, FSTYPE, FS)                              \
+  do {                                                          \
+    strcpy(pdot->name, ".");                                    \
+    strcpy(pdot->path, vinodes[CUR].path);                      \
+    pdot->dot = -1, pdot->ddot = ddot;                          \
+    pdot->next = ddot, pdot->child = CUR;                       \
+    pdot->prev_link = pdot->next_link = dot, pdot->linkcnt = 1; \
+    pdot->mode = TYPE_LINK, add_link(CUR, dot);                 \
+    pdot->fs_type = FSTYPE;                                     \
+    pdot->fs = FS;                                              \
+  } while (0)
+
+#define build_ddot(PARENT, FSTYPE, FS)                              \
+  do {                                                              \
+    strcpy(pddot->name, "..");                                      \
+    strcpy(pddot->path, vinodes[PARENT].path);                      \
+    pddot->dot = dot, pddot->ddot = -1;                             \
+    pddot->next = -1, pddot->child = PARENT;                        \
+    pddot->prev_link = pddot->next_link = ddot, pddot->linkcnt = 1; \
+    pddot->mode = TYPE_LINK, add_link(PARENT, ddot);                \
+    pddot->fs_type = FSTYPE;                                        \
+    pddot->fs = FS;                                                 \
+  } while (0)
+
+
+
 void vinode_root_prepare(int dir,int index){
   vinode_prepare(index,-1,-1,-1,-1,dir,index,index,1,TYPE_DIR,VFS,NULL,"/","/");
 }
@@ -442,8 +470,11 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 
   assert(vidx->child==-1);//子节点为空;
   vidx->child=dir;
-  vinode_dot_prepare(dir, index, father_dir);
-  vinode_ddot_prepare( dir, index, father_dir);
+
+  build_dot(index, fs_type, fs);
+  build_ddot(par, fs_type, fs);
+  // vinode_dot_prepare(dir, index, father_dir);
+  // vinode_ddot_prepare( dir, index, father_dir);
   return dir;
 
 }
@@ -472,7 +503,7 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
-      printf("%d name: %s path:%s next_link:%d pre_link:%d,type:%d\n",i,vinodes[i].name,vinodes[i].path,vinodes[i].next_link,vinodes[i].pre_link,vinodes[i].mode);
+      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d\n",i,vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,vinodes[i].mode);
     }
   }
 }
