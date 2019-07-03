@@ -34,13 +34,16 @@ static int vit_item_alloc(){
 // static void vit_item_free(int index){
 //   vinodes[index].mode=UNUSED;//不存在;
 // }
-static int first_name_len(char *name){//返回/前面的第一个名字;
-  int name_len=strlen(name); 
-  int result=0;
-  while(result<name_len&&(name[result]!='/')){
-    result+=1;
-  }
-  return result;
+static int first_name_len(const char *name){//返回/前面的第一个名字;
+  // int name_len=strlen(name); 
+  // int result=0;
+  // while(result<name_len&&(name[result]!='/')){
+  //   result+=1;
+  // }
+  // return result;
+    int ret = 0;
+  for (; name[ret] && name[ret] != '/';) ret++;
+  return ret;
 }
 static int check_item_match(const char *name1,const char *name2,int len){//name1放vit里面的成员,name2放待比较的外部字符串;
   if(strncmp(name1,name2,len)){
