@@ -164,9 +164,10 @@ static void shell_task(void *arg){
     if(strcmp(readbuf,"ls")==0){
       strcpy(readbuf,"ls ");
     }
-    //    if(strcmp(readbuf,"echo")==0){
-    //   strcpy(readbuf,"echo ");
-    // }
+       if(strcmp(readbuf,"echo")==0){
+         printf("here\n");
+      strcpy(readbuf,"echo ");
+    }
     if(strcmp(readbuf,"help")==0){
       strcpy(readbuf,"help ");
     }
