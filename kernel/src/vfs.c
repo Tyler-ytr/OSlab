@@ -72,7 +72,6 @@ static int lookup_cur(char *path,int *find_flag,
     printf("lookup_cur: File not found;\n");
     return cur_inode;
   }
- // printf("here\n");
 
  // 用于软链接； 
   int real_file=k;
@@ -105,7 +104,7 @@ int get_name(char * path,int *name_len){
 static int vinode_lookup(char *path){
   //根据path从 blkfs里面获得而信息;并且更新vfs的inode;
 
-printf("here\n");
+printf("lookup here\n");
 
 int len=strlen(path);
 vinode_t buf;//inode 缓冲区;
@@ -113,7 +112,7 @@ int flag=0,offset=1;
 if(path[len-1]=='/'){
   path[len-1]='\0';
 }
-printf("%s",path);
+printf("look up:%s",path);
 
 // if(path[0]=='/'){
 //  index=lookup_root(path,&flag,&offset);
@@ -554,7 +553,6 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 
   void vfs_ls(char * dir,char *outbuf){
   int index=vinode_lookup(dir);
-  printf("here\n");
   if (index == -1) return;
   int offset=sprintf(outbuf,"In vinode[%d] name:%s path:%s\n",index,vinodes[index].name,vinodes[index].path);
     for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
