@@ -156,6 +156,7 @@ int next_inode=-1;
   }//新建一个vinode 保存在next_index里面;
 
   if(strcmp(buf.name,".")==0){
+    printf("find .\n");
     if(origin_index!=-1){
       assert(0);//理论上不能修改;
     }
