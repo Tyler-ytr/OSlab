@@ -399,10 +399,22 @@ int ext2_lookup(filesystem_t *fs,const char *path,int mode){
   return 0;
 
 }
+int ext2_check(filesystem_t *fs){
+  ext2_t* ext2=(ext2_t*)fs->real_fs;
+  for(int i=0;i<10;i++){
+  ext2_rd_ind(ext2,i);
+          printf("ind.blocks:%x mode:%d size:%d\n",ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
+  }
+
+}
 int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
   //根据rinode_idx 将这个目录项的第k个信息记录到buf里面;
   ext2_t* ext2=(ext2_t*)fs->real_fs;
   int cnt = 0;
+  ext2_check(fs);
+
+
+
   ext2_rd_ind(ext2, rinode_idx);
    printf("rinode: %d, kth: %d\n", rinode_idx, kth);
           printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
