@@ -83,7 +83,6 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[0].name,".");
  // strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
-  printf("blocks: %d",ext2->ind.blocks);
 
 //  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
  // ext2_write(ext2,init_file,0,init_str,strlen(init_str));
@@ -93,55 +92,117 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
 
 }
 //基本的小型操作
-void ext2_rd_sb(ext2_t* ext2){
-  ext2->dev->ops->read(ext2->dev,DISK_SIZE,&ext2->sb,SB_SIZE);//reload super block,从磁盘上面重载superblock到内存上面;
-}
-void ext2_wr_sb(ext2_t* ext2){
-  ext2->dev->ops->write(ext2->dev, DISK_START, &ext2->sb, SB_SIZE);//将内存上面的东西写到磁盘上上面;
-}
-void ext2_rd_gd(ext2_t* ext2){
-  ext2->dev->ops->read(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE); //将磁盘上面的组信息重载到内存;
-}
-void ext2_wr_gd(ext2_t* ext2){
-  ext2->dev->ops->write(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE); //将内存上面的组信息写到磁盘上面;
-}
-void ext2_rd_ind(ext2_t* ext2, uint32_t i){
-   uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
-  ext2->dev->ops->read(ext2->dev, offset, &ext2->ind, IND_SIZE); //从磁盘上面读取某一个inode的信息;
-}
-void ext2_wr_ind(ext2_t* ext2, uint32_t i){
-  uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
-  ext2->dev->ops->write(ext2->dev, offset, &ext2->ind, IND_SIZE); //修改某一个inode到磁盘上;
+// void ext2_rd_sb(ext2_t* ext2){
+//   ext2->dev->ops->read(ext2->dev,DISK_SIZE,&ext2->sb,SB_SIZE);//reload super block,从磁盘上面重载superblock到内存上面;
+// }
+// void ext2_wr_sb(ext2_t* ext2){
+//   ext2->dev->ops->write(ext2->dev, DISK_START, &ext2->sb, SB_SIZE);//将内存上面的东西写到磁盘上上面;
+// }
+// void ext2_rd_gd(ext2_t* ext2){
+//   ext2->dev->ops->read(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE); //将磁盘上面的组信息重载到内存;
+// }
+// void ext2_wr_gd(ext2_t* ext2){
+//   ext2->dev->ops->write(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE); //将内存上面的组信息写到磁盘上面;
+// }
+// void ext2_rd_ind(ext2_t* ext2, uint32_t i){
+//    uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
+//   ext2->dev->ops->read(ext2->dev, offset, &ext2->ind, IND_SIZE); //从磁盘上面读取某一个inode的信息;
+// }
+// void ext2_wr_ind(ext2_t* ext2, uint32_t i){
+//   uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
+//   ext2->dev->ops->write(ext2->dev, offset, &ext2->ind, IND_SIZE); //修改某一个inode到磁盘上;
 
+// }
+// void ext2_rd_dir(ext2_t* ext2, uint32_t i){
+//    uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+//   ext2->dev->ops->read(ext2->dev, offset, &ext2->dir, BLK_SIZE);//从第i块block上面读取目录项信息;
+// }
+// void ext2_wr_dir(ext2_t* ext2, uint32_t i){
+//   uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+//   ext2->dev->ops->write(ext2->dev, offset, &ext2->dir, BLK_SIZE);//将目录项信息写到第i块磁盘上面;
+// }
+// void ext2_rd_blockbitmap(ext2_t* ext2){
+//     ext2->dev->ops->read(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);//将磁盘上面的blockbitmap内容读入到blockbitmapbuf上面;
+// }
+// void ext2_wr_blockbitmap(ext2_t* ext2){
+//    ext2->dev->ops->write(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);//写bitmap信息到磁盘上面;
+// }
+// void ext2_rd_inodebitmap(ext2_t* ext2){
+//    ext2->dev->ops->read(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);//读inode bitmap 信息;
+// }
+// void ext2_wr_inodebitmap(ext2_t* ext2){
+//    ext2->dev->ops->write(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);//将inode bitmao 信息写到磁盘上面;
+// }
+// void ext2_rd_datablock(ext2_t* ext2, uint32_t i){
+// uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+//   ext2->dev->ops->read(ext2->dev, offset, &ext2->datablockbuf, BLK_SIZE);
+// }
+// void ext2_wr_datablock(ext2_t* ext2, uint32_t i){
+//    uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+//   ext2->dev->ops->write(ext2->dev, offset, &ext2->datablockbuf, BLK_SIZE);
+// }
+void ext2_rd_sb(ext2_t* ext2) {
+  ext2->dev->ops->read(ext2->dev, DISK_START, &ext2->sb, SB_SIZE);
 }
-void ext2_rd_dir(ext2_t* ext2, uint32_t i){
-   uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
-  ext2->dev->ops->read(ext2->dev, offset, &ext2->dir, BLK_SIZE);//从第i块block上面读取目录项信息;
+
+void ext2_wr_sb(ext2_t* ext2) {
+  ext2->dev->ops->write(ext2->dev, DISK_START, &ext2->sb, SB_SIZE);
 }
-void ext2_wr_dir(ext2_t* ext2, uint32_t i){
+
+void ext2_rd_gd(ext2_t* ext2) {
+  ext2->dev->ops->read(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE);
+}
+
+void ext2_wr_gd(ext2_t* ext2) {
+  ext2->dev->ops->write(ext2->dev, GDT_START, &ext2->gdt, GD_SIZE);
+}
+
+void ext2_rd_ind(ext2_t* ext2, uint32_t i) {
+  uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
+  ext2->dev->ops->read(ext2->dev, offset, &ext2->ind, IND_SIZE);
+}
+
+void ext2_wr_ind(ext2_t* ext2, uint32_t i) {
+  uint32_t offset = INDT_START + (i - 1) * IND_SIZE;
+  ext2->dev->ops->write(ext2->dev, offset, &ext2->ind, IND_SIZE);
+}
+
+void ext2_rd_dir(ext2_t* ext2, uint32_t i) {
   uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
-  ext2->dev->ops->write(ext2->dev, offset, &ext2->dir, BLK_SIZE);//将目录项信息写到第i块磁盘上面;
+  ext2->dev->ops->read(ext2->dev, offset, &ext2->dir, BLK_SIZE);
 }
-void ext2_rd_blockbitmap(ext2_t* ext2){
-    ext2->dev->ops->read(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);//将磁盘上面的blockbitmap内容读入到blockbitmapbuf上面;
+
+void ext2_wr_dir(ext2_t* ext2, uint32_t i) {
+  uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+  ext2->dev->ops->write(ext2->dev, offset, &ext2->dir, BLK_SIZE);
 }
-void ext2_wr_blockbitmap(ext2_t* ext2){
-   ext2->dev->ops->write(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);//写bitmap信息到磁盘上面;
+
+void ext2_rd_blockbitmap(ext2_t* ext2) {
+  ext2->dev->ops->read(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);
 }
-void ext2_rd_inodebitmap(ext2_t* ext2){
-   ext2->dev->ops->read(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);//读inode bitmap 信息;
+
+void ext2_wr_blockbitmap(ext2_t* ext2) {
+  ext2->dev->ops->write(ext2->dev, BLK_BITMAP, &ext2->blockbitmapbuf, BLK_SIZE);
 }
-void ext2_wr_inodebitmap(ext2_t* ext2){
-   ext2->dev->ops->write(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);//将inode bitmao 信息写到磁盘上面;
+
+void ext2_rd_inodebitmap(ext2_t* ext2) {
+  ext2->dev->ops->read(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);
 }
-void ext2_rd_datablock(ext2_t* ext2, uint32_t i){
-uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+
+void ext2_wr_inodebitmap(ext2_t* ext2) {
+  ext2->dev->ops->write(ext2->dev, IND_BITMAP, &ext2->inodebitmapbuf, BLK_SIZE);
+}
+
+void ext2_rd_datablock(ext2_t* ext2, uint32_t i) {
+  uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
   ext2->dev->ops->read(ext2->dev, offset, &ext2->datablockbuf, BLK_SIZE);
 }
-void ext2_wr_datablock(ext2_t* ext2, uint32_t i){
-   uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
+
+void ext2_wr_datablock(ext2_t* ext2, uint32_t i) {
+  uint32_t offset = DATA_BLOCK + i * BLK_SIZE;
   ext2->dev->ops->write(ext2->dev, offset, &ext2->datablockbuf, BLK_SIZE);
 }
+
 
 //对磁盘的inode block进行操作:
 
