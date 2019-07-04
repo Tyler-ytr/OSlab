@@ -162,7 +162,7 @@ static void help_function(device_t *tty,char *argv,char*pwd){
   printf("In help");
   return;
 }
-static void error_function(device_t *tty,const char *argv,char *pwd){
+static void error_function(device_t *tty,const char *argv){
   int offset=0;
   
   offset+=sprintf(text+offset,"command not found: %s. Input \'help\' for more information.\n",argv);
