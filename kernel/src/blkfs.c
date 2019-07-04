@@ -407,6 +407,8 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
    printf("rinode: %d, kth: %d\n", rinode_idx, kth);
           printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
           printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
+          printf("ind.blocks:%d\n\n\n",ext2->ind.blocks);
+          
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
     printf("%d: ",i);
@@ -419,7 +421,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
           buf->mode=ext2->dir[k].mode;
           printf("name:%s\n",buf->name);
           //buf->type= ext2->dir[k].file_type;
-          //return 1;
+          return 1;
         }}
     }
   }
