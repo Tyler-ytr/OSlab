@@ -294,7 +294,7 @@ int len = strlen(path);
       strcpy(vnidx->name, "..");
       strcpy(vnidx->path, vinodes[vinodes[vidx->dir].child].path);
       vnidx->dir= origin_index, vnidx->father_dir = -1;
-      vnidx->next = -1, vnidx->child = vinodes[vidx->father_index].child;
+      vnidx->next = -1, vnidx->child = vinodes[vidx->father_dir].child;
       vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
       vnidx->mode = TYPE_LINK, add_link(vinodes[vidx->dir].child, next_index);
 
@@ -302,18 +302,18 @@ int len = strlen(path);
     } else {
       assert(dir != -1 && father_dir != -1);
       assert(voidx->next == -1);
-      voidx->next = nidx;
+      voidx->next = next_index;
       strcpy(vnidx->name, buf.name);
       strcpy(vnidx->path, vidx->path);
       strcat(vnidx->path, buf.name);
       if (buf.mode & TYPE_DIR) strcat(vnidx->path, "/");
-      vnidx->dir = dot, vnidx->father_dir = father_dir;
+      vnidx->dir = dir, vnidx->father_dir = father_dir;
       vnidx->next = -1, vnidx->child = -1;
       vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
       vnidx->mode = buf.mode;
     }
 
-    vnidx->ridx = buf.ridx;
+    vnidx->rinode_index = buf.rinode_index;
     vnidx->fs_type = vidx->fs_type;
     vnidx->fs = vidx->fs;
     origin_index = next_index;
