@@ -163,8 +163,8 @@ int next_inode=-1;
 
     vidx->child=next_index;
     //更新next_index的inode;
-    strcpy(vnidx->path,vidx->path);
     strcpy(vnidx->name,".");
+    strcpy(vnidx->path,vidx->path);
     
     vnidx->dir=-1;
     vnidx->father_dir=-1;//假文件;存疑;
@@ -180,6 +180,7 @@ int next_inode=-1;
 
     dir_index=next_index;//记录目录inode；
   }else if(strcmp(buf.name,"..")==0){
+    printf("find ..\n");
     if(voidx->next!=-1){
       assert(0);
     }//目前是链表的胃节点;
@@ -236,7 +237,7 @@ int next_inode=-1;
 
 
   if(check_item_match(buf.name,path+offset,file_len)){
-    assert(next_index==-1);
+    assert(next_inode==-1);
     next_inode=next_index;
     
   }
