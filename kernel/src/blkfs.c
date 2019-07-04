@@ -70,7 +70,8 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2->ind.blocks = 0;
   ext2->ind.size = 2 * DIR_SIZE;  // . 和 ..
   ext2->ind.block[0] = ext2_alloc_block(ext2);
-  ext2->ind.blocks++;
+  ext2->ind.blocks+=1;
+  printf("blocks: %d",ext2->ind.blocks);
 
   ext2->current_dir=ext2_alloc_block(ext2);
   //strcpy(ext2->current_dir_name,"/");
