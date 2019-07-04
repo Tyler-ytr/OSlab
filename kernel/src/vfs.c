@@ -45,6 +45,13 @@ static int first_name_len(const char *name){//返回/前面的第一个名字;
   for (; name[ret] && name[ret] != '/';) ret++;
   return ret;
 }
+static int path_length_offset(const char *path){
+  int total_length=strlen(path);
+  for(int i=total_length;i>=0;i--){
+    if(path[i]=='/')return i;
+  }
+  return 0;
+}
 static int check_item_match(const char *name1,const char *name2,int len){//name1放vit里面的成员,name2放待比较的外部字符串;
   if(strncmp(name1,name2,len)){
     return 0;
@@ -566,7 +573,9 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
-      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d\n",i,vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,vinodes[i].mode,vinodes[i].rinode_index);
+      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d\n",i,
+      vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,
+      vinodes[i].mode,vinodes[i].rinode_index);
     }
   }
 }
@@ -578,6 +587,8 @@ void vfs_info(){
   }
 extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
+extern int ext2_create(ext2_t* ext2, int ridx, char* name, int mode);
+extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   void vfs_init(){
    // int success=vinode_lookup("/");
     //assert(success!=-1);
@@ -626,7 +637,34 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
   int vfs_unmount(const char *path){
     return 0;
   };
-  int vfs_mkdir(const char *path){
+  char tempbuff[MAX_PATH_LENGTH];
+  static void get_father_dir(const char*path,int offset){
+    strcpy(tempbuff,path);
+    tempbuff[offset]='\0';
+  }
+  int vfs_mkdir(const char *path){//mkdir 的path 应该是包含待创建目录的;
+//首先找到父目录的index,然后创建就可以了;
+  //只允许在ext2里面建;
+
+  int father_dir_offset=path_length_offset(path);
+  int path_len=strlen(path);
+  if(father_dir_offset==path_len){
+    return -1;//错误１: 目录格式错误;
+  }
+  get_father_dir(path,father_dir_offset);
+  int index=vinode_lookup(tempbuff);
+  int next_index=-1;
+  int rinode_index=-1;
+  if(vidx->fs_type==EXT2FS){
+    
+    rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_DIR);
+    next_index=append_dir(index,tempbuff+father_dir_offset+1,TYPE_DIR,vidx->fs_type,vidx->fs);
+    vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
+    vinodes[next_index].rinode_index=rinode_index;
+  }else{
+    return -2;//错误２:　ext2fs之外建立目录;
+  }
+  
     return 0;
   };
   int vfs_rmdir(const char *path){
@@ -667,23 +705,6 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
     for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
       offset+=sprintf(outbuf+offset,"inode:%d dirname:%s path:%s\n",k,vinodes[k].name,vinodes[k].path);
     }
-
-  //  int offset = sprintf(
-  //      outbuf, "-----------------------------------------------------------\n");
-
-  //  offset += sprintf(outbuf + offset,
-  //                    "      index       name                  path        \n");
-  //  offset += sprintf(outbuf + offset, ">>   %4d         %12s          %s\n\n",
-  //                    index, vinodes[index].name, vinodes[index].path);
-  //  for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
-  //    offset += sprintf(outbuf + offset, "-    %4d         %12s          %s\n", k,
-  //                      vinodes[k].name, vinodes[k].path);
-   //printf("-    %4d         %12s          %s\n", k,
-     //                  vinodes[k].name, vinodes[k].path);
-   //}
-  // offset +=
-  //     sprintf(outbuf + offset,
-  //             "-----------------------------------------------------------\n");
 
 }
 
