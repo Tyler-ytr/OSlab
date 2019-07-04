@@ -50,8 +50,8 @@ static int check_item_match(const char *name1,const char *name2,int len){//name1
     return 0;
   }
 
-  int result=(name1[len]=='\0');
-  return result;
+ // int result=(name1[len]=='\0');
+  return name1[len]=='\0';
 }
 static int lookup_cur(char *path,int *find_flag,
                        int cur_inode,int *path_offset){
