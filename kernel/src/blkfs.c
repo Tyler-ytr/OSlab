@@ -401,9 +401,9 @@ int ext2_lookup(filesystem_t *fs,const char *path,int mode){
 }
 int ext2_check(filesystem_t *fs){
   ext2_t* ext2=(ext2_t*)fs->real_fs;
-  for(int i=0;i<10;i++){
+  for(int i=0;i<100;i++){
   ext2_rd_ind(ext2,i);
-          printf("ind.blocks:%x mode:%d size:%d\n",ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
+          printf("%d ind.blocks:%x mode:%d size:%d\n",i,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
   }
 
   return 0;
@@ -420,7 +420,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
    printf("rinode: %d, kth: %d\n", rinode_idx, kth);
           printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
           printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
-          printf("ind.blocks:%x mode:%d size:%d\n\n\n",ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
+          printf(":%d ind.blocks:%x mode:%d size:%d\n\n\n",rinode_idx,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
           
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
