@@ -417,22 +417,22 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
 
 
   ext2_rd_ind(ext2, rinode_idx);
-   printf("rinode: %d, kth: %d\n", rinode_idx, kth);
-          printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
-          printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
-          printf(":%d ind.blocks:%x mode:%d size:%d\n\n\n",rinode_idx,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
+//   printf("rinode: %d, kth: %d\n", rinode_idx, kth);
+  //        printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
+    //      printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
+      //    printf(":%d ind.blocks:%x mode:%d size:%d\n\n\n",rinode_idx,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
           
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
-    printf("%d: ",i);
+   // printf("%d: ",i);
     for (int k = 0; k < DIR_AMUT; k++) {
       if (ext2->dir[k].inode){//存在才返回;
-          printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
+      //    printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
           buf->mode=ext2->dir[k].mode;
-          printf("name:%s\n",buf->name);
+        //  printf("name:%s\n",buf->name);
           //buf->type= ext2->dir[k].file_type;
           return 1;
         }}
