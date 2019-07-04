@@ -270,6 +270,7 @@ int len = strlen(path);
   if (vidx->fs == NULL) return -1;
 
   if (vidx->child != -1) return -1;
+  printf("rinode: %d\n",vidx->rinode_index);
 
   while ((ret = vidx->fs->readdir(vidx->fs, vidx->rinode_index, ++kth, &buf))) {
     if ((next_index = vit_item_alloc()) == -1) assert(0);
