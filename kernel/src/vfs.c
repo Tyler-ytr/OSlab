@@ -82,7 +82,8 @@ static int lookup_cur(char *path,int *find_flag,
   int real_file=k;
   while(vinodes[real_file].mode&TYPE_LINK)
     {real_file=vinodes[real_file].next_link;
-   // printf("///sdsdsd\n");}
+    //printf("///sdsdsd\n");
+    }
 //更新路径;
   char *newpath=path+(len+(path[len]=='/'?1:0));
   *path_offset+=len+(path[len]=='/'?1:0);
