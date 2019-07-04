@@ -383,6 +383,9 @@ uint32_t ext2_research_file(ext2_t *ext2,char *path,int mode,
         }
       }
   }
+
+
+  
   return 0;
   
 }
@@ -419,6 +422,23 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         }
     }
   }
+
+  for (int i = 0; i < ext2->ind.blocks; i++) {
+    ext2_rd_dir(ext2, ext2->ind.block[i]);
+    for (int k = 0; k < DIR_AMUT; k++) {
+      if (ext2->dir[k].inode)//存在才返回;
+          printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
+        // if (++cnt == kth) {
+        //   strcpy(buf->name, ext2->dir[k].name);
+        //   buf->rinode_index = ext2->dir[k].inode;
+        //   buf->mode=ext2->dir[k].mode;
+        //   printf("name:%s\n",buf->name);
+          //buf->type= ext2->dir[k].file_type;
+        //  return 1;
+        }
+    }
+  }
+assert(0);
   return 0;
   
  
