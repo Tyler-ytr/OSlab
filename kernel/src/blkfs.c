@@ -71,14 +71,14 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2->ind.size = 2 * DIR_SIZE;  // . 和 ..
   ext2->ind.block[0] = ext2_alloc_block(ext2);
   ext2->ind.blocks+=1;
-  printf("blocks: %d",ext2->ind.blocks);
 
   ext2->current_dir=ext2_alloc_block(ext2);
+  printf("blocks: %d",ext2->ind.blocks);
   //strcpy(ext2->current_dir_name,"/");
   ext2_wr_ind(ext2,ext2->current_dir);
 
   ext2->dir[0].inode=ext2->dir[1].inode=ext2->current_dir;//根目录的. ..都是根目录
-  ext2->dir[0].name_len=ext2->dir[1].name_len=0;//文件名长度为0,隐藏文件;
+  ext2->dir[0].name_len=ext2->dir[1].name_len=0;//文件名n长度为0,隐藏文件;
 //  ext2->dir[0].file_type=ext2->dir[1].file_type=TYPE_DIR;
 
   strcpy(ext2->dir[0].name,".");
