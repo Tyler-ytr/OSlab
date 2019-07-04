@@ -284,18 +284,18 @@ int len = strlen(path);
       vnidx->dir = -1, vnidx->father_dir = -1;  // will be cover
       vnidx->next = -1, vnidx->child = index;
       vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
-      vnidx->mode = TYPE_LINK, add_link(idx, nidx);
+      vnidx->mode = TYPE_LINK, double_link_add(index, next_index);
 
       dir = next_index;
     } else if (!strcmp(buf.name, "..")) {
       assert(voidx->next == -1);
       voidx->next = next_index;
-      voidx->father_index = next_index;
+      voidx->father_dir = next_index;
       strcpy(vnidx->name, "..");
       strcpy(vnidx->path, vinodes[vinodes[vidx->dir].child].path);
-      vnidx->dit= oidx, vnidx->father_dir = -1;
+      vnidx->dir= origin_index, vnidx->father_dir = -1;
       vnidx->next = -1, vnidx->child = vinodes[vidx->father_index].child;
-      vnidx->prev_link = vnidx->next_link = nidx, vnidx->refcnt = 1;
+      vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
       vnidx->mode = TYPE_LINK, add_link(vinodes[vidx->dir].child, next_index);
 
       father_dir = next_index;
