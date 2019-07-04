@@ -132,7 +132,6 @@ if(flag==1){
 //int find_flag;
 int file_len=first_name_len(path+offset);
 //根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
-printf("look up:%s",path);
 if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
 
 if(vinodes[index].fs==NULL){
@@ -145,6 +144,7 @@ int origin_index=-1;
 int dir_index=-1,father_dir=-1;
 
 int next_inode=-1;
+printf("look up:%s",path);
 for(int kth=0;kth<DIR_AMUT;kth++){
   result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
   if(result==0)continue;
