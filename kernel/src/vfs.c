@@ -252,73 +252,71 @@ static int vinode_lookup(char *path){
 //                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
 //   assert(noffset>offset);
 //   return (noffset == offset) ? -1 : vinode_lookup(path);
-
-
 int len = strlen(path);
   if (path[len - 1] == '/') path[len - 1] = '\0';
 
   int flag, offset = 1;
-  int idx = (path[0] == '/') ? lookup_root(path, &flag, &offset)
+  int index = (path[0] == '/') ? lookup_root(path, &flag, &offset)
                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
-  if (flag == 1) return idx;
+  if (flag == 1) return index;
 
   vinode_t buf;
-  int kth = 0, oidx = -1, nidx = -1;
-  int dot = -1, ddot = -1, ret = -1, next = -1;
+  int kth = 0, origin_index = -1, next_index = -1;
+  int dir = -1, father_dir = -1, ret = -1, next = -1;
 
-  int flen = first_name_len(path + offset);
+  int flen = first_item_len(path + offset);
   // printf("%s, %d\n", path + offset, flen);
 
   if (vidx->fs == NULL) return -1;
 
   if (vidx->child != -1) return -1;
 
-  while ((ret = pidx->fs->readdir(pidx->fs, pidx->ridx, ++kth, &buf))) {
-    if ((nidx = vit_item_alloc()) == -1) assert(0);
+  while ((ret = vidx->fs->readdir(vidx->fs, vidx->rinode_index, ++kth, &buf))) {
+    if ((next_index = vinodes_alloc()) == -1) assert(0);
 
     if (!strcmp(buf.name, ".")) {
-      assert(oidx == -1);
+      assert(origin_index == -1);
 
-      pidx->child = nidx;
+      vidx->child = next_index;
 
       strcpy(vnidx->name, ".");
       strcpy(vnidx->path, vidx->path);
       vnidx->dot = -1, vnidx->ddot = -1;  // will be cover
       vnidx->next = -1, vnidx->child = idx;
-      vnidx->pre_link = pnidx->next_link = nidx, vnidx->linkcnt = 1;
+      vnidx->pre_link = vnidx->next_link = nidx, vnidx->refcnt = 1;
       vnidx->mode = TYPE_LINK, add_link(idx, nidx);
 
-      dot = nidx;
+      dir = next_index;
     } else if (!strcmp(buf.name, "..")) {
-      assert(poidx->next == -1);
+      assert(voidx->next == -1);
       voidx->next = nidx;
       voidx->ddot = nidx;
       strcpy(pnidx->name, "..");
-      strcpy(pnidx->path, vinodes[vinodes[pidx->dot].child].path);
+      strcpy(pnidx->path, vinodes[vinodes[vidx->dot].child].path);
       vnidx->dot = oidx, vnidx->ddot = -1;
       vnidx->next = -1, vnidx->child = vinodes[pidx->ddot].child;
-      vnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
-      vnidx->mode = TYPE_LINK, add_link(vinodes[pidx->dot].child, nidx);
+      vnidx->prev_link = vnidx->next_link = nidx, vnidx->refcnt = 1;
+      vnidx->mode = TYPE_LINK, add_link(vinodes[vidx->dir].child, next_index);
 
-      ddot = nidx;
+      father_dir = next_index;
     } else {
-      assert(dot != -1 && ddot != -1);
-      assert(poidx->next == -1);
-      poidx->next = nidx;
-      strcpy(pnidx->name, buf.name);
-      strcpy(pnidx->path, pidx->path);
-      strcat(pnidx->path, buf.name);
-      if (buf.mode & TYPE_DIR) strcat(pnidx->path, "/");
-      pnidx->dot = dot, pnidx->ddot = ddot;
-      pnidx->next = -1, pnidx->child = -1;
-      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
-      pnidx->mode = buf.mode;
+      assert(dir != -1 && father_dir != -1);
+      assert(voidx->next == -1);
+      voidx->next = nidx;
+      strcpy(vnidx->name, buf.name);
+      strcpy(vnidx->path, vidx->path);
+      strcat(vnidx->path, buf.name);
+      if (buf.mode & TYPE_DIR) strcat(vnidx->path, "/");
+      vnidx->dir = dot, vnidx->father_dir = father_dir;
+      vnidx->next = -1, vnidx->child = -1;
+      vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
+      vnidx->mode = buf.mode;
     }
 
-    pnidx->ridx = buf.ridx;
-    pnidx->fs_type = pidx->fs_type;
-    pnidx->fs = pidx->fs;
-    oidx = nidx;
+    vnidx->ridx = buf.ridx;
+    vnidx->fs_type = vidx->fs_type;
+    vnidx->fs = vidx->fs;
+    origin_index = next_index;
 
     if (item_match(buf.name, path + offset, flen)) {
       assert(next == -1);
@@ -336,9 +334,6 @@ int len = strlen(path);
                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
   assert(noffset > offset);
   return (noffset == offset) ? -1 : lookup_auto(path);
-
-
-
 }
 
 
