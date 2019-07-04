@@ -411,8 +411,8 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
     ext2_rd_dir(ext2, ext2->ind.block[i]);
     printf("%d: ",i);
     for (int k = 0; k < DIR_AMUT; k++) {
+      if (ext2->dir[k].inode){//存在才返回;
           printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
-      if (ext2->dir[k].inode)//存在才返回;
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
@@ -420,7 +420,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
           printf("name:%s\n",buf->name);
           //buf->type= ext2->dir[k].file_type;
           //return 1;
-        }
+        }}
     }
   }
   printf("here\n\n");
