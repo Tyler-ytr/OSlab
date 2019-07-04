@@ -405,7 +405,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
           printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
           printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
   for (int i = 0; i < ext2->ind.blocks; i++) {
-    ext2_rd_dir(ext2, ext2->ind.block[i]);
+ //   ext2_rd_dir(ext2, ext2->ind.block[i]);
     for (int k = 0; k < DIR_AMUT; k++) {
           printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
       if (ext2->dir[k].inode)//存在才返回;
