@@ -509,8 +509,8 @@ extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
     vfs_dir_prepare(dev,root,VFS,NULL);
     vfs_dir_prepare(mnt,root,VFS,NULL);
 
-    int ramdisk0=append_dir(dev, "ramdisk0", TYPE_DIR | MNT_ABLE, EXT2FS, &filesystems[r0fs]);
-    vfs_dir_prepare(ramdisk0,dev,VFS,NULL);
+    append_dir(dev, "ramdisk0", TYPE_DIR | MNT_ABLE, EXT2FS, &filesystems[r0fs]);
+    //vfs_dir_prepare(ramdisk0,dev,VFS,NULL);
     append_file(dev, "ramdisk1", TYPE_FILE | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
 
     append_file(dev, "tty1", TYPE_FILE | WR_ABLE, TTY, NULL);
