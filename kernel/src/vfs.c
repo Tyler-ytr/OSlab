@@ -296,7 +296,7 @@ int len = strlen(path);
       vnidx->dir= origin_index, vnidx->father_dir = -1;
       vnidx->next = -1, vnidx->child = vinodes[vidx->father_dir].child;
       vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
-      vnidx->mode = TYPE_LINK, add_link(vinodes[vidx->dir].child, next_index);
+      vnidx->mode = TYPE_LINK, double_link_add(vinodes[vidx->dir].child, next_index);
 
       father_dir = next_index;
     } else {
@@ -318,9 +318,9 @@ int len = strlen(path);
     vnidx->fs = vidx->fs;
     origin_index = next_index;
 
-    if (item_match(buf.name, path + offset, flen)) {
+    if (check_item_match(buf.name, path + offset, flen)) {
       assert(next == -1);
-      next = nidx;
+      next = next_index;
     }
   }
 
@@ -330,10 +330,10 @@ int len = strlen(path);
   }
 
   int noffset = 1;
-  idx = (path[0] == '/') ? lookup_root(path, &flag, &noffset)
+  index = (path[0] == '/') ? lookup_root(path, &flag, &noffset)
                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
   assert(noffset > offset);
-  return (noffset == offset) ? -1 : lookup_auto(path);
+  return (noffset == offset) ? -1 : vinode_lookup(path);
 }
 
 
