@@ -56,8 +56,8 @@ static int check_item_match(const char *name1,const char *name2,int len){//name1
 static int lookup_cur(char *path,int *find_flag,
                        int cur_inode,int *path_offset){
   //对于目录项cur_inode,遍历它的子节点,将name偏移量存储到path_offset里面,如果没找到find_flag=0;返回找到的inode;
-  printf("In lookup_cur\n");
-  printf("path:%s\n",path);
+ // printf("In lookup_cur\n");
+ // printf("path:%s\n",path);
   if(!strlen(path)){
     *find_flag=1;
     return cur_inode;
@@ -82,7 +82,7 @@ static int lookup_cur(char *path,int *find_flag,
   int real_file=k;
   while(vinodes[real_file].mode&TYPE_LINK)
     {real_file=vinodes[real_file].next_link;
-    printf("///sdsdsd\n");}
+   // printf("///sdsdsd\n");}
 //更新路径;
   char *newpath=path+(len+(path[len]=='/'?1:0));
   *path_offset+=len+(path[len]=='/'?1:0);
