@@ -712,7 +712,7 @@ char* label_str = "This is a label!\n";
 char trash[4096];
 
 int ext2_init(filesystem_t* fs, const char* name, device_t* dev) {
-  ext2_t* ext2 = (ext2_t*)fs->rfs;
+  ext2_t* ext2 = (ext2_t*)fs->real_fs;
   memset(ext2, 0x00, sizeof(ext2_t));
   ext2->dev = dev;
   printf("Creating ext2: %s\n", name);
@@ -763,7 +763,7 @@ int ext2_init(filesystem_t* fs, const char* name, device_t* dev) {
 
 int ext2_lookup(filesystem_t* fs, const char* path, int mode) { return 0; }
 int ext2_readdir(filesystem_t* fs, int ridx, int kth, vinode_t* buf) {
-  ext2_t* ext2 = (ext2_t*)fs->rfs;
+  ext2_t* ext2 = (ext2_t*)fs->real_fs;
   int cnt = 0;
   ext2_rd_ind(ext2, ridx);
   // printf("rinode: %d, kth: %d\n", ridx, kth);
@@ -773,7 +773,7 @@ int ext2_readdir(filesystem_t* fs, int ridx, int kth, vinode_t* buf) {
       if (ext2->dir[k].inode)
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
-          buf->ridx = ext2->dir[k].inode;
+          buf->rinode_index = ext2->dir[k].inode;
           buf->mode = ext2->dir[k].mode;
           return 1;
         }
