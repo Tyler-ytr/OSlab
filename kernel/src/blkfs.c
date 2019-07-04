@@ -406,6 +406,7 @@ int ext2_check(filesystem_t *fs){
           printf("ind.blocks:%x mode:%d size:%d\n",ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
   }
 
+  return 0;
 }
 int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
   //根据rinode_idx 将这个目录项的第k个信息记录到buf里面;
