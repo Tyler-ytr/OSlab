@@ -146,7 +146,7 @@ int dir_index=-1,father_dir=-1;
 int next_inode=-1;
 for(int kth=0;kth<DIR_AMUT;kth++){
   result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
-  printf("name:%s",buf.name);
+  printf("name:%s\n",buf.name);
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
     printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
