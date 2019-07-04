@@ -435,7 +435,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         //   printf("name:%s\n",buf->name);
           //buf->type= ext2->dir[k].file_type;
         //  return 1;
-        }
+        //}
     }
   }
 assert(0);
