@@ -410,6 +410,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
           buf->mode=ext2->dir[k].mode;
+          printf("name:%s\n",buf->name);
           //buf->type= ext2->dir[k].file_type;
           return 1;
         }
