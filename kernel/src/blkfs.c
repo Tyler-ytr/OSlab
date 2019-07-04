@@ -84,8 +84,8 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
 
-//  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
- // ext2_write(ext2,init_file,0,init_str,strlen(init_str));
+  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
+  ext2_write(ext2,init_file,0,init_str,strlen(init_str));
 
 
   return ;
@@ -412,7 +412,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
   //根据rinode_idx 将这个目录项的第k个信息记录到buf里面;
   ext2_t* ext2=(ext2_t*)fs->real_fs;
   int cnt = 0;
-  ext2_check(fs);
+  //ext2_check(fs);
 
 
 
@@ -438,24 +438,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         }}
     }
   }
-  //printf("here\n\n");
 
-  // for (int i = 0; i < ext2->ind.blocks; i++) {
-  //   ext2_rd_dir(ext2, ext2->ind.block[i]);
-  //   for (int k = 0; k < DIR_AMUT; k++) {
-  //     if (ext2->dir[k].inode)//存在才返回;
-  //         printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
-  //       // if (++cnt == kth) {
-  //       //   strcpy(buf->name, ext2->dir[k].name);
-  //       //   buf->rinode_index = ext2->dir[k].inode;
-  //       //   buf->mode=ext2->dir[k].mode;
-  //       //   printf("name:%s\n",buf->name);
-  //         //buf->type= ext2->dir[k].file_type;
-  //       //  return 1;
-  //       //}
-  //   }
-  // }
-//assert(0);
   return 0;
   
  
