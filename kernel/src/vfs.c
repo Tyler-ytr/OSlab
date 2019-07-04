@@ -145,7 +145,6 @@ int dir_index=-1,father_dir=-1;
 
 int next_inode=-1;
 for(int kth=0;kth<DIR_AMUT;kth++){
-printf("look up:%s",path);
   result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
@@ -154,6 +153,7 @@ printf("look up:%s",path);
   }//新建一个vinode 保存在next_index里面;
 
   if(strcmp(buf.name,".")==0){
+printf("look up:%s",path);
     if(origin_index!=-1){
       assert(0);//理论上不能修改;
     }
