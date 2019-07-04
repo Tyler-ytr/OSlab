@@ -107,7 +107,7 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
  //   tty->ops->write(tty,0,text,strlen(text));
   //  return ;
   }else{
-    printf("in else\n");
+   // printf("in else\n");
     int abs_length=strlen(abs_path);
     if(abs_path[abs_length-1]!='/'){
       strcat(abs_path,"/.");//软链接位置;
@@ -219,10 +219,10 @@ static void shell_task(void *arg){
     find_func=0;
     for(int i=0;i<function_num;i++){
       int result=strncmp(readbuf,Function[i].function_name,Function[i].offset);
-      printf("%d\n",result);
+     // printf("%d\n",result);
       if(strncmp(readbuf,Function[i].function_name,Function[i].offset)==0)
       {
-        printf("argv:%s\n",readbuf+Function[i].offset);
+       // printf("argv:%s\n",readbuf+Function[i].offset);
         (*Function[i].func)(tty,readbuf+Function[i].offset,pwd);
         find_func=1;break; 
       }
