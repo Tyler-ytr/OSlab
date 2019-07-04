@@ -108,150 +108,236 @@ int get_name(char * path,int *name_len){
 }
 
 static int vinode_lookup(char *path){
-  //根据path从 blkfs里面获得而信息;并且更新vfs的inode;
+//   //根据path从 blkfs里面获得而信息;并且更新vfs的inode;
 
-printf("lookup here\n");
+// printf("lookup here\n");
 
-int len=strlen(path);
-vinode_t buf;//inode 缓冲区;
-int flag=0,offset=1;
-if(path[len-1]=='/'){
-  path[len-1]='\0';
-}
-
-// if(path[0]=='/'){
-//  index=lookup_root(path,&flag,&offset);
-// }else{
-//   index=lookup_cur(path,&flag,VFS_ROOT,&offset);
+// int len=strlen(path);
+// vinode_t buf;//inode 缓冲区;
+// int flag=0,offset=1;
+// if(path[len-1]=='/'){
+//   path[len-1]='\0';
 // }
-int index=(path[0] == '/') ? lookup_root(path, &flag, &offset)
+
+// // if(path[0]=='/'){
+// //  index=lookup_root(path,&flag,&offset);
+// // }else{
+// //   index=lookup_cur(path,&flag,VFS_ROOT,&offset);
+// // }
+// int index=(path[0] == '/') ? lookup_root(path, &flag, &offset)
+//                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
+// if(flag==1){
+//   return index;
+// }
+// //int find_flag;
+// int file_len=first_name_len(path+offset);
+// //根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
+// if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
+
+// if(vinodes[index].fs==NULL){
+//   return -1;//找不到系统的错误;
+// }
+// //现在开始,index是能找到的最后一个目录的inode,从blkfs里面找;
+// int result=-1;
+// int next_index=0;
+// int origin_index=-1;
+// int dir_index=-1,father_dir=-1;
+// int kth=0;
+
+// int next_inode=-1;
+// //for(int kth=0;kth<DIR_AMUT;kth++){
+//  // result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
+//   while((result=vidx->fs->readdir(vidx->fs,vidx->rinode_index,++kth,&buf))){
+//   printf("name:%s\n",buf.name);
+//   if((next_index=vit_item_alloc())==-1){
+//     printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
+//     return -1;
+//   }//新建一个vinode 保存在next_index里面;
+
+//   if(strcmp(buf.name,".")==0){
+//     printf("find .\n");
+//     if(origin_index!=-1){
+//       assert(0);//理论上不能修改;
+//     }
+
+//     vidx->child=next_index;
+//     //更新next_index的inode;
+//     strcpy(vnidx->name,".");
+//     strcpy(vnidx->path,vidx->path);
+    
+//     vnidx->dir=-1;
+//     vnidx->father_dir=-1;//假文件;存疑;
+    
+//     vnidx->next=-1;
+//     vnidx->child=index;
+
+//     vidx->pre_link=vidx->next_link=next_index;
+//     vnidx->refcnt=1;
+
+//     vnidx->mode=TYPE_LINK;//假文件,抽象成软链接;
+//     double_link_add(index,next_index);
+
+//     dir_index=next_index;//记录目录inode；
+//   }else if(strcmp(buf.name,"..")==0){
+//     printf("find ..\n");
+//     if(voidx->next!=-1){
+//       assert(0);
+//     }//目前是链表的胃节点;
+
+//     voidx->next=next_index;
+//     voidx->father_dir=next_index;//".."是父亲目录的软链接;
+
+//     strcpy(vnidx->name,"..");
+//     strcpy(vnidx->path,vinodes[vinodes[vidx->dir].child].path);//连接到父亲dir的.这个假文件;
+
+//     vnidx->dir=origin_index;//在之前的文件目录里面;
+//     vnidx->father_dir=-1;
+
+//     vnidx->next=-1;
+//     vnidx->child=vinodes[vidx->father_dir].child;
+//     vnidx->pre_link=vnidx->next_link=next_index;
+//     vnidx->refcnt=1;
+
+//     vnidx->mode=TYPE_LINK;
+//     double_link_add(vinodes[vidx->father_dir].child,next_index);
+
+//     father_dir=next_index;
+//   }else{
+//     assert(dir_index!=-1&&father_dir!=-1);
+//     assert(voidx->next==-1);
+
+//     voidx->next=next_index;
+
+//     strcpy(vnidx->name,buf.name);
+//     strcpy(vnidx->path,vidx->path);
+//     strcat(vnidx->path,buf.name);
+
+//     if(buf.mode&TYPE_DIR){
+//       strcat(vnidx->path,"/");
+//     }
+//     printf("vnidx->path: %s\n",vnidx->path);
+
+//     vnidx->dir=dir_index;
+//     vnidx->father_dir=father_dir;
+
+//     vnidx->next=-1;
+//     vnidx->child=-1;
+
+//     vnidx->pre_link=vnidx->next_link=next_index;
+//     vnidx->refcnt=1;
+
+//     vnidx->mode=buf.mode;
+//   }
+
+//   vnidx->rinode_index=buf.rinode_index;
+//   vnidx->fs_type=vidx->fs_type;
+//   vnidx->fs=vidx->fs;
+//   origin_index=next_index;
+
+
+//   if(check_item_match(buf.name,path+offset,file_len)){
+//     assert(next_inode==-1);
+//     next_inode=next_index;
+    
+//   }
+
+// }
+// if(next_inode==-1){
+//   printf("Error: Directory exists, but can't find fild!\n");
+//   return -1;
+// }
+
+//   int noffset=1;
+//   index=(path[0] == '/') ? lookup_root(path, &flag, &noffset)
+//                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
+//   assert(noffset>offset);
+//   return (noffset == offset) ? -1 : vinode_lookup(path);
+
+
+int len = strlen(path);
+  if (path[len - 1] == '/') path[len - 1] = '\0';
+
+  int flag, offset = 1;
+  int idx = (path[0] == '/') ? lookup_root(path, &flag, &offset)
                              : lookup_cur(path, &flag, VFS_ROOT, &offset);
-if(flag==1){
-  return index;
-}
-//int find_flag;
-int file_len=first_name_len(path+offset);
-//根据上面的两个lookup,可以确定这个index不在vinode_table里面,也就是说当前的目录应该是没有加载过得;
-if(vinodes[index].child!=-1){return -1;}//非空矛盾错误;} 
+  if (flag == 1) return idx;
 
-if(vinodes[index].fs==NULL){
-  return -1;//找不到系统的错误;
-}
-//现在开始,index是能找到的最后一个目录的inode,从blkfs里面找;
-int result=-1;
-int next_index=0;
-int origin_index=-1;
-int dir_index=-1,father_dir=-1;
-int kth=0;
+  vinode_t buf;
+  int kth = 0, oidx = -1, nidx = -1;
+  int dot = -1, ddot = -1, ret = -1, next = -1;
 
-int next_inode=-1;
-//for(int kth=0;kth<DIR_AMUT;kth++){
- // result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
-  while((result=vidx->fs->readdir(vidx->fs,vidx->rinode_index,++kth,&buf))){
-  printf("name:%s\n",buf.name);
-  if((next_index=vit_item_alloc())==-1){
-    printf("lookup；Vit is full. Wrong to vit_item_alloc,\n");
+  int flen = first_item_len(path + offset);
+  // printf("%s, %d\n", path + offset, flen);
+
+  if (pidx->fs == NULL) return -1;
+
+  if (pidx->child != -1) return -1;
+
+  while ((ret = pidx->fs->readdir(pidx->fs, pidx->ridx, ++kth, &buf))) {
+    if ((nidx = vinodes_alloc()) == -1) assert(0);
+
+    if (!strcmp(buf.name, ".")) {
+      assert(oidx == -1);
+
+      pidx->child = nidx;
+
+      strcpy(pnidx->name, ".");
+      strcpy(pnidx->path, pidx->path);
+      pnidx->dot = -1, pnidx->ddot = -1;  // will be cover
+      pnidx->next = -1, pnidx->child = idx;
+      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
+      pnidx->mode = TYPE_LINK, add_link(idx, nidx);
+
+      dot = nidx;
+    } else if (!strcmp(buf.name, "..")) {
+      assert(poidx->next == -1);
+      poidx->next = nidx;
+      poidx->ddot = nidx;
+      strcpy(pnidx->name, "..");
+      strcpy(pnidx->path, vinodes[vinodes[pidx->dot].child].path);
+      pnidx->dot = oidx, pnidx->ddot = -1;
+      pnidx->next = -1, pnidx->child = vinodes[pidx->ddot].child;
+      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
+      pnidx->mode = TYPE_LINK, add_link(vinodes[pidx->dot].child, nidx);
+
+      ddot = nidx;
+    } else {
+      assert(dot != -1 && ddot != -1);
+      assert(poidx->next == -1);
+      poidx->next = nidx;
+      strcpy(pnidx->name, buf.name);
+      strcpy(pnidx->path, pidx->path);
+      strcat(pnidx->path, buf.name);
+      if (buf.mode & TYPE_DIR) strcat(pnidx->path, "/");
+      pnidx->dot = dot, pnidx->ddot = ddot;
+      pnidx->next = -1, pnidx->child = -1;
+      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
+      pnidx->mode = buf.mode;
+    }
+
+    pnidx->ridx = buf.ridx;
+    pnidx->fs_type = pidx->fs_type;
+    pnidx->fs = pidx->fs;
+    oidx = nidx;
+
+    if (item_match(buf.name, path + offset, flen)) {
+      assert(next == -1);
+      next = nidx;
+    }
+  }
+
+  if (next == -1) {
+    printf("read directory, but file is not exists!\n");
     return -1;
-  }//新建一个vinode 保存在next_index里面;
-
-  if(strcmp(buf.name,".")==0){
-    printf("find .\n");
-    if(origin_index!=-1){
-      assert(0);//理论上不能修改;
-    }
-
-    vidx->child=next_index;
-    //更新next_index的inode;
-    strcpy(vnidx->name,".");
-    strcpy(vnidx->path,vidx->path);
-    
-    vnidx->dir=-1;
-    vnidx->father_dir=-1;//假文件;存疑;
-    
-    vnidx->next=-1;
-    vnidx->child=index;
-
-    vidx->pre_link=vidx->next_link=next_index;
-    vnidx->refcnt=1;
-
-    vnidx->mode=TYPE_LINK;//假文件,抽象成软链接;
-    double_link_add(index,next_index);
-
-    dir_index=next_index;//记录目录inode；
-  }else if(strcmp(buf.name,"..")==0){
-    printf("find ..\n");
-    if(voidx->next!=-1){
-      assert(0);
-    }//目前是链表的胃节点;
-
-    voidx->next=next_index;
-    voidx->father_dir=next_index;//".."是父亲目录的软链接;
-
-    strcpy(vnidx->name,"..");
-    strcpy(vnidx->path,vinodes[vinodes[vidx->dir].child].path);//连接到父亲dir的.这个假文件;
-
-    vnidx->dir=origin_index;//在之前的文件目录里面;
-    vnidx->father_dir=-1;
-
-    vnidx->next=-1;
-    vnidx->child=vinodes[vidx->father_dir].child;
-    vnidx->pre_link=vnidx->next_link=next_index;
-    vnidx->refcnt=1;
-
-    vnidx->mode=TYPE_LINK;
-    double_link_add(vinodes[vidx->father_dir].child,next_index);
-
-    father_dir=next_index;
-  }else{
-    assert(dir_index!=-1&&father_dir!=-1);
-    assert(voidx->next==-1);
-
-    voidx->next=next_index;
-
-    strcpy(vnidx->name,buf.name);
-    strcpy(vnidx->path,vidx->path);
-    strcat(vnidx->path,buf.name);
-
-    if(buf.mode&TYPE_DIR){
-      strcat(vnidx->path,"/");
-    }
-    printf("vnidx->path: %s\n",vnidx->path);
-
-    vnidx->dir=dir_index;
-    vnidx->father_dir=father_dir;
-
-    vnidx->next=-1;
-    vnidx->child=-1;
-
-    vnidx->pre_link=vnidx->next_link=next_index;
-    vnidx->refcnt=1;
-
-    vnidx->mode=buf.mode;
   }
 
-  vnidx->rinode_index=buf.rinode_index;
-  vnidx->fs_type=vidx->fs_type;
-  vnidx->fs=vidx->fs;
-  origin_index=next_index;
-
-
-  if(check_item_match(buf.name,path+offset,file_len)){
-    assert(next_inode==-1);
-    next_inode=next_index;
-    
-  }
-
-}
-if(next_inode==-1){
-  printf("Error: Directory exists, but can't find fild!\n");
-  return -1;
-}
-
-  int noffset=1;
-  index=(path[0] == '/') ? lookup_root(path, &flag, &noffset)
+  int noffset = 1;
+  idx = (path[0] == '/') ? lookup_root(path, &flag, &noffset)
                          : lookup_cur(path, &flag, VFS_ROOT, &noffset);
-  assert(noffset>offset);
-  return (noffset == offset) ? -1 : vinode_lookup(path);
+  assert(noffset > offset);
+  return (noffset == offset) ? -1 : lookup_auto(path);
+
+
 
 }
 
