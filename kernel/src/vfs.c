@@ -264,7 +264,7 @@ int len = strlen(path);
   int kth = 0, origin_index = -1, next_index = -1;
   int dir = -1, father_dir = -1, ret = -1, next = -1;
 
-  int flen = first_item_len(path + offset);
+  int flen = first_name_len(path + offset);
   // printf("%s, %d\n", path + offset, flen);
 
   if (vidx->fs == NULL) return -1;
@@ -272,7 +272,7 @@ int len = strlen(path);
   if (vidx->child != -1) return -1;
 
   while ((ret = vidx->fs->readdir(vidx->fs, vidx->rinode_index, ++kth, &buf))) {
-    if ((next_index = vinodes_alloc()) == -1) assert(0);
+    if ((next_index = vit_item_alloc()) == -1) assert(0);
 
     if (!strcmp(buf.name, ".")) {
       assert(origin_index == -1);
@@ -281,20 +281,20 @@ int len = strlen(path);
 
       strcpy(vnidx->name, ".");
       strcpy(vnidx->path, vidx->path);
-      vnidx->dot = -1, vnidx->ddot = -1;  // will be cover
-      vnidx->next = -1, vnidx->child = idx;
-      vnidx->pre_link = vnidx->next_link = nidx, vnidx->refcnt = 1;
+      vnidx->dir = -1, vnidx->father_dir = -1;  // will be cover
+      vnidx->next = -1, vnidx->child = index;
+      vnidx->pre_link = vnidx->next_link = next_index, vnidx->refcnt = 1;
       vnidx->mode = TYPE_LINK, add_link(idx, nidx);
 
       dir = next_index;
     } else if (!strcmp(buf.name, "..")) {
       assert(voidx->next == -1);
-      voidx->next = nidx;
-      voidx->ddot = nidx;
-      strcpy(pnidx->name, "..");
-      strcpy(pnidx->path, vinodes[vinodes[vidx->dot].child].path);
-      vnidx->dot = oidx, vnidx->ddot = -1;
-      vnidx->next = -1, vnidx->child = vinodes[pidx->ddot].child;
+      voidx->next = next_index;
+      voidx->father_index = next_index;
+      strcpy(vnidx->name, "..");
+      strcpy(vnidx->path, vinodes[vinodes[vidx->dir].child].path);
+      vnidx->dit= oidx, vnidx->father_dir = -1;
+      vnidx->next = -1, vnidx->child = vinodes[vidx->father_index].child;
       vnidx->prev_link = vnidx->next_link = nidx, vnidx->refcnt = 1;
       vnidx->mode = TYPE_LINK, add_link(vinodes[vidx->dir].child, next_index);
 
