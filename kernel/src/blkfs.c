@@ -422,6 +422,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
         }
     }
   }
+  printf("here\n\n");
 
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
