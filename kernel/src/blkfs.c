@@ -767,7 +767,7 @@ int ext2_readdir(filesystem_t* fs, int ridx, int kth, vinode_t* buf) {
   int cnt = 0;
   ext2_rd_ind(ext2, ridx);
    printf("ext2: %d \n", ext2->ind.blocks);
-  for (int i = 0; i < ext2->ind.blocks; i++) {
+  for (int i = 0; i < 1; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
     for (int k = 0; k < DIR_AMUT; k++) {
       if (ext2->dir[k].inode)
