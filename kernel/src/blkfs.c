@@ -73,7 +73,6 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2->ind.blocks+=1;
 
   ext2->current_dir=ext2_alloc_block(ext2);
-  printf("blocks: %d",ext2->ind.blocks);
   //strcpy(ext2->current_dir_name,"/");
   ext2_wr_ind(ext2,ext2->current_dir);
 
@@ -84,6 +83,7 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[0].name,".");
  // strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
+  printf("blocks: %d",ext2->ind.blocks);
 
 //  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
  // ext2_write(ext2,init_file,0,init_str,strlen(init_str));
