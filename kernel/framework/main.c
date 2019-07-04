@@ -162,7 +162,7 @@ static void help_function(device_t *tty,char *argv,char*pwd){
   printf("In help");
   return;
 }
-static void error_function(device_t *tty,const char *argv){
+static void error_function(device_t *tty,const char *argv,char *pwd){
   int offset=0;
   
   offset+=sprintf(text+offset,"command not found: %s. Input \'help\' for more information.\n",argv);
@@ -171,6 +171,32 @@ static void error_function(device_t *tty,const char *argv){
   return;
 }
 
+static void mkdir_function(device_t *tty,const char *argv){
+  change_into_abs_path(argv,pwd);
+  //找同目录同名;
+  int result=vfs_access(abs_path,TYPE_DIR);
+  if(result==0){
+    sprintf(text,"Dir %s already exists!!\n",argv);
+  }else{
+    int flag=vfs_mkdir(abs_path);
+    swicth(flag){
+      case 0:
+             sprintf(text,"Dir %s successfully create!\n",argv);
+             break;
+      case -1:
+             sprintf(text,"The name of dir %s is not accepted\n",argv);
+             break;
+      case -2:
+             sprintf(text,"The filesystem cannot mkdir!Only ext2fs can mkdir!\n",argv);
+             break;
+      default:
+             sprintf(text,"Undefined behaviour!\n",argv);
+             break;
+    }
+  }
+  tty->ops->write(tty,0,text,strlen(text));
+
+}
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
@@ -181,7 +207,8 @@ struct shell_function{
   {"pwd ",pwd_function,4},
   {"echo ",echo_function,5},
   {"cd ",cd_function,3},
-  {"info ",info_function,5}
+  {"info ",info_function,5},
+  {"mkdir ",mkdir_function,6}
 };
 
 static void shell_task(void *arg){
