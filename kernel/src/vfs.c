@@ -376,7 +376,7 @@ void vinode_prepare(int index,
   int fs_type,filesystem_t*fs,
   char *name,char *path
 ){
-  vidx->rinode_index=index;
+  vidx->rinode_index=rinode_index;
   vidx->dir=dir;
   vidx->father_dir=father_dir;
   vidx->next=next;
