@@ -266,39 +266,39 @@ int len = strlen(path);
   int kth = 0, oidx = -1, nidx = -1;
   int dot = -1, ddot = -1, ret = -1, next = -1;
 
-  int flen = first_item_len(path + offset);
+  int flen = first_name_len(path + offset);
   // printf("%s, %d\n", path + offset, flen);
 
-  if (pidx->fs == NULL) return -1;
+  if (vidx->fs == NULL) return -1;
 
-  if (pidx->child != -1) return -1;
+  if (vidx->child != -1) return -1;
 
   while ((ret = pidx->fs->readdir(pidx->fs, pidx->ridx, ++kth, &buf))) {
-    if ((nidx = vinodes_alloc()) == -1) assert(0);
+    if ((nidx = vit_item_alloc()) == -1) assert(0);
 
     if (!strcmp(buf.name, ".")) {
       assert(oidx == -1);
 
       pidx->child = nidx;
 
-      strcpy(pnidx->name, ".");
-      strcpy(pnidx->path, pidx->path);
-      pnidx->dot = -1, pnidx->ddot = -1;  // will be cover
-      pnidx->next = -1, pnidx->child = idx;
-      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
-      pnidx->mode = TYPE_LINK, add_link(idx, nidx);
+      strcpy(vnidx->name, ".");
+      strcpy(vnidx->path, vidx->path);
+      vnidx->dot = -1, vnidx->ddot = -1;  // will be cover
+      vnidx->next = -1, vnidx->child = idx;
+      vnidx->pre_link = pnidx->next_link = nidx, vnidx->linkcnt = 1;
+      vnidx->mode = TYPE_LINK, add_link(idx, nidx);
 
       dot = nidx;
     } else if (!strcmp(buf.name, "..")) {
       assert(poidx->next == -1);
-      poidx->next = nidx;
-      poidx->ddot = nidx;
+      voidx->next = nidx;
+      voidx->ddot = nidx;
       strcpy(pnidx->name, "..");
       strcpy(pnidx->path, vinodes[vinodes[pidx->dot].child].path);
-      pnidx->dot = oidx, pnidx->ddot = -1;
-      pnidx->next = -1, pnidx->child = vinodes[pidx->ddot].child;
-      pnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
-      pnidx->mode = TYPE_LINK, add_link(vinodes[pidx->dot].child, nidx);
+      vnidx->dot = oidx, vnidx->ddot = -1;
+      vnidx->next = -1, vnidx->child = vinodes[pidx->ddot].child;
+      vnidx->prev_link = pnidx->next_link = nidx, pnidx->linkcnt = 1;
+      vnidx->mode = TYPE_LINK, add_link(vinodes[pidx->dot].child, nidx);
 
       ddot = nidx;
     } else {
