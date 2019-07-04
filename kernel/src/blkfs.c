@@ -73,7 +73,7 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   ext2->ind.blocks++;
 
   ext2->current_dir=ext2_alloc_block(ext2);
-  strcpy(ext2->current_dir_name,"/");
+  //strcpy(ext2->current_dir_name,"/");
   ext2_wr_ind(ext2,ext2->current_dir);
 
   ext2->dir[0].inode=ext2->dir[1].inode=ext2->current_dir;//根目录的. ..都是根目录

@@ -142,10 +142,12 @@ int result=-1;
 int next_index=0;
 int origin_index=-1;
 int dir_index=-1,father_dir=-1;
+int kth=0;
 
 int next_inode=-1;
-for(int kth=0;kth<DIR_AMUT;kth++){
-  result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
+//for(int kth=0;kth<DIR_AMUT;kth++){
+ // result=vinodes[index].fs->readdir(vidx->fs,vidx->rinode_index,kth,&buf);
+  while((result=vidx->fs->readdir(vidx->fs,vidx->rinode_index,++kth,&buf)){
   printf("name:%s\n",buf.name);
   if(result==0)continue;
   if((next_index=vit_item_alloc())==-1){
