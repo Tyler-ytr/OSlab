@@ -171,7 +171,7 @@ static void error_function(device_t *tty,const char *argv,char *pwd){
   return;
 }
 
-static void mkdir_function(device_t *tty,const char *argv){
+static void mkdir_function(device_t *tty,const char *argv,char * pwd){
   change_into_abs_path(argv,pwd);
   //找同目录同名;
   int result=vfs_access(abs_path,TYPE_DIR);
