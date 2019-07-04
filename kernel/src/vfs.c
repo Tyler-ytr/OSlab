@@ -565,7 +565,7 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
-      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d\n",i,vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,vinodes[i].mode);
+      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d\n",i,vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,vinodes[i].mode,vinodes[i].rinode_index);
     }
   }
 }
