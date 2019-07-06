@@ -417,6 +417,7 @@ static int root_dir_prepare(){
   int index=vit_item_alloc();
   int dir=vit_item_alloc();
   int father_dir=vit_item_alloc();
+  int par=index;
 
   if(index!=VFS_ROOT){
     assert(0);
@@ -459,8 +460,8 @@ static int root_dir_prepare(){
   // vfat->pre_link=vdir->next_link=father_dir;
   // vfat->refcnt=1;
   // vfat->mode=TYPE_LINK;
-  vinode_ddot_prepare( dir, index, father_dir);
-  double_link_add(index,father_dir);
+  vinode_ddot_prepare( dir, index, father_dir,par);
+  double_link_add(par,father_dir);
   // vfat->fs_type=VFS;
   // vfat->fs=NULL;
 
