@@ -408,8 +408,8 @@ void vinode_dot_prepare(int dir,int index,int father_dir){
   vinode_prepare(dir,-1,-1,father_dir,father_dir,index,dir,dir,1,TYPE_LINK
   ,VFS,NULL,".",vidx->path);
 }
-void vinode_ddot_prepare(int dir,int index,int father_dir){
-  vinode_prepare(father_dir,-1,dir,-1,-1,index,father_dir,
+void vinode_ddot_prepare(int dir,int index,int father_dir,int par){
+  vinode_prepare(father_dir,-1,dir,-1,-1,par,father_dir,
   father_dir,1,TYPE_LINK,VFS,NULL,"..",vidx->path);
 }
 char path_buf[MAX_PATH_LENGTH];
@@ -543,8 +543,8 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   //build_ddot(par, fs_type, fs);
    vinode_dot_prepare(dir, index, father_dir);
   double_link_add(index,dir);
-   vinode_ddot_prepare( dir, index, father_dir);
-  double_link_add(index,father_dir);
+   vinode_ddot_prepare( dir, index, father_dir,par);
+  double_link_add(par,father_dir);
   return dir;
 
 }
