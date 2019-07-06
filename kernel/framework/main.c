@@ -108,7 +108,7 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
   //  return ;
   }else{
    // printf("in else\n");
-    int abs_length=strlen(abs_path);
+    //int abs_length=strlen(abs_path);
     // if(abs_path[abs_length-1]=='/'){
     //   strcat(abs_path,"/");//软链接位置;
     // }
