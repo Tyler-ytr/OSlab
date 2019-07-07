@@ -631,7 +631,7 @@ vinodes[temp_index].next=vinodes[index].next;
 int k=vidx->child;
 printf("vinode[%d].name: %s",k,vinodes[k].name);
 for(;;k=vinodes[index].next){
-printf("vinode[%d].name: %s",k,vinodes[k].name);
+printf("vinode[%d].name: %s,next:%d",k,vinodes[k].name,vinodes[k].next);
   if(k==-1)break;
   vinode_delete(k);
 }
