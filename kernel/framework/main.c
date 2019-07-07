@@ -256,7 +256,7 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
 
 static void rm_function(device_t *tty,char *argv,char * pwd){//删除文件;
  change_into_abs_path(argv,pwd);
- int result=vfs_access(abs_path,TYPE_FILE);
+ //int result=vfs_access(abs_path,TYPE_FILE);
 
 
 return ;
