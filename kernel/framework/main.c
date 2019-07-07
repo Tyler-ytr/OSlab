@@ -192,6 +192,8 @@ static void touch_function(device_t *tty,char *argv,char * pwd){
              sprintf(text,"Undefined behaviour!\n",argv);
              break;
   }
+
+}
    tty->ops->write(tty,0,text,strlen(text));
 
 }
