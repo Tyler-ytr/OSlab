@@ -899,6 +899,6 @@ MODULE_DEF(vfs){
     .lseek = vfs_lseek,
     .close = vfs_close,
     .create_file = vfs_create_file,
-    .remove_file=vfs_remove_file,
+    //.remove_file=vfs_remove_file,
 };
 
