@@ -630,8 +630,9 @@ vinodes[temp_index].next=vinodes[index].next;
 //删除dir的所有节点;
 int k=vidx->child;
 printf("vinode[%d].name: %s",k,vinodes[k].name);
-for(;k!=-1;k=vinodes[index].next){
+for(;;k=vinodes[index].next){
 printf("vinode[%d].name: %s",k,vinodes[k].name);
+  if(k==-1)break;
   vinode_delete(k);
 }
 vinode_delete(index);
