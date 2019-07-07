@@ -256,7 +256,7 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
 
 static void rm_function(device_t *tty,char *argv,char * pwd){//删除文件;
  change_into_abs_path(argv,pwd);
- printf("abs_path:%s",abs_path);
+ //printf("abs_path:%s",abs_path);
   int result=vfs_access(abs_path,TYPE_FILE);
   if(result==1){
     sprintf(text,"File %s doesn't exist!!\n",argv);
@@ -289,6 +289,16 @@ return ;
 }
 static void cat_function(device_t *tty,char *argv,char * pwd){
   //调用read;
+ change_into_abs_path(argv,pwd);
+ int fd=vfs_open(abs_path,TYPE_FILE|RD_ABLE);
+ if(fd==-1){
+   printf("GG!\n");
+   return ;
+ }else{
+   while(vfs_read(fd,text,1024)){
+  tty->ops->write(tty,0,text,strlen(text));
+   }
+ }
 
 
   
@@ -345,7 +355,7 @@ static void shell_task(void *arg){
       if(strcmp(readbuf,"pwd")==0){
       strcpy(readbuf,"pwd ");
     }
-    printf("readbuf:%s\n",readbuf);
+    //printf("readbuf:%s\n",readbuf);
     
     find_func=0;
     for(int i=0;i<function_num;i++){

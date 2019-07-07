@@ -714,9 +714,9 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   };
   int vfs_access(const char *path, int mode){//如果符合应该return 0;
     strcpy(path_buf,path);
-    printf("path_buf:%s",path_buf);
+    //printf("path_buf:%s",path_buf);
     int index=vinode_lookup(path_buf);
-    printf("index:%d",index);
+    //printf("index:%d",index);
     if(index==-1){
       return 1;
     }
@@ -819,7 +819,7 @@ int vfs_remove_file(const char *path){
   }
   strcpy(tempbuff,path);
   int now_index=vinode_lookup(tempbuff);//得到当前的inode;
-  printf("now_index:%d",now_index);
+  //printf("now_index:%d",now_index);
   get_father_dir(path,father_dir_offset);
   int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
   int mode=TYPE_FILE;
