@@ -678,7 +678,7 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   int now_index=vinode_lookup(path);//得到当前的inode;
   get_father_dir(path,father_dir_offset);
   int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
-  printf("now: %d, father: %d",now_index.index);
+  printf("now: %d, father: %d",now_index,index);
     return 0;
   };
   int vfs_create_file(const char* path){
