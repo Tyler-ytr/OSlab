@@ -254,9 +254,17 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
 
 }
 
+static void rm_function(device_t *tty,char *argv,char * pwd){//删除文件;
+ change_into_abs_path(argv,pwd);
+ int result=vfs_access(abs_path,TYPE_FILE);
 
+
+return ;
+}
 static void cat_function(device_t *tty,char *argv,char * pwd){
   //调用read;
+
+
   
   
   
@@ -277,7 +285,8 @@ struct shell_function{
   {"mkdir ",mkdir_function,6},
   {"rmdir ",rmdir_function,6},
   {"touch ",touch_function,6},
-  {"cat ",cat_function,4}
+  {"cat ",cat_function,4},
+  {"rm ",rm_function,3}
 };
 
 static void shell_task(void *arg){

@@ -783,12 +783,13 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   }else{
     return -2;//错误２:　ext2fs之外建立文件;;
   }
-  
     return 0;
-
-
-
   }
+
+int vfs_remove_file(const char *path){
+
+}
+
   int vfs_link(const char *oldpath, const char *newpath){
     return 0;
   };
@@ -897,5 +898,6 @@ MODULE_DEF(vfs){
     .lseek = vfs_lseek,
     .close = vfs_close,
     .create_file=vfs_create_file,
+    .remove_file=vfs_remove_file,
 };
 
