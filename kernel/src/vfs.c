@@ -740,7 +740,7 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   if (index == -1) return;
   int offset=sprintf(outbuf,"In vinode[%d] name:%s path:%s\n",index,vinodes[index].name,vinodes[index].path);
     for (int k = vinodes[index].child; k != -1; k = vinodes[k].next) {
-      offset+=sprintf(outbuf+offset,"inode:%d dirname:%s path:%s\n",k,vinodes[k].name,vinodes[k].path);
+      offset+=sprintf(outbuf+offset,"inode:%d \tdirname:%s \tpath:%s\n",k,vinodes[k].name,vinodes[k].path);
     }
 
 }
