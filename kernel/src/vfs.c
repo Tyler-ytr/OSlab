@@ -774,8 +774,8 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
    if(vidx->fs_type==EXT2FS){
     
     rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_FILE);
-    next_index=append_dir(index,tempbuff+father_dir_offset+1,TYPE_DIR,vidx->fs_type,vidx->fs);
-    vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
+    next_index=append_file(index,tempbuff+father_dir_offset+1,TYPE_DIR,vidx->fs_type,vidx->fs);
+    //vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
     vinodes[next_index].rinode_index=rinode_index;
   }else{
     return -2;//错误２:　ext2fs之外建立文件;;
