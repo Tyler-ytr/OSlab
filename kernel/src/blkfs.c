@@ -597,6 +597,7 @@ int ext2_create(ext2_t* ext2, int ridx, char* name, int mode) {
     }
   CreateEnd:
     idx = ext2->dir[j].inode = ext2_alloc_inode(ext2);
+   printf("1. new create: %d\n", idx);
     ext2->dir[j].mode = mode;
     ext2->dir[j].name_len = strlen(name);
     strcpy(ext2->dir[j].name, name);
