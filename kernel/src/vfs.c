@@ -368,7 +368,7 @@ if(flag==1){
 //   return;
 // }
 
-static int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
+static int flides_open(int index,uint32_t rwmode){
   //index 是vinodes结构体里面的编号,mode调控只读只写;
 
   //To be continued;
