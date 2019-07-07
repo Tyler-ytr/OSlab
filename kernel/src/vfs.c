@@ -688,6 +688,10 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     if(root==-1){
       assert(0);
     }
+
+    for(int i=0;i<MAX_FILE_NUM;i++){
+      flides[i].refcnt=0;
+    }
     int dev=append_dir(root,"dev",TYPE_DIR,VFS,NULL);
     int mnt=append_dir(root,"mnt",TYPE_DIR,VFS,NULL);
     int r0fs=vfs_init_devfs("ramdisk0",dev_lookup("ramdisk0"),sizeof(ext2_t)
