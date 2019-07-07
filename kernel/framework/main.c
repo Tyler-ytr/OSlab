@@ -176,11 +176,23 @@ static void touch_function(device_t *tty,char *argv,char * pwd){
   int result=vfs_access(abs_path,TYPE_DIR);
   if(result==0){
      sprintf(text,"File %s already exists!!\n",argv);
-  }else
-  {
-    int flag=vfs_
+  }else{
+       int flag=vfs_create_file(abs_path);
+    switch(flag){
+      case 0:
+             sprintf(text,"Dir %s successfully create!\n",argv);
+             break;
+      case -1:
+             sprintf(text,"The name of dir %s is not accepted\n",argv);
+             break;
+      case -2:
+             sprintf(text,"The filesystem cannot mkdir!Only ext2fs can mkdir!\n",argv);
+             break;
+      default:
+             sprintf(text,"Undefined behaviour!\n",argv);
+             break;
   }
-  
+   tty->ops->write(tty,0,text,strlen(text));
 
 }
 
@@ -191,7 +203,7 @@ static void mkdir_function(device_t *tty,char *argv,char * pwd){
   if(result==0){
     sprintf(text,"Dir %s already exists!!\n",argv);
   }else{
-    int flag=vfs_create_file(abs_path);
+    int flag=vfs_mkdir(abs_path);
     switch(flag){
       case 0:
              sprintf(text,"Dir %s successfully create!\n",argv);
