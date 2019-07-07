@@ -276,9 +276,8 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
     con=con/2;
     flag++;
   }
-ext2->inodebitmapbuf[cur] = ext2->inodebitmapbuf[cur] + con;
-  //ext2->inodebitmapbuf[cur]+=con;
-  ext2->last_alloc_inode=cur*8+flag+1;
+  ext2->inodebitmapbuf[cur] = ext2->inodebitmapbuf[cur] + con;
+  ext2->last_alloc_inode = cur * 8 + flag + 1;
   ext2_wr_inodebitmap(ext2);
   ext2->gdt.free_inodes_count--;
   ext2_wr_gd(ext2);
