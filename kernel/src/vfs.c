@@ -361,10 +361,11 @@ if(flag==1){
 
 //  return 0;
 }
-int flides_free(int index){
+void flides_free(int index){
   flides[index].refcnt=0;
   flides[index].open_offset=0;
   flides[index].vinode_index=0;
+  return;
 }
 
 int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
