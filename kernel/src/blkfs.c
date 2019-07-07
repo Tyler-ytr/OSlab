@@ -587,7 +587,7 @@ int ext2_create(ext2_t* ext2, int ridx, char* name, int mode) {
 
   assert(ext2->ind.size < 4096);
   int idx;
-  // printf("create: ridx[%d], size[%d]\n", ridx, ext2->ind.size);
+   printf("create: ridx[%d], size[%d]\n", ridx, ext2->ind.size);
   if (ext2->ind.size != ext2->ind.blocks * BLK_SIZE) {
     int i, j;
     for (i = 0; i < ext2->ind.blocks; i++) {
