@@ -714,7 +714,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   };
   int vfs_access(const char *path, int mode){//如果符合应该return 0;
     strcpy(path_buf,path);
-    //printf("path_buf:%s",path_buf);
+    printf("path_buf:%s",path_buf);
     int index=vinode_lookup(path_buf);
     //printf("index:%d",index);
     if(index==-1){
