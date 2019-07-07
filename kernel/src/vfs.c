@@ -357,6 +357,8 @@ int  flag=0;
     }
   }
 if(flag==1){
+
+  printf("flag==1,i=:%d\n",i);
   return i;
 }else{return -1;};//-1表示没有空位了;
 
