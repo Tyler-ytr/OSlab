@@ -16,7 +16,7 @@ void double_link_remove(int index);
 //vfs inode table 操作;
 
 static int vit_item_alloc();
-//static void vit_item_free(int index);
+static void vit_item_free(int index);
 static int lookup_cur(char *path,int *find_flag,
                        int cur_inode,int *path_offset);
 static int lookup_root(char *path, int *find_flag, int *path_offset) ;
@@ -31,9 +31,9 @@ static int vit_item_alloc(){
   printf("Error： The vfs inode table is full!");
   return -1;
 }
-// static void vit_item_free(int index){
-//   vinodes[index].mode=UNUSED;//不存在;
-// }
+static void vit_item_free(int index){
+  vinodes[index].mode=UNUSED;//不存在;
+}
 static int first_name_len(const char *name){//返回/前面的第一个名字;
   // int name_len=strlen(name); 
   // int result=0;
