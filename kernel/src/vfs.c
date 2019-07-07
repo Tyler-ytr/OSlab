@@ -817,6 +817,7 @@ int vfs_remove_file(const char *path){
   }
   strcpy(tempbuff,path);
   int now_index=vinode_lookup(tempbuff);//得到当前的inode;
+  printf("now_index:%d",now_index);
   get_father_dir(path,father_dir_offset);
   int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
   int mode=TYPE_FILE;
