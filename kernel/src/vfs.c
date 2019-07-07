@@ -345,7 +345,7 @@ int len = strlen(path);
   return (noffset == offset) ? -1 : vinode_lookup(path);
 }
 //read/write 操作: vinodes 和 fildes　两个结构体的联动;
-int flides_alloc(){
+static int flides_alloc(){
 //返回一个可用的节点;;
 int i;
 int  flag=0;
@@ -361,14 +361,14 @@ if(flag==1){
 
 //  return 0;
 }
-void flides_free(int index){
+static void flides_free(int index){
   flides[index].refcnt=0;
   flides[index].open_offset=0;
   flides[index].vinode_index=0;
   return;
 }
 
-int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
+static int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
   //index 是vinodes结构体里面的编号,mode调控只读只写;
 
   //To be continued;
@@ -653,6 +653,10 @@ extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
 extern int ext2_create(ext2_t* ext2, int ridx, char* name, int mode);
 extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
+extern ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
+                  uint32_t len);
+extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
+                  uint32_t len);
   void vfs_init(){
    // int success=vinode_lookup("/");
     //assert(success!=-1);
@@ -791,11 +795,44 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   int vfs_unlink(const char *path){
     return 0;
   };
-  int vfs_open(const char *path, int flags){
-    return 0;
-  };
+  int vfs_open(const char *path, int rwmode){
+    if(vfs_access(path)==0){
+      strcpy(tempbuff,path);
+      int index=vinode_lookup(tempbuff);
+      int fd=flides_open(tempbuff,rwmode);
+
+      return fd;
+    }else{
+      return -1;//找不到文件;
+    }
+
+    return -1;
+  }
   ssize_t vfs_read(int fd, void *buf, size_t nbyte){
-    return 0;
+
+    int result=-1;
+    if(flides[fd].refcnt==0){
+      return -1;
+    } 
+    int index=flides[fd].vinode_index;
+    int fs_type=vidx->fs_type;
+    int rinode=vidx->rinode_index;
+
+    switch (fs_type)
+    {
+    case EXT2FS:
+      result=ext2_read(vidx->fs->real_fs,rinode,flides[fd].open_offset,buf,nbyte);
+      flides[fd].open_offset+=result;
+      break;
+    
+    default:
+      break;
+    }
+
+
+
+
+    return result;
   }
   ssize_t vfs_write(int fd, void *buf, size_t nbyte){
     return 0;
