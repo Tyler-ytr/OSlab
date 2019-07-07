@@ -437,7 +437,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
           
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
-   // printf("%d: ",i);
+ printf("%d: ",i);
     for (int k = 0; k < DIR_AMUT; k++) {
       if (ext2->dir[k].inode){//存在才返回;
           printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
