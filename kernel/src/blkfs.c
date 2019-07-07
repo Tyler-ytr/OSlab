@@ -513,7 +513,7 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
   //printf("ext2_read:here\n");
   int current_block=offset/BLK_SIZE;//之前用不到的block；
   int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
-  printf("current_block:%d,blocks: %d\n",current_block,ext2->ind.blocks);
+  //printf("current_block:%d,blocks: %d\n",current_block,ext2->ind.blocks);
 
   for(int i=current_block;i<ext2->ind.blocks;i++){
     ext2_rd_datablock(ext2,ext2->ind.block[i]);

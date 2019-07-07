@@ -291,9 +291,9 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
   //调用read;
  change_into_abs_path(argv,pwd);
  int fd=vfs_open(abs_path,O_RDONLY);
- printf("fd:%d\n",fd);
+ //printf("fd:%d\n",fd);
  if(fd==-1){
-   printf("GG!\n");
+   //printf("GG!\n");
    return ;
  }else{
   while(vfs_read(fd,text,128))
