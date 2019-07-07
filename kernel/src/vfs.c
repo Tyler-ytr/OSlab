@@ -758,10 +758,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     return -3;//文件系统不能删除;
   }
 
-
-
-
-  printf("now: %d, father: %d",now_index,index);
+ // printf("now: %d, father: %d",now_index,index);
     return 0;
   };
   int vfs_create_file(const char* path){
@@ -787,7 +784,30 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   }
 
 int vfs_remove_file(const char *path){
-  return 0 ;
+//找到父亲目录的inode,然后进行删除;   
+  int father_dir_offset=path_length_offset(path); 
+    int path_len=strlen(path);
+  if(father_dir_offset==path_len){
+    return -1;//错误１: 目录格式错误;
+  }
+  strcpy(tempbuff,path);
+  int now_index=vinode_lookup(tempbuff);//得到当前的inode;
+  get_father_dir(path,father_dir_offset);
+  int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
+  int mode=TYPE_FILE;
+  if(vidx->fs_type==EXT2FS){
+    if(ext2_remove(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,mode)==0){
+      vfs_dir_remove(now_index,index);
+    }
+    else{
+      return -2;// 没办法在ext2fs里面移除;
+    }
+  }else{
+    return -3;//文件系统不能删除;
+  }
+
+ // printf("now: %d, father: %d",now_index,index);
+    return 0;
 
 }
 

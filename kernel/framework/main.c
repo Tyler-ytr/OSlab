@@ -256,6 +256,31 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
 
 static void rm_function(device_t *tty,char *argv,char * pwd){//删除文件;
  change_into_abs_path(argv,pwd);
+  int result=vfs_access(abs_path,TYPE_FILE);
+  if(result==1){
+    sprintf(text,"Dir %s doesn't exist!!\n",argv);
+  }else{
+    int flag=vfs_remove_file(abs_path);
+    switch(flag){
+      case 0:
+             //sprintf(text,"Dir %s successfully remove!\n",argv);
+             sprintf(text,"Successfully remove %s!\n",argv);
+             break;
+      case -1:
+             sprintf(text,"The name of file %s is incorrect\n",argv);
+             break;
+      case -2:
+             sprintf(text,"Ext2fs cannot remove %s.\n",argv);
+             break;
+      case -3:
+             sprintf(text,"The filesystem cannot remove file! Only ext2fs can remove file!\n",argv);
+             break;
+      default:
+             sprintf(text,"Undefined behaviour!\n",argv);
+             break;
+    }
+  }
+  tty->ops->write(tty,0,text,strlen(text));change_into_abs_path(argv,pwd);
  //int result=vfs_access(abs_path,TYPE_FILE);
 
 

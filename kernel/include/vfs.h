@@ -148,4 +148,5 @@ struct mount_path_point{
  int vfs_remove(const char *path);
   int vfs_create(const char *path);
   int vfs_create_file(const char *path);
+  int vfs_remove_file(const char *path);
 #endif
