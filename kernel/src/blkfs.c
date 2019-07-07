@@ -70,6 +70,10 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
    ext2->inodebitmapbuf[i]=0;
   }
   ext2_wr_inodebitmap(ext2);
+  ext2_rd_inodebitmap(ext2);
+  for(int i=0;i<512;i++){
+   printf("%x",ext2->inodebitmapbuf[i]);
+  }
   printf("\n\n\n\n\n");
   ext2->ind.mode = TYPE_DIR | RD_ABLE | WR_ABLE;
   ext2->ind.blocks = 0;
