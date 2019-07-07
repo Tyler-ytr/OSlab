@@ -224,6 +224,32 @@ static void mkdir_function(device_t *tty,char *argv,char * pwd){
   tty->ops->write(tty,0,text,strlen(text));
 
 }
+static void rmdir_function(device_t *tty,char *argv,char * pwd){
+  change_into_abs_path(argv,pwd);
+  int result=vfs_access(abs_path,TYPE_DIR);
+  if(result==0){
+    sprintf(text,"Dir %s already exists!!\n",argv);
+  }else{
+    int flag=vfs_rmdir(abs_path);
+    switch(flag){
+      case 0:
+             //sprintf(text,"Dir %s successfully remove!\n",argv);
+             sprintf(text,"Here!",argv);
+             break;
+      case -1:
+             sprintf(text,"The name of dir %s is incorrect\n",argv);
+             break;
+      case -2:
+             sprintf(text,"The filesystem cannot rmdir! Only ext2fs can rmdir!\n",argv);
+             break;
+      default:
+             sprintf(text,"Undefined behaviour!\n",argv);
+             break;
+    }
+  }
+  tty->ops->write(tty,0,text,strlen(text));
+
+}
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
@@ -236,6 +262,7 @@ struct shell_function{
   {"cd ",cd_function,3},
   {"info ",info_function,5},
   {"mkdir ",mkdir_function,6},
+  {"rmdir ",rmdir_function,6},
   {"touch ",touch_function,6}
 };
 

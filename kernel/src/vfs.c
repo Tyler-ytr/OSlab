@@ -669,16 +669,16 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
     return 0;
   };
   int vfs_rmdir(const char *path){
-//找到父亲目录的inode,然后进行删除;
-  // int father_dir_offset=path_length_offset(path);
-  // int path_len=strlen(path);
-  // if(father_dir_offset==path_len){
-  //   return -1;//错误１: 目录格式错误;
-  // }
-  // get_father_dir(path,father_dir_offset);
-  // int index=vinode_lookup(tempbuff);
-  // int next_index=-1;
-  // int rinode_index=-1;
+//找到父亲目录的inode,然后进行删除;   
+  int father_dir_offset=path_length_offset(path); 
+    int path_len=strlen(path);
+  if(father_dir_offset==path_len){
+    return -1;//错误１: 目录格式错误;
+  }
+
+
+
+  get_father_dir(path,father_dir_offset);
 
     return 0;
   };
