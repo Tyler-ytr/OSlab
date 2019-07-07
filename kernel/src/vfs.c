@@ -867,6 +867,7 @@ int vfs_remove_file(const char *path){
     int index=flides[fd].vinode_index;
     int fs_type=vidx->fs_type;
     int rinode=vidx->rinode_index;
+    printf("vfs_read:index:%d\n",index);
 
     switch (fs_type)
     {
