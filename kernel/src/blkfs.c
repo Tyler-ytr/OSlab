@@ -271,7 +271,9 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
     return -1;
   }
   ext2_rd_inodebitmap(ext2);
-  printf("In ext2 alloc");
+  printf("\n\n\n\nIn ext2 alloc");
+  printf("cur: %d",cur);
+    printf("start: %d",ext2->inodebitmapbuf[cur]);
   while(ext2->inodebitmapbuf[cur]==0xff){
     printf("%d",ext2->inodebitmapbuf[cur]);
     if(cur==BLK_SIZE-1){
@@ -282,7 +284,7 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
       cur++;
     }
   }
-  printf("cur: %d",cur);
+  printf("cur: %d\n\n\n\n",cur);
 
   while(ext2->inodebitmapbuf[cur]&con){
     con=con/2;
