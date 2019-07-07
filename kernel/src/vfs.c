@@ -646,7 +646,7 @@ return 0;
 static int vfs_file_remove(int index,int par){
   int temp_index=vinodes[par].child;
   while(1){
-    if(vinodes[temp_index].next==index)breal;
+    if(vinodes[temp_index].next==index)break;
     temp_index=vinodes[temp_index].next;
   }
   vinodes[temp_index].next=vinodes[index].next;
