@@ -669,7 +669,7 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
     return 0;
   };
   int vfs_rmdir(const char *path){
-
+//找到父亲目录的inode,然后进行删除;
   // int father_dir_offset=path_length_offset(path);
   // int path_len=strlen(path);
   // if(father_dir_offset==path_len){
@@ -682,6 +682,31 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
 
     return 0;
   };
+  int vfs_create_file(const char* path){
+       int father_dir_offset=path_length_offset(path);
+  int path_len=strlen(path);
+  if(father_dir_offset==path_len){
+    return -1;//错误１:　文件格式错误;
+  }
+  get_father_dir(path,father_dir_offset);
+  int index=vinode_lookup(tempbuff);
+  int next_index=-1;
+  int rinode_index=-1;
+   if(vidx->fs_type==EXT2FS){
+    
+    rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_FILE);
+    next_index=append_dir(index,tempbuff+father_dir_offset+1,TYPE_DIR,vidx->fs_type,vidx->fs);
+    vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
+    vinodes[next_index].rinode_index=rinode_index;
+  }else{
+    return -2;//错误２:　ext2fs之外建立文件;;
+  }
+  
+    return 0;
+
+
+
+  }
   int vfs_link(const char *oldpath, const char *newpath){
     return 0;
   };
@@ -703,12 +728,12 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   int vfs_close(int fd){
     return 0;
   }
-  int vfs_remove(const char *path){
-    return 0;
-  }
-  int vfs_create(const char *path){
-    return 0;
-  }
+  // int vfs_remove(const char *path){
+  //   return 0;
+  // }
+  // int vfs_create(const char *path){
+  //   return 0;
+  // }
 
   void vfs_ls(char * dir,char *outbuf){
   int index=vinode_lookup(dir);
@@ -747,8 +772,8 @@ MODULE_DEF(vfs){
     .access = vfs_access,
     .mount = vfs_mount,
     .unmount = vfs_unmount,
-    .create = vfs_create,
-    .remove = vfs_remove,
+    //.create = vfs_create,
+    //.remove = vfs_remove,
     .link = vfs_link,
     .unlink = vfs_unlink,
     .open = vfs_open,
@@ -756,5 +781,6 @@ MODULE_DEF(vfs){
     .write = vfs_write,
     .lseek = vfs_lseek,
     .close = vfs_close,
+    .create_file=vfs_create_file,
 };
 

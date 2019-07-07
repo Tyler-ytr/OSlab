@@ -57,9 +57,10 @@ typedef struct {
   int (*access)(const char *path, int mode);
   int (*mount)(const char *path, filesystem_t *fs);
   int (*unmount)(const char *path);
-  int (*create)(const char *path);//temp
-  int (*remove)(const char *path);
+  //int (*create)(const char *path);//temp
+  //int (*remove)(const char *path);
   int (*mkdir)(const char *path);
+  int (*create_file)(const char *path);
   int (*rmdir)(const char *path);
   int (*link)(const char *oldpath, const char *newpath);
   int (*unlink)(const char *path);

@@ -170,6 +170,19 @@ static void error_function(device_t *tty,const char *argv){
 
   return;
 }
+static void touch_function(device_t *tty,char *argv,char * pwd){
+ change_into_abs_path(argv,pwd);
+  //找同目录同名文件;
+  int result=vfs_access(abs_path,TYPE_DIR);
+  if(result==0){
+     sprintf(text,"File %s already exists!!\n",argv);
+  }else
+  {
+    int flag=vfs_
+  }
+  
+
+}
 
 static void mkdir_function(device_t *tty,char *argv,char * pwd){
   change_into_abs_path(argv,pwd);
@@ -178,7 +191,7 @@ static void mkdir_function(device_t *tty,char *argv,char * pwd){
   if(result==0){
     sprintf(text,"Dir %s already exists!!\n",argv);
   }else{
-    int flag=vfs_mkdir(abs_path);
+    int flag=vfs_create_file(abs_path);
     switch(flag){
       case 0:
              sprintf(text,"Dir %s successfully create!\n",argv);
@@ -208,7 +221,8 @@ struct shell_function{
   {"echo ",echo_function,5},
   {"cd ",cd_function,3},
   {"info ",info_function,5},
-  {"mkdir ",mkdir_function,6}
+  {"mkdir ",mkdir_function,6},
+  {"touch ",touch_function,6}
 };
 
 static void shell_task(void *arg){
