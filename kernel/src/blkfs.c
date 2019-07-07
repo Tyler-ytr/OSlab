@@ -66,6 +66,12 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   //初始化inode；
   ext2_rd_blockbitmap(ext2);
   ext2_rd_inodebitmap(ext2);
+  for(int i=0;i<512;i++){
+    ext2->inodebitmapbuf[i]=0;
+    ext2->blockbitmapbuf[i]=0;
+  }
+  ext2_wr_inodebitmap(ext2);
+  ext2_wr_blockbitmap(ext2);
   ext2->ind.mode = TYPE_DIR | RD_ABLE | WR_ABLE;
   ext2->ind.blocks = 0;
   ext2->ind.size = 2 * DIR_SIZE;  // . 和 ..
@@ -84,7 +90,7 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   strcpy(ext2->dir[1].name,"..");
   ext2_wr_dir(ext2,ext2->ind.block[0]);
 
-  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world",TYPE_FILE|RD_ABLE|WR_ABLE);
+  int init_file=ext2_create(ext2,ext2->current_dir,"Hello_world.txt",TYPE_FILE|RD_ABLE|WR_ABLE);
   ext2_write(ext2,init_file,0,init_str,strlen(init_str));
 
 
