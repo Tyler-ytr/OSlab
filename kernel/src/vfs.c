@@ -638,15 +638,26 @@ while(1){
   if(next==-1)break;
   k=next;
 }
-// for(;;k=vinodes[index].next){
-// printf("vinode[%d].name: %s,next:%d",k,vinodes[k].name,vinodes[k].next);
-//   if(k==-1)break;
-//   vinode_delete(k);
-// }
+
 vinode_delete(index);
 return 0;
 
 }
+static int vfs_file_remove(int index,int par){
+  int temp_index=vinodes[par].child;
+  while(1){
+    if(vinodes[temp_index].next==index)breal;
+    temp_index=vinodes[temp_index].next;
+  }
+  vinodes[temp_index].next=vinodes[index].next;
+
+  vinode_delete(index);
+  return 0;
+
+
+
+}
+
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
@@ -811,7 +822,7 @@ int vfs_remove_file(const char *path){
   int mode=TYPE_FILE;
   if(vidx->fs_type==EXT2FS){
     if(ext2_remove(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,mode)==0){
-      vfs_dir_remove(now_index,index);
+      vfs_file_remove(now_index,index);//记得修改;
     }
     else{
       return -2;// 没办法在ext2fs里面移除;
