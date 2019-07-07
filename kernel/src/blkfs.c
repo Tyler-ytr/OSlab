@@ -34,8 +34,8 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   memset(ext2, 0x00, sizeof(ext2_t));
   ext2->dev=dev;
   printf("Now create the blkfs---ext2fs\n");
-  ext2->last_alloc_inode=1;
-  ext2->last_alloc_block=0;
+  ext2->last_alloc_inode=2;
+  ext2->last_alloc_block=1;
   for (int i = 0; i < MAX_OPEN_FILE_AMUT; i++){
     ext2->file_open_table[i] = 0;
     }
