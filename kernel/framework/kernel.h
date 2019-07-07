@@ -61,6 +61,7 @@ typedef struct {
   //int (*remove)(const char *path);
   int (*mkdir)(const char *path);
   int (*create_file)(const char *path);
+  int (*remove_file)(const char *path);
   int (*rmdir)(const char *path);
   int (*link)(const char *oldpath, const char *newpath);
   int (*unlink)(const char *path);
