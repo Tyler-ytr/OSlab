@@ -309,6 +309,7 @@ int len = strlen(path);
 
       father_dir = next_index;
     } else {
+      printf("dir: %d father_dir:%d\n",dir,father_dir);
       assert(dir != -1 && father_dir != -1);
       assert(voidx->next == -1);
       voidx->next = next_index;
