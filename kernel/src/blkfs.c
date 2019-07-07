@@ -34,7 +34,7 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   memset(ext2, 0x00, sizeof(ext2_t));
   ext2->dev=dev;
   printf("Now create the blkfs---ext2fs\n");
-  ext2->last_alloc_inode=1;
+  ext2->last_alloc_block=1;
   ext2->last_alloc_block=0;
   for (int i = 0; i < MAX_OPEN_FILE_AMUT; i++){
     ext2->file_open_table[i] = 0;
@@ -66,15 +66,6 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   //初始化inode；
   ext2_rd_blockbitmap(ext2);
   ext2_rd_inodebitmap(ext2);
-  for(int i=0;i<512;i++){
-   ext2->inodebitmapbuf[i]=0;
-  }
-  ext2_wr_inodebitmap(ext2);
-  ext2_rd_inodebitmap(ext2);
-  for(int i=0;i<512;i++){
-   printf("%x",ext2->inodebitmapbuf[i]);
-  }
-  printf("\n\n\n\n\n");
   ext2->ind.mode = TYPE_DIR | RD_ABLE | WR_ABLE;
   ext2->ind.blocks = 0;
   ext2->ind.size = 2 * DIR_SIZE;  // . 和 ..
@@ -271,11 +262,7 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
     return -1;
   }
   ext2_rd_inodebitmap(ext2);
-  printf("\n\n\n\nIn ext2 alloc");
-  printf("cur: %d",cur);
-    printf("start: %d",ext2->inodebitmapbuf[cur]);
   while(ext2->inodebitmapbuf[cur]==0xff){
-    printf("%d",ext2->inodebitmapbuf[cur]);
     if(cur==BLK_SIZE-1){
       cur=0;
     }
@@ -284,7 +271,6 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
       cur++;
     }
   }
-  printf("cur: %d\n\n\n\n",cur);
 
   while(ext2->inodebitmapbuf[cur]&con){
     con=con/2;
@@ -430,17 +416,17 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
 
 
   ext2_rd_ind(ext2, rinode_idx);
-   printf("rinode: %d, kth: %d\n", rinode_idx, kth);
-          printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
-          printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
-          printf(":%d ind.blocks:%x mode:%d size:%d\n\n\n",rinode_idx,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
+//   printf("rinode: %d, kth: %d\n", rinode_idx, kth);
+  //        printf("dir0 name:%s\n",ext2->dir[0].name,ext2->dir[0].inode);
+    //      printf("dir1 name:%s\n",ext2->dir[1].name,ext2->dir[1].inode);
+      //    printf(":%d ind.blocks:%x mode:%d size:%d\n\n\n",rinode_idx,ext2->ind.blocks,ext2->ind.mode,ext2->ind.size);
           
   for (int i = 0; i < ext2->ind.blocks; i++) {
     ext2_rd_dir(ext2, ext2->ind.block[i]);
- printf("%d: ",i);
+   // printf("%d: ",i);
     for (int k = 0; k < DIR_AMUT; k++) {
       if (ext2->dir[k].inode){//存在才返回;
-          printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
+      //    printf("dir name:%s inode:%d\n",ext2->dir[k].name,ext2->dir[k].inode);
         if (++cnt == kth) {
           strcpy(buf->name, ext2->dir[k].name);
           buf->rinode_index = ext2->dir[k].inode;
