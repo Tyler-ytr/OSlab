@@ -681,7 +681,7 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
   int mode=TYPE_DIR;
   if(vidx->fs_type==EXT2FS){
-    if(ext2_remove(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,mode)){
+    if(ext2_remove(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,mode)==0){
       vfs_dir_remove(now_index,index);
     }
     else{
