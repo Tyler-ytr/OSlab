@@ -227,8 +227,8 @@ static void mkdir_function(device_t *tty,char *argv,char * pwd){
 static void rmdir_function(device_t *tty,char *argv,char * pwd){
   change_into_abs_path(argv,pwd);
   int result=vfs_access(abs_path,TYPE_DIR);
-  if(result==0){
-    sprintf(text,"Dir %s already exists!!\n",argv);
+  if(result==1){
+    sprintf(text,"Dir %s doesn't exist!!\n",argv);
   }else{
     int flag=vfs_rmdir(abs_path);
     switch(flag){
