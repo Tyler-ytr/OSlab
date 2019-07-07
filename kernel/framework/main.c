@@ -290,7 +290,7 @@ return ;
 static void cat_function(device_t *tty,char *argv,char * pwd){
   //调用read;
  change_into_abs_path(argv,pwd);
- int fd=vfs_open(abs_path,TYPE_FILE|RD_ABLE);
+ int fd=vfs_open(abs_path,TYPE_FILE);
  printf("fd:%d\n",fd);
  if(fd==-1){
    printf("GG!\n");
