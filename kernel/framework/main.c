@@ -180,13 +180,13 @@ static void touch_function(device_t *tty,char *argv,char * pwd){
        int flag=vfs_create_file(abs_path);
     switch(flag){
       case 0:
-             sprintf(text,"Dir %s successfully create!\n",argv);
+             sprintf(text,"File %s successfully create!\n",argv);
              break;
       case -1:
-             sprintf(text,"The name of dir %s is not accepted\n",argv);
+             sprintf(text,"The name of file %s is not accepted\n",argv);
              break;
       case -2:
-             sprintf(text,"The filesystem cannot mkdir!Only ext2fs can mkdir!\n",argv);
+             sprintf(text,"The filesystem cannot touch file!Only ext2fs can mkdir!\n",argv);
              break;
       default:
              sprintf(text,"Undefined behaviour!\n",argv);
