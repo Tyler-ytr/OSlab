@@ -787,6 +787,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   }
 
 int vfs_remove_file(const char *path){
+  return 0 ;
 
 }
 
