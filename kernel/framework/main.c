@@ -253,6 +253,12 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
   tty->ops->write(tty,0,text,strlen(text));
 
 }
+
+
+static void cat_function(device_t *tty,char *argv,char * pwd){
+  return;
+}
+
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
