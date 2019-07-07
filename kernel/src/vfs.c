@@ -632,9 +632,9 @@ int k=vidx->child;
 printf("vinode[%d].name: %s",k,vinodes[k].name);
 int next=vinodes[k].next;
 while(1){
- printf("vinode[%d].name: %s,next:%d",k,vinodes[k].name,vinodes[k].next);
+ printf("vinode[%d].name: %s,next:%d\n",k,vinodes[k].name,vinodes[k].next);
   next=vinodes[k].next;
-  if(next==1)break;
+  if(next==-1)break;
   vinode_delete(next);
   k=next;
 }
