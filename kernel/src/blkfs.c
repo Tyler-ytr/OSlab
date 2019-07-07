@@ -510,6 +510,7 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
   ext2_rd_ind(ext2,index);
 
   ssize_t result=0;
+  printf("ext2_read:here\n");
   int current_block=offset/BLK_SIZE;//之前用不到的block；
   int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
 

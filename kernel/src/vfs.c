@@ -888,8 +888,6 @@ int vfs_remove_file(const char *path){
     }
 
 
-
-
     return result;
   }
   ssize_t vfs_write(int fd, void *buf, size_t nbyte){
