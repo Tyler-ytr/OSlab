@@ -764,7 +764,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     return 0;
   };
   int vfs_create_file(const char* path){
-       int father_dir_offset=path_length_offset(path);
+  int father_dir_offset=path_length_offset(path);
   int path_len=strlen(path);
   if(father_dir_offset==path_len){
     return -1;//错误１:　文件格式错误;
@@ -773,8 +773,9 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   int index=vinode_lookup(tempbuff);
   int next_index=-1;
   int rinode_index=-1;
+
    if(vidx->fs_type==EXT2FS){
-    
+    //May be a bug!!!!!!!!!!
     rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_FILE);
     next_index=append_file(index,tempbuff+father_dir_offset+1,TYPE_DIR,vidx->fs_type,vidx->fs);
     //vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
