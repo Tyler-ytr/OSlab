@@ -612,6 +612,7 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   return dir;
 
 }
+
 static void vinode_delete(int index){
   vit_item_free(index);
   double_link_remove(index);
