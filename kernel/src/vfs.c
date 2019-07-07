@@ -634,8 +634,8 @@ int next=vinodes[k].next;
 while(1){
  printf("vinode[%d].name: %s,next:%d\n",k,vinodes[k].name,vinodes[k].next);
   next=vinodes[k].next;
-  if(next==-1)break;
   vinode_delete(k);
+  if(next==-1)break;
   k=next;
 }
 // for(;;k=vinodes[index].next){
