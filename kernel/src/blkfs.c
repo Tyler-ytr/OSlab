@@ -477,7 +477,7 @@ int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf){
 //       ext2->file_open_table[flag]=ext2->dir[k].inode;
 //       printf("File %s opened\n",file_name);
 //     }
-/   }
+//   }
 //   else{
 //     printf("The file %s doesn't exist!\n");
 //   }
