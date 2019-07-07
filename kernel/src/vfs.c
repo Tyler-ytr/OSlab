@@ -357,14 +357,14 @@ int  flag=0;
   }
 if(flag==1){
   return i;
-}else{return -1};//-1表示没有空位了;
+}else{return -1;};//-1表示没有空位了;
 
 //  return 0;
 }
 int flides_free(int index){
   flides[index].refcnt=0;
-  flides[index].offset=0;
-  flides[index].vinode_idx=0;
+  flides[index].open_offset=0;
+  flides[index].vinode_index=0;
 }
 
 int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
