@@ -66,7 +66,7 @@ void ext2_init(fs_t * fs,const char * name ,device_t* dev){
   //初始化inode；
   ext2_rd_blockbitmap(ext2);
   ext2_rd_inodebitmap(ext2);
-  for(int i=0;i<BLK_BITMAPL;i++){
+  for(int i=0;i<BLK_BITMAP;i++){
     printf("%x",ext2->inodebitmapbuf[i]);
   }
   printf("\n\n\n\n\n");
