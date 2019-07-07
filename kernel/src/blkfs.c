@@ -505,37 +505,56 @@ void ext2_cd(ext2_t* ext2, char* dirname) {
 
 ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
                   uint32_t len){
-  //可能有问题;
-  //读第index个inode的block;
-  ext2_rd_ind(ext2,index);
+  // //可能有问题;
+  // //读第index个inode的block;
+  // ext2_rd_ind(ext2,index);
 
-  ssize_t result=0;
-  //printf("ext2_read:here\n");
-  int current_block=offset/BLK_SIZE;//之前用不到的block；
-  int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
-  printf("blocks: %d\n",ext2->ind.blocks);
+  // ssize_t result=0;
+  // //printf("ext2_read:here\n");
+  // int current_block=offset/BLK_SIZE;//之前用不到的block；
+  // int current_offset=offset-current_block*BLK_SIZE;//当前block的offset;
+  // printf("current_block:%d,blocks: %d\n",current_block,ext2->ind.blocks);
 
-  for(int i=current_block;i<ext2->ind.blocks;i++){
-    ext2_rd_datablock(ext2,ext2->ind.block[i]);
+  // for(int i=current_block;i<ext2->ind.blocks;i++){
+  //   ext2_rd_datablock(ext2,ext2->ind.block[i]);
 
-    if(i==current_block){
-      for(int j=0;j<ext2->ind.size-i*BLK_SIZE;j++){
-        if(result==len||result+offset==ext2->ind.size){
-          return result;
-        }
-        result+=sprintf(buf+result,"%c",ext2->datablockbuf[j+current_offset]);
+  //   if(i==current_block){
+  //     for(int j=0;j<ext2->ind.size-i*BLK_SIZE;j++){
+  //       if(result==len||result+offset==ext2->ind.size){
+  //         return result;
+  //       }
+  //       result+=sprintf(buf+result,"%c",ext2->datablockbuf[j+current_offset]);
+  //     }
+  //   }else{
+  //     for(int j=0;j<ext2->ind.size-i*BLK_SIZE;j++){
+  //       if(result==len||result+offset==ext2->ind.size){
+  //         return result;
+  //       }
+  //       result+=sprintf(buf+result,"%c",ext2->datablockbuf[j]);
+  //     }
+
+  //   }
+  // }
+  // return result;
+    int skip_blocks = offset / BLK_SIZE;
+  int first_offset = offset - skip_blocks * BLK_SIZE;
+
+  ext2_rd_ind(ext2, ridx);
+  int ret = 0;
+  for (int i = skip_blocks; i < ext2->ind.blocks; i++) {
+    ext2_rd_datablock(ext2, ext2->ind.block[i]);
+    if (i == skip_blocks)
+      for (int j = 0; j < ext2->ind.size - i * BLK_SIZE; ++j) {
+        if (ret == len || ret + offset == ext2->ind.size) return ret;
+        ret += sprintf(buf + ret, "%c", ext2->datablockbuf[j + first_offset]);
       }
-    }else{
-      for(int j=0;j<ext2->ind.size-i*BLK_SIZE;j++){
-        if(result==len||result+offset==ext2->ind.size){
-          return result;
-        }
-        result+=sprintf(buf+result,"%c",ext2->datablockbuf[j]);
+    else
+      for (int j = 0; j < ext2->ind.size - i * BLK_SIZE; ++j) {
+        if (ret == len || ret + offset == ext2->ind.size) return ret;
+        ret += sprintf(buf + ret, "%c", ext2->datablockbuf[j]);
       }
-
-    }
   }
-  return result;
+  return ret;
 }
 ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t len){
   ext2_rd_ind(ext2,index);
