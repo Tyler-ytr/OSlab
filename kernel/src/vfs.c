@@ -716,7 +716,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     strcpy(path_buf,path);
     printf("path_buf:%s",path_buf);
     int index=vinode_lookup(path_buf);
-    //printf("index:%d",index);
+    printf("index:%d",index);
     if(index==-1){
       return 1;
     }
@@ -846,10 +846,11 @@ int vfs_remove_file(const char *path){
     return 0;
   };
   int vfs_open(const char *path, int rwmode){
-    if(vfs_access(path,rwmode)==0){
+    if(vfs_access(path,TYPE_FILE)==0){
       strcpy(tempbuff,path);
       int index=vinode_lookup(tempbuff);
       int fd=flides_open(index,rwmode);
+      printf("vfs_open: fd:%d\n",fd);
 
       return fd;
     }else{
