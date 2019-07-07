@@ -282,6 +282,7 @@ uint32_t ext2_alloc_inode(ext2_t * ext2){
       cur++;
     }
   }
+  printf("cur: %d",cur);
 
   while(ext2->inodebitmapbuf[cur]&con){
     con=con/2;
