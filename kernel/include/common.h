@@ -132,7 +132,7 @@ struct task{
   sem_t *waiting_sem;//记录信号量
   //struct task *prev;
   struct task *next;
-  file_t *fildes[32];//最多开32个文件;
+  //file_t *fildes[32];//最多开32个文件;
 };
 
 struct spinlock {

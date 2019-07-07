@@ -234,7 +234,7 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
     switch(flag){
       case 0:
              //sprintf(text,"Dir %s successfully remove!\n",argv);
-             sprintf(text,"Here!",argv);
+             sprintf(text,"Successfully rmdir %s!\n",argv);
              break;
       case -1:
              sprintf(text,"The name of dir %s is incorrect\n",argv);

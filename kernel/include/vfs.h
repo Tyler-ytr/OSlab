@@ -32,6 +32,10 @@ typedef struct file file_t;
 #define UNMNT_ABLE 0x0200
 #define ALLOCED 0x80000
 
+#define O_RDONLY 0x0000
+#define O_WRONLY 0x0001
+#define O_RDWR 0x0002
+
 
 #define VFS_ROOT 0
 #define EXT2_ROOT 1
@@ -88,17 +92,17 @@ struct vinodeops {
 };*/
 //file 在common.h的task中属于一个 属于当前进程 的 file数组flide[MAX_FILE_NUM];
 struct file{
-    int exist;        //这个块活着吗？在flides里面用到;
+   // int exist;        //这个块活着吗？在flides里面用到;
     char name[MAX_FILE_NAME];
     int refcnt;       //表示现在开了几个,初始化为一个,在open里面++,close里面--,为0的时候从flides里面去掉;
     uint32_t vinode_index;//所处的vinode表里面的index;
-    uint32_t rinode_index;//可以删;也可以减少一层调用,存放rinode的位置;
-
     int open_offset;   //储存现在的偏移量;
-    int fd;           //储存自己在flides数组里面的编号;
+ //   int fd;           //储存自己在flides数组里面的编号;
     //随用随加;
-    uint16_t can_read;
-    uint16_t can_write;
+   // uint32_t mode;
+    uint16_t read;
+    uint16_t write;
+    uint16_t rw;
 };
 
 

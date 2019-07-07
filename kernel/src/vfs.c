@@ -344,6 +344,68 @@ int len = strlen(path);
   assert(noffset > offset);
   return (noffset == offset) ? -1 : vinode_lookup(path);
 }
+//read/write 操作: vinodes 和 fildes　两个结构体的联动;
+int flides_alloc(){
+//返回一个可用的节点;;
+int i;
+int  flag=0;
+  for(i=0;i<MAX_FILE_NUM;i++){
+    if(flides[i].refcnt==0){
+    flag=1;
+      break;
+    }
+  }
+if(flag==1){
+  return i;
+}else{return -1};//-1表示没有空位了;
+
+//  return 0;
+}
+int flides_free(int index){
+  flides[index].refcnt=0;
+  flides[index].offset=0;
+  flides[index].vinode_idx=0;
+}
+
+int flides_open(int index,uint32_t rwmode){//0x0000:readonly 0x0001:writeonly 0x0002:read/write
+  //index 是vinodes结构体里面的编号,mode调控只读只写;
+
+  //To be continued;
+  
+  int fd=flides_alloc();
+  if(fd==-1){
+    return -1;//没有多余的flides空位了;
+  }
+
+  flides[fd].refcnt+=1;
+  flides[fd].open_offset=0;
+  flides[fd].vinode_index=index;
+  switch (rwmode)
+  {
+  case O_RDONLY:
+    flides[fd].read=1;
+    flides[fd].write=0;
+    flides[fd].rw=0;
+    break;
+  case O_WRONLY:
+    flides[fd].read=0;
+    flides[fd].write=1;
+    flides[fd].rw=0;
+    break;
+  case O_RDWR:
+    flides[fd].read=0;
+    flides[fd].write=0;
+    flides[fd].rw=1;
+    break;
+  
+  default:
+    return -1;
+    break;
+  }
+  return fd;
+}
+
+
 
 
 //　文件系统的操作;
