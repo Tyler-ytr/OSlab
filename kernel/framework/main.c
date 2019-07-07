@@ -296,7 +296,7 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
    printf("GG!\n");
    return ;
  }else{
-  vfs_read(fd,text,10);
+  while(vfs_read(fd,text,128))
   //   printf("here\n");
   tty->ops->write(tty,0,text,strlen(text));
    
