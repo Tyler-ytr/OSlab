@@ -240,6 +240,9 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
              sprintf(text,"The name of dir %s is incorrect\n",argv);
              break;
       case -2:
+             sprintf(text,"Ext2fs cannot rmdir %s.\n",argv);
+             break;
+      case -3:
              sprintf(text,"The filesystem cannot rmdir! Only ext2fs can rmdir!\n",argv);
              break;
       default:

@@ -549,34 +549,34 @@ static int vfs_dir_prepare(int index, int par, int fs_type, filesystem_t *fs){
   return dir;
 
 }
-// static void vinode_delete(int index){
-//   vit_item_free(index);
-//   double_link_remove(index);
-// }
-// static int vfs_dir_remove(int index, int par){//在par目录删除index目录
-// //首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
-// int temp_index=vinodes[par].child;
-// while(1){
-//   if(vinodes[temp_index].next==index)break;
-//   temp_index=vinodes[temp_index].next;
-// }
-// vinodes[temp_index].next=vinodes[index].next;
+static void vinode_delete(int index){
+  vit_item_free(index);
+  double_link_remove(index);
+}
+static int vfs_dir_remove(int index, int par){//在par目录删除index目录
+//首先找到index,链接补全,删除index的. ..软链接,然后在par里面找到index进行删除;
+int temp_index=vinodes[par].child;
+while(1){
+  if(vinodes[temp_index].next==index)break;
+  temp_index=vinodes[temp_index].next;
+}
+vinodes[temp_index].next=vinodes[index].next;
 
-// //删除dir的所有节点;
-// int k=vidx->child;
-// for(;k!=-1;k=vinodes[index].next){
-//   vinode_delete(k);
-// }
-// vinode_delete(index);
-// return 0;
+//删除dir的所有节点;
+int k=vidx->child;
+for(;k!=-1;k=vinodes[index].next){
+  vinode_delete(k);
+}
+vinode_delete(index);
+return 0;
 
-// }
+}
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
-      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d\n",i,
+      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d, child:%d \n",i,
       vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,
-      vinodes[i].mode,vinodes[i].rinode_index);
+      vinodes[i].mode,vinodes[i].rinode_index,vinodes[i].child);
     }
   }
 }
@@ -679,6 +679,21 @@ extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
   int now_index=vinode_lookup(tempbuff);//得到当前的inode;
   get_father_dir(path,father_dir_offset);
   int index=vinode_lookup(tempbuff);//得到父亲节点的inode;
+  int mode=TYPE_DIR;
+  if(vidx->fs_type==EXT2FS){
+    if(ext2_remove(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_DIR)){
+      vfs_dir_remove(now_index,index);
+    }
+    else{
+      return -2;// 没办法在ext2fs里面移除;
+    }
+  }else{
+    return -3;//文件系统不能删除;
+  }
+
+
+
+
   printf("now: %d, father: %d",now_index,index);
     return 0;
   };
