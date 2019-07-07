@@ -266,7 +266,8 @@ struct shell_function{
   {"info ",info_function,5},
   {"mkdir ",mkdir_function,6},
   {"rmdir ",rmdir_function,6},
-  {"touch ",touch_function,6}
+  {"touch ",touch_function,6},
+  {"cat ",cat_function,4}
 };
 
 static void shell_task(void *arg){

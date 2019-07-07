@@ -796,7 +796,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     return 0;
   };
   int vfs_open(const char *path, int rwmode){
-    if(vfs_access(path,TYPE_FILE)==0){
+    if(vfs_access(path,rwmode)==0){
       strcpy(tempbuff,path);
       int index=vinode_lookup(tempbuff);
       int fd=flides_open(index,rwmode);

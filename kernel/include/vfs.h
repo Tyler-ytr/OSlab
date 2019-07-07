@@ -23,8 +23,8 @@ typedef struct file file_t;
 
 #define UNUSED 0x0000
 #define EX_ABLE 0x0001
-#define WR_ABLE 0x0002
-#define RD_ABLE 0x0004
+//#define WR_ABLE 0x0002
+//#define RD_ABLE 0x0004
 #define TYPE_FILE 0x0010
 #define TYPE_DIR 0x0020
 #define TYPE_LINK 0x0040
