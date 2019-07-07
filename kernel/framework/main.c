@@ -256,6 +256,7 @@ static void rmdir_function(device_t *tty,char *argv,char * pwd){
 
 
 static void cat_function(device_t *tty,char *argv,char * pwd){
+  //调用read;
   
   
   
