@@ -539,7 +539,7 @@ ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
     int skip_blocks = offset / BLK_SIZE;
   int first_offset = offset - skip_blocks * BLK_SIZE;
 
-  ext2_rd_ind(ext2, ridx);
+  ext2_rd_ind(ext2, index);
   int ret = 0;
   for (int i = skip_blocks; i < ext2->ind.blocks; i++) {
     ext2_rd_datablock(ext2, ext2->ind.block[i]);
