@@ -346,7 +346,7 @@ struct shell_function{
   {"touch ",touch_function,6},
   {"cat ",cat_function,4},
   {"rm ",rm_function,3},
-  {"write ",write_function,5}
+  {"write ",write_function,6}
 };
 
 static void shell_task(void *arg){
