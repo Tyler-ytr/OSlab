@@ -319,7 +319,7 @@ if(fd==-1){
 
 for(;;){
   int offset=tty->ops->read(tty,0,text,128);  
-  printf("write text:%s");
+  printf("write text:%s",text);
 
   if(text[offset-2]=='`'){
     vfs_write(fd,text,offset-2);

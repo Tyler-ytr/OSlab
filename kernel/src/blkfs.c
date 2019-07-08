@@ -566,7 +566,7 @@ ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,uint32_t l
 
   //可能需要修改mode;  
  if ((ext2->ind.mode & WR_ABLE) == 0) {
-    printf("File can't be writed!\n");
+    printf("File can't be written!\n");
     return 0;
   }
   if(ext2->ind.blocks<=total_block){
