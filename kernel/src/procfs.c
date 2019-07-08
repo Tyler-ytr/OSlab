@@ -27,6 +27,18 @@ void * procfs_add(const char *name){
   return &proc_list[index];
 }
 
+int procfs_total(){
+  return proc_total;
+}
+
+
+void procfs_info(){
+  for(int i=0;i<proc_total;i++){
+    printf("proc name: %s, shedule_time :%d \n",proc_list[i].name,proc_list[i].schedule_time);
+  }
+return;
+}
+
 
 
 

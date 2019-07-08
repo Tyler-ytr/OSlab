@@ -331,6 +331,11 @@ for(;;){
 return ;
 
 }
+extern int procfs_info();
+static void temp_function(device_t * tty,char * argv,char * pwd){
+procfs_info();
+  return;
+}
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
@@ -347,7 +352,8 @@ struct shell_function{
   {"touch ",touch_function,6},
   {"cat ",cat_function,4},
   {"rm ",rm_function,3},
-  {"write ",write_function,6}
+  {"write ",write_function,6},
+  {"procinfo ",temp_function,9}
 };
 
 static void shell_task(void *arg){
