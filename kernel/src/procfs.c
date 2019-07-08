@@ -34,8 +34,10 @@ int procfs_total(){
 
 void procfs_info(){
   for(int i=0;i<proc_total;i++){
-    printf("proc name: %s, shedule_time :%d \n",proc_list[i].name,proc_list[i].schedule_time);
+    printf("proc name: %s, shedule_time :%d cpu_num:%d \n",proc_list[i].name,proc_list[i].schedule_time,proc_list[i].cpu_num);
   }
+
+  printf("Total memory: %d used_memory: %d ",total_memory,used_memory);
 return;
 }
 

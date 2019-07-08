@@ -9,7 +9,7 @@ typedef struct proc proc_t;
 struct proc{
   const char*name;
   int cpu_num; 
-  int mem_size;
+  //int mem_size;
   int schedule_time;
 };
 
