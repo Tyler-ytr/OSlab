@@ -301,14 +301,35 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
   tty->ops->write(tty,0,text,strlen(text));
    
  }
-
-
-  
-  
   
   return;
 }
+//ssize_t vfs_write(int fd, void *buf, size_t nbyte)
+static void write_function(device_t * tty,char * argv,char * pwd){
+change_into_abs_path(argv,pwd);
+printf("abs_path:%s",abs_path);
 
+int fd=vfs_open(abs_path,O_RDWR);
+
+if(fd==-1){
+  sprintf(text,"There is no such file!\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  return;
+}
+
+for(;;){
+  int offset=tty->ops->read(tty,0,text,128);  
+  printf("write text:%s");
+
+  if(text[offset-2]=='`'){
+    vfs_write(fd,text,offset-2)
+  }else{
+    vfs_write(fd,text,offset);
+  }
+}
+return ;
+
+}
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
@@ -324,7 +345,8 @@ struct shell_function{
   {"rmdir ",rmdir_function,6},
   {"touch ",touch_function,6},
   {"cat ",cat_function,4},
-  {"rm ",rm_function,3}
+  {"rm ",rm_function,3},
+  {"write ",write_function,5}
 };
 
 static void shell_task(void *arg){

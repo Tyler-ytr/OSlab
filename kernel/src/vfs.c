@@ -891,7 +891,26 @@ int vfs_remove_file(const char *path){
     return result;
   }
   ssize_t vfs_write(int fd, void *buf, size_t nbyte){
-    return 0;
+    int result=-1;
+    if(flides[fd].refcnt==0){
+      return -1;
+    } 
+    int index=flides[fd].vinode_index;
+    int fs_type=vidx->fs_type;
+    int rinode=vidx->rinode_index;
+
+    switch (fs_type)
+    {
+    case EXT2FS:
+      result=ext2_write(vidx->fs,rinode,flieds[fd].open_offset,buf,nbyte);
+      flides[fd].open_offset+=result;
+      break;
+    
+    default:
+      break;
+    }
+
+    return result;
   }
   off_t vfs_lseek(int fd, off_t offset, int whence){
     return 0;
