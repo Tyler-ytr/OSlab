@@ -293,6 +293,14 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
  int fd=vfs_open(abs_path,O_RDONLY);
  int length=strlen(abs_path);
  printf("abs: %s,%d",abs_path,length);
+ int offset1=0;
+ for(int i=length;i>=0;i--){
+   if(abs_path[i]=='/'){
+     offset1=i;break;
+   }
+ }
+ printf("abs: %c,%c",abs_path[offset1],abs_path[offset1-1]);
+
  //printf("fd:%d\n",fd);
  if(fd==-1){
    //printf("GG!\n");
