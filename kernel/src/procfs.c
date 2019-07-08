@@ -8,7 +8,7 @@ char *proc_names[]={".","..","cpuinfo","meminfo"};
 int proc_total=4;
 uint64_t total_memory=0;
 uint64_t used_memory=0;
-int cpu_num=_ncpu();
+int cpu_num=;
 //extern uint64_t used_memory_info();
 
 
@@ -33,9 +33,10 @@ int procfs_total(){
   return proc_total;
 }
 int procfs_init(filesystem_t *fs,const char *name,device_t *dev){
+cpu_num=_ncpu();
   int temp_num=proc_total;
   proc_total=0;
-  procfs_add(&names[0]);
+  procfs_add(&proc_names[0]);
 
 
 
