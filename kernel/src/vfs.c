@@ -902,7 +902,7 @@ int vfs_remove_file(const char *path){
     switch (fs_type)
     {
     case EXT2FS:
-      result=ext2_write(vidx->fs,rinode,flieds[fd].open_offset,buf,nbyte);
+      result=ext2_write(vidx->fs->real_fs,rinode,flides[fd].open_offset,buf,nbyte);
       flides[fd].open_offset+=result;
       break;
     
