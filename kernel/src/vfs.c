@@ -555,6 +555,7 @@ extern ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
                   uint32_t len);
 extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
                   uint32_t len);
+extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
   void vfs_init(){
    // int success=vinode_lookup("/");
     //assert(success!=-1);
@@ -756,6 +757,8 @@ int vfs_remove_file(const char *path){
       result=ext2_read(vidx->fs->real_fs,rinode,flides[fd].open_offset,buf,nbyte);
       flides[fd].open_offset+=result;
       break;
+    case PROCFS:
+      result=procfs_read(rinode,0,buf);
     
     default:
       break;
