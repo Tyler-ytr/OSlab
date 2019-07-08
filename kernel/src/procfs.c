@@ -112,8 +112,8 @@ case 3:
   int can=can_be_used/1024;
   int used=used_memory/1024;
   result+=sprintf(buf+result,"Total memory: %d\n",tot);
-  result+=sprintf(buf+result,"Used memory: %d",used);
-  result+=sprintf(buf+result,"Left memory: %d",can);
+  result+=sprintf(buf+result,"Used memory: %d\n",used);
+  result+=sprintf(buf+result,"Left memory: %d\n",can);
   break;
 
 

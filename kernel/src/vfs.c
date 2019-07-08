@@ -799,12 +799,7 @@ int vfs_remove_file(const char *path){
   int vfs_close(int fd){
     return 0;
   }
-  // int vfs_remove(const char *path){
-  //   return 0;
-  // }
-  // int vfs_create(const char *path){
-  //   return 0;
-  // }
+
 
   void vfs_ls(char * dir,char *outbuf){
   int index=vinode_lookup(dir);
