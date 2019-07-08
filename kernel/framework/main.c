@@ -322,7 +322,7 @@ for(;;){
   printf("write text:%s");
 
   if(text[offset-2]=='`'){
-    vfs_write(fd,text,offset-2)
+    vfs_write(fd,text,offset-2);
   }else{
     vfs_write(fd,text,offset);
   }
