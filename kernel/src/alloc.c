@@ -217,6 +217,7 @@ static void kfree(void *ptr) {
 
 }
 uint64_t used_memory_info(){
+  printf("used_memory: %d",used_memory);
   return used_memory;
 }
 
