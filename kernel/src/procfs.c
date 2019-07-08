@@ -32,18 +32,20 @@ void * procfs_add(const char *name){
 int procfs_total(){
   return proc_total;
 }
-int procfs_init(filesystem_t *fs,const char *name,device_t *dev){
+void procfs_init(filesystem_t *fs,const char *name,device_t *dev){
 cpu_num=_ncpu();
   int temp_num=proc_total;
   proc_total=0;
   const char* name0=proc_names[0];
   procfs_add(name0);
-
-
-
-
-
+  const char* name1=proc_names[1];
+  procfs_add(name1);
+  const char* name2=proc_names[2];
+  procfs_add(name3);
+  const char* name3=proc_names[3];
+  procfs_add(name3);
   proc_total=temp_num;
+  return ;
 }
 
 void procfs_info(){
