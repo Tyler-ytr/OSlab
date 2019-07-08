@@ -8,6 +8,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context);
 static _Context *kmt_context_switch(_Event ev, _Context *context);
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu);
 static void cpu_task(void *arg);
+extern void * profs_add(const char *name);
 //static void cpu1_task(void *arg);
 //static void cpu2_task(void *arg);
 //static void cpu3_task(void *arg);
@@ -248,7 +249,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
-  current_task[_cpu()]->proc->schedule_time+=1;
+  (proc_t*)(current_task[_cpu()]->proc)->schedule_time+=1;
 
  task_t *temp=task_head[(int)_cpu()];
  Log1("temp: cpu: %d name:%s status:%d",(int)_cpu(),temp->name,temp->status);
