@@ -36,7 +36,7 @@ int procfs_init(filesystem_t *fs,const char *name,device_t *dev){
 cpu_num=_ncpu();
   int temp_num=proc_total;
   proc_total=0;
-  const char* name0=proc_names[0]
+  const char* name0=proc_names[0];
   procfs_add(name0);
 
 
