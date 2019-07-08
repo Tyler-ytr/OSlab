@@ -43,7 +43,7 @@ cpu_num=_ncpu();
 
 
 
-  proc_total=temp;
+  proc_total=temp_num;
 }
 
 void procfs_info(){
