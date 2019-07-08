@@ -23,7 +23,7 @@ void * procfs_add(const char *name){
   proc_list[index].name=name;
   proc_list[index].cpu_num=_cpu();
   proc_list[index].schedule_time=0;
-  proc_list[index].mem_size=0;
+//  proc_list[index].mem_size=0;
   return &proc_list[index];
 }
 
