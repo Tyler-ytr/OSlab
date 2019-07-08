@@ -51,8 +51,9 @@ int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
   int i=0;
   int cnt=0;
   for(i=0;i<proc_total;i++){
+        int temp_inode=i-4; 
     if(++cnt==kth){
-      buf->rinde_index=i;
+      buf->rinode_index=i;
       switch (i)
       {
       case 0:
@@ -72,7 +73,6 @@ int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
         buf->mode=TYPE_DIR|RD_ABLE;
         break;
       default:
-        int temp_inode=i-4; 
         sprintf(buf->name,"%d",temp_inode);
         buf->mode=TYPE_FILE|RD_ABLE;
         break;
