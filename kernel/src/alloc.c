@@ -8,7 +8,7 @@ spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 extern uint64_t total_memory;
-extern uint64_t used_memory_reality;
+uint64_t used_memory_reality=0;
 static void pmm_init() {
   //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
