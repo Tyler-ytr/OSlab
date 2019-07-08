@@ -7,6 +7,8 @@ spinlock_t alloc_lk;
 spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
+extern uint64_t total_memory;
+extern uint64_t used_memory;
 static void pmm_init() {
   //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
@@ -23,9 +25,10 @@ static void pmm_init() {
     initlock(h_lk,NULL);
 
   pm_start = (uintptr_t)_heap.start;
-  printf("start:0x%x",pm_start);
+  //printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
-  printf("end:0x%x\n",pm_end);
+  //printf("end:0x%x\n",pm_end);
+  total_memory=pm_end-pm_start;
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
@@ -160,6 +163,7 @@ static void *kalloc(size_t size) {
   assert(ret!=NULL);
   //unlock(a_lk);
   printf("In alloc\n");
+  used_memory+=size;
   kmt->spin_unlock(a_lk);
   return ret;
 }
@@ -201,7 +205,9 @@ static void kfree(void *ptr) {
         if(now->flag==2)
         assert(0);
         now->flag=0;
+        used_memory-=now->size;
       }
+
   }
   printf("in free\n");
   kmt->spin_unlock(f_lk);

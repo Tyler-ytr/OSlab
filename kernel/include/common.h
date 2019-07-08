@@ -6,6 +6,7 @@
 #include <klib.h>
 #include "vfs.h"
 #include "debug.h"
+#include <procfs.h>
 
 //<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
@@ -132,6 +133,7 @@ struct task{
   sem_t *waiting_sem;//记录信号量
   //struct task *prev;
   struct task *next;
+  void*proc;
   //file_t *fildes[32];//最多开32个文件;
 };
 

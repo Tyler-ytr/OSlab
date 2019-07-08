@@ -248,6 +248,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
+  current_task[_cpu()]->proc->schedule_time+=1;
 
  task_t *temp=task_head[(int)_cpu()];
  Log1("temp: cpu: %d name:%s status:%d",(int)_cpu(),temp->name,temp->status);
@@ -283,7 +284,7 @@ Log2("temp: name:%s status:%d",temp->name,temp->status);
   kmt_spin_unlock(&task_lock);
   return result;
 }
-
+//四个假进程,仅仅用来yield;
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu){
     //TRACE_ENTRY;
     //TO BE DONE
@@ -299,6 +300,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
     task->alive=1;
     task->name=name;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
+    task->proc=procfs_add(name);
 
     task_t * new_task=task;
     assert(task_head[cpu]==NULL);
@@ -364,6 +366,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task->name=name;
     task->alive=1;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
+    task->proc=procfs_add(name);
     Log1("create: name:%s\tstatus:%d\n",task->name,task->status);
     task_t * new_task=task;
 
