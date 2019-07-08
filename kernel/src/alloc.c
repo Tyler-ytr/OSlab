@@ -29,7 +29,7 @@ static void pmm_init() {
   pm_end   = (uintptr_t)_heap.end;
   //printf("end:0x%x\n",pm_end);
   total_memory=pm_end-pm_start;
-  used_memory_reality=0;
+  used_memory_reality=1;
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
