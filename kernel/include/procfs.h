@@ -1,7 +1,7 @@
 #ifndef _PROCFS_H
 #define _PROCFS_H
 
-#include <devices.h>
+//#include <devices.h>
 
 #define MAX_PROC_NUM 128
 typedef struct proc proc_t;

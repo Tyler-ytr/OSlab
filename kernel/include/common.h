@@ -6,7 +6,7 @@
 #include <klib.h>
 #include "vfs.h"
 #include "debug.h"
-#include <procfs.h>
+//#include <procfs.h>
 
 //<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
