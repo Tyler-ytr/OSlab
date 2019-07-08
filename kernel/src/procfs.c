@@ -8,7 +8,7 @@ char *proc_names[]={".","..","cpuinfo","meminfo"};
 int proc_total=4;
 uint64_t total_memory=0;
 uint64_t used_memory=0;
-int cpu_num=;
+int cpu_num;
 //extern uint64_t used_memory_info();
 
 
