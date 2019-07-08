@@ -162,7 +162,7 @@ static void *kalloc(size_t size) {
   }
   assert(ret!=NULL);
   //unlock(a_lk);
-  printf("In alloc\n");
+  printf("In alloc size: %d\n",size);
   used_memory+=size;
   kmt->spin_unlock(a_lk);
   return ret;
