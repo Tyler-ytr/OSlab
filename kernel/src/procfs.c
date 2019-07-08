@@ -52,23 +52,23 @@ int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
   int cnt=0;
   for(i=0;i<proc_total;i++){
     if(++cnt==kth){
-      buf->ridx=i;
+      buf->rinde_index=i;
       switch (i)
       {
       case 0:
-        strcpy(buf->name,proc[i].name);
+        strcpy(buf->name,proc_list[i].name);
         buf->mode=TYPE_DIR;
         break;
       case 1:
-        strcpy(buf->name,proc[i].name);
+        strcpy(buf->name,proc_list[i].name);
         buf->mode=TYPE_DIR;
         break;
       case 2:
-        strcpy(buf->name,proc[i].name);
+        strcpy(buf->name,proc_list[i].name);
         buf->mode=TYPE_DIR|RD_ABLE;
         break;
       case 3:
-        strcpy(buf->name,proc[i].name);
+        strcpy(buf->name,proc_list[i].name);
         buf->mode=TYPE_DIR|RD_ABLE;
         break;
       default:
