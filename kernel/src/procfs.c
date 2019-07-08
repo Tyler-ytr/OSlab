@@ -41,7 +41,7 @@ cpu_num=_ncpu();
   const char* name1=proc_names[1];
   procfs_add(name1);
   const char* name2=proc_names[2];
-  procfs_add(name3);
+  procfs_add(name2);
   const char* name3=proc_names[3];
   procfs_add(name3);
   proc_total=temp_num;
