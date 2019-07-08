@@ -208,7 +208,7 @@ static void kfree(void *ptr) {
         if(now->flag==2)
         assert(0);
         now->flag=0;
-        used_memory_reality-=now->size;
+        used_memory-=now->size;
         //printf("used memory:%d\n",used_memory_reality);
       }
 
