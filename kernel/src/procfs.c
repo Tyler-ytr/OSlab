@@ -3,10 +3,11 @@
 #include <vfs.h>
 
 proc_t proc_list[MAX_PROC_NUM];
-
+char proc_names[4]={".","..","cpuinfo","meminfo"};
 int proc_total=4;
 uint64_t total_memory=0;
 uint64_t used_memory=0;
+int cpu_num=_ncpu();
 //extern uint64_t used_memory_info();
 
 
@@ -30,7 +31,17 @@ void * procfs_add(const char *name){
 int procfs_total(){
   return proc_total;
 }
+int procfs_init(filesystem_t *fs,const char *name,device_t *dev){
+  int temp_num=proc_total;
+  proc_total=0;
+  procfs_add(&names[0]);
 
+
+
+
+
+  proc_total=temp;
+}
 
 void procfs_info(){
   for(int i=0;i<proc_total;i++){

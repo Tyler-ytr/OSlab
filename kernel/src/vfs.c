@@ -281,9 +281,30 @@ static int filesystem_alloc(){
 //   strcpy(filesystems[index].name,"");//清空名字;
 //   return 0;
 // }
+#define fidx (&filesystems[index])
+//procfs:
+static int vfs_init_procfs(const char *name, device_t *dev, size_t size,
+                             void (*init)(filesystem_t *, const char *,
+                                          device_t *),
+                             int (*readdir)(filesystem_t *, int, int,
+                                            vinode_t *)){
+int index=filesystem_alloc();
+fidx->real_fs=pmm->alloc(size);
+fidx->init=init;
+fidx->readdir=readdir;
+fidx->dev=dev;
+strcpy(fidx->name,"procfs"); 
+fidx->init(fidx,fidx->name,fidx->dev);
+return index;
+
+
+
+
+
+                                            }
 
 //devvfs:
-#define fidx (&filesystems[index])
+//#define fidx (&filesystems[index])
 static int vfs_init_devfs(const char *name, device_t *dev, size_t size,
                              void (*init)(filesystem_t *, const char *,
                                           device_t *),
@@ -297,8 +318,6 @@ static int vfs_init_devfs(const char *name, device_t *dev, size_t size,
   strcpy(fidx->name,name); 
   fidx->init(fidx,fidx->name,fidx->dev);
   return index;
-
-
 }
 void vinode_prepare(int index,
   int rinode_index,int dir,int father_dir,int next,int child,
