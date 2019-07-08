@@ -20,10 +20,10 @@ void * procfs_add(const char *name){
   }
   index=proc_total;
   proc_total+=1;
-  proc[index].name=name;
-  proc[index].cpu_num=_cpu();
-  proc[index].schedule_time=0;
-  proc[index].mem_size=0;
+  proc_list[index].name=name;
+  proc_list[index].cpu_num=_cpu();
+  proc_list[index].schedule_time=0;
+  proc_list[index].mem_size=0;
   return &proc[index];
 }
 
