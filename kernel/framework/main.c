@@ -292,7 +292,7 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
  change_into_abs_path(argv,pwd);
  int fd=vfs_open(abs_path,O_RDONLY);
  int length=strlen(abs_path);
- printf("abs: %s,%d",abs_path,strlen);
+ printf("abs: %s,%d",abs_path,length);
  //printf("fd:%d\n",fd);
  if(fd==-1){
    //printf("GG!\n");
