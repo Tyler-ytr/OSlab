@@ -12,7 +12,7 @@ uint64_t used_memory=0;
 
 
 
-void * profs_add(const char *name){
+void * procfs_add(const char *name){
   int index;
   if(proc_total>=MAX_PROC_NUM-1){
     printf("The proc_list is full!");

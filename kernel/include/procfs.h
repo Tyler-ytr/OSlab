@@ -14,7 +14,7 @@ struct proc{
 };
 
 
-void * profs_add(const char *name);
+void * procfs_add(const char *name);
 
 
 #endif
