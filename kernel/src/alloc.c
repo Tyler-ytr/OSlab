@@ -8,7 +8,7 @@ spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 extern uint64_t total_memory;
-extern uint64_t used_memory_reality;
+extern uint64_t using_memory;
 static void pmm_init() {
   //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
@@ -29,7 +29,8 @@ static void pmm_init() {
   pm_end   = (uintptr_t)_heap.end;
   //printf("end:0x%x\n",pm_end);
   total_memory=pm_end-pm_start;
-  used_memory_reality=1;
+  //used_memory_reality=1;
+  using_memory=total_memory;
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;

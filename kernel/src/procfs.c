@@ -6,7 +6,7 @@ proc_t proc_list[MAX_PROC_NUM];
 
 int proc_total=4;
 uint64_t total_memory=0;
-uint64_t used_memory_reality=0;
+uint64_t using_memory=0;
 //extern uint64_t used_memory_info();
 
 
@@ -37,7 +37,7 @@ void procfs_info(){
     printf("proc name: %s, shedule_time :%d cpu_num:%d \n",proc_list[i].name,proc_list[i].schedule_time,proc_list[i].cpu_num);
   }
 //int temp=used_memory_info();
-  printf("Total memory: %d used_memory:%d \n",total_memory,used_memory_reality);
+  printf("Total memory: %d used_memory:%d \n",total_memory,using_memory);
 return;
 }
 
