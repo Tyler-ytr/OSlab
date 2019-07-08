@@ -3,7 +3,7 @@
 #include <vfs.h>
 
 proc_t proc_list[MAX_PROC_NUM];
-char proc_names[4]={".","..","cpuinfo","meminfo"};
+char *proc_names[]={".","..","cpuinfo","meminfo"};
 int proc_total=4;
 uint64_t total_memory=0;
 uint64_t used_memory=0;
