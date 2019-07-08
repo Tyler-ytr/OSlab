@@ -1,6 +1,7 @@
 #include <klib.h>
 #include <procfs.h>
 #include <vfs.h>
+#include <common.h>
 
 proc_t proc_list[MAX_PROC_NUM];
 char *proc_names[]={".","..","cpuinfo","meminfo"};
