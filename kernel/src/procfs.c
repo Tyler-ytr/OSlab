@@ -96,6 +96,40 @@ void procfs_info(){
 return;
 }
 
+ssize_t procfs_read(int index, uint64_t offset, char* buf){
+
+int result=0;
+switch (index)
+{
+case 2:
+  result+=sprintf(buf+result,"-----cpu info-----\n");
+  result+=sprintf(buf+result,"Cpu num: %d\n",cpu_num);
+  break;
+case 3:
+  result+=sprintf(buf+result,"-----memory info-----\n");
+  int can_be_used=total_memory-used_memory;
+  int tot=total_memory/1024;
+  int can=can_be_used/1024;
+  int used=used_memory/1024;
+  result+=sprintf(buf+result,"Total memory: %d\n",tot);
+  result+=sprintf(buf+result,"Used memory: %d",used);
+  result+=sprintf(buf+result,"Left memory: %d",can);
+  break;
+
+
+default:
+  
+  result+=sprintf(buf+result,"-----process info-----\n");
+  result+=sprintf(buf+result,"pid: %d\n",index-4);
+  result+=sprintf(buf+result,"name: %s\n",proc_list[index].name);
+  result+=sprintf(buf+result,"cpu num: %d\n",proc_list[index].cpu_num);
+  result+=sprintf(buf+result,"schedule times: %d\n",proc_list[index].schedule_time);
+  break;
+}
+return result;
+
+
+                  }
 
 
 
