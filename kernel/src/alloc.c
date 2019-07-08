@@ -8,7 +8,7 @@ spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
 extern uint64_t total_memory;
-extern uint64_t used_memory;
+extern uint64_t used_memory_reality;
 static void pmm_init() {
   //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
@@ -163,7 +163,7 @@ static void *kalloc(size_t size) {
   assert(ret!=NULL);
   //unlock(a_lk);
   printf("In alloc size: %d\n",size);
-  used_memory+=size;
+  used_memory_reality+=size;
         printf("used memory:%d\n",used_memory);
   kmt->spin_unlock(a_lk);
   return ret;
@@ -206,7 +206,7 @@ static void kfree(void *ptr) {
         if(now->flag==2)
         assert(0);
         now->flag=0;
-        used_memory-=now->size;
+        used_memory_reality-=now->size;
         printf("used memory:%d\n",used_memory);
       }
 
@@ -217,8 +217,8 @@ static void kfree(void *ptr) {
 
 }
 uint64_t used_memory_info(){
-  printf("used_memory: %d",used_memory);
-  return used_memory;
+  printf("used_memory: %d",used_memory_reality);
+  return used_memory_reality;
 }
 
 MODULE_DEF(pmm) {
