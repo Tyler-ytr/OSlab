@@ -134,7 +134,7 @@ int len = strlen(path);
   if (vidx->fs == NULL) return -1;
 
   if (vidx->child != -1) return -1;
-  printf("rinode: %d\n",vidx->rinode_index);
+  //printf("rinode: %d\n",vidx->rinode_index);
 
   while ((ret = vidx->fs->readdir(vidx->fs, vidx->rinode_index, ++kth, &buf))) {
     if ((next_index = vit_item_alloc()) == -1) assert(0);
@@ -165,7 +165,7 @@ int len = strlen(path);
 
       father_dir = next_index;
     } else {
-      printf("dir: %d father_dir:%d\n",dir,father_dir);
+      //printf("dir: %d father_dir:%d\n",dir,father_dir);
       assert(dir != -1 && father_dir != -1);
       assert(voidx->next == -1);
       voidx->next = next_index;
@@ -594,9 +594,9 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
   };
   int vfs_access(const char *path, int mode){//如果符合应该return 0;
     strcpy(path_buf,path);
-    printf("path_buf:%s",path_buf);
+    //printf("path_buf:%s",path_buf);
     int index=vinode_lookup(path_buf);
-    printf("index:%d",index);
+    //printf("index:%d",index);
     if(index==-1){
       return 1;
     }
