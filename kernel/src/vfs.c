@@ -806,7 +806,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
 
    if(vidx->fs_type==EXT2FS){
     //May be a bug!!!!!!!!!!
-    rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_FILE);
+    rinode_index=ext2_create(vidx->fs->real_fs,vidx->rinode_index,tempbuff+father_dir_offset+1,TYPE_FILE|WR_ABLE|RD_ABLE);
     next_index=append_file(index,tempbuff+father_dir_offset+1,TYPE_FILE,vidx->fs_type,vidx->fs);
     //vfs_dir_prepare(next_index,index,vidx->fs_type,vidx->fs);
     vinodes[next_index].rinode_index=rinode_index;
