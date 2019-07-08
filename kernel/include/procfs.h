@@ -11,7 +11,7 @@ struct proc{
   int cpu_num; 
   int mem_size;
   int schedule_time;
-}
+};
 
 
 void * profs_add(const char *name);
