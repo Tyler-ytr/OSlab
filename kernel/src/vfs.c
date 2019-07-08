@@ -581,6 +581,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
     vinodes[ramdisk0].rinode_index=EXT2_ROOT;
     //vfs_dir_prepare(ramdisk0,dev,VFS,NULL);
     append_file(dev, "ramdisk1", TYPE_FILE | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
+    append_dir(root,"proc",TYPE_DIR,PROCFS,&filesystems[procfs]);
 
     append_file(dev, "tty1", TYPE_FILE | WR_ABLE, TTY, NULL);
     append_file(dev, "tty2", TYPE_FILE | WR_ABLE, TTY, NULL);
