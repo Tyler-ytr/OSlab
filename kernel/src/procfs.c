@@ -50,8 +50,9 @@ cpu_num=_ncpu();
 int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
   int i=0;
   int cnt=0;
+    int temp_inode=i-4; 
   for(i=0;i<proc_total;i++){
-        int temp_inode=i-4; 
+    temp_inode=i-4; 
     if(++cnt==kth){
       buf->rinode_index=i;
       switch (i)
