@@ -759,7 +759,7 @@ int vfs_remove_file(const char *path){
       break;
     case PROCFS:
       result=procfs_read(rinode,flides[fd].open_offset,buf);
-      flieds[fd].open_offset+=result;
+      flides[fd].open_offset+=result;
     
     default:
       break;
