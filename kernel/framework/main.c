@@ -300,17 +300,27 @@ static void cat_function(device_t *tty,char *argv,char * pwd){
    }
  }
  printf("abs: %c,%c",abs_path[offset1],abs_path[offset1-1]);
-
+int proc_flag=0;
+if(offset1>=4){
+  if(
+    abs_path[offset1-1]=='c'&&
+    abs_path[offset1-2]=='o'&&
+    abs_path[offset1-3]=='r'&&
+    abs_path[offset1-4]=='p'
+  )
+  proc_flag=1;
+}
  //printf("fd:%d\n",fd);
  if(fd==-1){
    //printf("GG!\n");
    return ;
- }else{
-  //while(vfs_read(fd,text,128))
-  vfs_read(fd,text,128);
-  //   printf("here\n");
+ }else if(proc_flag==0){
+  while(vfs_read(fd,text,128))
   tty->ops->write(tty,0,text,strlen(text));
-   
+ }else if(proc_flag==1){
+  vfs_read(fd,text,128);
+  tty->ops->write(tty,0,text,strlen(text));
+
  }
   
   return;
