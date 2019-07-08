@@ -890,6 +890,9 @@ int vfs_remove_file(const char *path){
 
     return result;
   }
+
+//ssize_t ext2_write(ext2_t* ext2, int ridx, uint64_t offset, char* buf,
+       //            uint32_t len) 
   ssize_t vfs_write(int fd, void *buf, size_t nbyte){
     int result=-1;
     if(flides[fd].refcnt==0){

@@ -321,11 +321,11 @@ for(;;){
   int offset=tty->ops->read(tty,0,text,128);  
   printf("write text:%s",text);
 
-  if(text[offset-2]=='*'){
-    vfs_write(fd,text,offset-2);
-  }else{
-    vfs_write(fd,text,offset);
-  }
+  // if(text[offset-2]=='*'){
+  //   vfs_write(fd,text,offset-2);
+  // }else{
+  //   vfs_write(fd,text,offset);
+  // }
 }
 return ;
 
