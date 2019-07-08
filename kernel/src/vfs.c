@@ -296,11 +296,6 @@ fidx->dev=dev;
 strcpy(fidx->name,"procfs"); 
 fidx->init(fidx,fidx->name,fidx->dev);
 return index;
-
-
-
-
-
                                             }
 
 //devvfs:
@@ -552,6 +547,8 @@ void vfs_info(){
   }
 extern int ext2_readdir(filesystem_t *fs,int rinode_idx,int kth,vinode_t * buf);
 extern void ext2_init(fs_t * fs,const char * name ,device_t* dev);
+extern int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf);
+extern void procfs_init(filesystem_t *fs,const char *name,device_t *dev);
 extern int ext2_create(ext2_t* ext2, int ridx, char* name, int mode);
 extern int ext2_remove(ext2_t* ext2,int index,char* name,int mode);
 extern ssize_t ext2_read(ext2_t* ext2, int index, uint64_t offset, char* buf,
@@ -575,6 +572,7 @@ extern ssize_t ext2_write(ext2_t * ext2,int index,uint64_t offset,char * buf,
                              ,ext2_init,ext2_readdir);
     int r1fs=vfs_init_devfs("ramdisk1",dev_lookup("ramdisk1"),sizeof(ext2_t)
                              ,ext2_init,ext2_readdir);
+    int procfs=vfs_init_procfs("procfs",NULL,0,procfs_init,procfs_readdir);
 
     vfs_dir_prepare(dev,root,VFS,NULL);
     vfs_dir_prepare(mnt,root,VFS,NULL);

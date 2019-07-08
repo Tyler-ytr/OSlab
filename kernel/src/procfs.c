@@ -47,7 +47,9 @@ cpu_num=_ncpu();
   proc_total=temp_num;
   return ;
 }
-
+int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
+  return 0;
+}
 void procfs_info(){
   for(int i=0;i<proc_total;i++){
     printf("proc name: %s, shedule_time :%d cpu_num:%d \n",proc_list[i].name,proc_list[i].schedule_time,proc_list[i].cpu_num);
