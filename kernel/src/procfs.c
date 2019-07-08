@@ -67,11 +67,11 @@ int procfs_readdir(filesystem_t *fs, int ridx, int kth, vinode_t *buf){
         break;
       case 2:
         strcpy(buf->name,proc_list[i].name);
-        buf->mode=TYPE_DIR|RD_ABLE;
+        buf->mode=TYPE_FILE|RD_ABLE;
         break;
       case 3:
         strcpy(buf->name,proc_list[i].name);
-        buf->mode=TYPE_DIR|RD_ABLE;
+        buf->mode=TYPE_FILE|RD_ABLE;
         break;
       default:
         sprintf(buf->name,"%d",temp_inode);
