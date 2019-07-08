@@ -38,6 +38,7 @@ void procfs_info(){
   }
 //int temp=used_memory_info();
   printf("Total memory: %d %d\n",total_memory,total_memory);
+  printf("using memory: %d %d\n",total_memory,total_memory);
 return;
 }
 
