@@ -82,6 +82,7 @@ static void echo_task2(void *arg){
 // }
 char text[2048]={};
 char abs_path[256];//记得改成二维数组存tty;
+char temp_abs_path[256];//记得改成二维数组存tty;
 static void change_into_abs_path(char *name,char*pwd){
   if(name[0]!='/'){
     strcpy(abs_path,pwd);
@@ -361,11 +362,23 @@ static void link_function(device_t * tty,char * argv,char * pwd){
 printf("link argv:%s\n",argv);
 
 int offset1=0;
+//int offset2=0;
 for(offset1=0;argv[offset1]!=' ';offset1++){
-  printf(" %c ",argv[offset1]);
+  ;//printf(" %c ",argv[offset1]);
 }
+argv[offset1]='\0';
 
-  printf("\n %c \n",argv[offset1]);
+  printf("%s \n",argv);
+  printf("%s \n",argv+offset1+1);
+  change_into_abs_path(argv,pwd);
+  strcpy(temp_abs_path,abs_path);//地址old;
+  change_into_abs_path(argv+offset1+1,pwd);
+  //abs_path: newpath temp_abs_path:old path
+  printf("abs temp %s \n",temp_abs_path);
+  printf("abs %s \n",abs_path);
+
+
+
 
 
 
