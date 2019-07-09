@@ -365,6 +365,8 @@ for(offset1=0;argv[offset1]!=' ';offset1++){
   printf(" %c ",argv[offset1]);
 }
 
+  printf("\n %c \n",argv[offset1]);
+
 
 
 
