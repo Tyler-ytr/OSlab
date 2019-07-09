@@ -762,8 +762,9 @@ int vfs_remove_file(const char *path){
         printf("i: %d " ,i);
 
         if(vinodes[i].mode&TYPE_LINK){
+          printf("here\n");
           double_link_remove(i);
-          vfs_dir_remove(i,father_index);
+          vfs_file_remove(i,father_index);
         }else{
           //将i的前一个link变成真正的文件/目录;
           //如果啥都没有就人道毁灭吧;
