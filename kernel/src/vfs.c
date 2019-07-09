@@ -450,6 +450,7 @@ static int append_file(int par, char *name, int mode, int fs_type,
   int k=vinodes[par].child;
   int dir=-1;
   int father_dir=-1;
+  printf("append file: name:%s\n",name);
 
   assert(k!=-1);
 
