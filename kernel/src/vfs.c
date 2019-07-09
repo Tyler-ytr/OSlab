@@ -744,7 +744,7 @@ int vfs_remove_file(const char *path){
     //int next_index=-1;
     next_index=append_file(father_index,tempbuff+father_dir_offset+1,TYPE_LINK,VFS,NULL);
     if(vinodes[origin_index].mode&TYPE_FILE){
-   //     int len=strlen(vnidx->path);
+        int len=strlen(vnidx->path);
         printf("file: vidx->path:%s\n",vnidx->path);
         vnidx->path[len]='\0';
         printf("file after: vidx->path:%s\n",vnidx->path);
