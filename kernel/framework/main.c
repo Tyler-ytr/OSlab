@@ -357,6 +357,19 @@ static void temp_function(device_t * tty,char * argv,char * pwd){
 procfs_info();
   return;
 }
+static void temp_function(device_t * tty,char * argv,char * pwd){
+printf("link argv:%s\n",argv);
+
+
+
+
+return;
+
+
+}
+
+
+
 struct shell_function{
   char *function_name;
   void (*func)(device_t *tty,char *argv,char* pwd);
@@ -374,7 +387,8 @@ struct shell_function{
   {"cat ",cat_function,4},
   {"rm ",rm_function,3},
   {"write ",write_function,6},
-  {"procinfo ",temp_function,9}
+  {"procinfo ",temp_function,9},
+  {"link ",link_function,5}
 };
 
 static void shell_task(void *arg){
