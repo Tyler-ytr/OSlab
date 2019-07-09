@@ -755,7 +755,7 @@ int vfs_remove_file(const char *path){
     int father_dir_offset=path_length_offset(path);
     get_father_dir(path,father_dir_offset);
     int father_index=vinode_lookup(tempbuff);
-    for(int i=vinodes[father_index].child;i!=-1;k=vinodes[i].next){
+    for(int i=vinodes[father_index].child;i!=-1;i=vinodes[i].next){
       if(strcmp(tempbuff+father_dir_offset+1,vinodes[i].name)==0){
 
         if(vinodes[i].mode&TYPE_LINK){
