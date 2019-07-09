@@ -418,6 +418,13 @@ static void unlink_function(device_t * tty,char * argv,char * pwd){
   tty->ops->write(tty,0,text,strlen(text));
   return;
 }
+static void open_function(device_t* tty,char * argv,char * pwd){
+ change_into_abs_path(argv,pwd);
+int fd=vfs_open(abs_path,O_RDONLY);
+sprintf(text,"fd: %d\n",fd);
+  tty->ops->write(tty,0,text,strlen(text));
+  return;
+}
 
 
 struct shell_function{
@@ -439,7 +446,8 @@ struct shell_function{
   {"write ",write_function,6},
   {"procinfo ",temp_function,9},
   {"link ",link_function,5},
-  {"unlink ",unlink_function,7}
+  {"unlink ",unlink_function,7},
+  {"open ",open_function,5}
 };
 
 static void shell_task(void *arg){
