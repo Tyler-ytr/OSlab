@@ -533,9 +533,9 @@ static int vfs_file_remove(int index,int par){
 void vfs_info(){
   for(int i=0;i<MAX_VINODE_NUM;i++){
     if(vinodes[i].mode!=UNUSED){
-      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d, child:%d \n",i,
+      printf("%d name: %s path:%s next:%d next_link:%d pre_link:%d,type:%d,rinode:%d, child:%d mode:%d\n",i,
       vinodes[i].name,vinodes[i].path,vinodes[i].next,vinodes[i].next_link,vinodes[i].pre_link,
-      vinodes[i].mode,vinodes[i].rinode_index,vinodes[i].child);
+      vinodes[i].mode,vinodes[i].rinode_index,vinodes[i].child,vinodes[i].mode);
     }
   }
 }
@@ -790,6 +790,7 @@ int vfs_remove_file(const char *path){
 
 
 
+
     return -1;
   };
   int vfs_open(const char *path, int rwmode){
@@ -883,8 +884,8 @@ void double_link_add(int origin_index,int next_index){
 
   int temp_index=vinodes[origin_index].next_link;
   vinodes[next_index].next_link=temp_index;
-  vinodes[origin_index].next_link=next_index;
   vinodes[next_index].pre_link=origin_index;
+  vinodes[origin_index].next_link=next_index;
   vinodes[temp_index].pre_link=next_index;
 
 }
