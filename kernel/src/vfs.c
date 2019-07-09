@@ -784,7 +784,7 @@ int vfs_remove_file(const char *path){
             vinodes[pre].mode=vinodes[i].mode;
             vinodes[pre].rinode_index=vinodes[i].rinode_index;
             vinodes[pre].fs=vinodes[i].fs;
-            vinodes[pre].fs_type=vinodes[pre].fs_type;
+            vinodes[pre].fs_type=vinodes[i].fs_type;
             double_link_remove(i);
             vfs_file_remove(i,father_index);
           }
@@ -817,9 +817,9 @@ int vfs_remove_file(const char *path){
   }
   ssize_t vfs_read(int fd, void *buf, size_t nbyte){
 
-    int result=-1;
+    int result=0;
     if(flides[fd].refcnt==0){
-      return -1;
+      return 0;
     } 
     int index=flides[fd].vinode_index;
     int fs_type=vidx->fs_type;
@@ -836,8 +836,10 @@ int vfs_remove_file(const char *path){
     case PROCFS:
       result=procfs_read(rinode,flides[fd].open_offset,buf);
       flides[fd].open_offset+=result;
+      break;
     
     default:
+    return 0;
       break;
     }
 
