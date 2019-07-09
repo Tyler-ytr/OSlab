@@ -431,8 +431,14 @@ static void lseek_function(device_t*tty,char *argv,char*pwd){
   ;
 }
 argv[offset1]='\0';
+int offset2=offset1;
+for(;argv[offset2]!=' ';offset2++){
+  ;
+}
+argv[offset2]='\0';
 printf("argv: %s\n",argv);
-printf("argv off: %s\n",argv+offset1+1);
+printf("argv off1: %s\n",argv+offset1+1);
+printf("argv off2: %s\n",argv+offset2+1);
 
 }
 
