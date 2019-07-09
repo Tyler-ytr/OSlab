@@ -455,9 +455,28 @@ argv[offset2]='\0';
 //printf("argv off2: %s\n",argv+offset2+1);offset2+1-...:第三个;
 
 strcpy(temp,argv+offset2+1);
-int offset=atoi(temp);
+int file_offset=atoi(temp);
+strcpy(temp,argv);
+int fd=atoi(temp);
+int flag=0;
+if(argv[offset2-1]=='T'){
+  flag=1;
+}else if(argv[offset2-1]=='R'){
+  flag=2;
+}
+switch (flag)
+{
+case 1:
+  vfs_lseek(fd,file_offset,SEEK_SET);
+  break;
+case 2:
+  vfs_lseek(fd,file_offset,SEEK_CUR);
+  break;
 
-printf("offset:%d",offset);
+default:
+  break;
+}
+//printf("offset:%d",file_offset);
 
 
 
