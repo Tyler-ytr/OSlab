@@ -8,6 +8,8 @@ typedef struct vinodeops vinodeops_t;
 typedef struct mount_path_point mpp_t;
 typedef struct filesystem fs_t;
 typedef struct file file_t;
+#define SEEK_SET 1
+#define SEEK_CUR 2
 
 #define MAX_FILE_NAME 64
 #define MAX_PATH_LENGTH 256

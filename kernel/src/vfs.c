@@ -220,12 +220,12 @@ if(flag==1){
 
 //  return 0;
 }
-// static void flides_free(int index){
-//   flides[index].refcnt=0;
-//   flides[index].open_offset=0;
-//   flides[index].vinode_index=0;
-//   return;
-// }
+static void flides_free(int index){
+  flides[index].refcnt=0;
+  flides[index].open_offset=0;
+  flides[index].vinode_index=0;
+  return;
+}
 
 static int flides_open(int index,uint32_t rwmode){
   //index 是vinodes结构体里面的编号,mode调控只读只写;
@@ -583,7 +583,7 @@ extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
    int ramdisk0= append_dir(dev, "ramdisk0", TYPE_DIR | MNT_ABLE, EXT2FS, &filesystems[r0fs]);
     vinodes[ramdisk0].rinode_index=EXT2_ROOT;
     //vfs_dir_prepare(ramdisk0,dev,VFS,NULL);
-    int ramdisk1=append_dir(dev, "ramdisk1", TYPE_FILE | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
+    int ramdisk1=append_dir(dev, "ramdisk1", TYPE_DIR | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
     vinodes[ramdisk1].rinode_index=EXT2_ROOT;
     append_dir(root,"proc",TYPE_DIR,PROCFS,&filesystems[procfs]);
 
@@ -897,9 +897,27 @@ int vfs_remove_file(const char *path){
     return result;
   }
   off_t vfs_lseek(int fd, off_t offset, int whence){
-    return 0;
+    switch (whence)
+    {
+    case SEEK_SET:
+    if(offset<0)return -1;//不能是负数;
+      flides[fd].open_offset=offset;
+      break;
+    case SEEK_CUR:
+    if(flides[fd].offset-offset<0)return -1;
+    flides[fd].open_offset+=offset;
+    
+    default:
+    return -2;//UB
+      break;
+    }
+
+
+
+    return -2;//UB
   }
   int vfs_close(int fd){
+    flides_free(fd);
     return 0;
   }
 
