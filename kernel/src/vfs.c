@@ -784,6 +784,7 @@ int vfs_remove_file(const char *path){
         }
         return 0;
     }
+    }
 
 
 
