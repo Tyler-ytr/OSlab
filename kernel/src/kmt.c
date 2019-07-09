@@ -583,7 +583,7 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
   sem->end=0;
   sem->start=0;//当head%MAXSIZE与tail%MAXSIZE相等的时候,队列是空的;
                           //当(tail+1)%MAXSIZE与head%MAXSIZE相等的时候,队列是满的;
-     printf("int init: name:%s\n\n",sem->name); 
+    // printf("int init: name:%s\n\n",sem->name); 
   return ;
 }
 
@@ -602,11 +602,11 @@ static void kmt_sem_wait(sem_t *sem){
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
-      for(int i=0;i<sem->MAXSIZE;i++)
-      {
-        printf("%d %s status: \n",i,sem->task_list[i]->name,sem->task_list[i]->status);
-      }
-     printf("name:%s\n\n",sem->name); 
+      // for(int i=0;i<sem->MAXSIZE;i++)
+      // {
+      //   printf("%d %s status: \n",i,sem->task_list[i]->name,sem->task_list[i]->status);
+      // }
+     //printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
     sem->task_list[sem->end]=current_task[(int)_cpu()];
