@@ -161,6 +161,52 @@ static void ls_function(device_t *tty,char *argv,char* pwd){
 }
 static void help_function(device_t *tty,char *argv,char*pwd){
   printf("In help");
+  // {"ls ",ls_function,3},
+  // {"pwd ",pwd_function,4},
+  // {"echo ",echo_function,5},
+  // {"cd ",cd_function,3},
+  // {"info ",info_function,5},
+  // {"mkdir ",mkdir_function,6},
+  // {"rmdir ",rmdir_function,6},
+  // {"touch ",touch_function,6},
+  // {"cat ",cat_function,4},
+  // {"rm ",rm_function,3},
+  // {"write ",write_function,6},
+  // {"procinfo ",temp_function,9},
+  // {"link ",link_function,5},
+  // {"unlink ",unlink_function,7},
+  // {"open ",open_function,5},
+  // {"lseek ",lseek_function,6}
+  sprintf(text,"help     (Get information of the shell)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"pwd     (Print the working directory)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"echo [words]     (Print the [words])\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"cd [name or absolute path]     (Change the working directory into the [name or absolute path])\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"info     (Get the information of vfs's inode on the 'bash'!)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"mkdir [dir_name]     (Create a [dir_name] directroy)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"rmdir [dir_name]     (Remove the [dir_name] directory)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"touch [file_name]     (Create a [file_name] file)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"rm [file_name]     (Remove the [file_name] file)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"cat [file_name]     (Read the [file_name] file)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"procinfo     (Get the information of procfs on the 'bash'!)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"link [origin_path/name] [new_path/name]     (Create a link between the two objects.)\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"unlink [path/name]     (Unlink the [path/name])\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"open [path/name]     (open and get the fd of [path/name])\n");
+  tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"lseek [fd][operation][offset]     (operation: SEEK_CUR/SEEK_SET;Change the offset of the file)\n");
+  tty->ops->write(tty,0,text,strlen(text));
   return;
 }
 static void error_function(device_t *tty,const char *argv){
