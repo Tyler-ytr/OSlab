@@ -360,7 +360,7 @@ procfs_info();
   return;
 }
 static void link_function(device_t * tty,char * argv,char * pwd){
-printf("link argv:%s\n",argv);
+//printf("link argv:%s\n",argv);
 
 int offset1=0;
 //int offset2=0;

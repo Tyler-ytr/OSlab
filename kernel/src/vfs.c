@@ -81,7 +81,7 @@ static int lookup_cur(char *path,int *find_flag,
 
   if(k==-1){
     *find_flag=0;//没有找到;
-    printf("lookup_cur: File not found;\n");
+    //printf("lookup_cur: File not found;\n");
     return cur_inode;
   }
 
@@ -745,9 +745,9 @@ int vfs_remove_file(const char *path){
     next_index=append_file(father_index,tempbuff+father_dir_offset+1,TYPE_LINK,VFS,NULL);
     if(vinodes[origin_index].mode&TYPE_FILE){
         int len=strlen(vnidx->path);
-        printf("file: vidx->path:%s\n",vnidx->path);
+  //      printf("file: vidx->path:%s\n",vnidx->path);
         vnidx->path[len]='\0';
-        printf("file after: vidx->path:%s\n",vnidx->path);
+//        printf("file after: vidx->path:%s\n",vnidx->path);
     }
     double_link_add(origin_index,next_index);
     return 0;
@@ -757,14 +757,14 @@ int vfs_remove_file(const char *path){
     int father_dir_offset=path_length_offset(path);
     get_father_dir(path,father_dir_offset);
     int father_index=vinode_lookup(tempbuff);
-    printf("unlink: father_dir:%s  ",vinodes[father_index].name);
-    printf("name :%s",tempbuff+father_dir_offset+1);
+    //printf("unlink: father_dir:%s  ",vinodes[father_index].name);
+    //printf("name :%s",tempbuff+father_dir_offset+1);
     for(int i=vinodes[father_index].child;i!=-1;i=vinodes[i].next){
       if(strcmp(tempbuff+father_dir_offset+1,vinodes[i].name)==0){
-        printf("i: %d " ,i);
+//        printf("i: %d " ,i);
 
         if(vinodes[i].mode&TYPE_LINK){
-          printf("here\n");
+//          printf("here\n");
           double_link_remove(i);
           vfs_file_remove(i,father_index);
         }else{
