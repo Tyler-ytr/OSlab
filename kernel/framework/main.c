@@ -425,6 +425,16 @@ sprintf(text,"fd: %d\n",fd);
   tty->ops->write(tty,0,text,strlen(text));
   return;
 }
+static void lseek_function(device_t*tty,char *argv,char*pwd){
+  int offset1=0;
+  for(offset1=0;argv[offset1]!=' ';offset1++){
+  ;
+}
+argv[offset1]='\0';
+printf("argv: %s\n",argv);
+printf("argv off: %s\n",argv+offset1);
+
+}
 
 
 struct shell_function{
@@ -447,7 +457,8 @@ struct shell_function{
   {"procinfo ",temp_function,9},
   {"link ",link_function,5},
   {"unlink ",unlink_function,7},
-  {"open ",open_function,5}
+  {"open ",open_function,5},
+  {"lseek",lseek_function,6}
 };
 
 static void shell_task(void *arg){
