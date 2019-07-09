@@ -458,7 +458,7 @@ struct shell_function{
   {"link ",link_function,5},
   {"unlink ",unlink_function,7},
   {"open ",open_function,5},
-  {"lseek",lseek_function,6}
+  {"lseek ",lseek_function,6}
 };
 
 static void shell_task(void *arg){
