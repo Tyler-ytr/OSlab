@@ -777,6 +777,7 @@ int vfs_remove_file(const char *path){
             }
           }else
           {
+            printf("GG2\n");
             int pre=vinodes[i].pre_link;
             vinodes[pre].mode=vinodes[i].mode;
             vinodes[pre].rinode_index=vinodes[i].rinode_index;
