@@ -465,6 +465,7 @@ static int append_file(int par, char *name, int mode, int fs_type,
   strcpy(vnidx->name,name);
   strcpy(vnidx->path,vdir->path);
   strcat(vnidx->path,name);
+  printf("vnidx path:%s",vnidx->path);
   vinode_prepare(next_index,-1,dir,father_dir,-1,-1,next_index,
   next_index,1,mode,fs_type,fs,vnidx->name,vnidx->path);
 
