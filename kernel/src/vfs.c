@@ -739,8 +739,8 @@ int vfs_remove_file(const char *path){
     get_father_dir(newpath,father_dir_offset);
     printf("vfs_link:%s",tempbuff);
     int father_index=vinode_lookup(tempbuff);//newpath的fater_dir的vinode;
-    int next_index=-1;
-    next_index=append_dir(index,tempbuff+father_dir_offset+1,TYPE_LINK,vidx->fs_type,vidx->fs);
+    //int next_index=-1;
+    next_index=append_dir(father_dir_offset,tempbuff+father_dir_offset+1,TYPE_LINK,VFS,NULL);
     if(vinodes[origin_index].mode&TYPE_FILE){
         int len=strlen(vnidx->path);
         printf("file: vidx->path:%s\n",vidx->path);
