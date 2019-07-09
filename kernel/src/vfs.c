@@ -719,10 +719,37 @@ int vfs_remove_file(const char *path){
     return 0;
 
 }
-
+//link old path newpath: 软链接　首先判断oldpath有没有,newpath有没有重名;
+//然后 新建一个名为newpath的假文件 然后接上去;
   int vfs_link(const char *oldpath, const char *newpath){
+    
+    strcpy(path_buf,newpath);
+    int next_index=vinode_lookup(path_buf);
+    if(next_index>=0){
+      return -1;//newpath 已经存在;
+    }
+    strcpy(path_buf,oldpath);
+    int origin_index=vinode_lookup(path_buf);
+    if(origin_index<0){
+      return -2;//oldpath不存在;
+    }
+
+    int father_dir_offset=path_length_offset(newpath); 
+    strcpy(tempbuff,newpath);
+    get_father_dir(newpath,father_dir_offset);
+    printf("vfs_link:%s",tempbuff);
+    int father_index=vinode_lookup(tempbuff);//newpath的fater_dir的vinode;
+    int next_index=-1;
+    next_index=append_dir(index,tempbuff+father_dir_offset+1,TYPE_LINK,vidx->fs_type,vidx->fs);
+    if(vinodes[origin_index].mode&TYPE_FILE){
+        int len=strlen(vnidx->path);
+        printf("file: vidx->path:%s\n",vidx->path);
+        vnidx->path[len-1]='\0';
+        printf("file after: vidx->path:%s\n",vidx->path);
+    }
+    double_link_add(origin_index,next_index);
     return 0;
-  };
+  }
   int vfs_unlink(const char *path){
     return 0;
   };
