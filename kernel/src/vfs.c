@@ -450,7 +450,7 @@ static int append_file(int par, char *name, int mode, int fs_type,
   int k=vinodes[par].child;
   int dir=-1;
   int father_dir=-1;
-  printf("append file: name:%s\n",name);
+  //printf("append file: name:%s\n",name);
 
   assert(k!=-1);
 
@@ -465,7 +465,7 @@ static int append_file(int par, char *name, int mode, int fs_type,
   strcpy(vnidx->name,name);
   strcpy(vnidx->path,vdir->path);
   strcat(vnidx->path,name);
-  printf("vnidx path:%s",vnidx->path);
+  //printf("vnidx path:%s",vnidx->path);
   vinode_prepare(next_index,-1,dir,father_dir,-1,-1,next_index,
   next_index,1,mode,fs_type,fs,vnidx->name,vnidx->path);
 
@@ -744,9 +744,9 @@ int vfs_remove_file(const char *path){
     //int next_index=-1;
     next_index=append_file(father_index,tempbuff+father_dir_offset+1,TYPE_LINK,VFS,NULL);
     if(vinodes[origin_index].mode&TYPE_FILE){
-        int len=strlen(vnidx->path);
+   //     int len=strlen(vnidx->path);
         printf("file: vidx->path:%s\n",vnidx->path);
-        vnidx->path[len-1]='\0';
+        vnidx->path[len]='\0';
         printf("file after: vidx->path:%s\n",vnidx->path);
     }
     double_link_add(origin_index,next_index);
