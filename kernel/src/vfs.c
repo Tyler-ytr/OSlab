@@ -583,7 +583,8 @@ extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
    int ramdisk0= append_dir(dev, "ramdisk0", TYPE_DIR | MNT_ABLE, EXT2FS, &filesystems[r0fs]);
     vinodes[ramdisk0].rinode_index=EXT2_ROOT;
     //vfs_dir_prepare(ramdisk0,dev,VFS,NULL);
-    append_file(dev, "ramdisk1", TYPE_FILE | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
+    int ramdisk1=append_dir(dev, "ramdisk1", TYPE_FILE | MNT_ABLE, EXT2FS, &filesystems[r1fs]);
+    vinodes[ramdisk1].rinode_index=EXT2_ROOT;
     append_dir(root,"proc",TYPE_DIR,PROCFS,&filesystems[procfs]);
 
     append_file(dev, "tty1", TYPE_FILE | WR_ABLE, TTY, NULL);
