@@ -372,6 +372,7 @@ argv[offset1]='\0';
   printf("%s \n",argv+offset1+1);
   change_into_abs_path(argv,pwd);
   strcpy(temp_abs_path,abs_path);//地址old;
+  strcpy(abs_path,"");//地址old;
   change_into_abs_path(argv+offset1+1,pwd);
   //abs_path: newpath temp_abs_path:old path
   printf("abs temp %s \n",temp_abs_path);
