@@ -33,7 +33,7 @@ static const int /*_non=0,*/_runningable=1,_running=2,_waiting=3;
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
   //current_task=NULL;
-  printf("In kmt_init\n");
+  //printf("In kmt_init\n");
   for(int i=0;i<9;i++)
   {
     task_head[i]=NULL;
@@ -50,7 +50,7 @@ static void kmt_init(){
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu_task, NULL,1);
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu_task, NULL,2);
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu_task, NULL,3);
-  printf("before out of kmt_init");
+ // printf("before out of kmt_init");
     //TO BE DONE
     return;
 }
