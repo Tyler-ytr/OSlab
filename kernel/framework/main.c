@@ -420,7 +420,7 @@ static void unlink_function(device_t * tty,char * argv,char * pwd){
 }
 static void open_function(device_t* tty,char * argv,char * pwd){
  change_into_abs_path(argv,pwd);
- char temp[32];
+ //char temp[32];
 int fd=vfs_open(abs_path,O_RDONLY);
 sprintf(text,"fd: %d\n",fd);
   tty->ops->write(tty,0,text,strlen(text));
