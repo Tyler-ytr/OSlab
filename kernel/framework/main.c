@@ -372,17 +372,28 @@ argv[offset1]='\0';
   printf("%s \n",argv+offset1+1);
   change_into_abs_path(argv,pwd);
   strcpy(temp_abs_path,abs_path);//地址old;
-  strcpy(abs_path,"");//地址old;
+  strcpy(abs_path,"");//清空abs_path;
   change_into_abs_path(argv+offset1+1,pwd);
   //abs_path: newpath temp_abs_path:old path
   printf("abs temp %s \n",temp_abs_path);
   printf("abs %s \n",abs_path);
-
-
-
-
-
-
+  int flag=vfs_link(temp_abs_path,abs_path);
+  switch (flag)
+  {
+  case 0:
+    sprintf(text,"Successfullt link %s and %s\n",temp_abs_path,abs_path);
+    break;
+  case -1:
+    sprintf(text,"New path already exists!\n");
+    break;
+  case -2:
+    sprintf(text,"I can't find old path!\n");
+  
+  default:
+    sprintf(text,"UB\n");
+    break;
+  }
+  tty->ops->write(tty,0,text,strlen(text));
 
 return;
 
