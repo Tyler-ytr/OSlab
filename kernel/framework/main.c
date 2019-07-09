@@ -108,7 +108,7 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
  //   tty->ops->write(tty,0,text,strlen(text));
   //  return ;
   }else{
-   printf("in else\n");
+  // printf("in else\n");
     int abs_length=strlen(abs_path);
     if(abs_path[abs_length-1]=='/'){
       strcat(abs_path,".");//软链接位置;
@@ -117,7 +117,7 @@ static void cd_function(device_t *tty,char*argv,char *pwd){
       strcat(abs_path,"/.");
     } 
     
-    printf("abs_path: %s\n",abs_path);
+    //printf("abs_path: %s\n",abs_path);
     find_flag=vfs_access(abs_path,TYPE_DIR);
     if(find_flag==0){
       strcpy(pwd,vfs_real_path(abs_path));
@@ -316,7 +316,7 @@ if(offset1>=4){
    //printf("GG!\n");
    return ;
  }else if(proc_flag==0){
-   printf("cat:erererer\n");
+//   printf("cat:erererer\n");
   while(vfs_read(fd,text,128))
   {tty->ops->write(tty,0,text,strlen(text));}
  }else if(proc_flag==1){
@@ -330,7 +330,7 @@ if(offset1>=4){
 //ssize_t vfs_write(int fd, void *buf, size_t nbyte)
 static void write_function(device_t * tty,char * argv,char * pwd){
 change_into_abs_path(argv,pwd);
-printf("abs_path:%s",abs_path);
+//printf("abs_path:%s",abs_path);
 
 int fd=vfs_open(abs_path,O_RDWR);
 
@@ -342,7 +342,7 @@ if(fd==-1){
 
 for(;;){
   int offset=tty->ops->read(tty,0,text,128);  
-  printf("write text:%s",text);
+//  printf("write text:%s",text);
 
   if(text[offset-2]=='*'){
     vfs_write(fd,text,offset-2);
