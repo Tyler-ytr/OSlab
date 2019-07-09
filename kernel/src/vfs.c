@@ -755,7 +755,7 @@ int vfs_remove_file(const char *path){
     int father_dir_offset=path_length_offset(path);
     get_father_dir(path,father_dir_offset);
     int father_index=vinode_lookup(tempbuff);
-    for(int i=vinodes[father_index].child;k!=-1;k=vinode.next){
+    for(int i=vinodes[father_index].child;i!=-1;k=vinodes[i].next){
       if(strcmp(tempbuff+father_dir_offset+1,vinodes[i].name)==0){
 
         if(vinodes[i].mode&TYPE_LINK){
@@ -772,7 +772,7 @@ int vfs_remove_file(const char *path){
             }
           }else
           {
-            int pre=vinodes[i].pre_link
+            int pre=vinodes[i].pre_link;
             vinodes[pre].mode=vinodes[i].mode;
             vinodes[pre].rinode_index=vinodes[i].rinode_index;
             vinodes[pre].fs=vinodes[i].fs;
