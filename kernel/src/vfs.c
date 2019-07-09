@@ -751,7 +751,45 @@ int vfs_remove_file(const char *path){
     return 0;
   }
   int vfs_unlink(const char *path){
-    return 0;
+    strcpy(tempbuff,path);
+    int father_dir_offset=path_length_offset(path);
+    get_father_dir(path,father_dir_offset);
+    int father_index=vinode_lookup(tempbuff);
+    for(int i=vinodes[father_index].child;k!=-1;k=vinode.next){
+      if(strcmp(tempbuff+father_dir_offset+1,vinodes[i].name)==0){
+
+        if(vinodes[i].mode&TYPE_LINK){
+          double_link_remove(i);
+          vfs_dir_remove(i,father_index);
+        }else{
+          //将i的前一个link变成真正的文件/目录;
+          //如果啥都没有就人道毁灭吧;
+          if(vinodes[i].pre_link==i){
+            if(vinodes[i].mode&TYPE_DIR){
+              vfs_rmdir(path);
+            }else if(vinodes[i].mode&TYPE_FILE){
+              vfs_remove_file(path);
+            }
+          }else
+          {
+            int pre=vinodes[i].pre_link
+            vinodes[pre].mode=vinodes[i].mode;
+            vinodes[pre].rinode_index=vinodes[i].rinode_index;
+            vinodes[pre].fs=vinodes[i].fs;
+            vinodes[pre].fs_type=vinodes[pre].fs_type;
+            double_link_remove(i);
+            vfs_dir_remove(i,father_index);
+          }
+          
+        }
+        return 0;
+    }
+
+
+
+
+
+    return -1;
   };
   int vfs_open(const char *path, int rwmode){
     if(vfs_access(path,TYPE_FILE)==0){
