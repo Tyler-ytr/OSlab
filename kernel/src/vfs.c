@@ -769,6 +769,7 @@ int vfs_remove_file(const char *path){
           //将i的前一个link变成真正的文件/目录;
           //如果啥都没有就人道毁灭吧;
           if(vinodes[i].pre_link==i){
+            printf("GG\n");
             if(vinodes[i].mode&TYPE_DIR){
               vfs_rmdir(path);
             }else if(vinodes[i].mode&TYPE_FILE){
