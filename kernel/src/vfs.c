@@ -904,7 +904,7 @@ int vfs_remove_file(const char *path){
       flides[fd].open_offset=offset;
       break;
     case SEEK_CUR:
-    if(flides[fd].offset-offset<0)return -1;
+    if(flides[fd].open_offset-offset<0)return -1;
     flides[fd].open_offset+=offset;
     
     default:
