@@ -784,7 +784,7 @@ int vfs_remove_file(const char *path){
             vinodes[pre].fs=vinodes[i].fs;
             vinodes[pre].fs_type=vinodes[pre].fs_type;
             double_link_remove(i);
-            vfs_dir_remove(i,father_index);
+            vfs_file_remove(i,father_index);
           }
           
         }
