@@ -357,7 +357,7 @@ static void temp_function(device_t * tty,char * argv,char * pwd){
 procfs_info();
   return;
 }
-static void temp_function(device_t * tty,char * argv,char * pwd){
+static void link_function(device_t * tty,char * argv,char * pwd){
 printf("link argv:%s\n",argv);
 
 
