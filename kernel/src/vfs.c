@@ -739,7 +739,7 @@ int vfs_remove_file(const char *path){
     int father_dir_offset=path_length_offset(newpath); 
     strcpy(tempbuff,newpath);
     get_father_dir(newpath,father_dir_offset);
-    printf("vfs_link:%s",tempbuff);
+  //  printf("vfs_link:%s",tempbuff);
     int father_index=vinode_lookup(tempbuff);//newpath的fater_dir的vinode;
     //int next_index=-1;
     next_index=append_file(father_index,tempbuff+father_dir_offset+1,TYPE_LINK,VFS,NULL);
@@ -771,7 +771,7 @@ int vfs_remove_file(const char *path){
           //将i的前一个link变成真正的文件/目录;
           //如果啥都没有就人道毁灭吧;
           if(vinodes[i].pre_link==i){
-            printf("GG\n");
+         //   printf("GG\n");
             if(vinodes[i].mode&TYPE_DIR){
               vfs_rmdir(path);
             }else if(vinodes[i].mode&TYPE_FILE){
@@ -779,7 +779,7 @@ int vfs_remove_file(const char *path){
             }
           }else
           {
-            printf("GG2\n");
+           // printf("GG2\n");
             int pre=vinodes[i].pre_link;
             vinodes[pre].mode=vinodes[i].mode;
             vinodes[pre].rinode_index=vinodes[i].rinode_index;
