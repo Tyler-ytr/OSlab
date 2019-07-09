@@ -316,8 +316,9 @@ if(offset1>=4){
    //printf("GG!\n");
    return ;
  }else if(proc_flag==0){
+   printf("cat:erererer\n");
   while(vfs_read(fd,text,128))
-  tty->ops->write(tty,0,text,strlen(text));
+  {tty->ops->write(tty,0,text,strlen(text));}
  }else if(proc_flag==1){
   vfs_read(fd,text,128);
   tty->ops->write(tty,0,text,strlen(text));
