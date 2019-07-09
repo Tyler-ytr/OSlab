@@ -595,6 +595,11 @@ extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
 
     return ;
   };
+  char tempbuff[MAX_PATH_LENGTH];
+    static void get_father_dir(const char*path,int offset){
+    strcpy(tempbuff,path);
+    tempbuff[offset]='\0';
+  }
   int vfs_access(const char *path, int mode){//如果符合应该return 0;
     strcpy(path_buf,path);
     //printf("path_buf:%s",path_buf);
@@ -608,17 +613,34 @@ extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
   };
 
 
-  int vfs_mount(const char *path, filesystem_t *fs){
+  int vfs_mount(const char *path, const char *dir_path){
+    strcpy(tempbuff,path);
+    int file_index=vinode_lookup(tempbuff);
+    if(vinodes[file_index].mode&MNT_ABLE){
+      if(vfs_access(dir_path,TYPE_DIR)==0)return -2;//目标已存在;
+      strcpy(tempbuff,dir_path);
+  int father_dir_offset=path_length_offset(dir_path);
+  get_father_dir(dir_path,father_dir_offset);
+  int father_index=vinode_lookup(tempbuff);
+  int next_index=append_dir(father_index,tempbuff+father_dir_offset+1,TYPE_DIR|UNMNT_ABLE,
+                              vinodes[file_index].fs_type,vinodes[file_index].fs);
+  vinodes[file_index].mode&=~MNT_ABLE;
+  if(vinodes[file_index].fs_type==EXT2FS){
+    vinodes[next_index].rinode_index=EXT2_ROOT;
+  }
+
+    }else{
+      return -1;//不能MOUNT;
+    }
+
+
+
     return 0;
   };
   int vfs_unmount(const char *path){
     return 0;
   };
-  char tempbuff[MAX_PATH_LENGTH];
-  static void get_father_dir(const char*path,int offset){
-    strcpy(tempbuff,path);
-    tempbuff[offset]='\0';
-  }
+
   int vfs_mkdir(const char *path){//mkdir 的path 应该是包含待创建目录的;
 //首先找到父目录的index,然后创建就可以了;
   //只允许在ext2里面建;

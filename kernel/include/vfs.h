@@ -134,7 +134,7 @@ struct mount_path_point{
   char *vfs_real_path(const char *path);
   void vfs_init();
   int vfs_access(const char *path, int mode);
-  int vfs_mount(const char *path, filesystem_t *fs);
+  int vfs_mount(const char *path, const char *dir_path);
   int vfs_unmount(const char *path);
   int vfs_mkdir(const char *path);
   int vfs_rmdir(const char *path);
