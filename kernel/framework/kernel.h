@@ -55,7 +55,7 @@ typedef struct filesystem filesystem_t;
 typedef struct {
   void (*init)();
   int (*access)(const char *path, int mode);
-  int (*mount)(const char *path, filesystem_t *fs);
+  int (*mount)(const char *path, const char *father_dir_name);
   int (*unmount)(const char *path);
   //int (*create)(const char *path);//temp
   //int (*remove)(const char *path);
