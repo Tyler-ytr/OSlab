@@ -420,12 +420,26 @@ static void unlink_function(device_t * tty,char * argv,char * pwd){
 }
 static void open_function(device_t* tty,char * argv,char * pwd){
  change_into_abs_path(argv,pwd);
+ char temp[32];
 int fd=vfs_open(abs_path,O_RDONLY);
 sprintf(text,"fd: %d\n",fd);
   tty->ops->write(tty,0,text,strlen(text));
   return;
 }
+int atoi(char * num){
+  int result=0;
+  int len=strlen(num);
+  for(int i=0;i<len;i++){
+    int temp=num[i]-'0';
+    result*=10;
+    result+=temp;
+  }
+  return result;
+}
+
+
 static void lseek_function(device_t*tty,char *argv,char*pwd){
+  char temp[32];
   int offset1=0;
   for(offset1=0;argv[offset1]!=' ';offset1++){
   ;
@@ -436,9 +450,18 @@ for(;argv[offset2]!=' ';offset2++){
   ;
 }
 argv[offset2]='\0';
-printf("argv: %s\n",argv);
-printf("argv off1: %s\n",argv+offset1+1);
-printf("argv off2: %s\n",argv+offset2+1);
+//printf("argv: %s\n",argv);0-offset1: 第一个;
+//printf("argv off1: %s\n",argv+offset1+1);offset1+1-offset2 : 第二个;
+//printf("argv off2: %s\n",argv+offset2+1);offset2+1-...:第三个;
+
+strcpy(temp,argv+offset2+1);
+int offset=atoi(temp);
+
+printf("offset:%d",offset);
+
+
+
+
 
 }
 
