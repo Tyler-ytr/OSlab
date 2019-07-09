@@ -368,20 +368,20 @@ for(offset1=0;argv[offset1]!=' ';offset1++){
 }
 argv[offset1]='\0';
 
-  printf("%s \n",argv);
-  printf("%s \n",argv+offset1+1);
+//  printf("%s \n",argv);
+ // printf("%s \n",argv+offset1+1);
   change_into_abs_path(argv,pwd);
   strcpy(temp_abs_path,abs_path);//地址old;
   strcpy(abs_path,"");//清空abs_path;
   change_into_abs_path(argv+offset1+1,pwd);
   //abs_path: newpath temp_abs_path:old path
-  printf("abs temp %s \n",temp_abs_path);
-  printf("abs %s \n",abs_path);
+ // printf("abs temp %s \n",temp_abs_path);
+ // printf("abs %s \n",abs_path);
   int flag=vfs_link(temp_abs_path,abs_path);
   switch (flag)
   {
   case 0:
-    sprintf(text,"Successfullt link %s and %s\n",temp_abs_path,abs_path);
+    sprintf(text,"Successfully link %s and %s\n",temp_abs_path,abs_path);
     break;
   case -1:
     sprintf(text,"New path already exists!\n");
@@ -400,6 +400,23 @@ return;
 
 }
 
+static void unlink_function(device_t * tty,char * argv,char * pwd){
+  change_into_abs_path(argv,pwd);
+  int flag=vfs_unlink(abs_path);
+  switch (flag)
+  {
+  case 0:
+    sprintf(text,"Successfully unlink %s!\n",abs_path);
+    break;
+  
+  default:
+    sprintf(text,"Unlink %s failed,\n",abs_path);
+    break;
+    
+  }
+  tty->ops->write(tty,0,text,strlen(text));
+  return;
+}
 
 
 struct shell_function{
@@ -420,7 +437,8 @@ struct shell_function{
   {"rm ",rm_function,3},
   {"write ",write_function,6},
   {"procinfo ",temp_function,9},
-  {"link ",link_function,5}
+  {"link ",link_function,5},
+  {"unlink ",unlink_function,7}
 };
 
 static void shell_task(void *arg){
