@@ -890,10 +890,11 @@ int vfs_remove_file(const char *path){
       flides[fd].open_offset+=result;
       break;
    case TTY: 
-    device_t*tty=dev_lookup(vidx->name);
+   char *name=vidx->name;
+    device_t*tty=dev_lookup(name);
     char text1[128]="";
     strcpy(text1,(char*)buf); 
-     tty->ops->write(tty,nbyte,text,strlen(text));
+     tty->ops->write(tty,nbyte,text1,strlen(text1));
     default:
       break;
     }
