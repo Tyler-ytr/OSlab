@@ -22,6 +22,7 @@ typedef struct file file_t;
 #define EXT2FS 0x01
 #define PROCFS 0x02
 #define TTY 0x04
+//#define UB_DEVICE 0x08
 
 #define UNUSED 0x0000
 #define EX_ABLE 0x0001

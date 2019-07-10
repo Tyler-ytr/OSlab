@@ -217,7 +217,7 @@ int  flag=0;
   }
 if(flag==1){
 
-  printf("flides_alloc: flag=1,i=%d\n",i);
+  //printf("flides_alloc: flag=1,i=%d\n",i);
   return i;
 }else{return -1;};//-1表示没有空位了;
 
@@ -594,6 +594,8 @@ extern ssize_t procfs_read(int index, uint64_t offset, char* buf);
     append_file(dev, "tty2", TYPE_FILE | WR_ABLE, TTY, NULL);
     append_file(dev, "tty3", TYPE_FILE | WR_ABLE, TTY, NULL);
     append_file(dev, "tty4", TYPE_FILE | WR_ABLE, TTY, NULL);
+    append_file(dev, "fb", TYPE_FILE | WR_ABLE, TTY, NULL);
+    append_file(dev, "input", TYPE_FILE | WR_ABLE, TTY, NULL);
     vfs_mount("/dev/ramdisk1","/mnt/1");
     vfs_mount("/dev/ramdisk0","/Ramdisk0");
 
