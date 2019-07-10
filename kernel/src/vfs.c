@@ -1,5 +1,6 @@
 #include <vfs.h>
 #include <blkfs.h>
+#include <devices.h>
 #define vidx (&vinodes[index])
 #define vnidx (&vinodes[next_index])
 #define voidx (&vinodes[origin_index])
@@ -891,7 +892,8 @@ int vfs_remove_file(const char *path){
       break;
    case TTY: 
    char *name=vidx->name;
-    device_t*tty=dev_lookup(name);
+   device_t *tty=dev_lookup(name)
+    //device_t*tty=dev_lookup(name);
     char text1[128]="";
     strcpy(text1,(char*)buf); 
      tty->ops->write(tty,nbyte,text1,strlen(text1));
