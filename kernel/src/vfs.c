@@ -885,6 +885,10 @@ int vfs_remove_file(const char *path){
     int index=flides[fd].vinode_index;
     int fs_type=vidx->fs_type;
     int rinode=vidx->rinode_index;
+    device_t* tty=NULL;
+    if(fs_type==TTY){
+      tty=dev_lookup(vidx->name);;
+    }
 
     switch (fs_type)
     {
@@ -896,7 +900,6 @@ int vfs_remove_file(const char *path){
    //strcpy(buf,vidx->name);
    //result=-2;
    //char *name=vidx->name;
-   device_t *tty=dev_lookup(name);
     //device_t*tty=dev_lookup(name);
     char text1[128]="";
     strcpy(text1,(char*)buf); 
