@@ -197,6 +197,8 @@ static void help_function(device_t *tty,char *argv,char*pwd){
   tty->ops->write(tty,0,text,strlen(text));
   sprintf(text,"cat [file_name]     (Read the [file_name] file)\n");
   tty->ops->write(tty,0,text,strlen(text));
+  sprintf(text,"write [file_name]     (Write the [file_name] file, end with *\n");
+  tty->ops->write(tty,0,text,strlen(text));
   sprintf(text,"procinfo     (Get the information of procfs on the 'bash'!)\n");
   tty->ops->write(tty,0,text,strlen(text));
   sprintf(text,"link [origin_path/name] [new_path/name]     (Create a link between the two objects.)\n");
