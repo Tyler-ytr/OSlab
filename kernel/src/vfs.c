@@ -1,12 +1,12 @@
 #include <vfs.h>
 #include <blkfs.h>
-//#include <devices.h>
+#include <devices.h>
 #define vidx (&vinodes[index])
 #define vnidx (&vinodes[next_index])
 #define voidx (&vinodes[origin_index])
 #define vdir (&vinodes[dir])
 #define vfat (&vinodes[father_dir])
-extern struct device;
+//extern struct device;
 extern device_t *dev_lookup(const char*name);
 
 struct filesystem filesystems[MAX_FS_NUM];
