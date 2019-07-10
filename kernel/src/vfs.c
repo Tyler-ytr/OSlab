@@ -903,6 +903,7 @@ int vfs_remove_file(const char *path){
    //char *name=vidx->name;
     //device_t*tty=dev_lookup(name);
     strcpy(text1,(char*)buf); 
+    printf("%s",text1);
      tty->ops->write(tty,nbyte,text1,strlen(text1)-1);
     default:
       break;
