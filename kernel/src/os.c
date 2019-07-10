@@ -36,20 +36,22 @@ static int _handler_length=0;
 // }
 
 static void os_init() {
-  printf("%d\n\n\n\n\n",(int)_cpu());
+ // printf("%d\n\n\n\n\n",(int)_cpu());
   pmm->init();
-  printf("%d\n\n\n\n\n",(int)_cpu());
+  //printf("%d\n\n\n\n\n",(int)_cpu());
   kmt->spin_init(&lk_irq,"/src/os os_on_irq lock");
   kmt->spin_init(&lk_test,"/src/os test");
   
   //To be continued:
   kmt->init();
-  printf("%d\n\n\n\n\n",(int)_cpu());
+  //printf("%d\n\n\n\n\n",(int)_cpu());
 //  _vme_init(pmm->alloc, pmm->free);
   //printf("before dev\n");
   //assert(0);
   dev->init();
-  printf("after init");
+  vfs->init();
+
+//  printf("after init");
   // 创建你的线程，线程可以调用`tty->ops->read`或`tty->ops->write`/
 
 
@@ -131,7 +133,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
         }else break;
       }        
       mid=tmp;
-      printf("mid %d\n",mid);
+      //printf("mid %d\n",mid);
       _handler_length++;
 
       for(int i=_handler_length-1;i>mid;i--)
@@ -142,10 +144,10 @@ static void os_on_irq(int seq, int event, handler_t handler) {
         
       }
 
-      for(int i=0;i<_handler_length;i++)
-      {
-        printf("%d： seq:%d event:%d \n",i,handler_list[i].seq,handler_list[i].event);
-      }
+      // for(int i=0;i<_handler_length;i++)
+      // {
+      //   printf("%d： seq:%d event:%d \n",i,handler_list[i].seq,handler_list[i].event);
+      // }
 
       
       handler_list[mid].seq=seq;
@@ -155,7 +157,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 
       if(mid-1>0)assert(handler_list[mid].seq>=handler_list[mid-1].seq);
       if(mid+1<_handler_length) assert(handler_list[mid].seq<=handler_list[mid+1].seq);
-      printf("before out of on_irq\n");
+     // printf("before out of on_irq\n");
       //assert(handler_list[_handler_length-1].seq!=0x3f3f3f3f&&handler_list[_handler_length-1].event!=-123);
       kmt->spin_unlock(&lk_irq);
       return;

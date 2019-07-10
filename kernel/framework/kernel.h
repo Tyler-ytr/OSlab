@@ -42,6 +42,7 @@ typedef struct {
 } MODULE(kmt);
 
 typedef struct device device_t;
+typedef struct device dev_t;
 typedef struct devops {
   int (*init)(device_t *dev);
   ssize_t (*read)(device_t *dev, off_t offset, void *buf, size_t count);
@@ -50,5 +51,25 @@ typedef struct devops {
 typedef struct {
   void (*init)();
 } MODULE(dev);
+typedef struct filesystem filesystem_t;
+typedef struct {
+  void (*init)();
+  int (*access)(const char *path, int mode);
+  int (*mount)(const char *path, const char *father_dir_name);
+  int (*unmount)(const char *path);
+  //int (*create)(const char *path);//temp
+  //int (*remove)(const char *path);
+  int (*mkdir)(const char *path);
+  int (*create_file)(const char *path);
+  int (*remove_file)(const char *path);
+  int (*rmdir)(const char *path);
+  int (*link)(const char *oldpath, const char *newpath);
+  int (*unlink)(const char *path);
+  int (*open)(const char *path, int flags);
+  ssize_t (*read)(int fd, void *buf, size_t nbyte);
+  ssize_t (*write)(int fd, void *buf, size_t nbyte);
+  off_t (*lseek)(int fd, off_t offset, int whence);
+  int (*close)(int fd);
+} MODULE(vfs);
 
 #endif

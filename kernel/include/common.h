@@ -4,8 +4,9 @@
 #include <kernel.h>
 #include <nanos.h>
 #include <klib.h>
-
+#include "vfs.h"
 #include "debug.h"
+#include <procfs.h>
 
 //<<<<<<< HEAD
 extern intptr_t my_spin_lock(intptr_t locked);
@@ -122,7 +123,7 @@ struct task {
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc,
                   (char)0xcc,(char)0xcc,(char)0xcc,(char)0xcc};
 };*/
-
+typedef struct file file_t;
 struct task{
   volatile int status;//0 没有初始化 1 runningable 2 running 3 waiting 
   int alive;
@@ -132,7 +133,8 @@ struct task{
   sem_t *waiting_sem;//记录信号量
   //struct task *prev;
   struct task *next;
-
+  void*proc;
+  //file_t *fildes[32];//最多开32个文件;
 };
 
 struct spinlock {
@@ -163,4 +165,28 @@ typedef struct HANDLER_LIST{
 #define MAX_STACK_SIZE 4096*2
 static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 //>>>>>>> dad0034cd442046d9cc407654dce68cdc0fd783e
+
+// //下面是关于 vfs的内容:
+// #define MAX_FS_NAME_LEN 128
+// #define MAX_INODE_NAME_LEN 128
+// #define BLOCKSIZE 1024
+// typedef struct filesystem filesystem_t;
+// typedef struct fsops fsops_t;
+// typedef struct file file_t;
+// typedef struct inode inode_t;
+
+
+
+// struct filesystem{
+//   char name[MAX_FS_NAME_LEN];
+
+
+
+// };
+
+
+
+
+
+
 #endif

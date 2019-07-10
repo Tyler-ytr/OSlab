@@ -8,6 +8,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context);
 static _Context *kmt_context_switch(_Event ev, _Context *context);
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu);
 static void cpu_task(void *arg);
+extern void * procfs_add(const char *name);
 //static void cpu1_task(void *arg);
 //static void cpu2_task(void *arg);
 //static void cpu3_task(void *arg);
@@ -32,7 +33,7 @@ static const int /*_non=0,*/_runningable=1,_running=2,_waiting=3;
 //static inline void panic(const char *s) { printf("%s\n", s); _halt(1); }
 static void kmt_init(){
   //current_task=NULL;
-  printf("In kmt_init\n");
+  //printf("In kmt_init\n");
   for(int i=0;i<9;i++)
   {
     task_head[i]=NULL;
@@ -49,7 +50,7 @@ static void kmt_init(){
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_1 yield", cpu_task, NULL,1);
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_2 yield", cpu_task, NULL,2);
    kmt_create_init(pmm->alloc(sizeof(task_t)), "cpu_3 yield", cpu_task, NULL,3);
-  printf("before out of kmt_init");
+ // printf("before out of kmt_init");
     //TO BE DONE
     return;
 }
@@ -248,6 +249,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context){
 
   Log1("sdsdsd current_task[%d]: %s status:%d\n",(int)_cpu(),current_task[(int)_cpu()]->name,current_task[(int)_cpu()]->status);
   }
+  ((proc_t*)(current_task[_cpu()]->proc))->schedule_time+=1;
 
  task_t *temp=task_head[(int)_cpu()];
  Log1("temp: cpu: %d name:%s status:%d",(int)_cpu(),temp->name,temp->status);
@@ -283,7 +285,7 @@ Log2("temp: name:%s status:%d",temp->name,temp->status);
   kmt_spin_unlock(&task_lock);
   return result;
 }
-
+//四个假进程,仅仅用来yield;
 static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *arg), void *arg,int cpu){
     //TRACE_ENTRY;
     //TO BE DONE
@@ -299,6 +301,7 @@ static int kmt_create_init(task_t *task, const char *name, void (*entry)(void *a
     task->alive=1;
     task->name=name;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
+    task->proc=procfs_add(name);
 
     task_t * new_task=task;
     assert(task_head[cpu]==NULL);
@@ -364,6 +367,7 @@ static int kmt_create(task_t *task, const char *name, void (*entry)(void *arg), 
     task->name=name;
     task->alive=1;
     task->context=*_kcontext(task->stack, entry, arg);//上下文上吧; 在am.h以及cte.c里面有定义;
+    task->proc=procfs_add(name);
     Log1("create: name:%s\tstatus:%d\n",task->name,task->status);
     task_t * new_task=task;
 
@@ -579,7 +583,7 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
   sem->end=0;
   sem->start=0;//当head%MAXSIZE与tail%MAXSIZE相等的时候,队列是空的;
                           //当(tail+1)%MAXSIZE与head%MAXSIZE相等的时候,队列是满的;
-     printf("int init: name:%s\n\n",sem->name); 
+    // printf("int init: name:%s\n\n",sem->name); 
   return ;
 }
 
@@ -598,11 +602,11 @@ static void kmt_sem_wait(sem_t *sem){
     //sem->end++;
     if(((sem->end+1)%sem->MAXSIZE)==(sem->start%sem->MAXSIZE))
     {
-      for(int i=0;i<sem->MAXSIZE;i++)
-      {
-        printf("%d %s status: \n",i,sem->task_list[i]->name,sem->task_list[i]->status);
-      }
-     printf("name:%s\n\n",sem->name); 
+      // for(int i=0;i<sem->MAXSIZE;i++)
+      // {
+      //   printf("%d %s status: \n",i,sem->task_list[i]->name,sem->task_list[i]->status);
+      // }
+     //printf("name:%s\n\n",sem->name); 
       panic("In sem_wait, the task_list is full;");}
     //int if_sleep;
     sem->task_list[sem->end]=current_task[(int)_cpu()];

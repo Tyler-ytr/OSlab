@@ -7,6 +7,8 @@ spinlock_t alloc_lk;
 spinlock_t free_lk;
 static spinlock head_lk;
 static uintptr_t pm_start, pm_end;
+extern uint64_t total_memory;
+extern uint64_t used_memory;
 static void pmm_init() {
   //spinlock*lk=&init_lk;
   //initlock(lk,NULL);
@@ -23,9 +25,12 @@ static void pmm_init() {
     initlock(h_lk,NULL);
 
   pm_start = (uintptr_t)_heap.start;
-  printf("start:0x%x",pm_start);
+  //printf("start:0x%x",pm_start);
   pm_end   = (uintptr_t)_heap.end;
-  printf("end:0x%x\n",pm_end);
+  //printf("end:0x%x\n",pm_end);
+  total_memory=pm_end-pm_start;
+  used_memory=0;
+  //using_memory=total_memory;
 
   unused_space=(void *)pm_start;
   unused_space->next=unused_space;
@@ -43,15 +48,15 @@ static void pmm_init() {
     cpu_head[i]=&(cpu_head[0])[i];
     cpu_head[i]->next=cpu_head[i];
     assert(cpu_head[i]->next!=NULL);
-    printf("i : %d cpu_head ->next :0x%x",i,cpu_head[i]->next);
+  //  printf("i : %d cpu_head ->next :0x%x",i,cpu_head[i]->next);
     cpu_head[i]->prev=cpu_head[i];
     cpu_head[i]->flag=2;
     cpu_head[i]->size=0;
   }
 
-  printf("cpu_area: 0x%x, 1: 0x%x ; 4: 0x%x \n",cpu_head[0],cpu_head[1],cpu_head[4]);
+//  printf("cpu_area: 0x%x, 1: 0x%x ; 4: 0x%x \n",cpu_head[0],cpu_head[1],cpu_head[4]);
   unused_space->addr=&(cpu_head[0])[9];
-  printf("first_area: 0x%x \n",unused_space->addr);
+  //printf("first_area: 0x%x \n",unused_space->addr);
 
 //  unlock(lk);
 }
@@ -143,7 +148,7 @@ static void *kalloc(size_t size) {
       assert(now->next->prev==now);
 
       if(new->next->prev!=new){
-        printf("new: 0x%x  -----: 0x%x  size:%d  new_size:%d\n",new,new->next->prev,size,new->size);
+        //printf("new: 0x%x  -----: 0x%x  size:%d  new_size:%d\n",new,new->next->prev,size,new->size);
         assert(0);
       }
       assert(now->prev->next==now);
@@ -159,7 +164,9 @@ static void *kalloc(size_t size) {
   }
   assert(ret!=NULL);
   //unlock(a_lk);
-  printf("In alloc\n");
+  //printf("In alloc size: %d\n",size);
+  used_memory+=size;
+   //     printf("used memory:%d\n",used_memory_reality);
   kmt->spin_unlock(a_lk);
   return ret;
 }
@@ -197,17 +204,21 @@ static void kfree(void *ptr) {
       }
       if(success_hint==1)
       {
-        printf("free :0x%x\n",ptr);
+        //printf("free :0x%x\n",ptr);
         if(now->flag==2)
         assert(0);
         now->flag=0;
+        used_memory-=now->size;
+        //printf("used memory:%d\n",used_memory_reality);
       }
+
   }
-  printf("in free\n");
+  //printf("in free\n");
   kmt->spin_unlock(f_lk);
 
 
 }
+
 
 MODULE_DEF(pmm) {
   .init = pmm_init,
