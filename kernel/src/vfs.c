@@ -1,5 +1,6 @@
 #include <vfs.h>
 #include <blkfs.h>
+#include <kernel.h>
 //#include <devices.h>
 #define vidx (&vinodes[index])
 #define vnidx (&vinodes[next_index])
