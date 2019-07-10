@@ -889,7 +889,11 @@ int vfs_remove_file(const char *path){
       result=ext2_write(vidx->fs->real_fs,rinode,flides[fd].open_offset,buf,nbyte);
       flides[fd].open_offset+=result;
       break;
-    
+   case TTY: 
+    device_t*tty=dev_lookup(vidx->name);
+    char text1[128]="";
+    strcpy(text1,(char*)buf); 
+     tty->ops->write(tty,nbyte,text,strlen(text));
     default:
       break;
     }
