@@ -47,7 +47,7 @@ typedef struct file file_t;
 
 
 //enum FILE_TYPE{TYPE_FILE=0,TYPE_DIR=1,TYPE_LINK=2};
-struct vinode {//暂时只允许单级cd;
+struct vinode {
   char path[MAX_PATH_LENGTH]; //存放绝对路径;
   char name[MAX_NAME_LENGTH]; //存放名字;
   int exist;        //这个块活着吗?在vit_item_free里面用到;
