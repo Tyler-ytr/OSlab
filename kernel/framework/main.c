@@ -11,8 +11,8 @@ int main() {
 
   // call sequential init code
   os->init();
-kmt->create(pmm->alloc(sizeof(task_t)), "print1", shell_task, "tty1");
-kmt->create(pmm->alloc(sizeof(task_t)), "print2", echo_task, "tty2");
+kmt->create(pmm->alloc(sizeof(task_t)), "shell1", shell_task, "tty1");
+kmt->create(pmm->alloc(sizeof(task_t)), "shell2", shell_task, "tty2");
 kmt->create(pmm->alloc(sizeof(task_t)), "print3", echo_task2, "tty3");
 //kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty3");
 kmt->create(pmm->alloc(sizeof(task_t)), "print4", echo_task, "tty4");
