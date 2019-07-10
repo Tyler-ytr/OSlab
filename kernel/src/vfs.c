@@ -6,6 +6,7 @@
 #define voidx (&vinodes[origin_index])
 #define vdir (&vinodes[dir])
 #define vfat (&vinodes[father_dir])
+extern struct device_t;
 extern device_t *dev_lookup(const char*name);
 
 struct filesystem filesystems[MAX_FS_NUM];
